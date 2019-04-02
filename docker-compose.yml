@@ -7,12 +7,13 @@ services:
       dockerfile: Dockerfile.app
     volumes:
       - ./:/yarilog-front
-      - node-modules-data:/yarilog-front/node_modules
-    command: yarn run dev
+      # node_modukes は volumes 管理にしたいが typescript だとホスト側にも実態が無いと import エラーとかが editer で出てしまう
+      # - node-modules-data:/yarilog-front/node_modules
+    command: sh -c "yarn && yarn run dev"
     ports:
       - 3000:3000
     environment:
       HOST: 0.0.0.0
     working_dir: /yarilog-front
-volumes:
-  node-modules-data:
+# volumes:
+  # node-modules-data:
