@@ -18,6 +18,7 @@
           class="button--grey"
           >GitHub</a
         >
+        {{ users }}
       </div>
     </div>
   </section>
@@ -25,15 +26,21 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
+import axios from 'axios'
 import Logo from '~/components/Logo.vue'
+import { User } from '~/models/User'
 
 @Component({
   components: {
     Logo
+  },
+  async asyncData() {
+    const { data } = await axios.get('http://localhost:8080/users')
+    return { users: data }
   }
 })
 export default class Index extends Vue {
-  //
+  users: User[] = []
 }
 </script>
 
