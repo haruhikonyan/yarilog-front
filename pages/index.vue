@@ -26,7 +26,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator'
-import axios from 'axios'
+import $axios from '@nuxtjs/axios'
 import Logo from '~/components/Logo.vue'
 import { User } from '~/models/User'
 
@@ -34,8 +34,12 @@ import { User } from '~/models/User'
   components: {
     Logo
   },
-  async asyncData() {
-    const { data } = await axios.get('http://localhost:8080/users')
+  async asyncData({ $axios }) {
+    const data = await $axios.$get('http://localhost:8080/users')
+    // $axios.$post('http://localhost:8080/users', {
+    //   name: 'なまえ',
+    //   description: 'ですく'
+    // })
     return { users: data }
   }
 })
