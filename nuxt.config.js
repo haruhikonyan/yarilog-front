@@ -45,6 +45,8 @@ export default {
    */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
+    // TODO env で設定している baseApiUrl を参照するようにしたい(なぜか参照できないので直接値を入れている)
+    baseURL: process.env.baseApiUrl || 'http://localhost:8080'
   },
 
   /*
@@ -65,5 +67,8 @@ export default {
         })
       }
     }
+  },
+  env: {
+    baseApiUrl: process.env.BASE_API_URL || 'http://localhost:8080'
   }
 }

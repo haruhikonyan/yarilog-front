@@ -35,7 +35,7 @@ import { User } from '~/models/User'
     Logo
   },
   async asyncData({ $axios }) {
-    const data = await $axios.$get('http://localhost:8080/users')
+    const data = await $axios.$get('users')
     // $axios.$post('http://localhost:8080/users', {
     //   name: 'なまえ',
     //   description: 'ですく'
