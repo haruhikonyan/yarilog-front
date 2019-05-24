@@ -18,7 +18,14 @@
           class="button--grey"
           >GitHub</a
         >
-        {{ users }}
+        <p v-for="user in users" :key="user.id">
+          ID：{{ user.id }} 名前：{{ user.name }} 詳細：{{ user.description }}
+        </p>
+        <div>
+          <button class="btn btn-primary" @click="createUser">
+            ユーザ追加
+          </button>
+        </div>
       </div>
     </div>
   </section>
@@ -34,17 +41,18 @@ import { User } from '~/models/User'
   components: {
     Logo
   },
-  async asyncData({ $axios }) {
-    const data = await $axios.$get('users')
-    // $axios.$post('http://localhost:8080/users', {
-    //   name: 'なまえ',
-    //   description: 'ですく'
-    // })
+  async asyncData({ app }) {
+    const data = await app.$api.getUsers()
     return { users: data }
   }
 })
 export default class Index extends Vue {
   users: User[] = []
+  // TODO フォームから値を受け取ってその値で保存する
+  async createUser() {
+    const newUser = await this.$api.createUser(this.users[0])
+    this.users.push(newUser)
+  }
 }
 </script>
 
