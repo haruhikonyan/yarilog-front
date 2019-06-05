@@ -25,6 +25,12 @@
           <button class="btn btn-primary" @click="createUser">
             ユーザ追加
           </button>
+          <button class="btn btn-primary" @click="createCountry">
+            ドイツ追加
+          </button>
+          <button class="btn btn-primary" @click="createComposer">
+            ベートーヴェン追加
+          </button>
         </div>
       </div>
     </div>
@@ -36,6 +42,8 @@ import { Component, Vue } from 'vue-property-decorator'
 import $axios from '@nuxtjs/axios'
 import Logo from '~/components/Logo.vue'
 import { User } from '~/models/User'
+import { Country } from 'models/Country'
+import { Composer } from 'models/Composer'
 
 @Component({
   components: {
@@ -52,6 +60,29 @@ export default class Index extends Vue {
   async createUser() {
     const newUser = await this.$api.createUser(this.users[0])
     this.users.push(newUser)
+  }
+  async createCountry() {
+    const countryData: Country = {
+      id: null,
+      name: 'ドイツ',
+      description: 'ヨーロッパの国'
+    }
+    await this.$api.createCountry(countryData)
+  }
+  async createComposer() {
+    const country: Country = {
+      id: '1',
+      name: 'ドイツ',
+      description: 'ヨーロッパの国'
+    }
+    const composerData: Composer = {
+      id: null,
+      lastName: 'ベートーヴェン',
+      fullName: 'ルードヴィヒ・ヴァン・ベートーヴェン',
+      description: '運命とかで有名なあの人',
+      countries: [country]
+    }
+    await this.$api.createComposer(composerData)
   }
 }
 </script>

@@ -19,7 +19,9 @@
     "bootstrap-vue": "^2.0.0-rc.11",
     "cross-env": "^5.2.0",
     "nuxt": "^2.5.1",
-    "vue-property-decorator": "^8.1.0"
+    "url-join": "^4.0.0",
+    "vue-property-decorator": "^8.1.0",
+    "vuex-class": "^0.3.2"
   },
   "devDependencies": {
     "@nuxt/typescript": "^2.5.1",
