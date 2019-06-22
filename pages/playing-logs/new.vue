@@ -21,6 +21,9 @@
         <p>
           ID：{{ user.id }} 名前：{{ user.name }} 詳細：{{ user.description }}
         </p>
+        <button class="btn btn-primary" @click="createPlayingLog">
+          演奏ログ追加
+        </button>
       </div>
     </div>
   </section>
@@ -34,6 +37,7 @@ import { User } from '~/models/User'
 import { Country } from 'models/Country'
 import { Composer } from 'models/Composer'
 import { PlayingLog } from 'models/PlayingLog'
+import { Tune } from 'models/Tune'
 
 @Component({
   components: {
@@ -45,20 +49,34 @@ import { PlayingLog } from 'models/PlayingLog'
   }
 })
 export default class Index extends Vue {
-  // async createPlayingLog() {
-  //   const country: Country = {
-  //     id: '1',
-  //     name: 'ドイツ',
-  //     description: 'ヨーロッパの国'
-  //   }
-  //   const playingLogData: PlayingLog = {
-  //     id: null,
-  //     description: '詳細やでえええええ',
-  //     tune: 1,
-  //     user: 1,
-  //   }
-  //   await this.$api.createComposer(composerData)
-  // }
+  user: User | null = null
+  async createPlayingLog() {
+    const country: Country = {
+      id: '1',
+      name: 'ドイツ',
+      description: 'ヨーロッパの国'
+    }
+    const composer: Composer = {
+      id: null,
+      lastName: 'ベートーヴェン',
+      fullName: 'ルードヴィヒ・ヴァン・ベートーヴェン',
+      description: '運命とかで有名なあの人',
+      countries: [country]
+    }
+    const tune: Tune = {
+      id: null,
+      title: '交響曲第1番',
+      description: '意欲作',
+      composer: composer
+    }
+    const playingLogData: PlayingLog = {
+      id: null,
+      description: '詳細やでえええええ',
+      tune: tune,
+      user: this.user!
+    }
+    await this.$api.createPlayingLog(playingLogData)
+  }
 }
 </script>
 

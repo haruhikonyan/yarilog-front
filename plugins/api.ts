@@ -13,7 +13,7 @@ export class Api {
   private readonly API_USER_URL = 'users';
   private readonly API_COMPOSER_URL = 'composers';
   private readonly API_COUNTRY_URL = 'countries';
-  private readonly API_PLAYING_URL = 'plyaing-logs';
+  private readonly API_PLAYING_LOG_URL = 'playing-logs';
 
   getUsers(): Promise<User[]> {
     const url = this.API_USER_URL;
@@ -35,25 +35,19 @@ export class Api {
   }
   
   createCountry(country: Country): Promise<Country> {
-    return this.context.$axios.$post(this.API_COUNTRY_URL, {
-      name: country.name,
-      description: country.description
-    })
+    return this.context.$axios.$post(this.API_COUNTRY_URL, country)
   }
 
   getPlayingLogs(): Promise<PlayingLog[]> {
-    const url = this.API_PLAYING_URL;
+    const url = this.API_PLAYING_LOG_URL;
     return this.context.$axios.$get(url)
   }
   getPlayingLog(id: string): Promise<PlayingLog[]> {    
-    const url: string = urljoin(this.API_PLAYING_URL, id);
+    const url: string = urljoin(this.API_PLAYING_LOG_URL, id);
     return this.context.$axios.$get(url)
   }
   createPlayingLog(plyaingLog: PlayingLog): Promise<PlayingLog> {
-    return this.context.$axios.$post(this.API_PLAYING_URL, {
-      // TODO User と　Tune　とかいれる
-      description: plyaingLog.description
-    })
+    return this.context.$axios.$post(this.API_PLAYING_LOG_URL, plyaingLog)
   }
 }
 
