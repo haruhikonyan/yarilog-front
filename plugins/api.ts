@@ -2,6 +2,7 @@ import { User } from "~/models/User";
 import { Composer } from "~/models/Composer";
 import { Country } from "~/models/Country";
 import * as urljoin from 'url-join';
+import { PlayingLog } from "~/models/PlayingLog";
 
 export class Api {
   // TODO この context の型取得したい
@@ -12,6 +13,7 @@ export class Api {
   private readonly API_USER_URL = 'users';
   private readonly API_COMPOSER_URL = 'composers';
   private readonly API_COUNTRY_URL = 'countries';
+  private readonly API_PLAYING_URL = 'plyaing-logs';
 
   getUsers(): Promise<User[]> {
     const url = this.API_USER_URL;
@@ -36,6 +38,21 @@ export class Api {
     return this.context.$axios.$post(this.API_COUNTRY_URL, {
       name: country.name,
       description: country.description
+    })
+  }
+
+  getPlayingLogs(): Promise<PlayingLog[]> {
+    const url = this.API_PLAYING_URL;
+    return this.context.$axios.$get(url)
+  }
+  getPlayingLog(id: string): Promise<PlayingLog[]> {    
+    const url: string = urljoin(this.API_PLAYING_URL, id);
+    return this.context.$axios.$get(url)
+  }
+  createPlayingLog(plyaingLog: PlayingLog): Promise<PlayingLog> {
+    return this.context.$axios.$post(this.API_PLAYING_URL, {
+      // TODO User と　Tune　とかいれる
+      description: plyaingLog.description
     })
   }
 }
