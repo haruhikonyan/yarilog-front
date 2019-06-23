@@ -24,6 +24,9 @@
         <button class="btn btn-primary" @click="createPlayingLog">
           演奏ログ追加
         </button>
+        <button class="btn btn-primary" @click="createTune">
+          曲追加
+        </button>
       </div>
     </div>
   </section>
@@ -64,7 +67,7 @@ export default class Index extends Vue {
       countries: [country]
     }
     const tune: Tune = {
-      id: null,
+      id: '1',
       title: '交響曲第1番',
       description: '意欲作',
       composer: composer
@@ -76,6 +79,27 @@ export default class Index extends Vue {
       user: this.user!
     }
     await this.$api.createPlayingLog(playingLogData)
+  }
+  async createTune() {
+    const country: Country = {
+      id: '1',
+      name: 'ドイツ',
+      description: 'ヨーロッパの国'
+    }
+    const composer: Composer = {
+      id: '1',
+      lastName: 'ベートーヴェン',
+      fullName: 'ルードヴィヒ・ヴァン・ベートーヴェン',
+      description: '運命とかで有名なあの人',
+      countries: [country]
+    }
+    const tuneData: Tune = {
+      id: null,
+      title: '交響曲第1番',
+      description: '意欲作',
+      composer: composer
+    }
+    await this.$api.createTune(tuneData)
   }
 }
 </script>

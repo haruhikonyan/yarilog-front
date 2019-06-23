@@ -3,6 +3,7 @@ import { Composer } from "~/models/Composer";
 import { Country } from "~/models/Country";
 import * as urljoin from 'url-join';
 import { PlayingLog } from "~/models/PlayingLog";
+import { Tune } from "~/models/Tune";
 
 export class Api {
   // TODO この context の型取得したい
@@ -13,6 +14,7 @@ export class Api {
   private readonly API_USER_URL = 'users';
   private readonly API_COMPOSER_URL = 'composers';
   private readonly API_COUNTRY_URL = 'countries';
+  private readonly API_TUNE_URL = 'tunes';
   private readonly API_PLAYING_LOG_URL = 'playing-logs';
 
   getUsers(): Promise<User[]> {
@@ -36,6 +38,10 @@ export class Api {
   
   createCountry(country: Country): Promise<Country> {
     return this.context.$axios.$post(this.API_COUNTRY_URL, country)
+  }
+  
+  createTune(tune: Tune): Promise<Tune> {
+    return this.context.$axios.$post(this.API_TUNE_URL, tune)
   }
 
   getPlayingLogs(): Promise<PlayingLog[]> {
