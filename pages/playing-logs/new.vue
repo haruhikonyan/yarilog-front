@@ -8,22 +8,16 @@
       <h2 class="subtitle">
         yarilog frontend system by Nuxt.js
       </h2>
+      <form>
+        <div class="form-group">
+          <label for="exampleInputEmail1">演奏ログ詳細</label>
+          <textarea v-model="playingLog.description" placeholder="詳細"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" @click="createPlayingLog">Submit</button>
+      </form>
+      {{ playingLog.description }}
       <div class="links">
-        <a href="https://nuxtjs.org/" target="_blank" class="button--green"
-          >Documentation</a
-        >
-        <a
-          href="https://github.com/nuxt/nuxt.js"
-          target="_blank"
-          class="button--grey"
-          >GitHub</a
-        >
-        <p>
-          ID：{{ user.id }} 名前：{{ user.name }} 詳細：{{ user.description }}
-        </p>
-        <button class="btn btn-primary" @click="createPlayingLog">
-          演奏ログ追加
-        </button>
+        <p>ID：{{ user.id }} 名前：{{ user.name }} 詳細：{{ user.description }}</p>
         <button class="btn btn-primary" @click="createTune">
           曲追加
         </button>
@@ -33,73 +27,73 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator'
-import $axios from '@nuxtjs/axios'
-import Logo from '~/components/Logo.vue'
-import { User } from '~/models/User'
-import { Country } from 'models/Country'
-import { Composer } from 'models/Composer'
-import { PlayingLog } from 'models/PlayingLog'
-import { Tune } from 'models/Tune'
+import { Component, Vue } from 'vue-property-decorator';
+import $axios from '@nuxtjs/axios';
+import Logo from '~/components/Logo.vue';
+import { User } from '~/models/User';
+import { Country } from 'models/Country';
+import { Composer } from 'models/Composer';
+import { PlayingLog } from 'models/PlayingLog';
+import { Tune } from 'models/Tune';
 
 @Component({
   components: {
     Logo
   },
   async asyncData({ app }) {
-    const data = await app.$api.getUser('1')
-    return { user: data }
+    const userData = await app.$api.getUser('1');
+    const tunesData = await app.$api.getTunes();
+    return { user: userData, tunes: tunesData };
   }
 })
 export default class Index extends Vue {
-  user: User | null = null
+  user: User | undefined;
+  tunes: Tune[] | undefined;
+  playingLog: PlayingLog | Object = {};
   async createPlayingLog() {
     const country: Country = {
       id: '1',
       name: 'ドイツ',
       description: 'ヨーロッパの国'
-    }
+    };
     const composer: Composer = {
       id: null,
       lastName: 'ベートーヴェン',
       fullName: 'ルードヴィヒ・ヴァン・ベートーヴェン',
       description: '運命とかで有名なあの人',
       countries: [country]
-    }
+    };
     const tune: Tune = {
       id: '1',
       title: '交響曲第1番',
       description: '意欲作',
       composer: composer
-    }
-    const playingLogData: PlayingLog = {
-      id: null,
-      description: '詳細やでえええええ',
-      tune: tune,
-      user: this.user!
-    }
-    await this.$api.createPlayingLog(playingLogData)
+    };
+    (this.playingLog as PlayingLog).tune = tune;
+    (this.playingLog as PlayingLog).user = this.user!;
+
+    await this.$api.createPlayingLog(this.playingLog as PlayingLog);
   }
   async createTune() {
     const country: Country = {
       id: '1',
       name: 'ドイツ',
       description: 'ヨーロッパの国'
-    }
+    };
     const composer: Composer = {
       id: '1',
       lastName: 'ベートーヴェン',
       fullName: 'ルードヴィヒ・ヴァン・ベートーヴェン',
       description: '運命とかで有名なあの人',
       countries: [country]
-    }
+    };
     const tuneData: Tune = {
       id: null,
       title: '交響曲第1番',
       description: '意欲作',
       composer: composer
-    }
-    await this.$api.createTune(tuneData)
+    };
+    await this.$api.createTune(tuneData);
   }
 }
 </script>
@@ -115,8 +109,8 @@ export default class Index extends Vue {
 }
 
 .title {
-  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue',
+    Arial, sans-serif;
   display: block;
   font-weight: 300;
   font-size: 100px;

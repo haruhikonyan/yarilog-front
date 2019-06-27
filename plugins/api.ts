@@ -39,6 +39,11 @@ export class Api {
   createCountry(country: Country): Promise<Country> {
     return this.context.$axios.$post(this.API_COUNTRY_URL, country)
   }
+
+  getTunes(): Promise<Tune[]> {
+    const url = this.API_TUNE_URL;
+    return this.context.$axios.$get(url)
+  }
   
   createTune(tune: Tune): Promise<Tune> {
     return this.context.$axios.$post(this.API_TUNE_URL, tune)
