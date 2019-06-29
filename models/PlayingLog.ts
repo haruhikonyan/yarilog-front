@@ -1,9 +1,12 @@
 import { User } from "./User";
 import { Tune } from "./Tune";
 
-export interface PlayingLog {
-  id: string | null
-  description: string
-  tune: Tune
-  user: User
+export class PlayingLog {
+  id: string | null = null;
+  description: string | null = null;
+  tune: Tune | null = null;
+  user: User | null = null;
+
+  constructor() {
+  }
 }

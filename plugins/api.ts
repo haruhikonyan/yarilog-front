@@ -31,6 +31,11 @@ export class Api {
       description: user.description
     })
   }
+
+  getComposers(): Promise<Composer[]> {
+    const url = this.API_COMPOSER_URL;
+    return this.context.$axios.$get(url)
+  }
   
   createComposer(composer: Composer): Promise<Composer> {
     return this.context.$axios.$post(this.API_COMPOSER_URL, composer)

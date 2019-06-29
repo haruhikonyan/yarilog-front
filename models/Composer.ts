@@ -1,9 +1,9 @@
 import { Country } from "./Country";
 
-export interface Composer {
-  id: string | null
-  lastName: string
-  fullName: string
-  description: string
-  countries: Country[]
+export class Composer {
+  id: string | null = null;
+  lastName: string | null = null;
+  fullName: string | null = null;
+  description: string | null = null;
+  countries: Country[] = [];
 }

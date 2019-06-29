@@ -1,9 +1,8 @@
 import { Composer } from "./Composer";
-import { PlayingLog } from "./PlayingLog";
 
-export interface Tune {
-  id: string | null
-  title: string
-  description: string
-  composer: Composer
+export class Tune {
+  id: string | null = null;
+  title: string | null = null;
+  description: string | null = null;
+  composer: Composer | null = null;
 }

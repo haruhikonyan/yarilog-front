@@ -31,9 +31,9 @@ import { Component, Vue } from 'vue-property-decorator';
 import $axios from '@nuxtjs/axios';
 import Logo from '~/components/Logo.vue';
 import { User } from '~/models/User';
-import { Country } from 'models/Country';
-import { Composer } from 'models/Composer';
-import { PlayingLog } from 'models/PlayingLog';
+import { Country } from '~/models/Country';
+import { Composer } from '~/models/Composer';
+import { PlayingLog } from '~/models/PlayingLog';
 import { Tune } from 'models/Tune';
 
 @Component({
@@ -48,31 +48,14 @@ import { Tune } from 'models/Tune';
 })
 export default class Index extends Vue {
   user: User | undefined;
-  tunes: Tune[] | undefined;
-  playingLog: PlayingLog | Object = {};
+  tunes: Tune[] = [];
+  composers: Composer[] = [];
+  playingLog: PlayingLog = new PlayingLog();
   async createPlayingLog() {
-    const country: Country = {
-      id: '1',
-      name: 'ドイツ',
-      description: 'ヨーロッパの国'
-    };
-    const composer: Composer = {
-      id: null,
-      lastName: 'ベートーヴェン',
-      fullName: 'ルードヴィヒ・ヴァン・ベートーヴェン',
-      description: '運命とかで有名なあの人',
-      countries: [country]
-    };
-    const tune: Tune = {
-      id: '1',
-      title: '交響曲第1番',
-      description: '意欲作',
-      composer: composer
-    };
-    (this.playingLog as PlayingLog).tune = tune;
-    (this.playingLog as PlayingLog).user = this.user!;
+    this.playingLog.user = this.user!;
+    this.playingLog.tune = this.tunes[0];
 
-    await this.$api.createPlayingLog(this.playingLog as PlayingLog);
+    await this.$api.createPlayingLog(this.playingLog);
   }
   async createTune() {
     const country: Country = {
