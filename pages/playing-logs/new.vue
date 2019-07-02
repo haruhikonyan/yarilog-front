@@ -10,7 +10,15 @@
       </h2>
       <form>
         <div class="form-group">
-          <label for="exampleInputEmail1">演奏ログ詳細</label>
+          <label>演奏曲</label>
+          <select v-model="playingLog.tune">
+            <option v-for="tune in tunes" :key="tune.id">
+              {{ tune.title }}
+            </option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>演奏ログ詳細</label>
           <textarea v-model="playingLog.description" placeholder="詳細"></textarea>
         </div>
         <button type="submit" class="btn btn-primary" @click="createPlayingLog">Submit</button>
@@ -53,7 +61,6 @@ export default class Index extends Vue {
   playingLog: PlayingLog = new PlayingLog();
   async createPlayingLog() {
     this.playingLog.user = this.user!;
-    this.playingLog.tune = this.tunes[0];
 
     await this.$api.createPlayingLog(this.playingLog);
   }
