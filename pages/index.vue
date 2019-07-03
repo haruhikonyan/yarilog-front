@@ -46,8 +46,11 @@ export default class Index extends Vue {
   users: User[] = [];
   // TODO フォームから値を受け取ってその値で保存する
   async createUser() {
-    const newUser = await this.$api.createUser(this.users[0]);
-    this.users.push(newUser);
+    const newUser = new User();
+    newUser.name = 'ゆーざめい';
+    newUser.description = 'ですく';
+    const createdUser = await this.$api.createUser(newUser);
+    this.users.push(createdUser);
   }
   async createComposer() {
     const country: Country = {

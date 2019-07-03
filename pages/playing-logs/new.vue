@@ -23,13 +23,6 @@
         </div>
         <button type="submit" class="btn btn-primary" @click="createPlayingLog">Submit</button>
       </form>
-      {{ playingLog.description }}
-      <div class="links">
-        <p>ID：{{ user.id }} 名前：{{ user.name }} 詳細：{{ user.description }}</p>
-        <button class="btn btn-primary" @click="createTune">
-          曲追加
-        </button>
-      </div>
     </div>
   </section>
 </template>
@@ -63,27 +56,6 @@ export default class Index extends Vue {
     this.playingLog.user = this.user!;
 
     await this.$api.createPlayingLog(this.playingLog);
-  }
-  async createTune() {
-    const country: Country = {
-      id: '1',
-      name: 'ドイツ',
-      description: 'ヨーロッパの国'
-    };
-    const composer: Composer = {
-      id: '1',
-      lastName: 'ベートーヴェン',
-      fullName: 'ルードヴィヒ・ヴァン・ベートーヴェン',
-      description: '運命とかで有名なあの人',
-      countries: [country]
-    };
-    const tuneData: Tune = {
-      id: null,
-      title: '交響曲第1番',
-      description: '意欲作',
-      composer: composer
-    };
-    await this.$api.createTune(tuneData);
   }
 }
 </script>

@@ -1,7 +1,7 @@
 import { Composer } from "./Composer";
 
 export interface Country {
-  id: string
+  id: number
   name: string
   description: string
 }
