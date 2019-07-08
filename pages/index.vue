@@ -9,6 +9,7 @@
         yarilog frontend system by Nuxt.js
       </h2>
       <div class="links">
+        <nuxt-link to="/login">login page</nuxt-link>
         <a href="https://nuxtjs.org/" target="_blank" class="button--green">Documentation</a>
         <a href="https://github.com/nuxt/nuxt.js" target="_blank" class="button--grey">GitHub</a>
         <p v-for="user in users" :key="user.id">ID：{{ user.id }} 名前：{{ user.name }} 詳細：{{ user.description }}</p>
@@ -54,7 +55,7 @@ export default class Index extends Vue {
   }
   async createComposer() {
     const country: Country = {
-      id: '1',
+      id: 1,
       name: 'ドイツ',
       description: 'ヨーロッパの国'
     };

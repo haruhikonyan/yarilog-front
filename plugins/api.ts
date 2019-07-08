@@ -11,11 +11,17 @@ export class Api {
   constructor(context) {
     this.context = context;
   }
+  private readonly API_AUTH_URL = 'auth';
   private readonly API_USER_URL = 'users';
   private readonly API_COMPOSER_URL = 'composers';
   private readonly API_COUNTRY_URL = 'countries';
   private readonly API_TUNE_URL = 'tunes';
   private readonly API_PLAYING_LOG_URL = 'playing-logs';
+
+  login(): Promise<string> {
+    const url: string = urljoin(this.API_AUTH_URL, 'login');
+    return this.context.$axios.$get(url);
+  }
 
   getUsers(): Promise<User[]> {
     const url = this.API_USER_URL;

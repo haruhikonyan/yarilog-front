@@ -51,7 +51,7 @@ export default class Index extends Vue {
   }
   async createComposer() {
     const country: Country = {
-      id: '1',
+      id: 1,
       name: 'ドイツ',
       description: 'ヨーロッパの国'
     };
