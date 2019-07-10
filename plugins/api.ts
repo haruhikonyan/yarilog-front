@@ -22,14 +22,18 @@ export class Api {
     const url: string = urljoin(this.API_AUTH_URL, 'login');
     return this.context.$axios.$get(url);
   }
+  check(): Promise<string> {
+    const url: string = urljoin(this.API_AUTH_URL, 'data');
+    return this.context.$axios.$get(url);
+  }
 
   getUsers(): Promise<User[]> {
     const url = this.API_USER_URL;
-    return this.context.$axios.$get(url)
+    return this.context.$axios.$get(url);
   }
   getUser(id: string): Promise<User[]> {    
     const url: string = urljoin(this.API_USER_URL, id);
-    return this.context.$axios.$get(url)
+    return this.context.$axios.$get(url);
   }
   createUser(user: User): Promise<User> {
     return this.context.$axios.$post(this.API_USER_URL, {

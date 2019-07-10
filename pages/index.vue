@@ -10,6 +10,10 @@
       </h2>
       <div class="links">
         <nuxt-link to="/login">login page</nuxt-link>
+        <button class="btn btn-primary" @click="checkLogin">
+          ログインチェック
+        </button>
+
         <a href="https://nuxtjs.org/" target="_blank" class="button--green">Documentation</a>
         <a href="https://github.com/nuxt/nuxt.js" target="_blank" class="button--grey">GitHub</a>
         <p v-for="user in users" :key="user.id">ID：{{ user.id }} 名前：{{ user.name }} 詳細：{{ user.description }}</p>
@@ -67,6 +71,9 @@ export default class Index extends Vue {
       countries: [country]
     };
     await this.$api.createComposer(composerData);
+  }
+  async checkLogin() {
+    await this.$api.check();
   }
 }
 </script>

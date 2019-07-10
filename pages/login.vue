@@ -30,7 +30,6 @@ export default {
       };
       this.$store.commit('setAuth', auth); // mutating to store for client rendering
       Cookie.set('auth', auth); // saving token in cookie for server rendering
-      // axios に token をくっつけるようにしたい
       this.$axios.setToken(token, 'Bearer');
       this.$router.push('/');
     }
