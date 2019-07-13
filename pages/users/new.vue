@@ -33,7 +33,6 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import $axios from '@nuxtjs/axios';
 import Logo from '~/components/Logo.vue';
 import { User } from '~/models/User';
 

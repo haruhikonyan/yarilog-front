@@ -1,4 +1,4 @@
-export interface LoginObject {
-  loginId: string;
-  password: string;
+export class LoginObject {
+  loginId: string | null = null;
+  password: string | null = null;
 }
