@@ -14,6 +14,9 @@
         <button class="btn btn-primary" @click="checkLogin">
           ログインチェック
         </button>
+        <button class="btn btn-primary" @click="logout">
+          ログアウト
+        </button>
 
         <a href="https://nuxtjs.org/" target="_blank" class="button--green">Documentation</a>
         <a href="https://github.com/nuxt/nuxt.js" target="_blank" class="button--grey">GitHub</a>
@@ -37,6 +40,7 @@ import Logo from '~/components/Logo.vue';
 import { User } from '~/models/User';
 import { Country } from 'models/Country';
 import { Composer } from 'models/Composer';
+import Cookie from 'js-cookie';
 
 @Component({
   components: {
@@ -66,6 +70,11 @@ export default class Index extends Vue {
   }
   async checkLogin() {
     await this.$api.check();
+  }
+  logout() {
+    Cookie.remove('auth');
+    this.$store.commit('setAuth', null);
+    this.$axios.setToken(false);
   }
 }
 </script>
