@@ -3,10 +3,10 @@
     <h1>Sign in to access the secret page</h1>
     <div>
       <label for="email">
-        <input id="email" type="email" value="test" />
+        <input id="email" v-model="loginId" type="text" />
       </label>
       <label for="password">
-        <input id="password" type="password" value="test" />
+        <input id="password" v-model="password" type="password" />
       </label>
       <button @click="postLogin">
         login
@@ -24,7 +24,10 @@ export default {
   middleware: 'notAuthenticated',
   methods: {
     async postLogin() {
-      const token = await this.$api.login();
+      const token = await this.$api.login({
+        loginId: this.loginId,
+        password: this.password
+      });
       const auth = {
         accessToken: token
       };
