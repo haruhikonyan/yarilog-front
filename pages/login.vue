@@ -1,20 +1,22 @@
 <template>
-  <div class="container">
-    <h1>Sign in to access the secret page</h1>
+  <section class="container">
     <div>
-      <label for="email">
-        <input id="email" v-model="loginObject.loginId" type="text" />
-      </label>
-      <label for="password">
-        <input id="password" v-model="loginObject.password" type="password" />
-      </label>
-      <button @click="postLogin">
-        login
-      </button>
-      <p>The credentials are not verified for the example purpose.</p>
-      <nuxt-link to="/">トップへ戻る</nuxt-link>
+      <h1 class="title">
+        ログインページ
+      </h1>
+      <form>
+        <div class="form-group">
+          <label>ユーザ名/メールアドレス</label>
+          <input v-model="loginObject.loginId" type="text" />
+        </div>
+        <div class="form-group">
+          <label>パスワード</label>
+          <input id="password" v-model="loginObject.password" type="password" />
+        </div>
+      </form>
+      <button type="submit" class="btn btn-primary" @click="postLogin">ログイン</button>
     </div>
-  </div>
+  </section>
 </template>
 
 <script lang="ts">
