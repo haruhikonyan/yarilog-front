@@ -36,10 +36,7 @@ export class Api {
     return this.context.$axios.$get(url);
   }
   createUser(user: User): Promise<User> {
-    return this.context.$axios.$post(this.API_USER_URL, {
-      name: user.name,
-      description: user.description
-    })
+    return this.context.$axios.$post(this.API_USER_URL, user);
   }
 
   getComposers(): Promise<Composer[]> {

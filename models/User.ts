@@ -1,5 +1,8 @@
 export class User {
-  id: string | null = null;
-  name: string | null = null;
+  id: string | undefined;
+  username: string | null = null;
+  mailAddress: string | null = null;
+  password: string | null = null;
+  nickname: string | null = null;
   description: string | null = null;
 }
