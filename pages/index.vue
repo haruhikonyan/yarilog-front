@@ -14,10 +14,9 @@
         <button class="btn btn-primary" @click="checkLogin">
           ログインチェック
         </button>
-        <button class="btn btn-primary" @click="logout">
+        <button v-if="$store.state.auth" class="btn btn-primary" @click="logout">
           ログアウト
         </button>
-
         <a href="https://nuxtjs.org/" target="_blank" class="button--green">Documentation</a>
         <a href="https://github.com/nuxt/nuxt.js" target="_blank" class="button--grey">GitHub</a>
         <p v-for="user in users" :key="user.id">
@@ -35,7 +34,6 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import $axios from '@nuxtjs/axios';
 import Logo from '~/components/Logo.vue';
 import { User } from '~/models/User';
 import { Country } from 'models/Country';

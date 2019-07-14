@@ -1,6 +1,6 @@
 export default function({ store, redirect }) {
-  // ユーザが認証されてホームページにリダイレクトされた場合
+  // ユーザが認証されていた場合のリダイレクト
   if (store.state.auth) {
-    return redirect('/tunes/new');
+    return redirect('/');
   }
 }

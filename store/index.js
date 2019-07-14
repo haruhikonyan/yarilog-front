@@ -17,6 +17,7 @@ export const actions = {
       const parsed = cookieparser.parse(req.headers.cookie);
       try {
         auth = JSON.parse(parsed.auth);
+        $axios.setToken(auth.accessToken, 'Bearer');
       } catch (err) {
         // No valid cookie found
       }
