@@ -11,7 +11,7 @@ export const mutations = {
   }
 };
 export const actions = {
-  nuxtServerInit({ commit }, { req }) {
+  nuxtServerInit({ commit }, { req, $axios }) {
     let auth = null;
     if (req.headers.cookie) {
       const parsed = cookieparser.parse(req.headers.cookie);
