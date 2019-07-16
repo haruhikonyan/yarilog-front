@@ -11,7 +11,7 @@
       <form>
         <div class="form-group">
           <label>タイトル</label>
-          <textarea v-model="newTune.title" placeholder="作曲家の名前は含めないように"></textarea>
+          <input v-model="newTune.title" placeholder="作曲家の名前は含めないように" />
         </div>
         <div class="form-group">
           <label>作曲家</label>

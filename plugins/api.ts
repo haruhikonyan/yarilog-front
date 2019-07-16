@@ -4,32 +4,40 @@ import { Country } from "~/models/Country";
 import * as urljoin from 'url-join';
 import { PlayingLog } from "~/models/PlayingLog";
 import { Tune } from "~/models/Tune";
+import { LoginObject } from "~/models/LoginObject";
 
 export class Api {
   // TODO この context の型取得したい
-  private readonly context
+  private readonly context;
   constructor(context) {
     this.context = context;
   }
+  private readonly API_AUTH_URL = 'auth';
   private readonly API_USER_URL = 'users';
   private readonly API_COMPOSER_URL = 'composers';
   private readonly API_COUNTRY_URL = 'countries';
   private readonly API_TUNE_URL = 'tunes';
   private readonly API_PLAYING_LOG_URL = 'playing-logs';
 
+  login(loginObject: LoginObject): Promise<string> {
+    const url: string = urljoin(this.API_AUTH_URL, 'login');
+    return this.context.$axios.$post(url, loginObject);
+  }
+  check(): Promise<string> {
+    const url: string = urljoin(this.API_AUTH_URL, 'data');
+    return this.context.$axios.$get(url);
+  }
+
   getUsers(): Promise<User[]> {
     const url = this.API_USER_URL;
-    return this.context.$axios.$get(url)
+    return this.context.$axios.$get(url);
   }
   getUser(id: string): Promise<User[]> {    
     const url: string = urljoin(this.API_USER_URL, id);
-    return this.context.$axios.$get(url)
+    return this.context.$axios.$get(url);
   }
   createUser(user: User): Promise<User> {
-    return this.context.$axios.$post(this.API_USER_URL, {
-      name: user.name,
-      description: user.description
-    })
+    return this.context.$axios.$post(this.API_USER_URL, user);
   }
 
   getComposers(): Promise<Composer[]> {

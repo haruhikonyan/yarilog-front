@@ -1,7 +1,7 @@
 import pkg from './package'
 
 export default {
-  mode: 'spa',
+  mode: 'universal',
 
   /*
    ** Headers of the page
@@ -30,7 +30,8 @@ export default {
    ** Plugins to load before mounting the App
    */
   plugins: [
-    '~/plugins/api.ts'
+    '~/plugins/api',
+    '~/plugins/axios'
   ],
 
   /*
@@ -48,7 +49,8 @@ export default {
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
     // TODO env で設定している baseApiUrl を参照するようにしたい(なぜか参照できないので直接値を入れている)
-    baseURL: process.env.baseApiUrl || 'http://localhost:8080'
+    baseURL: process.env.baseApiUrl || 'http://docker.for.mac.host.internal:8080',
+    browserBaseURL: process.env.baseBrouserApiUrl || 'http://localhost:8080',
   },
 
   /*
@@ -71,6 +73,7 @@ export default {
     }
   },
   env: {
-    baseApiUrl: process.env.BASE_API_URL || 'http://localhost:8080'
+    baseApiUrl: process.env.BASE_API_URL || 'http://docker.for.mac.host.internal:8080',
+    baseBrouserApiUrl: process.env.BASE_BROWSER_API_URL || 'http://localhost:8080'
   }
 }

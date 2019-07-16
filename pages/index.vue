@@ -9,13 +9,20 @@
         yarilog frontend system by Nuxt.js
       </h2>
       <div class="links">
+        <nuxt-link to="/users/new">ユーザ新規作成</nuxt-link>
+        <nuxt-link to="/login">login page</nuxt-link>
+        <button class="btn btn-primary" @click="checkLogin">
+          ログインチェック
+        </button>
+        <button v-if="$store.state.auth" class="btn btn-primary" @click="logout">
+          ログアウト
+        </button>
         <a href="https://nuxtjs.org/" target="_blank" class="button--green">Documentation</a>
         <a href="https://github.com/nuxt/nuxt.js" target="_blank" class="button--grey">GitHub</a>
-        <p v-for="user in users" :key="user.id">ID：{{ user.id }} 名前：{{ user.name }} 詳細：{{ user.description }}</p>
+        <p v-for="user in users" :key="user.id">
+          ID：{{ user.id }} 名前：{{ user.nickname }} 詳細：{{ user.description }}
+        </p>
         <div>
-          <button class="btn btn-primary" @click="createUser">
-            ユーザ追加
-          </button>
           <button class="btn btn-primary" @click="createComposer">
             ベートーヴェン追加
           </button>
@@ -27,11 +34,11 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import $axios from '@nuxtjs/axios';
 import Logo from '~/components/Logo.vue';
 import { User } from '~/models/User';
 import { Country } from 'models/Country';
 import { Composer } from 'models/Composer';
+import Cookie from 'js-cookie';
 
 @Component({
   components: {
@@ -44,17 +51,9 @@ import { Composer } from 'models/Composer';
 })
 export default class Index extends Vue {
   users: User[] = [];
-  // TODO フォームから値を受け取ってその値で保存する
-  async createUser() {
-    const newUser = new User();
-    newUser.name = 'ゆーざめい';
-    newUser.description = 'ですく';
-    const createdUser = await this.$api.createUser(newUser);
-    this.users.push(createdUser);
-  }
   async createComposer() {
     const country: Country = {
-      id: '1',
+      id: 1,
       name: 'ドイツ',
       description: 'ヨーロッパの国'
     };
@@ -66,6 +65,14 @@ export default class Index extends Vue {
       countries: [country]
     };
     await this.$api.createComposer(composerData);
+  }
+  async checkLogin() {
+    await this.$api.check();
+  }
+  logout() {
+    Cookie.remove('auth');
+    this.$store.commit('setAuth', null);
+    this.$axios.setToken(false);
   }
 }
 </script>
