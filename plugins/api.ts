@@ -11,12 +11,6 @@ export class Api {
   private readonly context;
   constructor(context) {
     this.context = context;
-    // TODO axios 用の plugin に写す
-    // auth があれば CSR 用に token をセットする
-    const auth = context.store.state.auth
-    if (auth != null) {
-      context.$axios.setToken(auth.accessToken, 'Bearer')
-    }
   }
   private readonly API_AUTH_URL = 'auth';
   private readonly API_USER_URL = 'users';
