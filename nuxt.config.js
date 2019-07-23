@@ -48,9 +48,8 @@ export default {
    */
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
-    // TODO env で設定している baseApiUrl を参照するようにしたい(なぜか参照できないので直接値を入れている)
-    baseURL: process.env.baseApiUrl || 'http://docker.for.mac.host.internal:8080',
-    browserBaseURL: process.env.baseBrouserApiUrl || 'http://localhost:8080',
+    baseURL: process.env.baseApiUrl,
+    browserBaseURL: process.env.baseBrouserApiUrl,
   },
 
   /*
@@ -71,9 +70,5 @@ export default {
         })
       }
     }
-  },
-  env: {
-    baseApiUrl: process.env.BASE_API_URL || 'http://docker.for.mac.host.internal:8080',
-    baseBrouserApiUrl: process.env.BASE_BROWSER_API_URL || 'http://localhost:8080'
   }
 }
