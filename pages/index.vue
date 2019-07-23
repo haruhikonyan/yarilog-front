@@ -10,23 +10,14 @@
       </h2>
       <div class="links">
         <nuxt-link to="/users/new">ユーザ新規作成</nuxt-link>
-        <nuxt-link to="/login">login page</nuxt-link>
         <button class="btn btn-primary" @click="checkLogin">
           ログインチェック
-        </button>
-        <button v-if="$store.state.auth" class="btn btn-primary" @click="logout">
-          ログアウト
         </button>
         <a href="https://nuxtjs.org/" target="_blank" class="button--green">Documentation</a>
         <a href="https://github.com/nuxt/nuxt.js" target="_blank" class="button--grey">GitHub</a>
         <p v-for="user in users" :key="user.id">
           ID：{{ user.id }} 名前：{{ user.nickname }} 詳細：{{ user.description }}
         </p>
-        <div>
-          <button class="btn btn-primary" @click="createComposer">
-            ベートーヴェン追加
-          </button>
-        </div>
       </div>
     </div>
   </section>
@@ -51,28 +42,8 @@ import Cookie from 'js-cookie';
 })
 export default class Index extends Vue {
   users: User[] = [];
-  async createComposer() {
-    const country: Country = {
-      id: 1,
-      name: 'ドイツ',
-      description: 'ヨーロッパの国'
-    };
-    const composerData: Composer = {
-      id: null,
-      lastName: 'ベートーヴェン',
-      fullName: 'ルードヴィヒ・ヴァン・ベートーヴェン',
-      description: '運命とかで有名なあの人',
-      countries: [country]
-    };
-    await this.$api.createComposer(composerData);
-  }
   async checkLogin() {
     await this.$api.check();
-  }
-  logout() {
-    Cookie.remove('auth');
-    this.$store.commit('setAuth', null);
-    this.$axios.setToken(false);
   }
 }
 </script>
