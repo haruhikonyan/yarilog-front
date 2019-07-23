@@ -10,6 +10,7 @@
           <!-- Right aligned nav items -->
           <b-navbar-nav class="ml-auto">
             <b-dropdown-item href="#">マイページ</b-dropdown-item>
+            <b-dropdown-item href="/playing-logs/new">演奏記録をつける</b-dropdown-item>
             <b-dropdown-item @click="logout">ログアウト</b-dropdown-item>
           </b-navbar-nav>
         </b-collapse>

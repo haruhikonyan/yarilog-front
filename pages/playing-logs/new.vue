@@ -12,7 +12,7 @@
         <div class="form-group">
           <label>演奏曲</label>
           <select v-model="playingLog.tune">
-            <option v-for="tune in tunes" :key="tune.id">
+            <option v-for="tune in tunes" :key="tune.id" :value="tune">
               {{ tune.title }}
             </option>
           </select>
@@ -42,19 +42,15 @@ import { Tune } from 'models/Tune';
     Logo
   },
   async asyncData({ app }) {
-    const userData = await app.$api.getUser('1');
     const tunesData = await app.$api.getTunes();
-    return { user: userData, tunes: tunesData };
+    return { tunes: tunesData };
   }
 })
 export default class Index extends Vue {
-  user: User | undefined;
   tunes: Tune[] = [];
   composers: Composer[] = [];
   playingLog: PlayingLog = new PlayingLog();
   async createPlayingLog() {
-    this.playingLog.user = this.user!;
-
     await this.$api.createPlayingLog(this.playingLog);
   }
 }

@@ -49,14 +49,11 @@ import { Tune } from '~/models/Tune';
     Logo
   },
   async asyncData({ app }) {
-    const userData = await app.$api.getUser('1');
     const composersData = await app.$api.getComposers();
-    return { user: userData, composers: composersData };
+    return { composers: composersData };
   }
 })
 export default class Index extends Vue {
-  // 誰が作ったかの記録は取っておきたい
-  user: User | undefined;
   composers: Composer[] = [];
   newTune: Tune = new Tune();
   async createTune() {

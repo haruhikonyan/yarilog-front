@@ -15,8 +15,10 @@
         </button>
         <a href="https://nuxtjs.org/" target="_blank" class="button--green">Documentation</a>
         <a href="https://github.com/nuxt/nuxt.js" target="_blank" class="button--grey">GitHub</a>
-        <p v-for="user in users" :key="user.id">
-          ID：{{ user.id }} 名前：{{ user.nickname }} 詳細：{{ user.description }}
+        <p v-for="playingLog in playingLogs" :key="playingLog.id">
+          <nuxt-link :to="`/playing-logs/${playingLog.id}`"
+            >ID：{{ playingLog.id }} 詳細：{{ playingLog.description }}</nuxt-link
+          >
         </p>
       </div>
     </div>
@@ -30,18 +32,19 @@ import { User } from '~/models/User';
 import { Country } from 'models/Country';
 import { Composer } from 'models/Composer';
 import Cookie from 'js-cookie';
+import { PlayingLog } from '../models/PlayingLog';
 
 @Component({
   components: {
     Logo
   },
   async asyncData({ app }) {
-    const data = await app.$api.getUsers();
-    return { users: data };
+    const data = await app.$api.getPlayingLogs();
+    return { playingLogs: data };
   }
 })
 export default class Index extends Vue {
-  users: User[] = [];
+  playingLogs: PlayingLog[] = [];
   async checkLogin() {
     await this.$api.check();
   }
