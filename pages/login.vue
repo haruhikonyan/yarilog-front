@@ -41,7 +41,7 @@ export default class Index extends Vue {
     this.$store.commit('setAuth', auth); // mutating to store for client rendering
     Cookie.set('auth', auth); // saving token in cookie for server rendering
     this.$axios.setToken(token, 'Bearer');
-    this.$router.push('/');
+    this.$router.push('/mypage');
   }
 }
 </script>
