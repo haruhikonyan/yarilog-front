@@ -46,8 +46,8 @@ export default class Index extends Vue {
   newUser: User = new User();
   async createUser() {
     await this.$api.createUser(this.newUser);
-    // TODO 自動的にログインしたい
-    await this.$router.push('/login');
+    // TODO 自動的にログインしてマイページに飛ばしたい
+    this.$router.push('/login');
   }
 }
 </script>

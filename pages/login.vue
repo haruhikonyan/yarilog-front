@@ -1,20 +1,19 @@
 <template>
   <section class="container">
     <div>
-      <h1 class="title">
+      <h1>
         ログインページ
       </h1>
-      <form>
-        <div class="form-group">
-          <label>ユーザ名/メールアドレス</label>
-          <input v-model="loginObject.loginId" type="text" />
-        </div>
-        <div class="form-group">
-          <label>パスワード</label>
-          <input id="password" v-model="loginObject.password" type="password" />
-        </div>
-      </form>
-      <button type="submit" class="btn btn-primary" @click="postLogin">ログイン</button>
+      <b-form @submit.prevent="postLogin">
+        <b-form-group label="ユーザ名/メールアドレス">
+          <b-form-input v-model="loginObject.loginId" required></b-form-input>
+        </b-form-group>
+        <b-form-group label="パスワード">
+          <b-form-input v-model="loginObject.password" type="password" required></b-form-input>
+        </b-form-group>
+
+        <b-button type="submit" variant="primary">ログイン</b-button>
+      </b-form>
     </div>
   </section>
 </template>

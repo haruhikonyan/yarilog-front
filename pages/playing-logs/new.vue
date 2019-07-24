@@ -4,7 +4,7 @@
       <h1 class="title">
         演奏ログ新規作成ページ
       </h1>
-      <b-form @submit="createPlayingLog">
+      <b-form @submit.prevent="createPlayingLog">
         <b-form-group label="演奏曲">
           <b-form-select v-model="playingLog.tune" class="mb-3">
             <option v-for="tune in tunes" :key="tune.id" :value="tune">
@@ -48,7 +48,8 @@ export default class Index extends Vue {
   composers: Composer[] = [];
   playingLog: PlayingLog = new PlayingLog();
   async createPlayingLog() {
-    await this.$api.createPlayingLog(this.playingLog);
+    const savedPlayingLog = await this.$api.createPlayingLog(this.playingLog);
+    this.$router.push(savedPlayingLog.id!);
   }
 }
 </script>
