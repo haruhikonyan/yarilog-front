@@ -1,43 +1,37 @@
 <template>
   <section class="container">
     <div>
-      <logo />
-      <h1 class="title">
+      <h1>
         曲新規作成ページ
       </h1>
-      <h2 class="subtitle">
-        yarilog frontend system by Nuxt.js
-      </h2>
-      <form>
-        <div class="form-group">
-          <label>タイトル</label>
-          <input v-model="newTune.title" placeholder="作曲家の名前は含めないように" />
-        </div>
-        <div class="form-group">
-          <label>作曲家</label>
-          <select v-model="newTune.composer">
+      <b-form @submit="createTune">
+        <b-form-group label="作曲者">
+          <b-form-select v-model="newTune.composer" class="mb-3">
             <option v-for="composer in composers" :key="composer.id" :value="composer">
               {{ composer.fullName }}
             </option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>曲詳細</label>
-          <textarea
+          </b-form-select>
+        </b-form-group>
+        <b-form-group label="タイトル" description="作曲家の名前は含めないように">
+          <b-form-input v-model="newTune.title" required placeholder="交響曲第1番 ハ長調"></b-form-input>
+        </b-form-group>
+
+        <b-form-group label="曲詳細">
+          <b-form-textarea
             v-model="newTune.description"
             placeholder="後からこの項目は管理者より修正する場合がございます"
-          ></textarea>
-        </div>
-        <button type="submit" class="btn btn-primary" @click="createTune">Submit</button>
-      </form>
+            rows="3"
+            max-rows="6"
+          ></b-form-textarea>
+        </b-form-group>
+        <b-button type="submit" variant="primary">作成</b-button>
+      </b-form>
     </div>
   </section>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import $axios from '@nuxtjs/axios';
-import Logo from '~/components/Logo.vue';
 import { User } from '~/models/User';
 import { Country } from '~/models/Country';
 import { Composer } from '~/models/Composer';
@@ -45,9 +39,7 @@ import { PlayingLog } from '~/models/PlayingLog';
 import { Tune } from '~/models/Tune';
 
 @Component({
-  components: {
-    Logo
-  },
+  components: {},
   async asyncData({ app }) {
     const composersData = await app.$api.getComposers();
     return { composers: composersData };
