@@ -23,8 +23,8 @@ export class Api {
     const url: string = urljoin(this.API_AUTH_URL, 'login');
     return this.context.$axios.$post(url, loginObject);
   }
-  check(): Promise<string> {
-    const url: string = urljoin(this.API_AUTH_URL, 'data');
+  me(): Promise<string> {
+    const url: string = urljoin(this.API_AUTH_URL, 'me');
     return this.context.$axios.$get(url);
   }
 
