@@ -4,9 +4,8 @@
       <h1>
         トップページ
       </h1>
-      <p><nuxt-link to="/playing-logs/composers">作曲家から演奏記録を探す</nuxt-link></p>
-      <p><nuxt-link to="/playing-logs/countries">国から演奏記録を探す</nuxt-link></p>
-      <p><nuxt-link to="/playing-logs/users">奏者から演奏記録を探す</nuxt-link></p>
+      <p><nuxt-link to="/composers">作曲家から演奏記録を探す</nuxt-link></p>
+      <p><nuxt-link to="/countries">国から演奏記録を探す</nuxt-link></p>
       <div>
         最新の演奏記録
         <p v-for="playingLog in playingLogs" :key="playingLog.id">

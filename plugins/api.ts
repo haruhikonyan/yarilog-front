@@ -52,6 +52,13 @@ export class Api {
   createCountry(country: Country): Promise<Country> {
     return this.context.$axios.$post(this.API_COUNTRY_URL, country)
   }
+  getCountries(): Promise<Country[]> {
+    return this.context.$axios.$get(this.API_COUNTRY_URL)
+  }
+  getCountry(id: string): Promise<Country> {
+    const url: string = urljoin(this.API_COUNTRY_URL, id);
+    return this.context.$axios.$get(url);
+  }
 
   getTunes(): Promise<Tune[]> {
     const url = this.API_TUNE_URL;
@@ -66,8 +73,18 @@ export class Api {
     const url = this.API_PLAYING_LOG_URL;
     return this.context.$axios.$get(url)
   }
-  getPlayingLog(id: string): Promise<PlayingLog[]> {    
+  getPlayingLog(id: string): Promise<PlayingLog> {    
     const url: string = urljoin(this.API_PLAYING_LOG_URL, id);
+    return this.context.$axios.$get(url)
+  }
+
+  getPlayingLogsByComposer(composerId: string): Promise<PlayingLog[]> {
+    const url: string = urljoin(this.API_PLAYING_LOG_URL, 'composers', composerId);
+    return this.context.$axios.$get(url)
+  }
+
+  getPlayingLogsByCountry(countryId: string): Promise<PlayingLog[]> {
+    const url: string = urljoin(this.API_PLAYING_LOG_URL, 'countries', countryId);
     return this.context.$axios.$get(url)
   }
   createPlayingLog(plyaingLog: PlayingLog): Promise<PlayingLog> {
