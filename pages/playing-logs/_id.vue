@@ -1,7 +1,12 @@
 <template>
   <section class="container">
     <div>
-      <h1 class="title">{{ playingLog.description }}詳細</h1>
+      <h1>
+        {{ playingLog.user.nickname }}さんの {{ playingLog.tune.composer.lastName }}作曲{{
+          playingLog.tune.title
+        }}の演奏記録
+      </h1>
+      {{ playingLog.description }}
     </div>
   </section>
 </template>
