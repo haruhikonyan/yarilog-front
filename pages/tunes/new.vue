@@ -4,7 +4,7 @@
       <h1>
         曲新規作成ページ
       </h1>
-      <b-form @submit="createTune">
+      <b-form @submit.prevent="createTune">
         <b-form-group label="作曲者">
           <b-form-select v-model="newTune.composer" class="mb-3">
             <option v-for="composer in composers" :key="composer.id" :value="composer">
@@ -50,6 +50,7 @@ export default class Index extends Vue {
   newTune: Tune = new Tune();
   async createTune() {
     await this.$api.createTune(this.newTune);
+    this.$router.push('/playing-logs/new');
   }
 }
 </script>
