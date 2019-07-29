@@ -6,7 +6,7 @@
           playingLog.tune.title
         }}の演奏記録
       </h1>
-      {{ playingLog.description }}
+      {{ playingLog.inpression }}
     </div>
   </section>
 </template>

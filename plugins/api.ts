@@ -5,6 +5,7 @@ import * as urljoin from 'url-join';
 import { PlayingLog } from "~/models/PlayingLog";
 import { Tune } from "~/models/Tune";
 import { LoginObject } from "~/models/LoginObject";
+import { Instrument } from "~/models/Instrument";
 
 export class Api {
   // TODO この context の型取得したい
@@ -18,6 +19,7 @@ export class Api {
   private readonly API_COUNTRY_URL = 'countries';
   private readonly API_TUNE_URL = 'tunes';
   private readonly API_PLAYING_LOG_URL = 'playing-logs';
+  private readonly API_INSTRUMENT_URL = 'instruments';
 
   login(loginObject: LoginObject): Promise<string> {
     const url: string = urljoin(this.API_AUTH_URL, 'login');
@@ -89,6 +91,11 @@ export class Api {
   }
   createPlayingLog(plyaingLog: PlayingLog): Promise<PlayingLog> {
     return this.context.$axios.$post(this.API_PLAYING_LOG_URL, plyaingLog)
+  }
+
+  getInstruments(): Promise<Instrument[]> {
+    const url = this.API_INSTRUMENT_URL;
+    return this.context.$axios.$get(url)
   }
 }
 
