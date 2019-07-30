@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div>
+    <div class="mb-3">
       <b-navbar toggleable="lg" type="dark" variant="primary">
         <b-navbar-brand href="/">yarilog</b-navbar-brand>
 

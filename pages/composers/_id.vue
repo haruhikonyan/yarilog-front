@@ -1,7 +1,7 @@
 <template>
   <section class="container">
     <div>
-      <h1 class="title">{{ playingLogs[0].tune.composer.fullName }}の演奏記録一覧</h1>
+      <h3>{{ playingLogs[0].tune.composer.fullName }}の演奏記録一覧</h3>
     </div>
     <PlayingLogCard v-for="playingLog in playingLogs" :key="playingLog.id" :playing-log="playingLog" />
   </section>
