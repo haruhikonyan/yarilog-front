@@ -2,3 +2,7 @@ $enable-responsive-font-sizes: true;
 
 @import 'bootstrap/scss/bootstrap.scss';
 @import 'bootstrap-vue/src/index.scss';
+
+.yrl-pre-wrap {
+  white-space: pre-wrap;
+}

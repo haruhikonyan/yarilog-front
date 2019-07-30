@@ -6,7 +6,7 @@
       </h1>
       <p v-for="playingLog in playingLogs" :key="playingLog.id">
         <nuxt-link :to="`/playing-logs/${playingLog.id}`"
-          >{{ playingLog.tune.composer.lastName }}作曲 {{ playingLog.tune.title }}</nuxt-link
+          >{{ playingLog.tune.composer.displayName }}作曲 {{ playingLog.tune.title }}</nuxt-link
         >
       </p>
     </div>

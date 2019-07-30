@@ -8,7 +8,7 @@
         <b-form-group label="演奏曲">
           <b-form-select v-model="playingLog.tune">
             <option v-for="tune in tunes" :key="tune.id" :value="tune">
-              {{ tune.composer.lastName }}: {{ tune.title }}
+              {{ tune.composer.displayName }}: {{ tune.title }}
             </option>
           </b-form-select>
         </b-form-group>

@@ -3,7 +3,7 @@
     <b-card header-tag="header" footer-tag="footer" class="my-3">
       <div slot="header">
         <h4>{{ playingLog.tune.title }}</h4>
-        <h6 class="text-muted">{{ playingLog.tune.composer.lastName }}作曲</h6>
+        <h6 class="text-muted">{{ playingLog.tune.composer.displayName }}作曲</h6>
       </div>
       <b-card-text class="mb-1">{{ playingLog.user.nickname }}さんの{{ playingLog.playDate }}演奏</b-card-text>
       <pre class="text-muted">{{ playingLog.inpression }}</pre>
