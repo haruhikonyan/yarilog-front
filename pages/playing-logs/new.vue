@@ -84,7 +84,6 @@
         </b-form-group>
         <b-button type="submit" variant="primary">作成</b-button>
       </b-form>
-      {{ playingLog }}
       <nuxt-link to="/tunes/new">曲作成</nuxt-link>
     </div>
   </section>

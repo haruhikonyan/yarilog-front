@@ -7,6 +7,8 @@
       <p>ユーザ名：{{ user.username }}</p>
       <p>メールアドレス：{{ user.mailAddress }}</p>
       <p>ニックネーム：{{ user.nickname }}</p>
+
+      <b-button to="/playing-logs/new" variant="primary">演奏ログをつける</b-button>
     </div>
   </section>
 </template>

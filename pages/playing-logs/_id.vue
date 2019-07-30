@@ -1,13 +1,29 @@
 <template>
   <section class="container">
     <div>
-      <h1>
-        {{ playingLog.user.nickname }}さんの {{ playingLog.tune.composer.lastName }}作曲{{
-          playingLog.tune.title
-        }}の演奏記録
-      </h1>
-      {{ playingLog.inpression }}
+      <h4>{{ playingLog.tune.title }}</h4>
+      <small class="text-muted">{{ playingLog.tune.composer.fullName }}作曲</small>
+      <h5 class="text-center">
+        難易度: {{ playingLog.difficulty }} 体力: {{ playingLog.physicality }} 面白さ: {{ playingLog.interesting }}
+      </h5>
+      <b-card
+        class="mb-2"
+        title="自分のパートの感想"
+        :sub-title="`${playingLog.instrument.name} ${playingLog.position}`"
+      >
+        <b-card-text>
+          <pre>{{ playingLog.inpression }}</pre>
+        </b-card-text>
+      </b-card>
+      <b-card class="mb-2" title="全体の感想">
+        <b-card-text>
+          <pre>{{ playingLog.otherPartInpression }}</pre>
+        </b-card-text>
+      </b-card>
+      <h4>{{ playingLog.user.nickname }}さん</h4>
+      {{ playingLog.playDate }} に演奏 <b-badge>{{ playingLog.playerLevel }}</b-badge>
     </div>
+    <!-- TODO 同じ曲の演奏ログや同じ人の演奏ログを出す -->
   </section>
 </template>
 

@@ -6,7 +6,7 @@
         <h6 class="text-muted">{{ playingLog.tune.composer.lastName }}作曲</h6>
       </div>
       <b-card-text class="mb-1">{{ playingLog.user.nickname }}さんの{{ playingLog.playDate }}演奏</b-card-text>
-      <small class="text-muted">{{ playingLog.inpression }}</small>
+      <pre class="text-muted">{{ playingLog.inpression }}</pre>
       <div slot="footer">
         難易度: {{ playingLog.difficulty }} 体力: {{ playingLog.physicality }} 面白さ: {{ playingLog.interesting }}
         <div>
