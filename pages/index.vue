@@ -8,6 +8,11 @@
       <p><nuxt-link to="/countries">国から演奏記録を探す</nuxt-link></p>
       <p><nuxt-link to="/instruments">楽器から演奏記録を探す</nuxt-link></p>
       <b-button v-if="!$store.state.auth" to="/users/new" variant="primary">ユーザ新規作成</b-button>
+      <b-card class="mb-2" title="演りログ(仮称)とは">
+        <b-card-text>
+          <pre class="yrl-pre-wrap">{{ info }}</pre>
+        </b-card-text>
+      </b-card>
       <p class="text-center mt-3">最新の演奏記録</p>
     </div>
     <PlayingLogCard v-for="playingLog in playingLogs" :key="playingLog.id" :playing-log="playingLog" />
@@ -29,7 +34,8 @@ import PlayingLogCard from '../components/PlayingLogCard.vue';
   },
   async asyncData({ app }) {
     const data = await app.$api.getPlayingLogs();
-    return { playingLogs: data };
+    const info = await app.$api.getInfo();
+    return { playingLogs: data, info: info };
   }
 })
 export default class Index extends Vue {}

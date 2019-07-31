@@ -103,6 +103,12 @@ export class Api {
     const url: string = urljoin(this.API_INSTRUMENT_URL, id);
     return this.context.$axios.$get(url)
   }
+
+  getInfo(): Promise<string> {
+    const url = 'https://gist.githubusercontent.com/haruhikonyan/b7df281804d891c5da907ea16be83c65/raw/'
+    this.context.$axios.defaults.headers.common = {};
+    return this.context.$axios.$get(url);
+  }
 }
 
 export default (context, inject) => {
