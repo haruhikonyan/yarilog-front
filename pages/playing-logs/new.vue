@@ -6,7 +6,7 @@
       </h1>
       <b-form @submit.prevent="createPlayingLog">
         <b-form-group label="演奏曲">
-          <b-form-select v-model="playingLog.tune">
+          <b-form-select v-model="playingLog.tune" required>
             <option v-for="tune in tunes" :key="tune.id" :value="tune">
               {{ tune.composer.displayName }}: {{ tune.title }}
             </option>
@@ -17,8 +17,12 @@
           <b-form-input v-model="playingLog.playDate" type="date"></b-form-input>
         </b-form-group>
 
+        <b-form-group label="演奏団体">
+          <b-form-input v-model="playingLog.team" placeholder="読売日本交響楽団"></b-form-input>
+        </b-form-group>
+
         <b-form-group label="担当パート">
-          <b-form-select v-model="playingLog.instrument">
+          <b-form-select v-model="playingLog.instrument" required>
             <option v-for="instrument in instruments" :key="instrument.id" :value="instrument">
               {{ instrument.name }}
             </option>
@@ -29,20 +33,8 @@
           <b-form-input v-model="playingLog.position" placeholder="2nd assi"></b-form-input>
         </b-form-group>
 
-        <b-form-group label="難易度" :description="`数の大きい方が難しい: ${playingLog.difficulty}`">
-          <b-form-input v-model="playingLog.difficulty" type="range" min="0" max="5" step="0.1"></b-form-input>
-        </b-form-group>
-
-        <b-form-group label="体力" :description="`数の大きい方が疲れる: ${playingLog.physicality}`">
-          <b-form-input v-model="playingLog.physicality" type="range" min="0" max="5" step="0.1"></b-form-input>
-        </b-form-group>
-
-        <b-form-group label="面白さ" :description="`数の大きい方が面白い: ${playingLog.interesting}`">
-          <b-form-input v-model="playingLog.interesting" type="range" min="0" max="5" step="0.1"></b-form-input>
-        </b-form-group>
-
         <b-form-group label="自分のレベル">
-          <b-form-select v-model="playingLog.playerLevel">
+          <b-form-select v-model="playingLog.playerLevel" required>
             <option
               v-for="playerLevel in Object.keys(playerLevelList)"
               :key="playerLevel"
@@ -51,6 +43,32 @@
               {{ playerLevelList[playerLevel] }}
             </option>
           </b-form-select>
+        </b-form-group>
+
+        <b-form-group label="難易度" :description="`数の大きい方が難しい: ${playingLog.difficulty}`">
+          <b-form-input v-model="playingLog.difficulty" required type="range" min="0" max="5" step="0.1"></b-form-input>
+        </b-form-group>
+
+        <b-form-group label="体力" :description="`数の大きい方が疲れる: ${playingLog.physicality}`">
+          <b-form-input
+            v-model="playingLog.physicality"
+            required
+            type="range"
+            min="0"
+            max="5"
+            step="0.1"
+          ></b-form-input>
+        </b-form-group>
+
+        <b-form-group label="面白さ" :description="`数の大きい方が面白い: ${playingLog.interesting}`">
+          <b-form-input
+            v-model="playingLog.interesting"
+            required
+            type="range"
+            min="0"
+            max="5"
+            step="0.1"
+          ></b-form-input>
         </b-form-group>
 
         <b-form-group label="自分のパートの感想">

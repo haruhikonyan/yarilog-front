@@ -79,14 +79,16 @@ export class Api {
     const url: string = urljoin(this.API_PLAYING_LOG_URL, id);
     return this.context.$axios.$get(url)
   }
-
   getPlayingLogsByComposer(composerId: string): Promise<PlayingLog[]> {
     const url: string = urljoin(this.API_PLAYING_LOG_URL, 'composers', composerId);
     return this.context.$axios.$get(url)
   }
-
   getPlayingLogsByCountry(countryId: string): Promise<PlayingLog[]> {
     const url: string = urljoin(this.API_PLAYING_LOG_URL, 'countries', countryId);
+    return this.context.$axios.$get(url)
+  }
+  getPlayingLogsByInstrument(instrumentId: string): Promise<PlayingLog[]> {
+    const url: string = urljoin(this.API_PLAYING_LOG_URL, 'instruments', instrumentId);
     return this.context.$axios.$get(url)
   }
   createPlayingLog(plyaingLog: PlayingLog): Promise<PlayingLog> {
@@ -95,6 +97,10 @@ export class Api {
 
   getInstruments(): Promise<Instrument[]> {
     const url = this.API_INSTRUMENT_URL;
+    return this.context.$axios.$get(url)
+  }
+  getInstrument(id: string): Promise<Instrument> {
+    const url: string = urljoin(this.API_INSTRUMENT_URL, id);
     return this.context.$axios.$get(url)
   }
 }

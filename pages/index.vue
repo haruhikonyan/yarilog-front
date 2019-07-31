@@ -6,6 +6,7 @@
       </h1>
       <p><nuxt-link to="/composers">作曲家から演奏記録を探す</nuxt-link></p>
       <p><nuxt-link to="/countries">国から演奏記録を探す</nuxt-link></p>
+      <p><nuxt-link to="/instruments">楽器から演奏記録を探す</nuxt-link></p>
       <b-button v-if="!$store.state.auth" to="/users/new" variant="primary">ユーザ新規作成</b-button>
       <p class="text-center mt-3">最新の演奏記録</p>
     </div>

@@ -5,7 +5,8 @@ import { Instrument } from "./Instrument";
 export enum PlayerLevel {
   BEGINNER = "初心者",
   INTERMEDIATE = "中級者",
-  SENIOR = "上級者"
+  SENIOR = "上級者",
+  PRO = "プロ"
 }
 
 export class PlayingLog {
@@ -13,6 +14,9 @@ export class PlayingLog {
 
   // 演奏日
   playDate: Date | null = null;
+
+  // 演奏団体
+  team: string | null = null;
 
   // 自分の演奏レベル
   playerLevel: PlayerLevel | null = null;
