@@ -10,10 +10,16 @@
       <b-button v-if="!$store.state.auth" to="/users/new" variant="primary">ユーザ新規作成</b-button>
       <b-card class="mb-2" title="演りログ(仮称)とは">
         <b-card-text>
-          <pre class="yrl-pre-wrap">{{ info }}</pre>
+          <pre class="yrl-pre-wrap yrl-info text-left mb-0">{{ info }}</pre>
+        </b-card-text>
+        <b-card-text class="mb-0">
+          <a href="https://twitter.com/sasuganaryuseki" target="_blank">Twitter</a>
+        </b-card-text>
+        <b-card-text class="mb-0">
+          <a href="https://www.facebook.com/ryuseki.sasuga" target="_blank">Facebook</a>
         </b-card-text>
       </b-card>
-      <p class="text-center mt-3">最新の演奏記録</p>
+      <p class="mt-3">最新の演奏記録</p>
     </div>
     <PlayingLogCard v-for="playingLog in playingLogs" :key="playingLog.id" :playing-log="playingLog" />
   </section>
@@ -40,3 +46,8 @@ import PlayingLogCard from '../components/PlayingLogCard.vue';
 })
 export default class Index extends Vue {}
 </script>
+<style lang="scss" scoped>
+.yrl-info {
+  font-size: 70%;
+}
+</style>
