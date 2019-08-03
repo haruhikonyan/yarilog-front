@@ -7,6 +7,9 @@ import { Tune } from "~/models/Tune";
 import { LoginObject } from "~/models/LoginObject";
 import { Instrument } from "~/models/Instrument";
 
+// TODO 開発終わったら or 必要なくなったら消す
+import axios from 'axios'
+
 export class Api {
   // TODO この context の型取得したい
   private readonly context;
@@ -104,10 +107,11 @@ export class Api {
     return this.context.$axios.$get(url)
   }
 
-  getInfo(): Promise<string> {
+  // TODO 開発終わったら or 必要なくなったら消す
+  async getInfo(): Promise<string> {
     const url = 'https://gist.githubusercontent.com/haruhikonyan/b7df281804d891c5da907ea16be83c65/raw/'
-    this.context.$axios.defaults.headers.common = {};
-    return this.context.$axios.$get(url);
+    const { data } = await axios.get(url);
+    return data
   }
 }
 

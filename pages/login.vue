@@ -24,6 +24,7 @@ import { Component, Vue } from 'vue-property-decorator';
 import { User } from '~/models/User';
 import Cookie from 'js-cookie';
 import { LoginObject } from '~/models/LoginObject';
+import $axios from '@nuxtjs/axios';
 
 @Component({
   middleware: 'notAuthenticated'

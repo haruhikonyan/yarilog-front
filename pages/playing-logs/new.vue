@@ -109,7 +109,6 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import $axios from '@nuxtjs/axios';
 import { User } from '~/models/User';
 import { PlayingLog, PlayerLevel } from '~/models/PlayingLog';
 import { Tune } from 'models/Tune';
