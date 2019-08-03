@@ -1,14 +1,18 @@
 <template>
   <section class="container">
     <div>
-      <h1 class="title">
+      <h1>
         マイページ
       </h1>
       <p>ユーザ名：{{ user.username }}</p>
       <p>メールアドレス：{{ user.mailAddress }}</p>
       <p>ニックネーム：{{ user.nickname }}</p>
 
-      <b-button to="/playing-logs/new" variant="primary">演奏ログをつける</b-button>
+      <b-button to="/playing-logs/new" variant="primary" class="mb-3">演奏ログをつける</b-button>
+      <div>
+        <h3>{{ user.nickname }}の演奏記録</h3>
+      </div>
+      <PlayingLogCard v-for="playingLog in playingLogs" :key="playingLog.id" :playing-log="playingLog" />
     </div>
   </section>
 </template>
@@ -16,9 +20,13 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import { User } from '../models/User';
+import PlayingLogCard from '../components/PlayingLogCard.vue';
+import { PlayingLog } from '../models/PlayingLog';
 
 @Component({
-  components: {},
+  components: {
+    PlayingLogCard
+  },
   middleware: 'authenticated',
   async asyncData({ app }) {
     const data = await app.$api.me();
@@ -26,6 +34,11 @@ import { User } from '../models/User';
   }
 })
 export default class Index extends Vue {
-  user: User | null = null;
+  user!: User;
+  playingLogs: PlayingLog[] = [];
+
+  public async created() {
+    this.playingLogs = await this.$api.getPlayingLogsByUser(this.user.id!);
+  }
 }
 </script>

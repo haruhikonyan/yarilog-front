@@ -94,6 +94,10 @@ export class Api {
     const url: string = urljoin(this.API_PLAYING_LOG_URL, 'instruments', instrumentId);
     return this.context.$axios.$get(url)
   }
+  getPlayingLogsByUser(userId: string): Promise<PlayingLog[]> {
+    const url: string = urljoin(this.API_PLAYING_LOG_URL, 'users', userId);
+    return this.context.$axios.$get(url)
+  }
   createPlayingLog(plyaingLog: PlayingLog): Promise<PlayingLog> {
     return this.context.$axios.$post(this.API_PLAYING_LOG_URL, plyaingLog)
   }
