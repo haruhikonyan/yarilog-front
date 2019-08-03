@@ -9,9 +9,7 @@
       <p><nuxt-link to="/instruments">楽器から演奏記録を探す</nuxt-link></p>
       <b-button v-if="!$store.state.auth" to="/users/new" variant="primary" class="mb-3">ユーザ新規作成</b-button>
       <b-card class="mb-2" title="演りログ(仮称)とは">
-        <b-card-text>
-          <pre class="yrl-pre-wrap yrl-info text-left mb-0">{{ info }}</pre>
-        </b-card-text>
+        <pre class="yrl-pre-wrap yrl-info text-left mb-0">{{ info }}</pre>
         <b-card-text class="mb-0">
           <a href="https://twitter.com/sasuganaryuseki" target="_blank">Twitter</a>
         </b-card-text>
