@@ -12,7 +12,8 @@
           <b-form-input v-model="loginObject.password" type="password" required></b-form-input>
         </b-form-group>
 
-        <b-button type="submit" variant="primary">ログイン</b-button>
+        <b-button block type="submit" variant="primary">ログイン</b-button>
+        <small><nuxt-link to="/users/new">ユーザ新規登録</nuxt-link></small>
       </b-form>
     </div>
   </section>

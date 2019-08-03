@@ -7,7 +7,7 @@
       <p><nuxt-link to="/composers">作曲家から演奏記録を探す</nuxt-link></p>
       <p><nuxt-link to="/countries">国から演奏記録を探す</nuxt-link></p>
       <p><nuxt-link to="/instruments">楽器から演奏記録を探す</nuxt-link></p>
-      <b-button v-if="!$store.state.auth" to="/users/new" variant="primary">ユーザ新規作成</b-button>
+      <b-button v-if="!$store.state.auth" to="/users/new" variant="primary" class="mb-3">ユーザ新規作成</b-button>
       <b-card class="mb-2" title="演りログ(仮称)とは">
         <b-card-text>
           <pre class="yrl-pre-wrap yrl-info text-left mb-0">{{ info }}</pre>
@@ -47,7 +47,12 @@ import PlayingLogCard from '../components/PlayingLogCard.vue';
 export default class Index extends Vue {}
 </script>
 <style lang="scss" scoped>
+@import 'bootstrap/scss/_functions.scss';
+@import 'bootstrap/scss/_variables.scss';
+@import 'bootstrap/scss/mixins/_breakpoints.scss';
 .yrl-info {
-  font-size: 70%;
+  @include media-breakpoint-down(xs) {
+    font-size: 70%;
+  }
 }
 </style>

@@ -1,6 +1,6 @@
 import Cookie from 'js-cookie';
 
-export default ({ $axios, store, redirect }) => {
+export default ({ $axios, store, redirect, nuxtState }) => {
   // auth があれば CSR 用に token をセットする
   const auth = store.state.auth;
   if (auth != null) {
@@ -11,6 +11,7 @@ export default ({ $axios, store, redirect }) => {
       Cookie.remove('auth');
       store.commit('setAuth', null);
       $axios.setToken(false);
+      console.log('hohoge');
       redirect('/login');
     }
   });
