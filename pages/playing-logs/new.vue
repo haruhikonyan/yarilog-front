@@ -6,11 +6,9 @@
       </h1>
       <b-form @submit.prevent="createPlayingLog">
         <b-form-group label="演奏曲">
-          <b-form-select v-model="playingLog.tune" required>
-            <option v-for="tune in tunes" :key="tune.id" :value="tune">
-              {{ tune.composer.displayName }}: {{ tune.title }}
-            </option>
-          </b-form-select>
+          <p v-if="playingLog.tune">{{ playingLog.tune.composer.displayName }}作曲 {{ playingLog.tune.title }}</p>
+          <b-button variant="primary" block @click="$bvModal.show('modal-tune-selector')">演奏曲を選択する</b-button>
+          <TuneSelector :composers="composers" @select-tune="selectTune($event)" />
         </b-form-group>
 
         <b-form-group label="演奏日">
@@ -100,7 +98,7 @@
         <b-form-group label="下書き">
           <b-form-checkbox v-model="playingLog.isDraft"> </b-form-checkbox>
         </b-form-group>
-        <b-button type="submit" variant="primary">作成</b-button>
+        <b-button block type="submit" variant="primary">作成</b-button>
       </b-form>
       <nuxt-link to="/tunes/new">曲作成</nuxt-link>
     </div>
@@ -111,25 +109,33 @@
 import { Component, Vue } from 'vue-property-decorator';
 import { User } from '~/models/User';
 import { PlayingLog, PlayerLevel } from '~/models/PlayingLog';
-import { Tune } from 'models/Tune';
 import { Instrument } from '../../models/Instrument';
+import TuneSelector from '../../components/TuneSelector.vue';
+import { Composer } from '../../models/Composer';
+import { Tune } from '../../models/Tune';
 
 @Component({
-  components: {},
+  components: {
+    TuneSelector
+  },
   async asyncData({ app }) {
-    const tunesData = await app.$api.getTunes();
+    const composersData = await app.$api.getComposers();
     const instrumentsData = await app.$api.getInstruments();
-    return { tunes: tunesData, instruments: instrumentsData };
+    return { composers: composersData, instruments: instrumentsData };
   }
 })
 export default class Index extends Vue {
-  tunes: Tune[] = [];
+  composers: Composer[] = [];
   instruments: Instrument[] = [];
   playingLog: PlayingLog = new PlayingLog();
   playerLevelList: Object = PlayerLevel;
   async createPlayingLog() {
     const savedPlayingLog = await this.$api.createPlayingLog(this.playingLog);
     this.$router.push(savedPlayingLog.id!);
+  }
+  // TuneSelector で選択された tune を playingLog にセットする
+  selectTune(tune: Tune) {
+    this.playingLog.tune = tune;
   }
 }
 </script>

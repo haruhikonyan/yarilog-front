@@ -69,7 +69,10 @@ export class Api {
     const url = this.API_TUNE_URL;
     return this.context.$axios.$get(url)
   }
-  
+  getTuneByComposer(composerId: string): Promise<Tune[]> {
+    const url: string = urljoin(this.API_TUNE_URL, 'composers', composerId);
+    return this.context.$axios.$get(url);
+  }
   createTune(tune: Tune): Promise<Tune> {
     return this.context.$axios.$post(this.API_TUNE_URL, tune)
   }

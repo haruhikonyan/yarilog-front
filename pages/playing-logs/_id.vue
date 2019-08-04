@@ -2,7 +2,7 @@
   <section class="container">
     <div>
       <h4>{{ playingLog.tune.title }}</h4>
-      <small class="text-muted">{{ playingLog.tune.composer.fullName }}作曲</small>
+      <small class="text-muted">{{ playingLog.tune.composer.displayName }}作曲</small>
       <h5 class="text-center">
         難易度: {{ playingLog.difficulty }} 体力: {{ playingLog.physicality }} 面白さ: {{ playingLog.interesting }}
       </h5>
