@@ -12,7 +12,7 @@
         :sub-title="`${playingLog.instrument.name} ${playingLog.position}`"
       >
         <b-card-text>
-          <pre class="yrl-pre-wrap">{{ playingLog.inpression }}</pre>
+          <pre class="yrl-pre-wrap">{{ playingLog.impressionOfInteresting }}</pre>
         </b-card-text>
       </b-card>
       <b-card class="mb-2" title="全体の感想">

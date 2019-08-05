@@ -69,10 +69,28 @@
           ></b-form-input>
         </b-form-group>
 
-        <b-form-group label="自分のパートの感想">
+        <b-form-group label="面白かったところ">
           <b-form-textarea
-            v-model="playingLog.inpression"
-            placeholder="難しかった"
+            v-model="playingLog.impressionOfInteresting"
+            placeholder="4楽章が吹きごたえあって面白かった"
+            rows="3"
+            max-rows="6"
+          ></b-form-textarea>
+        </b-form-group>
+
+        <b-form-group label="難しかったところ">
+          <b-form-textarea
+            v-model="playingLog.impressionOfDifficulty"
+            placeholder="3楽章のメロディー合わせるのに苦労した"
+            rows="3"
+            max-rows="6"
+          ></b-form-textarea>
+        </b-form-group>
+
+        <b-form-group label="次への反省">
+          <b-form-textarea
+            v-model="playingLog.reflectionForNext"
+            placeholder="1楽章 B のところからのリズムもっと練習する"
             rows="3"
             max-rows="6"
           ></b-form-textarea>
@@ -81,7 +99,7 @@
         <b-form-group label="他パートや全体の感想">
           <b-form-textarea
             v-model="playingLog.otherPartInpression"
-            placeholder="難しそうだった"
+            placeholder="4楽章コーダの弦楽器の細かい音符が難しそうだった"
             rows="3"
             max-rows="6"
           ></b-form-textarea>
@@ -90,7 +108,7 @@
         <b-form-group label="非公開の自分用メモ">
           <b-form-textarea
             v-model="playingLog.secretMemo"
-            placeholder="もうやりたくない"
+            placeholder="風邪で本調子ではなかった"
             rows="3"
             max-rows="6"
           ></b-form-textarea>

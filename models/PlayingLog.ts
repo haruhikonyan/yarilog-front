@@ -34,8 +34,12 @@ export class PlayingLog {
   // 面白さ 5段階
   interesting: number = 3;
 
-  // 自分のパートの感想
-  inpression: string | null = null;
+  // 面白かったところ
+  impressionOfInteresting: string | null = null;
+  // 難しかったところ
+  impressionOfDifficulty: string | null = null;
+  // 次への反省
+  reflectionForNext: string | null = null;
   // 他のパートや全体について
   otherPartInpression: string | null = null;
   // 非公開のメモ
