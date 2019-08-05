@@ -19,10 +19,10 @@
 import { Component, Vue } from 'vue-property-decorator';
 import { User } from '~/models/User';
 import { PlayingLog, PlayerLevel } from '~/models/PlayingLog';
-import { Instrument } from '../../../models/Instrument';
-import PlayingLogForm from '../../../components/PlayingLogForm.vue';
-import { Composer } from '../../../models/Composer';
-import { Tune } from '../../../models/Tune';
+import { Instrument } from '~/models/Instrument';
+import PlayingLogForm from '~/components/PlayingLogForm.vue';
+import { Composer } from '~/models/Composer';
+import { Tune } from '~/models/Tune';
 
 @Component({
   components: {

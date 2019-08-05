@@ -29,7 +29,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { PlayingLog } from '../../models/PlayingLog';
+import { PlayingLog } from '~/models/PlayingLog';
 
 @Component({
   components: {},
