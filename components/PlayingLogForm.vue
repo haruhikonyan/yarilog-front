@@ -38,16 +38,16 @@
       </b-form-select>
     </b-form-group>
 
-    <b-form-group label="難易度" :description="`数の大きい方が難しい: ${playingLog.difficulty}`">
-      <b-form-input v-model="playingLog.difficulty" required type="range" min="0" max="5" step="0.1"></b-form-input>
+    <b-form-group label="面白さ" :description="`数の大きい方が面白い: ${playingLog.interesting}`">
+      <b-form-input v-model="playingLog.interesting" required type="range" min="0" max="5" step="0.1"></b-form-input>
     </b-form-group>
 
     <b-form-group label="体力" :description="`数の大きい方が疲れる: ${playingLog.physicality}`">
       <b-form-input v-model="playingLog.physicality" required type="range" min="0" max="5" step="0.1"></b-form-input>
     </b-form-group>
 
-    <b-form-group label="面白さ" :description="`数の大きい方が面白い: ${playingLog.interesting}`">
-      <b-form-input v-model="playingLog.interesting" required type="range" min="0" max="5" step="0.1"></b-form-input>
+    <b-form-group label="難易度" :description="`数の大きい方が難しい: ${playingLog.difficulty}`">
+      <b-form-input v-model="playingLog.difficulty" required type="range" min="0" max="5" step="0.1"></b-form-input>
     </b-form-group>
 
     <b-form-group label="面白かったところ">

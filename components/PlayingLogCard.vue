@@ -8,7 +8,7 @@
       <b-card-text class="mb-1">{{ playingLog.user.nickname }}さんの{{ playingLog.playDate }}演奏</b-card-text>
       <pre class="text-muted yrl-pre-wrap yrl-truncate-three-line">{{ playingLog.impressionOfInteresting }}</pre>
       <div slot="footer">
-        難易度: {{ playingLog.difficulty }} 体力: {{ playingLog.physicality }} 面白さ: {{ playingLog.interesting }}
+        面白さ: {{ playingLog.interesting }} 体力: {{ playingLog.physicality }} 難易度: {{ playingLog.difficulty }}
         <div>
           <b-badge>{{ playingLog.playerLevel }}</b-badge>
           <b-badge>{{ playingLog.instrument.shortName }} {{ playingLog.position }}</b-badge>
