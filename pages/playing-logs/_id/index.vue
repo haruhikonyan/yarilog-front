@@ -19,7 +19,7 @@
           <pre class="yrl-pre-wrap">{{ playingLog.impressionOfDifficulty }}</pre>
         </b-card-text>
       </b-card>
-      <b-card v-if="playingLog.reflectionForNext" class="mb-2" title="次回への反省">
+      <b-card v-if="playingLog.reflectionForNext" class="mb-2" title="次回への反省やアドバイス">
         <b-card-text>
           <pre class="yrl-pre-wrap">{{ playingLog.reflectionForNext }}</pre>
         </b-card-text>

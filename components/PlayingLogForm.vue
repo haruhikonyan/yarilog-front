@@ -68,7 +68,7 @@
       ></b-form-textarea>
     </b-form-group>
 
-    <b-form-group label="次への反省">
+    <b-form-group label="次回への反省やアドバイス">
       <b-form-textarea
         v-model="playingLog.reflectionForNext"
         placeholder="1楽章 B のところからのリズムもっと練習する"

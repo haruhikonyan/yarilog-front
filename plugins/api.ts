@@ -124,6 +124,13 @@ export class Api {
     const { data } = await axios.get(url);
     return data
   }
+
+  // TODO 開発終わったら or 必要なくなったら消す
+  async getDevInfo(): Promise<string> {
+    const url = 'https://gist.githubusercontent.com/haruhikonyan/935a14e3e9aa1c41522b6aa8e3b1fa6d/raw'
+    const { data } = await axios.get(url);
+    return data
+  }
 }
 
 export default (context, inject) => {
