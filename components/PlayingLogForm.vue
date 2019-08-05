@@ -1,5 +1,5 @@
 <template>
-  <b-form @submit.prevent="createPlayingLog">
+  <b-form @submit.prevent="submitHandler">
     <b-form-group label="演奏曲">
       <p v-if="playingLog.tune">{{ playingLog.tune.composer.displayName }}作曲 {{ playingLog.tune.title }}</p>
       <b-button variant="primary" block @click="$bvModal.show('modal-tune-selector')">演奏曲を選択する</b-button>
@@ -97,7 +97,7 @@
     <b-form-group label="下書き">
       <b-form-checkbox v-model="playingLog.isDraft"> </b-form-checkbox>
     </b-form-group>
-    <b-button block type="submit" variant="primary">作成</b-button>
+    <b-button block type="submit" variant="primary">保存</b-button>
   </b-form>
 </template>
 
@@ -127,5 +127,7 @@ export default class PlayingLogForm extends Vue {
   selectTune(tune: Tune) {
     this.playingLog.tune = tune;
   }
+  @Emit('on-submit')
+  submitHandler() {}
 }
 </script>

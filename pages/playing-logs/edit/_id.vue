@@ -2,13 +2,13 @@
   <section class="container">
     <div>
       <h1 class="title">
-        演奏ログ新規作成ページ
+        演奏ログ編集ページ
       </h1>
       <PlayingLogForm
         :composers="composers"
         :instruments="instruments"
         :playing-log="playingLog"
-        @on-submit="createPlayingLog"
+        @on-submit="updatePlayingLog"
       />
       <nuxt-link to="/tunes/new">曲作成</nuxt-link>
     </div>
@@ -19,28 +19,29 @@
 import { Component, Vue } from 'vue-property-decorator';
 import { User } from '~/models/User';
 import { PlayingLog, PlayerLevel } from '~/models/PlayingLog';
-import { Instrument } from '../../models/Instrument';
-import PlayingLogForm from '../../components/PlayingLogForm.vue';
-import { Composer } from '../../models/Composer';
-import { Tune } from '../../models/Tune';
+import { Instrument } from '../../../models/Instrument';
+import PlayingLogForm from '../../../components/PlayingLogForm.vue';
+import { Composer } from '../../../models/Composer';
+import { Tune } from '../../../models/Tune';
 
 @Component({
   components: {
     PlayingLogForm
   },
-  async asyncData({ app }) {
+  async asyncData({ app, params }) {
+    const playingLogData = await app.$api.getPlayingLog(params.id);
     const composersData = await app.$api.getComposers();
     const instrumentsData = await app.$api.getInstruments();
-    return { composers: composersData, instruments: instrumentsData };
+    return { playingLog: playingLogData, composers: composersData, instruments: instrumentsData };
   }
 })
 export default class Index extends Vue {
   composers: Composer[] = [];
   instruments: Instrument[] = [];
-  playingLog: PlayingLog = new PlayingLog();
-  async createPlayingLog() {
-    const savedPlayingLog = await this.$api.createPlayingLog(this.playingLog);
-    this.$router.push(savedPlayingLog.id!);
+  playingLog!: PlayingLog;
+  async updatePlayingLog() {
+    const savedPlayingLog = await this.$api.updatePlayingLog(this.playingLog);
+    this.$router.push(`/playing-logs/${savedPlayingLog.id!}`);
   }
 }
 </script>

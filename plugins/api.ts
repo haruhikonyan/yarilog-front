@@ -104,6 +104,10 @@ export class Api {
   createPlayingLog(plyaingLog: PlayingLog): Promise<PlayingLog> {
     return this.context.$axios.$post(this.API_PLAYING_LOG_URL, plyaingLog)
   }
+  // TODO back と共にちゃんとAPIを分ける
+  updatePlayingLog(plyaingLog: PlayingLog): Promise<PlayingLog> {
+    return this.context.$axios.$post(this.API_PLAYING_LOG_URL, plyaingLog)
+  }
 
   getInstruments(): Promise<Instrument[]> {
     const url = this.API_INSTRUMENT_URL;
