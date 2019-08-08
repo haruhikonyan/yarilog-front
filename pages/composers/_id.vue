@@ -1,7 +1,7 @@
 <template>
   <section class="container">
     <div>
-      <h3>{{ playingLogs[0].tune.composer.fullName }}の演奏記録一覧</h3>
+      <h3>{{ composer.fullName }}の演奏記録一覧</h3>
     </div>
     <PlayingLogCard v-for="playingLog in playingLogs" :key="playingLog.id" :playing-log="playingLog" />
   </section>
@@ -18,10 +18,11 @@ import PlayingLogCard from '../../components/PlayingLogCard.vue';
   },
   async asyncData({ app, params }) {
     const data = await app.$api.getPlayingLogsByComposer(params.id);
-    return { playingLogs: data };
+    const composer = await app.$api.getComposer(params.id);
+    return { playingLogs: data, composer: composer };
   }
 })
 export default class Index extends Vue {
-  playingLogs: PlayingLog[] | null = null;
+  playingLogs: PlayingLog[] = [];
 }
 </script>
