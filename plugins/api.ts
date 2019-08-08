@@ -6,9 +6,10 @@ import { PlayingLog } from "~/models/PlayingLog";
 import { Tune } from "~/models/Tune";
 import { LoginObject } from "~/models/LoginObject";
 import { Instrument } from "~/models/Instrument";
+import { LoginResultObject } from "~/models/LoginResultObject";
 
 // TODO 開発終わったら or 必要なくなったら消す
-import axios from 'axios'
+import axios from 'axios';
 
 export class Api {
   // TODO この context の型取得したい
@@ -24,7 +25,7 @@ export class Api {
   private readonly API_PLAYING_LOG_URL = 'playing-logs';
   private readonly API_INSTRUMENT_URL = 'instruments';
 
-  login(loginObject: LoginObject): Promise<string> {
+  login(loginObject: LoginObject): Promise<LoginResultObject> {
     const url: string = urljoin(this.API_AUTH_URL, 'login');
     return this.context.$axios.$post(url, loginObject);
   }

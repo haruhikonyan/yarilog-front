@@ -32,16 +32,17 @@ import $axios from '@nuxtjs/axios';
 export default class Index extends Vue {
   loginObject: LoginObject = new LoginObject();
   async postLogin() {
-    const token = await this.$api.login({
+    const loginReultObject = await this.$api.login({
       loginId: this.loginObject.loginId,
       password: this.loginObject.password
     });
     const auth = {
-      accessToken: token
+      accessToken: loginReultObject.token,
+      userId: loginReultObject.user.id
     };
     this.$store.commit('setAuth', auth); // mutating to store for client rendering
     Cookie.set('auth', auth); // saving token in cookie for server rendering
-    this.$axios.setToken(token, 'Bearer');
+    this.$axios.setToken(loginReultObject.token, 'Bearer');
     this.$router.push('/mypage');
   }
 }
