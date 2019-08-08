@@ -1,9 +1,18 @@
 <template>
   <nuxt-link :to="`/playing-logs/${playingLog.id}`">
     <b-card header-tag="header" footer-tag="footer" class="my-3">
-      <div slot="header">
-        <h4>{{ playingLog.tune.title }}</h4>
-        <h6 class="text-muted">{{ playingLog.tune.composer.displayName }}作曲</h6>
+      <div slot="header" class="d-flex justify-content-between">
+        <div>
+          <h4>{{ playingLog.tune.title }}</h4>
+          <h6 class="text-muted">{{ playingLog.tune.composer.displayName }}作曲</h6>
+        </div>
+        <b-button
+          v-if="showEditButton"
+          size="sm"
+          class="align-self-start text-nowrap mr-n3"
+          @click.prevent="editClickHandler"
+          >編集</b-button
+        >
       </div>
       <b-card-text class="mb-1">{{ playingLog.user.nickname }}さんの{{ playingLog.playDate }}演奏</b-card-text>
       <pre class="text-muted yrl-pre-wrap yrl-truncate-three-line">{{ playingLog.impressionOfInteresting }}</pre>
@@ -27,6 +36,14 @@ export default class PlayingLogCard extends Vue {
   // type 指定したいが API から取得したモデルは new してないため Object と判断されてしまう？
   @Prop({ type: Object, required: true })
   playingLog!: PlayingLog;
+
+  get showEditButton(): boolean {
+    // ログインユーザと id が一致していれば編集ボタンを出す(どこだろうと出すことにする)
+    return this.$store.state.auth ? this.$store.state.auth.userId === this.playingLog.user!.id : false;
+  }
+  editClickHandler(event) {
+    this.$router.push(`/playing-logs/${this.playingLog.id}/edit`);
+  }
 }
 </script>
 <style lang="scss" scoped>

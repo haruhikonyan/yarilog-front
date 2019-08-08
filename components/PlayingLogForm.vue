@@ -6,14 +6,6 @@
       <TuneSelector :composers="composers" @select-tune="selectTune($event)" />
     </b-form-group>
 
-    <b-form-group label="演奏日">
-      <b-form-input v-model="playingLog.playDate" type="date"></b-form-input>
-    </b-form-group>
-
-    <b-form-group label="演奏団体">
-      <b-form-input v-model="playingLog.team" placeholder="読売日本交響楽団"></b-form-input>
-    </b-form-group>
-
     <b-form-group label="担当パート">
       <b-form-select v-model="playingLog.instrument" required>
         <option v-for="instrument in instruments" :key="instrument.id" :value="instrument">
@@ -84,6 +76,14 @@
         rows="3"
         max-rows="6"
       ></b-form-textarea>
+    </b-form-group>
+
+    <b-form-group label="演奏日">
+      <b-form-input v-model="playingLog.playDate" type="date"></b-form-input>
+    </b-form-group>
+
+    <b-form-group label="演奏団体">
+      <b-form-input v-model="playingLog.team" placeholder="読売日本交響楽団"></b-form-input>
     </b-form-group>
 
     <b-form-group label="非公開の自分用メモ">
