@@ -13,8 +13,9 @@
         </b-form-group>
 
         <b-button block type="submit" variant="primary">ログイン</b-button>
-        <small><nuxt-link to="/users/new">ユーザ新規登録</nuxt-link></small>
       </b-form>
+      <b-alert v-if="loginErrorMessage" show variant="danger">{{ loginErrorMessage }}</b-alert>
+      <small><nuxt-link to="/users/new">ユーザ新規登録</nuxt-link></small>
     </div>
   </section>
 </template>
@@ -31,19 +32,27 @@ import $axios from '@nuxtjs/axios';
 })
 export default class Index extends Vue {
   loginObject: LoginObject = new LoginObject();
+  loginErrorMessage: string | null = null;
   async postLogin() {
-    const loginReultObject = await this.$api.login({
-      loginId: this.loginObject.loginId,
-      password: this.loginObject.password
-    });
-    const auth = {
-      accessToken: loginReultObject.token,
-      userId: loginReultObject.user.id
-    };
-    this.$store.commit('setAuth', auth); // mutating to store for client rendering
-    Cookie.set('auth', auth); // saving token in cookie for server rendering
-    this.$axios.setToken(loginReultObject.token, 'Bearer');
-    this.$router.push('/mypage');
+    // TODO 全部 try でかこうのも let 使わなきゃいけないのもどっちも嫌い
+    try {
+      const loginReultObject = await this.$api.login({
+        loginId: this.loginObject.loginId,
+        password: this.loginObject.password
+      });
+      const auth = {
+        accessToken: loginReultObject.token,
+        userId: loginReultObject.user.id
+      };
+      this.$store.commit('setAuth', auth); // mutating to store for client rendering
+      Cookie.set('auth', auth); // saving token in cookie for server rendering
+      this.$axios.setToken(loginReultObject.token, 'Bearer');
+      this.$router.push('/mypage');
+    } catch (e) {
+      if (e.response.status === 401) {
+        this.loginErrorMessage = 'ユーザ名/メールアドレス もしくは パスワードが間違っています';
+      }
+    }
   }
 }
 </script>
