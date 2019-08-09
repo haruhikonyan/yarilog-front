@@ -81,29 +81,54 @@ export class Api {
     return this.context.$axios.$post(this.API_TUNE_URL, tune)
   }
 
-  getPlayingLogs(): Promise<PlayingLog[]> {
+  getPlayingLogs(limit?: number, offset?: number): Promise<PlayingLog[]> {
     const url = this.API_PLAYING_LOG_URL;
-    return this.context.$axios.$get(url)
+    return this.context.$axios.$get(url, {
+      params: {
+        limit: limit,
+        offset: offset
+      }
+    })
   }
   getPlayingLog(id: string): Promise<PlayingLog> {    
     const url: string = urljoin(this.API_PLAYING_LOG_URL, id);
     return this.context.$axios.$get(url)
   }
-  getPlayingLogsByComposer(composerId: string): Promise<PlayingLog[]> {
+  getPlayingLogsByComposer(composerId: string, limit?: number, offset?: number): Promise<PlayingLog[]> {
     const url: string = urljoin(this.API_PLAYING_LOG_URL, 'composers', composerId);
-    return this.context.$axios.$get(url)
+    return this.context.$axios.$get(url, {
+      params: {
+        limit: limit,
+        offset: offset
+      }
+    })
   }
-  getPlayingLogsByCountry(countryId: string): Promise<PlayingLog[]> {
+  getPlayingLogsByCountry(countryId: string, limit?: number, offset?: number): Promise<PlayingLog[]> {
     const url: string = urljoin(this.API_PLAYING_LOG_URL, 'countries', countryId);
-    return this.context.$axios.$get(url)
+    return this.context.$axios.$get(url, {
+      params: {
+        limit: limit,
+        offset: offset
+      }
+    })
   }
-  getPlayingLogsByInstrument(instrumentId: string): Promise<PlayingLog[]> {
+  getPlayingLogsByInstrument(instrumentId: string, limit?: number, offset?: number): Promise<PlayingLog[]> {
     const url: string = urljoin(this.API_PLAYING_LOG_URL, 'instruments', instrumentId);
-    return this.context.$axios.$get(url)
+    return this.context.$axios.$get(url, {
+      params: {
+        limit: limit,
+        offset: offset
+      }
+    })
   }
-  getPlayingLogsByUser(userId: string): Promise<PlayingLog[]> {
+  getPlayingLogsByUser(userId: string, limit?: number, offset?: number): Promise<PlayingLog[]> {
     const url: string = urljoin(this.API_PLAYING_LOG_URL, 'users', userId);
-    return this.context.$axios.$get(url)
+    return this.context.$axios.$get(url, {
+      params: {
+        limit: limit,
+        offset: offset
+      }
+    })
   }
   createPlayingLog(plyaingLog: PlayingLog): Promise<PlayingLog> {
     return this.context.$axios.$post(this.API_PLAYING_LOG_URL, plyaingLog)

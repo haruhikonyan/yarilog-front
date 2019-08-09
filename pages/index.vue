@@ -45,7 +45,7 @@ import PlayingLogCard from '../components/PlayingLogCard.vue';
     PlayingLogCard
   },
   async asyncData({ app }) {
-    const data = await app.$api.getPlayingLogs();
+    const data = await app.$api.getPlayingLogs(5);
     const info = await app.$api.getInfo();
     const devInfo = await app.$api.getDevInfo();
     return { playingLogs: data, info: info, devInfo: devInfo };
