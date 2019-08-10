@@ -4,6 +4,7 @@
       <h1>
         トップページ
       </h1>
+      <PlayingLogSearchBox class="my-3" />
       <p><nuxt-link to="/composers">作曲家から演奏記録を探す</nuxt-link></p>
       <p><nuxt-link to="/countries">国から演奏記録を探す</nuxt-link></p>
       <p><nuxt-link to="/instruments">楽器から演奏記録を探す</nuxt-link></p>
@@ -39,10 +40,12 @@ import { Composer } from 'models/Composer';
 import Cookie from 'js-cookie';
 import { PlayingLog } from '../models/PlayingLog';
 import PlayingLogCard from '../components/PlayingLogCard.vue';
+import PlayingLogSearchBox from '../components/PlayingLogSearchBox.vue';
 
 @Component({
   components: {
-    PlayingLogCard
+    PlayingLogCard,
+    PlayingLogSearchBox
   },
   async asyncData({ app }) {
     const data = await app.$api.getPlayingLogs(5);

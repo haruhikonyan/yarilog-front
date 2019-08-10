@@ -11,7 +11,6 @@ export default ({ $axios, store, redirect, nuxtState }) => {
       Cookie.remove('auth');
       store.commit('setAuth', null);
       $axios.setToken(false);
-      console.log('hohoge');
       redirect('/login');
     }
   });

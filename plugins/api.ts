@@ -90,6 +90,17 @@ export class Api {
       }
     })
   }
+
+  getPlayingLogsBySearchWord(searchWord: string, limit?: number, offset?: number): Promise<PlayingLog[]> {
+    const url = urljoin(this.API_PLAYING_LOG_URL, 'search');
+    return this.context.$axios.$get(url, {
+      params: {
+        searchWord: searchWord,
+        limit: limit,
+        offset: offset
+      }
+    })
+  }
   getPlayingLog(id: string): Promise<PlayingLog> {    
     const url: string = urljoin(this.API_PLAYING_LOG_URL, id);
     return this.context.$axios.$get(url)

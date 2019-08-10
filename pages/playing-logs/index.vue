@@ -1,14 +1,11 @@
 <template>
   <section class="container">
     <div>
-      <h1>
-        演奏ログ一覧、検索結果
+      <h1 class="text-center">
+        演奏記録 検索結果
       </h1>
-      <p v-for="playingLog in playingLogs" :key="playingLog.id">
-        <nuxt-link :to="`/playing-logs/${playingLog.id}`"
-          >{{ playingLog.tune.composer.displayName }}作曲 {{ playingLog.tune.title }}</nuxt-link
-        >
-      </p>
+      <PlayingLogSearchBox :search-word="searchWord" class="my-3" />
+      <PlayingLogCard v-for="playingLog in playingLogs" :key="playingLog.id" :playing-log="playingLog" />
     </div>
   </section>
 </template>
@@ -17,12 +14,18 @@
 import { Component, Vue } from 'vue-property-decorator';
 import { User } from '~/models/User';
 import { PlayingLog } from '~/models/PlayingLog';
+import PlayingLogCard from '~/components/PlayingLogCard.vue';
+import PlayingLogSearchBox from '~/components/PlayingLogSearchBox.vue';
 
 @Component({
-  components: {},
-  async asyncData({ app }) {
-    const data = await app.$api.getPlayingLogs();
-    return { playingLogs: data };
+  components: {
+    PlayingLogCard,
+    PlayingLogSearchBox
+  },
+  async asyncData({ app, query }) {
+    const searchWord = query.searchWord as string;
+    const playingLogsData = await app.$api.getPlayingLogsBySearchWord(searchWord);
+    return { playingLogs: playingLogsData, searchWord: searchWord };
   }
 })
 export default class Index extends Vue {
