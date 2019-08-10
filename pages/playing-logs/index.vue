@@ -4,18 +4,19 @@
       <h1 class="text-center">
         演奏記録 検索結果
       </h1>
-      <PlayingLogSearchBox :search-word="searchWord" class="my-3" />
+      <PlayingLogSearchBox :default-search-word="searchWord" class="my-3" />
       <PlayingLogCard v-for="playingLog in playingLogs" :key="playingLog.id" :playing-log="playingLog" />
     </div>
   </section>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-property-decorator';
+import { Component, Vue, Watch } from 'vue-property-decorator';
 import { User } from '~/models/User';
 import { PlayingLog } from '~/models/PlayingLog';
 import PlayingLogCard from '~/components/PlayingLogCard.vue';
 import PlayingLogSearchBox from '~/components/PlayingLogSearchBox.vue';
+import { Route } from 'vue-router';
 
 @Component({
   components: {
@@ -30,5 +31,11 @@ import PlayingLogSearchBox from '~/components/PlayingLogSearchBox.vue';
 })
 export default class Index extends Vue {
   playingLogs: PlayingLog[] = [];
+
+  @Watch('$route', { immediate: true, deep: true })
+  async research(newRoute: Route) {
+    const newSearchWord = newRoute.query.searchWord as string;
+    this.playingLogs = await this.$api.getPlayingLogsBySearchWord(newSearchWord);
+  }
 }
 </script>

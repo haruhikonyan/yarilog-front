@@ -13,7 +13,14 @@ import { PlayingLog } from '../models/PlayingLog';
 @Component({})
 export default class PlayingLogSearchBox extends Vue {
   @Prop({ type: String, default: null })
+  defaultSearchWord!: string | null;
+
   searchWord!: string | null;
+
+  created() {
+    // Prop を子コンポーネントでいじるのはよくない
+    this.searchWord = this.defaultSearchWord;
+  }
 
   search() {
     if (this.searchWord) {
