@@ -5,6 +5,9 @@
         演奏記録 検索結果
       </h1>
       <PlayingLogSearchBox :default-search-word="searchWord" class="my-3" />
+      <b-alert v-if="playingLogs.length == 0" show variant="danger" class="yrl-pre-wrap">{{
+        noHitSearchResultMessage
+      }}</b-alert>
       <PlayingLogCard v-for="playingLog in playingLogs" :key="playingLog.id" :playing-log="playingLog" />
     </div>
   </section>
@@ -31,6 +34,8 @@ import { Route } from 'vue-router';
 })
 export default class Index extends Vue {
   playingLogs: PlayingLog[] = [];
+  noHitSearchResultMessage =
+    '検索した演奏記録はありませんでした。\n作曲家の名前などの表記揺れにご注意ください。\n例）ベートーベン => ベートーヴェン';
 
   @Watch('$route', { immediate: true, deep: true })
   async research(newRoute: Route) {
