@@ -22,7 +22,7 @@
             placeholder="yarilog@gmail.com"
           ></b-form-input>
         </b-form-group>
-        <b-form-group label="パスワード" description="まだ暗号化されてないので見えても問題ないものを設定してください">
+        <b-form-group label="パスワード">
           <b-form-input v-model="newUser.password" type="password" required></b-form-input>
         </b-form-group>
         <b-form-group label="表示名">

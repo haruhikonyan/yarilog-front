@@ -3,6 +3,6 @@ export class User {
   username: string | null = null;
   mailAddress: string | null = null;
   password: string | null = null;
-  nickname: string | null = null;
+  nickname!: string;
   description: string | null = null;
 }

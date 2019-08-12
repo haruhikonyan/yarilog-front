@@ -1,8 +1,8 @@
 import { Composer } from "./Composer";
 
 export class Tune {
-  id: number | null = null;
-  title: string | null = null;
+  id: number | undefined;
+  title!: string;
   description: string | null = null;
-  composer: Composer | null = null;
+  composer!: Composer;
 }

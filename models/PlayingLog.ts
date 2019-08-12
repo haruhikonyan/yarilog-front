@@ -19,10 +19,10 @@ export class PlayingLog {
   team: string | null = null;
 
   // 自分の演奏レベル
-  playerLevel: PlayerLevel | null = null;
+  playerLevel!: PlayerLevel;
 
   // 担当パート
-  instrument: Instrument | null = null;
+  instrument!: Instrument;
 
   // ポジション 1stとかバンダとか
   position: string | null = null;
@@ -47,8 +47,8 @@ export class PlayingLog {
   //　下書きフラグ
   isDraft: boolean = false;
 
-  tune: Tune | null = null;
-  user: User | null = null;
+  tune!: Tune;
+  user!: User;
 
   constructor() {
   }

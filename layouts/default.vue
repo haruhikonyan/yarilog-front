@@ -25,7 +25,11 @@ import { Component, Vue } from 'vue-property-decorator';
 import Cookie from 'js-cookie';
 
 @Component({
-  components: {}
+  components: {},
+  head: {
+    title: '演りログ',
+    meta: [{ hid: 'description', name: 'description', content: '演奏した曲のレビューサイト' }]
+  }
 })
 export default class Index extends Vue {
   logout() {

@@ -45,9 +45,17 @@ import { PlayingLog } from '~/models/PlayingLog';
   async asyncData({ app, params }) {
     const data = await app.$api.getPlayingLog(params.id);
     return { playingLog: data };
+  },
+  head(this: Index) {
+    return {
+      title: `${this.playingLog.tune.title} ${this.playingLog.instrument.name}${this.playingLog.position} ${
+        this.playingLog.user.nickname
+      }さん演奏 - 演りログ`,
+      meta: [{ hid: 'description', name: 'description', content: `${this.playingLog.impressionOfInteresting}` }]
+    };
   }
 })
 export default class Index extends Vue {
-  playingLog: PlayingLog | null = null;
+  playingLog!: PlayingLog;
 }
 </script>
