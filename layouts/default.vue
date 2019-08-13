@@ -36,6 +36,7 @@ export default class Index extends Vue {
     Cookie.remove('auth');
     this.$store.commit('setAuth', null);
     this.$axios.setToken(false);
+    this.$router.push('/');
   }
 }
 </script>
