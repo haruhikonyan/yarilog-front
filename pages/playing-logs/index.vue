@@ -28,8 +28,8 @@ import { Route } from 'vue-router';
   },
   async asyncData({ app, query }) {
     const searchWord = query.searchWord as string;
-    const playingLogsData = await app.$api.getPlayingLogsBySearchWord(searchWord);
-    return { playingLogs: playingLogsData, searchWord: searchWord };
+    const playingLogs = await app.$api.getPlayingLogsBySearchWord(searchWord);
+    return { playingLogs, searchWord };
   }
 })
 export default class Index extends Vue {

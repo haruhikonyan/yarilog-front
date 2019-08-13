@@ -17,9 +17,9 @@ import PlayingLogCard from '../../components/PlayingLogCard.vue';
     PlayingLogCard
   },
   async asyncData({ app, params }) {
-    const data = await app.$api.getPlayingLogsByComposer(params.id);
+    const playingLogs = await app.$api.getPlayingLogsByComposer(params.id);
     const composer = await app.$api.getComposer(params.id);
-    return { playingLogs: data, composer: composer };
+    return { playingLogs, composer };
   }
 })
 export default class Index extends Vue {

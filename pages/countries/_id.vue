@@ -20,7 +20,7 @@ import PlayingLogCard from '../../components/PlayingLogCard.vue';
   async asyncData({ app, params }) {
     const playingLogs = await app.$api.getPlayingLogsByCountry(params.id);
     const country = await app.$api.getCountry(params.id);
-    return { playingLogs: playingLogs, country: country };
+    return { playingLogs, country };
   }
 })
 export default class Index extends Vue {

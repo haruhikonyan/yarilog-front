@@ -43,8 +43,8 @@ import { PlayingLog } from '~/models/PlayingLog';
 @Component({
   components: {},
   async asyncData({ app, params }) {
-    const data = await app.$api.getPlayingLog(params.id);
-    return { playingLog: data };
+    const playingLog = await app.$api.getPlayingLog(params.id);
+    return { playingLog };
   },
   head(this: Index) {
     return {

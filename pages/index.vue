@@ -48,10 +48,10 @@ import PlayingLogSearchBox from '../components/PlayingLogSearchBox.vue';
     PlayingLogSearchBox
   },
   async asyncData({ app }) {
-    const data = await app.$api.getPlayingLogs(5);
+    const playingLogs = await app.$api.getPlayingLogs(5);
     const info = await app.$api.getInfo();
     const devInfo = await app.$api.getDevInfo();
-    return { playingLogs: data, info: info, devInfo: devInfo };
+    return { playingLogs, info, devInfo };
   }
 })
 export default class Index extends Vue {}
