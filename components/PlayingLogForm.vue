@@ -102,6 +102,7 @@
 </template>
 
 <script lang="ts">
+import { PropType } from 'vue';
 import { Component, Vue, Prop, Emit } from 'vue-property-decorator';
 import { PlayingLog, PlayerLevel } from '../models/PlayingLog';
 import { Composer } from '../models/Composer';
@@ -116,11 +117,11 @@ import TuneSelector from './TuneSelector.vue';
 })
 export default class PlayingLogForm extends Vue {
   // 曲を検索するための作曲家一覧を受け取る
-  @Prop({ type: Array, required: true })
+  @Prop({ type: Array as PropType<Composer[]>, required: true })
   composers!: Composer[];
-  @Prop({ type: Array, required: true })
+  @Prop({ type: Array as PropType<Instrument[]>, required: true })
   instruments!: Instrument[];
-  @Prop({ type: Object, required: true })
+  @Prop({ type: Object as PropType<PlayingLog>, required: true })
   playingLog!: PlayingLog;
   playerLevelList: Object = PlayerLevel;
   // TuneSelector で選択された tune を playingLog にセットする

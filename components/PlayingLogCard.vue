@@ -28,13 +28,13 @@
 </template>
 
 <script lang="ts">
+import { PropType } from 'vue';
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import { PlayingLog } from '../models/PlayingLog';
 
 @Component({})
 export default class PlayingLogCard extends Vue {
-  // type 指定したいが API から取得したモデルは new してないため Object と判断されてしまう？
-  @Prop({ type: Object, required: true })
+  @Prop({ type: Object as PropType<PlayingLog>, required: true })
   playingLog!: PlayingLog;
 
   get showEditButton(): boolean {
