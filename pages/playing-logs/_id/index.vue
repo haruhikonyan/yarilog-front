@@ -16,17 +16,22 @@
       </b-card>
       <b-card v-if="playingLog.impressionOfDifficulty" class="mb-2" title="難しかったところ">
         <b-card-text>
-          <pre class="yrl-pre-wrap">{{ playingLog.impressionOfDifficulty }}</pre>
+          <pre class="yrl-pre-wrap mb-0">{{ playingLog.impressionOfDifficulty }}</pre>
         </b-card-text>
       </b-card>
       <b-card v-if="playingLog.reflectionForNext" class="mb-2" title="次回への反省やアドバイス">
         <b-card-text>
-          <pre class="yrl-pre-wrap">{{ playingLog.reflectionForNext }}</pre>
+          <pre class="yrl-pre-wrap mb-0">{{ playingLog.reflectionForNext }}</pre>
         </b-card-text>
       </b-card>
       <b-card v-if="playingLog.otherPartInpression" class="mb-2" title="全体の感想">
         <b-card-text>
-          <pre class="yrl-pre-wrap">{{ playingLog.otherPartInpression }}</pre>
+          <pre class="yrl-pre-wrap mb-0">{{ playingLog.otherPartInpression }}</pre>
+        </b-card-text>
+      </b-card>
+      <b-card v-if="playingLog.secretMemo" class="mb-2" title="非公開の自分用メモ" sub-title="自分にしか見えません">
+        <b-card-text>
+          <pre class="yrl-pre-wrap mb-0">{{ playingLog.secretMemo }}</pre>
         </b-card-text>
       </b-card>
       <h4>{{ playingLog.user.nickname }}さん</h4>

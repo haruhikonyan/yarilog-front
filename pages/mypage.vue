@@ -29,8 +29,8 @@ import { PlayingLog } from '../models/PlayingLog';
   },
   middleware: 'authenticated',
   async asyncData({ app }) {
-    const data = await app.$api.me();
-    return { user: data };
+    const user = await app.$api.me();
+    return { user };
   }
 })
 export default class Index extends Vue {
@@ -38,7 +38,8 @@ export default class Index extends Vue {
   playingLogs: PlayingLog[] = [];
 
   public async created() {
-    this.playingLogs = await this.$api.getPlayingLogsByUser(this.user.id!);
+    // 全件表示
+    this.playingLogs = await this.$api.getPlayingLogsByUser(this.user.id!, 0, 0);
   }
 }
 </script>
