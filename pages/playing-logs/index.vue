@@ -1,9 +1,7 @@
 <template>
   <section class="container">
     <div>
-      <h1 class="text-center">
-        演奏記録 検索結果
-      </h1>
+      <h1 class="text-center">演奏記録 {{ totalCount }}件の検索結果</h1>
       <PlayingLogSearchBox :default-search-word="searchWord" class="my-3" />
       <b-alert v-if="playingLogs.length == 0" show variant="danger" class="yrl-pre-wrap">{{
         noHitSearchResultMessage
@@ -20,6 +18,7 @@ import { PlayingLog } from '~/models/PlayingLog';
 import PlayingLogCard from '~/components/PlayingLogCard.vue';
 import PlayingLogSearchBox from '~/components/PlayingLogSearchBox.vue';
 import { Route } from 'vue-router';
+import { PlayingLogsWithCount } from '../../models/PlayingLogsWithCount';
 
 @Component({
   components: {
@@ -28,19 +27,22 @@ import { Route } from 'vue-router';
   },
   async asyncData({ app, query }) {
     const searchWord = query.searchWord as string;
-    const playingLogs = await app.$api.getPlayingLogsBySearchWord(searchWord);
-    return { playingLogs, searchWord };
+    const { playingLogs, totalCount } = await app.$api.getPlayingLogsBySearchWord(searchWord);
+    return { playingLogs, totalCount, searchWord };
   }
 })
 export default class Index extends Vue {
-  playingLogs: PlayingLog[] = [];
+  playingLogs!: PlayingLog[];
+  totalCount!: number;
   noHitSearchResultMessage =
     '検索した演奏記録はありませんでした。\n作曲家の名前などの表記揺れにご注意ください。\n例）ベートーベン => ベートーヴェン';
 
   @Watch('$route', { immediate: true, deep: true })
   async research(newRoute: Route) {
     const newSearchWord = newRoute.query.searchWord as string;
-    this.playingLogs = await this.$api.getPlayingLogsBySearchWord(newSearchWord);
+    const playingLogsWithCount = await this.$api.getPlayingLogsBySearchWord(newSearchWord);
+    this.playingLogs = playingLogsWithCount.playingLogs;
+    this.totalCount = playingLogsWithCount.totalCount;
   }
 }
 </script>

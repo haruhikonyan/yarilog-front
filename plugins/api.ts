@@ -10,6 +10,7 @@ import { LoginResultObject } from "~/models/LoginResultObject";
 
 // TODO 開発終わったら or 必要なくなったら消す
 import axios from 'axios';
+import { PlayingLogsWithCount } from "~/models/PlayingLogsWithCount";
 
 export class Api {
   // TODO この context の型取得したい
@@ -91,7 +92,7 @@ export class Api {
     })
   }
 
-  getPlayingLogsBySearchWord(searchWord: string, limit?: number, offset?: number): Promise<PlayingLog[]> {
+  getPlayingLogsBySearchWord(searchWord: string, limit?: number, offset?: number): Promise<PlayingLogsWithCount> {
     const url = urljoin(this.API_PLAYING_LOG_URL, 'search');
     return this.context.$axios.$get(url, {
       params: {

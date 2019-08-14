@@ -6,6 +6,7 @@ export enum PlayerLevel {
   BEGINNER = "初心者",
   INTERMEDIATE = "中級者",
   SENIOR = "上級者",
+  UNIVERSITY_OF_MUSIC = "音大生",
   PRO = "プロ"
 }
 

@@ -13,5 +13,8 @@ export default ({ $axios, store, redirect, nuxtState }) => {
       $axios.setToken(false);
       redirect('/login');
     }
+    if (error.response.status === 404) {
+      // TODO 404 の処理
+    }
   });
 };
