@@ -4,7 +4,7 @@
       <h1>
         トップページ
       </h1>
-      <PlayingLogSearchBox class="my-3" />
+      <PlayingLogSearchBox class="my-3" @on-search="search($event)" />
       <p><nuxt-link to="/composers">作曲家から演奏記録を探す</nuxt-link></p>
       <p><nuxt-link to="/countries">国から演奏記録を探す</nuxt-link></p>
       <p><nuxt-link to="/instruments">楽器から演奏記録を探す</nuxt-link></p>
@@ -54,7 +54,11 @@ import PlayingLogSearchBox from '../components/PlayingLogSearchBox.vue';
     return { playingLogs, info, devInfo };
   }
 })
-export default class Index extends Vue {}
+export default class Index extends Vue {
+  search(searchWord: string) {
+    this.$router.push({ path: 'playing-logs', query: { searchWord } });
+  }
+}
 </script>
 <style lang="scss" scoped>
 @import 'bootstrap/scss/_functions.scss';

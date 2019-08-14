@@ -2,11 +2,19 @@
   <section class="container">
     <div>
       <h1 class="text-center">演奏記録 {{ totalCount }}件の検索結果</h1>
-      <PlayingLogSearchBox :default-search-word="searchWord" class="my-3" />
+      <PlayingLogSearchBox :default-search-word="searchWord" class="my-3" @on-search="search($event)" />
       <b-alert v-if="playingLogs.length == 0" show variant="danger" class="yrl-pre-wrap">{{
         noHitSearchResultMessage
       }}</b-alert>
       <PlayingLogCard v-for="playingLog in playingLogs" :key="playingLog.id" :playing-log="playingLog" />
+      <!-- TODO 無限スクロールの方が今風かもしれない -->
+      <b-pagination
+        v-model="currentPage"
+        align="center"
+        :total-rows="totalCount"
+        :per-page="perPage"
+        @input="pagenationInputHandler($event)"
+      ></b-pagination>
     </div>
   </section>
 </template>
@@ -26,23 +34,43 @@ import { PlayingLogsWithCount } from '../../models/PlayingLogsWithCount';
     PlayingLogSearchBox
   },
   async asyncData({ app, query }) {
+    // 最大表示数を 20 に設定
+    const perPage: number = 20;
     const searchWord = query.searchWord as string;
-    const { playingLogs, totalCount } = await app.$api.getPlayingLogsBySearchWord(searchWord);
-    return { playingLogs, totalCount, searchWord };
+    const offsetString = query.offset as string;
+    // offset が未設定 NaN になるのでその時は 0 をセット
+    const offset = isNaN(Number(offsetString)) ? 0 : Number(offsetString);
+    const { playingLogs, totalCount } = await app.$api.getPlayingLogsBySearchWord(searchWord, offset, perPage);
+    // offset の値から現在のページを計算
+    const currentPage: number = offset === 0 ? 1 : Math.floor(offset / perPage) + 1;
+    return { playingLogs, totalCount, searchWord, offset, currentPage, perPage };
   }
 })
 export default class Index extends Vue {
   playingLogs!: PlayingLog[];
   totalCount!: number;
+  searchWord!: string;
+  offset!: number;
+  currentPage!: number;
+  perPage!: number;
+
   noHitSearchResultMessage =
     '検索した演奏記録はありませんでした。\n作曲家の名前などの表記揺れにご注意ください。\n例）ベートーベン => ベートーヴェン';
 
-  @Watch('$route', { immediate: true, deep: true })
-  async research(newRoute: Route) {
-    const newSearchWord = newRoute.query.searchWord as string;
-    const playingLogsWithCount = await this.$api.getPlayingLogsBySearchWord(newSearchWord);
+  async search(searchWord: string) {
+    // offset は 0 で初期化
+    this.offset = 0;
+    const playingLogsWithCount = await this.$api.getPlayingLogsBySearchWord(searchWord, this.offset, this.perPage);
     this.playingLogs = playingLogsWithCount.playingLogs;
     this.totalCount = playingLogsWithCount.totalCount;
+  }
+  async pagenationInputHandler(currentPage) {
+    // 現在のページ数から offset を計算
+    this.offset = this.perPage * (currentPage - 1);
+    const playingLogsWithCount = await this.$api.getPlayingLogsBySearchWord(this.searchWord, this.offset, this.perPage);
+    this.playingLogs = playingLogsWithCount.playingLogs;
+    this.totalCount = playingLogsWithCount.totalCount;
+    this.$router.push({ path: 'playing-logs', query: { searchWord: this.searchWord, offset: this.offset.toString() } });
   }
 }
 </script>

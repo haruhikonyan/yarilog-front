@@ -92,13 +92,13 @@ export class Api {
     })
   }
 
-  getPlayingLogsBySearchWord(searchWord: string, limit?: number, offset?: number): Promise<PlayingLogsWithCount> {
+  getPlayingLogsBySearchWord(searchWord: string, offset?: number, limit?: number): Promise<PlayingLogsWithCount> {
     const url = urljoin(this.API_PLAYING_LOG_URL, 'search');
     return this.context.$axios.$get(url, {
       params: {
         searchWord: searchWord,
-        limit: limit,
-        offset: offset
+        offset: offset,
+        limit: limit
       }
     })
   }
@@ -106,39 +106,39 @@ export class Api {
     const url: string = urljoin(this.API_PLAYING_LOG_URL, id);
     return this.context.$axios.$get(url)
   }
-  getPlayingLogsByComposer(composerId: string, limit?: number, offset?: number): Promise<PlayingLog[]> {
+  getPlayingLogsByComposer(composerId: string, offset?: number, limit?: number): Promise<PlayingLog[]> {
     const url: string = urljoin(this.API_PLAYING_LOG_URL, 'composers', composerId);
     return this.context.$axios.$get(url, {
       params: {
-        limit: limit,
-        offset: offset
+        offset: offset,
+        limit: limit
       }
     })
   }
-  getPlayingLogsByCountry(countryId: string, limit?: number, offset?: number): Promise<PlayingLog[]> {
+  getPlayingLogsByCountry(countryId: string, offset?: number, limit?: number): Promise<PlayingLog[]> {
     const url: string = urljoin(this.API_PLAYING_LOG_URL, 'countries', countryId);
     return this.context.$axios.$get(url, {
       params: {
-        limit: limit,
-        offset: offset
+        offset: offset,
+        limit: limit
       }
     })
   }
-  getPlayingLogsByInstrument(instrumentId: string, limit?: number, offset?: number): Promise<PlayingLog[]> {
+  getPlayingLogsByInstrument(instrumentId: string, offset?: number, limit?: number): Promise<PlayingLog[]> {
     const url: string = urljoin(this.API_PLAYING_LOG_URL, 'instruments', instrumentId);
     return this.context.$axios.$get(url, {
       params: {
-        limit: limit,
-        offset: offset
+        offset: offset,
+        limit: limit
       }
     })
   }
-  getPlayingLogsByUser(userId: string, limit?: number, offset?: number): Promise<PlayingLog[]> {
+  getPlayingLogsByUser(userId: string, offset?: number, limit?: number): Promise<PlayingLog[]> {
     const url: string = urljoin(this.API_PLAYING_LOG_URL, 'users', userId);
     return this.context.$axios.$get(url, {
       params: {
-        limit: limit,
-        offset: offset
+        offset: offset,
+        limit: limit
       }
     })
   }
