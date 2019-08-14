@@ -1,10 +1,10 @@
 <template>
   <nuxt-link :to="`/playing-logs/${playingLog.id}`">
-    <b-card header-tag="header" footer-tag="footer" class="my-3">
+    <b-card header-tag="header" footer-tag="footer" body-class="py-2" class="my-3">
       <div slot="header" class="d-flex justify-content-between">
         <div>
           <h4>{{ playingLog.tune.title }}</h4>
-          <h6 class="text-muted">{{ playingLog.tune.composer.displayName }}作曲</h6>
+          <h6 class="text-muted mb-0">{{ playingLog.tune.composer.displayName }}作曲</h6>
         </div>
         <b-button
           v-if="showEditButton"
@@ -15,7 +15,7 @@
         >
       </div>
       <b-card-text class="mb-1">{{ playingLog.user.nickname }}さんの{{ playingLog.playDate }}演奏</b-card-text>
-      <pre class="text-muted yrl-pre-wrap yrl-truncate-three-line">{{ playingLog.impressionOfInteresting }}</pre>
+      <pre class="text-muted mb-0 yrl-pre-wrap yrl-truncate-three-line">{{ playingLog.impressionOfInteresting }}</pre>
       <div slot="footer">
         面白さ: {{ playingLog.interesting }} 体力: {{ playingLog.physicality }} 難易度: {{ playingLog.difficulty }}
         <div>
