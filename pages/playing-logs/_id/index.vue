@@ -52,8 +52,10 @@ import { PlayingLog } from '~/models/PlayingLog';
     return { playingLog };
   },
   head(this: Index) {
+    // なければ空文字列を入れて title に出てくるのを防ぐ
+    const position = this.playingLog.position || '';
     return {
-      title: `${this.playingLog.tune.title} ${this.playingLog.instrument.name}${this.playingLog.position} ${
+      title: `${this.playingLog.tune.title} ${this.playingLog.instrument.name}${position} ${
         this.playingLog.user.nickname
       }さん演奏 - 演りログ`,
       meta: [{ hid: 'description', name: 'description', content: `${this.playingLog.impressionOfInteresting}` }]

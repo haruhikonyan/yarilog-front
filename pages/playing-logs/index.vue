@@ -44,6 +44,12 @@ import { PlayingLogsWithCount } from '../../models/PlayingLogsWithCount';
     // offset の値から現在のページを計算
     const currentPage: number = offset === 0 ? 1 : Math.floor(offset / perPage) + 1;
     return { playingLogs, totalCount, searchWord, offset, currentPage, perPage };
+  },
+  head(this: Index) {
+    return {
+      title: `${this.searchWord} 演奏記録検索結果 - 演りログ`,
+      meta: [{ hid: 'description', name: 'description', content: `${this.searchWord} 演奏記録検索結果` }]
+    };
   }
 })
 export default class Index extends Vue {
