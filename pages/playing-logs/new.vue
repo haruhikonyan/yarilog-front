@@ -29,15 +29,16 @@ import { Tune } from '~/models/Tune';
     PlayingLogForm
   },
   async asyncData({ app }) {
-    const composersData = await app.$api.getComposers();
-    const instrumentsData = await app.$api.getInstruments();
-    return { composers: composersData, instruments: instrumentsData };
+    const composers = await app.$api.getComposers();
+    const instruments = await app.$api.getInstruments();
+    const playingLog: PlayingLog = new PlayingLog();
+    return { composers, instruments, playingLog };
   }
 })
 export default class Index extends Vue {
   composers: Composer[] = [];
   instruments: Instrument[] = [];
-  playingLog: PlayingLog = new PlayingLog();
+  playingLog!: PlayingLog;
   async createPlayingLog() {
     const savedPlayingLog = await this.$api.createPlayingLog(this.playingLog);
     this.$router.push(savedPlayingLog.id!);

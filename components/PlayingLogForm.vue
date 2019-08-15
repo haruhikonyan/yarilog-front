@@ -126,7 +126,7 @@ export default class PlayingLogForm extends Vue {
   playerLevelList: Object = PlayerLevel;
   // TuneSelector で選択された tune を playingLog にセットする
   selectTune(tune: Tune) {
-    this.playingLog.tune = tune;
+    this.$set(this.playingLog, 'tune', tune);
   }
   @Emit('on-submit')
   submitHandler() {}
