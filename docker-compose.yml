@@ -15,6 +15,8 @@ services:
     environment:
       HOST: 0.0.0.0
       baseApiUrl: 'http://docker.for.mac.host.internal:8080'
+      # ubuntu の場合はこちらを使う
+      # baseApiUrl: 'http://172.17.0.1:8080'
       baseBrouserApiUrl: 'http://localhost:8080'
     working_dir: /yarilog-front
 # volumes:
