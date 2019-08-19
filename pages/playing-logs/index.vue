@@ -46,9 +46,10 @@ import { PlayingLogsWithCount } from '../../models/PlayingLogsWithCount';
     return { playingLogs, totalCount, searchWord, offset, currentPage, perPage };
   },
   head(this: Index) {
+    const searchWord = this.searchWord || '';
     return {
-      title: `${this.searchWord} 演奏記録検索結果 - 演りログ`,
-      meta: [{ hid: 'description', name: 'description', content: `${this.searchWord} 演奏記録検索結果` }]
+      title: `${searchWord} 演奏記録検索結果 - 演りログ`,
+      meta: [{ hid: 'description', name: 'description', content: `${searchWord} 演奏記録検索結果` }]
     };
   }
 })
@@ -69,6 +70,7 @@ export default class Index extends Vue {
     const playingLogsWithCount = await this.$api.getPlayingLogsBySearchWord(searchWord, this.offset, this.perPage);
     this.playingLogs = playingLogsWithCount.playingLogs;
     this.totalCount = playingLogsWithCount.totalCount;
+    this.$router.push({ path: 'playing-logs', query: { searchWord } });
   }
   async pagenationInputHandler(currentPage) {
     // 現在のページ数から offset を計算
