@@ -2,8 +2,8 @@
   <b-form class="d-flex" @submit.prevent="searchButtonHandler">
     <b-input v-model="searchWord" placeholder="演奏記録を探す"></b-input>
     <b-form-select v-model="selectedInstrumentId" class="w-auto">
-      <option disabled value="">楽器</option>
-      <option v-for="instrument in instruments" :key="instrument.id" :value="instrument.id">
+      <option value="">全楽器</option>
+      <option v-for="instrument in instruments" :key="instrument.id" :value="instrument.id.toString()">
         {{ instrument.shortName }}
       </option>
     </b-form-select>
@@ -22,12 +22,12 @@ export default class PlayingLogSearchBox extends Vue {
   @Prop({ type: String, default: null })
   defaultSearchWord!: string | null;
   @Prop({ type: String, default: '' })
-  defaultInstrumentId: string | null = '';
-  @Prop({ type: Array as PropType<Instrument[]>, default: null })
+  defaultInstrumentId!: string | null;
+  @Prop({ type: Array as PropType<Instrument[]> })
   instruments!: Instrument[];
 
   searchWord!: string | null;
-  selectedInstrumentId: string | null = null;
+  selectedInstrumentId!: string | null;
 
   created() {
     // Prop を子コンポーネントでいじるのはよくない
