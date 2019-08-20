@@ -6,7 +6,7 @@
       </h1>
       <PlayingLogForm
         :composers="composers"
-        :instruments="instruments"
+        :instruments="$store.state.instruments"
         :playing-log="playingLog"
         @on-submit="updatePlayingLog"
       />
@@ -31,13 +31,11 @@ import { Tune } from '~/models/Tune';
   async asyncData({ app, params }) {
     const playingLogData = await app.$api.getPlayingLog(params.id);
     const composersData = await app.$api.getComposers();
-    const instrumentsData = await app.$api.getInstruments();
-    return { playingLog: playingLogData, composers: composersData, instruments: instrumentsData };
+    return { playingLog: playingLogData, composers: composersData };
   }
 })
 export default class Index extends Vue {
   composers: Composer[] = [];
-  instruments: Instrument[] = [];
   playingLog!: PlayingLog;
   async updatePlayingLog() {
     const savedPlayingLog = await this.$api.updatePlayingLog(this.playingLog);

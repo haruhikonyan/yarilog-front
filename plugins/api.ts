@@ -2,7 +2,7 @@ import { User } from "~/models/User";
 import { Composer } from "~/models/Composer";
 import { Country } from "~/models/Country";
 import * as urljoin from 'url-join';
-import { PlayingLog } from "~/models/PlayingLog";
+import { PlayingLog, PlayingLogsWithCount } from "~/models/PlayingLog";
 import { Tune } from "~/models/Tune";
 import { LoginObject } from "~/models/LoginObject";
 import { Instrument } from "~/models/Instrument";
@@ -10,7 +10,6 @@ import { LoginResultObject } from "~/models/LoginResultObject";
 
 // TODO 開発終わったら or 必要なくなったら消す
 import axios from 'axios';
-import { PlayingLogsWithCount } from "~/models/PlayingLogsWithCount";
 
 export class Api {
   // TODO この context の型取得したい
@@ -92,13 +91,14 @@ export class Api {
     })
   }
 
-  getPlayingLogsBySearchWord(searchWord: string, offset?: number, limit?: number): Promise<PlayingLogsWithCount> {
+  searchPlayingLogs(searchWord: string | null, instrumentId? :string | null, offset?: number, limit?: number): Promise<PlayingLogsWithCount> {
     const url = urljoin(this.API_PLAYING_LOG_URL, 'search');
     return this.context.$axios.$get(url, {
       params: {
         searchWord: searchWord,
         offset: offset,
-        limit: limit
+        limit: limit,
+        instrumentId: instrumentId
       }
     })
   }

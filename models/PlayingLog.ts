@@ -54,3 +54,13 @@ export class PlayingLog {
   constructor() {
   }
 }
+
+export interface PlayingLogSearchObject {
+  searchWord: string | null;
+  instrumentId: string | null;
+}
+
+export interface PlayingLogsWithCount {
+  playingLogs: PlayingLog[];
+  totalCount: number;
+}

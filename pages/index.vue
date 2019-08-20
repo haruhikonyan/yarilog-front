@@ -4,7 +4,7 @@
       <h1>
         トップページ
       </h1>
-      <PlayingLogSearchBox class="my-3" @on-search="search($event)" />
+      <PlayingLogSearchBox class="my-3" :instruments="$store.state.instruments" @on-search="search($event)" />
       <p><nuxt-link to="/composers">作曲家から演奏記録を探す</nuxt-link></p>
       <p><nuxt-link to="/countries">国から演奏記録を探す</nuxt-link></p>
       <p><nuxt-link to="/instruments">楽器から演奏記録を探す</nuxt-link></p>
@@ -38,7 +38,7 @@ import { User } from '~/models/User';
 import { Country } from 'models/Country';
 import { Composer } from 'models/Composer';
 import Cookie from 'js-cookie';
-import { PlayingLog } from '../models/PlayingLog';
+import { PlayingLog, PlayingLogSearchObject } from '../models/PlayingLog';
 import PlayingLogCard from '../components/PlayingLogCard.vue';
 import PlayingLogSearchBox from '../components/PlayingLogSearchBox.vue';
 
@@ -55,8 +55,9 @@ import PlayingLogSearchBox from '../components/PlayingLogSearchBox.vue';
   }
 })
 export default class Index extends Vue {
-  search(searchWord: string) {
-    this.$router.push({ path: 'playing-logs', query: { searchWord } });
+  search(playingLogSearchObject: PlayingLogSearchObject) {
+    const { searchWord, instrumentId } = playingLogSearchObject;
+    this.$router.push({ path: 'playing-logs', query: { searchWord, instrumentId } });
   }
 }
 </script>
