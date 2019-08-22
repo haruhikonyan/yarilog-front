@@ -2,6 +2,7 @@
   <section class="container">
     <div>
       <h1 class="text-center">演奏記録 {{ totalCount }}件の検索結果</h1>
+      <PlayingLogsGroupByTune :playing-logs-group-by-tune="playingLogsGroupByTune" />
       <PlayingLogSearchBox
         :default-search-word="searchWord"
         :default-instrument-id="instrumentId"
@@ -31,12 +32,15 @@ import { User } from '~/models/User';
 import { PlayingLog, PlayingLogSearchObject, PlayingLogsWithCount } from '~/models/PlayingLog';
 import PlayingLogCard from '~/components/PlayingLogCard.vue';
 import PlayingLogSearchBox from '~/components/PlayingLogSearchBox.vue';
+import PlayingLogsGroupByTune from '~/components/PlayingLogsGroupByTune.vue';
 import { Route } from 'vue-router';
+import * as groupBy from 'lodash.groupby';
 
 @Component({
   components: {
     PlayingLogCard,
-    PlayingLogSearchBox
+    PlayingLogSearchBox,
+    PlayingLogsGroupByTune
   },
   async asyncData({ app, query }) {
     // 最大表示数を 20 に設定
@@ -95,6 +99,10 @@ export default class Index extends Vue {
       path: 'playing-logs',
       query: { searchWord: this.searchWord, instrumentId: this.instrumentId, offset: this.offset.toString() }
     });
+  }
+  // TODO 共通化？
+  get playingLogsGroupByTune(): PlayingLog[][] {
+    return Object.values(groupBy(this.playingLogs, 'tune.id'));
   }
 }
 </script>
