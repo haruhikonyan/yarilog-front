@@ -2,7 +2,7 @@
   <section class="container">
     <div>
       <h1 class="text-center">演奏記録 {{ totalCount }}件の検索結果</h1>
-      <PlayingLogsGroupByTune :playing-logs-group-by-tune="playingLogsGroupByTune" />
+      <!-- <PlayingLogsGroupByTune :playing-logs-group-by-tune="playingLogsGroupByTune" /> -->
       <PlayingLogSearchBox
         :default-search-word="searchWord"
         :default-instrument-id="instrumentId"
