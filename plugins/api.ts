@@ -81,13 +81,14 @@ export class Api {
     return this.context.$axios.$post(this.API_TUNE_URL, tune)
   }
 
-  searchTunes(searchWord: string | null, instrumentId? :string | null, offset?: number, limit?: number): Promise<TunesWithCount> {
+  searchTunes(searchWord: string | null, instrumentId? :string | null, offset?: number, limit?: number, playingLogLimit?: number): Promise<TunesWithCount> {
     const url = urljoin(this.API_TUNE_URL, 'search');
     return this.context.$axios.$get(url, {
       params: {
         searchWord: searchWord,
         offset: offset,
         limit: limit,
+        playingLogLimit: playingLogLimit,
         instrumentId: instrumentId
       }
     })

@@ -42,14 +42,15 @@ import { TuneSearchObject, Tune } from '../../models/Tune';
     SearchBox
   },
   async asyncData({ app, query }) {
-    // 最大表示数を 10 に設定
+    // Tune の最大表示数を 10 に設定
     const perPage: number = 10;
     const searchWord = query.searchWord as string;
     const instrumentId = query.instrumentId as string;
     const offsetString = query.offset as string;
     // offset が未設定 NaN になるのでその時は 0 をセット
     const offset = isNaN(Number(offsetString)) ? 0 : Number(offsetString);
-    const { tunes, totalCount } = await app.$api.searchTunes(searchWord, instrumentId, offset, perPage);
+    // tune に紐づく PlayingLog は最大5件にしておく
+    const { tunes, totalCount } = await app.$api.searchTunes(searchWord, instrumentId, offset, perPage, 5);
     // offset の値から現在のページを計算
     const currentPage: number = offset === 0 ? 1 : Math.floor(offset / perPage) + 1;
     return { tunes, totalCount, searchWord, instrumentId, offset, currentPage, perPage };
