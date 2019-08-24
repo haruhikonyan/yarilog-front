@@ -123,6 +123,15 @@ export class Api {
     const url: string = urljoin(this.API_PLAYING_LOG_URL, id);
     return this.context.$axios.$get(url)
   }
+  getPlayingLogsByTune(tuneId: string, offset?: number, limit?: number): Promise<PlayingLog[]> {
+    const url: string = urljoin(this.API_PLAYING_LOG_URL, 'tunes', tuneId);
+    return this.context.$axios.$get(url, {
+      params: {
+        offset: offset,
+        limit: limit
+      }
+    })
+  }
   getPlayingLogsByComposer(composerId: string, offset?: number, limit?: number): Promise<PlayingLog[]> {
     const url: string = urljoin(this.API_PLAYING_LOG_URL, 'composers', composerId);
     return this.context.$axios.$get(url, {

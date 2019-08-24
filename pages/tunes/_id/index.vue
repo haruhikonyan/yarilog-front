@@ -3,20 +3,29 @@
     <div>
       <h4 class="mb-0">{{ tune.title }}</h4>
       <small class="text-muted mb-1">{{ tune.composer.displayName }}作曲</small>
+      <div v-for="playingLog in playingLogs" :key="playingLog.id">
+        <PlayingLogSummary :playing-log="playingLog" />
+        <!-- TODO 区切りのブラッシュアップと最後には表示しないようにする -->
+        <hr />
+      </div>
     </div>
-    <!-- TODO 同じ曲の演奏ログや同じ人の演奏ログを出す -->
   </section>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import { Tune } from '../../../models/Tune';
+import PlayingLogSummary from '~/components/PlayingLogSummary.vue';
 
 @Component({
-  components: {},
+  components: {
+    PlayingLogSummary
+  },
   async asyncData({ app, params }) {
     const tune = await app.$api.getTune(params.id);
-    return { tune };
+    // 最新5件表示
+    const playingLogs = await app.$api.getPlayingLogsByTune(params.id, 0, 5);
+    return { tune, playingLogs };
   },
   head(this: Index) {
     return {

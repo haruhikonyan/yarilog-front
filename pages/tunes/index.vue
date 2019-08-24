@@ -1,7 +1,7 @@
 <template>
   <section class="container">
     <div>
-      <h1 class="text-center">{{ totalCount }}件の曲が見つかりました</h1>
+      <h1 class="text-center">{{ totalCount }}曲見つかりました</h1>
       <SearchBox
         :default-search-word="searchWord"
         :default-instrument-id="instrumentId"
