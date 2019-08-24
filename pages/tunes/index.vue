@@ -2,9 +2,10 @@
   <section class="container">
     <div>
       <h1 class="text-center">{{ totalCount }}件の曲がみつかりました</h1>
-      <PlayingLogSearchBox
+      <SearchBox
         :default-search-word="searchWord"
         :default-instrument-id="instrumentId"
+        :placeholder="'曲を探す'"
         :instruments="$store.state.instruments"
         class="my-3"
         @on-search="search($event)"
@@ -30,7 +31,7 @@ import { Component, Vue, Watch } from 'vue-property-decorator';
 import { User } from '~/models/User';
 import { PlayingLog, PlayingLogSearchObject, PlayingLogsWithCount } from '~/models/PlayingLog';
 import TuneCard from '~/components/TuneCard.vue';
-import PlayingLogSearchBox from '~/components/PlayingLogSearchBox.vue';
+import SearchBox from '~/components/SearchBox.vue';
 import { Route } from 'vue-router';
 import * as groupBy from 'lodash.groupby';
 import { TuneSearchObject, Tune } from '../../models/Tune';
@@ -38,11 +39,11 @@ import { TuneSearchObject, Tune } from '../../models/Tune';
 @Component({
   components: {
     TuneCard,
-    PlayingLogSearchBox
+    SearchBox
   },
   async asyncData({ app, query }) {
-    // 最大表示数を 20 に設定
-    const perPage: number = 20;
+    // 最大表示数を 10 に設定
+    const perPage: number = 10;
     const searchWord = query.searchWord as string;
     const instrumentId = query.instrumentId as string;
     const offsetString = query.offset as string;

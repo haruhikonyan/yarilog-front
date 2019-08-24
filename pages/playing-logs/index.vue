@@ -3,13 +3,14 @@
     <div>
       <h1 class="text-center">演奏記録 {{ totalCount }}件の検索結果</h1>
       <!-- <PlayingLogsGroupByTune :playing-logs-group-by-tune="playingLogsGroupByTune" /> -->
-      <PlayingLogSearchBox
+      <SearchBox
         :default-search-word="searchWord"
         :default-instrument-id="instrumentId"
         :instruments="$store.state.instruments"
         class="my-3"
         @on-search="search($event)"
       />
+      <!-- TODO こコンポーネント化 デザインが複雑になってからで良い -->
       <b-alert v-if="playingLogs.length == 0" show variant="danger" class="yrl-pre-wrap">{{
         noHitSearchResultMessage
       }}</b-alert>
@@ -31,7 +32,7 @@ import { Component, Vue, Watch } from 'vue-property-decorator';
 import { User } from '~/models/User';
 import { PlayingLog, PlayingLogSearchObject, PlayingLogsWithCount } from '~/models/PlayingLog';
 import PlayingLogCard from '~/components/PlayingLogCard.vue';
-import PlayingLogSearchBox from '~/components/PlayingLogSearchBox.vue';
+import SearchBox from '~/components/SearchBox.vue';
 import PlayingLogsGroupByTune from '~/components/PlayingLogsGroupByTune.vue';
 import { Route } from 'vue-router';
 import * as groupBy from 'lodash.groupby';
@@ -39,7 +40,7 @@ import * as groupBy from 'lodash.groupby';
 @Component({
   components: {
     PlayingLogCard,
-    PlayingLogSearchBox,
+    SearchBox,
     PlayingLogsGroupByTune
   },
   async asyncData({ app, query }) {
