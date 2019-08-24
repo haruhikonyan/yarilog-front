@@ -3,7 +3,7 @@ import { Composer } from "~/models/Composer";
 import { Country } from "~/models/Country";
 import * as urljoin from 'url-join';
 import { PlayingLog, PlayingLogsWithCount } from "~/models/PlayingLog";
-import { Tune } from "~/models/Tune";
+import { Tune, TunesWithCount } from "~/models/Tune";
 import { LoginObject } from "~/models/LoginObject";
 import { Instrument } from "~/models/Instrument";
 import { LoginResultObject } from "~/models/LoginResultObject";
@@ -79,6 +79,18 @@ export class Api {
   }
   createTune(tune: Tune): Promise<Tune> {
     return this.context.$axios.$post(this.API_TUNE_URL, tune)
+  }
+
+  searchTunes(searchWord: string | null, instrumentId? :string | null, offset?: number, limit?: number): Promise<TunesWithCount> {
+    const url = urljoin(this.API_TUNE_URL, 'search');
+    return this.context.$axios.$get(url, {
+      params: {
+        searchWord: searchWord,
+        offset: offset,
+        limit: limit,
+        instrumentId: instrumentId
+      }
+    })
   }
 
   getPlayingLogs(limit?: number, offset?: number): Promise<PlayingLog[]> {
