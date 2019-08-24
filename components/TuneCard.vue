@@ -19,7 +19,6 @@
 <script lang="ts">
 import { PropType } from 'vue';
 import { Component, Vue, Prop } from 'vue-property-decorator';
-import { PlayingLog } from '../models/PlayingLog';
 import { Tune } from '../models/Tune';
 import PlayingLogSummary from '~/components/PlayingLogSummary.vue';
 

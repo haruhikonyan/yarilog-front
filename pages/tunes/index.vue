@@ -27,13 +27,10 @@
 </template>
 
 <script lang="ts">
-import { Component, Vue, Watch } from 'vue-property-decorator';
-import { User } from '~/models/User';
-import { PlayingLog, PlayingLogSearchObject, PlayingLogsWithCount } from '~/models/PlayingLog';
+import { Component, Vue } from 'vue-property-decorator';
+import { PlayingLog } from '~/models/PlayingLog';
 import TuneCard from '~/components/TuneCard.vue';
 import SearchBox from '~/components/SearchBox.vue';
-import { Route } from 'vue-router';
-import * as groupBy from 'lodash.groupby';
 import { TuneSearchObject, Tune } from '../../models/Tune';
 
 @Component({
@@ -58,8 +55,8 @@ import { TuneSearchObject, Tune } from '../../models/Tune';
   head(this: Index) {
     const searchWord = this.searchWord || '';
     return {
-      title: `${searchWord} 演奏記録検索結果 - 演りログ`,
-      meta: [{ hid: 'description', name: 'description', content: `${searchWord} 演奏記録検索結果` }]
+      title: `${searchWord} 曲検索結果 - 演りログ`,
+      meta: [{ hid: 'description', name: 'description', content: `${searchWord} 曲検索結果` }]
     };
   }
 })
@@ -73,7 +70,7 @@ export default class Index extends Vue {
   perPage!: number;
 
   noHitSearchResultMessage =
-    '検索した演奏記録はありませんでした。\n作曲家の名前などの表記揺れにご注意ください。\n例）ベートーベン => ベートーヴェン';
+    '検索した曲はありませんでした。\n作曲家の名前などの表記揺れにご注意ください。\n例）ベートーベン => ベートーヴェン';
 
   async search(tuneSearchObject: TuneSearchObject) {
     const { searchWord, instrumentId } = tuneSearchObject;
@@ -97,7 +94,7 @@ export default class Index extends Vue {
     this.tunes = playingLogsWithCount.tunes;
     this.totalCount = playingLogsWithCount.totalCount;
     this.$router.push({
-      path: 'playing-logs',
+      path: 'tunes',
       query: { searchWord: this.searchWord, instrumentId: this.instrumentId, offset: this.offset.toString() }
     });
   }
