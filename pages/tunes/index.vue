@@ -77,9 +77,9 @@ export default class Index extends Vue {
     const { searchWord, instrumentId } = tuneSearchObject;
     // offset は 0 で初期化
     this.offset = 0;
-    const playingLogsWithCount = await this.$api.searchTunes(searchWord, instrumentId, this.offset, this.perPage);
-    // this.playingLogs = playingLogsWithCount.playingLogs;
-    // this.totalCount = playingLogsWithCount.totalCount;
+    const tunesWithCount = await this.$api.searchTunes(searchWord, instrumentId, this.offset, this.perPage);
+    this.tunes = tunesWithCount.tunes;
+    this.totalCount = tunesWithCount.totalCount;
     this.$router.push({ path: 'tunes', query: { searchWord, instrumentId } });
   }
   async pagenationInputHandler(currentPage) {
