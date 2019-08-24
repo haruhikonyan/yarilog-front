@@ -8,7 +8,8 @@
         </div>
       </div>
 
-      <div v-for="playingLog in tune.playingLogs" :key="playingLog.id">
+      <!-- TODO こコンポーネント化 デザインが複雑になってからで良い -->
+      <nuxt-link v-for="playingLog in tune.playingLogs" :key="playingLog.id" :to="`/playing-logs/${playingLog.id}`">
         <b-card-text class="mb-1">{{ playingLog.user.nickname }}さんの{{ playingLog.playDate }}演奏</b-card-text>
         <pre class="text-muted mb-0 yrl-pre-wrap yrl-truncate-one-line">{{ playingLog.impressionOfInteresting }}</pre>
         <div slot="footer">
@@ -18,8 +19,9 @@
             <b-badge>{{ playingLog.instrument.shortName }} {{ playingLog.position }}</b-badge>
           </div>
         </div>
+        <!-- TODO 最後の要素には区切り線を出さない -->
         <hr />
-      </div>
+      </nuxt-link>
     </b-card>
   </div>
 </template>

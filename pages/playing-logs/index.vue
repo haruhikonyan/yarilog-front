@@ -10,7 +10,6 @@
         class="my-3"
         @on-search="search($event)"
       />
-      <!-- TODO こコンポーネント化 デザインが複雑になってからで良い -->
       <b-alert v-if="playingLogs.length == 0" show variant="danger" class="yrl-pre-wrap">{{
         noHitSearchResultMessage
       }}</b-alert>
