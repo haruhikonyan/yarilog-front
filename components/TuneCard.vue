@@ -1,12 +1,12 @@
 <template>
   <div>
     <b-card header-tag="header" footer-tag="footer" body-class="py-2" class="my-3">
-      <div slot="header" class="d-flex justify-content-between">
+      <nuxt-link slot="header" class="d-flex justify-content-between" :to="`/tunes/${tune.id}`">
         <div>
           <h4>{{ tune.title }}</h4>
           <h6 class="text-muted mb-0">{{ tune.composer.displayName }}作曲</h6>
         </div>
-      </div>
+      </nuxt-link>
 
       <!-- TODO こコンポーネント化 デザインが複雑になってからで良い -->
       <nuxt-link v-for="playingLog in tune.playingLogs" :key="playingLog.id" :to="`/playing-logs/${playingLog.id}`">
