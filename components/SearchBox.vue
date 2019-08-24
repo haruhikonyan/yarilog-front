@@ -1,6 +1,6 @@
 <template>
   <b-form class="d-flex" @submit.prevent="searchButtonHandler">
-    <b-input v-model="searchWord" placeholder="演奏記録を探す"></b-input>
+    <b-input v-model="searchWord" :placeholder="placeholder"></b-input>
     <b-form-select v-model="selectedInstrumentId" class="w-auto">
       <option value="">全楽器</option>
       <option v-for="instrument in instruments" :key="instrument.id" :value="instrument.id.toString()">
@@ -18,13 +18,15 @@ import { PlayingLog, PlayingLogSearchObject } from '../models/PlayingLog';
 import { Instrument } from '../models/Instrument';
 
 @Component({})
-export default class PlayingLogSearchBox extends Vue {
+export default class SearchBox extends Vue {
   @Prop({ type: String, default: null })
   defaultSearchWord!: string | null;
   @Prop({ type: String, default: '' })
   defaultInstrumentId!: string | null;
   @Prop({ type: Array as PropType<Instrument[]> })
   instruments!: Instrument[];
+  @Prop({ type: String })
+  placeholder!: string[];
 
   searchWord!: string | null;
   selectedInstrumentId!: string | null;

@@ -4,10 +4,14 @@
       <h1>
         トップページ
       </h1>
-      <PlayingLogSearchBox class="my-3" :instruments="$store.state.instruments" @on-search="search($event)" />
+      <SearchBox
+        class="my-3"
+        :placeholder="'曲を探す'"
+        :instruments="$store.state.instruments"
+        @on-search="search($event)"
+      />
       <p><nuxt-link to="/composers">作曲家から演奏記録を探す</nuxt-link></p>
       <p><nuxt-link to="/countries">国から演奏記録を探す</nuxt-link></p>
-      <p><nuxt-link to="/instruments">楽器から演奏記録を探す</nuxt-link></p>
       <b-button v-if="!$store.state.auth" to="/users/new" variant="primary" class="mb-3">ユーザ新規作成</b-button>
       <div>
         <b-button v-b-toggle.dev-info block size="sm" variant="primary" class="mb-3">開発情報を見る</b-button>
@@ -40,12 +44,13 @@ import { Composer } from 'models/Composer';
 import Cookie from 'js-cookie';
 import { PlayingLog, PlayingLogSearchObject } from '../models/PlayingLog';
 import PlayingLogCard from '../components/PlayingLogCard.vue';
-import PlayingLogSearchBox from '../components/PlayingLogSearchBox.vue';
+import SearchBox from '../components/SearchBox.vue';
+import { TuneSearchObject } from '../models/Tune';
 
 @Component({
   components: {
     PlayingLogCard,
-    PlayingLogSearchBox
+    SearchBox
   },
   async asyncData({ app }) {
     const playingLogs = await app.$api.getPlayingLogs(5);
@@ -55,9 +60,9 @@ import PlayingLogSearchBox from '../components/PlayingLogSearchBox.vue';
   }
 })
 export default class Index extends Vue {
-  search(playingLogSearchObject: PlayingLogSearchObject) {
-    const { searchWord, instrumentId } = playingLogSearchObject;
-    this.$router.push({ path: 'playing-logs', query: { searchWord, instrumentId } });
+  search(tuneSearchObject: TuneSearchObject) {
+    const { searchWord, instrumentId } = tuneSearchObject;
+    this.$router.push({ path: 'tunes', query: { searchWord, instrumentId } });
   }
 }
 </script>

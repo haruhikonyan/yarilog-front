@@ -3,7 +3,7 @@ import { Composer } from "~/models/Composer";
 import { Country } from "~/models/Country";
 import * as urljoin from 'url-join';
 import { PlayingLog, PlayingLogsWithCount } from "~/models/PlayingLog";
-import { Tune } from "~/models/Tune";
+import { Tune, TunesWithCount } from "~/models/Tune";
 import { LoginObject } from "~/models/LoginObject";
 import { Instrument } from "~/models/Instrument";
 import { LoginResultObject } from "~/models/LoginResultObject";
@@ -73,12 +73,29 @@ export class Api {
     const url = this.API_TUNE_URL;
     return this.context.$axios.$get(url)
   }
+  getTune(id: string): Promise<Tune> {    
+    const url: string = urljoin(this.API_TUNE_URL, id);
+    return this.context.$axios.$get(url)
+  }
   getTuneByComposer(composerId: string): Promise<Tune[]> {
     const url: string = urljoin(this.API_TUNE_URL, 'composers', composerId);
     return this.context.$axios.$get(url);
   }
   createTune(tune: Tune): Promise<Tune> {
     return this.context.$axios.$post(this.API_TUNE_URL, tune)
+  }
+
+  searchTunes(searchWord: string | null, instrumentId? :string | null, offset?: number, limit?: number, playingLogLimit?: number): Promise<TunesWithCount> {
+    const url = urljoin(this.API_TUNE_URL, 'search');
+    return this.context.$axios.$get(url, {
+      params: {
+        searchWord: searchWord,
+        offset: offset,
+        limit: limit,
+        playingLogLimit: playingLogLimit,
+        instrumentId: instrumentId
+      }
+    })
   }
 
   getPlayingLogs(limit?: number, offset?: number): Promise<PlayingLog[]> {
@@ -105,6 +122,15 @@ export class Api {
   getPlayingLog(id: string): Promise<PlayingLog> {    
     const url: string = urljoin(this.API_PLAYING_LOG_URL, id);
     return this.context.$axios.$get(url)
+  }
+  getPlayingLogsByTune(tuneId: string, offset?: number, limit?: number): Promise<PlayingLog[]> {
+    const url: string = urljoin(this.API_PLAYING_LOG_URL, 'tunes', tuneId);
+    return this.context.$axios.$get(url, {
+      params: {
+        offset: offset,
+        limit: limit
+      }
+    })
   }
   getPlayingLogsByComposer(composerId: string, offset?: number, limit?: number): Promise<PlayingLog[]> {
     const url: string = urljoin(this.API_PLAYING_LOG_URL, 'composers', composerId);
