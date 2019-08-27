@@ -12,7 +12,10 @@ export class Tune {
   averagePhysicality!: number;
   // 平均面白さ 0~5 小数点第１位
   averageInteresting!: number;
-  
+
+  // 紐付いてる演奏記録の総数
+  countPlayingLogs!: number;
+
   composer!: Composer;
   playingLogs: PlayingLog[] | undefined;
 

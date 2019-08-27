@@ -43,7 +43,8 @@ export default {
     // Doc: https://axios.nuxtjs.org/usage
     '@nuxtjs/axios',
     // Doc: https://bootstrap-vue.js.org/docs/
-    'bootstrap-vue/nuxt'
+    'bootstrap-vue/nuxt',
+    'nuxt-fontawesome'
   ],
   bootstrapVue: {
     bootstrapCSS: false, // Or `css: false`
@@ -57,7 +58,14 @@ export default {
     baseURL: process.env.baseApiUrl,
     browserBaseURL: process.env.baseBrouserApiUrl,
   },
-
+  fontawesome: {
+    imports: [
+      {
+        set: '@fortawesome/free-solid-svg-icons',
+        icons: ['fas']
+      }
+    ]
+  },
   /*
    ** Build configuration
    */

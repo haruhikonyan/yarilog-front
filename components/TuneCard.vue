@@ -8,6 +8,7 @@
           <div>面白さ<StarRating :rate="(tune.averageInteresting / 5) * 100" />{{ tune.averageInteresting }}</div>
           <div>体力<StarRating :rate="(tune.averagePhysicality / 5) * 100" />{{ tune.averagePhysicality }}</div>
           <div>難易度<StarRating :rate="(tune.averageDifficulty / 5) * 100" />{{ tune.averageDifficulty }}</div>
+          <font-awesome-icon icon="comment-dots" />{{ tune.countPlayingLogs }}件
         </div>
       </nuxt-link>
       <div v-for="playingLog in tune.playingLogs" :key="playingLog.id">
