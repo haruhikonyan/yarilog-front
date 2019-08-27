@@ -5,6 +5,9 @@
         <div>
           <h4>{{ tune.title }}</h4>
           <h6 class="text-muted mb-0">{{ tune.composer.displayName }}作曲</h6>
+          <div>面白さ<StarRating :rate="(tune.averageInteresting / 5) * 100" />{{ tune.averageInteresting }}</div>
+          <div>体力<StarRating :rate="(tune.averagePhysicality / 5) * 100" />{{ tune.averagePhysicality }}</div>
+          <div>難易度<StarRating :rate="(tune.averageDifficulty / 5) * 100" />{{ tune.averageDifficulty }}</div>
         </div>
       </nuxt-link>
       <div v-for="playingLog in tune.playingLogs" :key="playingLog.id">
@@ -21,10 +24,12 @@ import { PropType } from 'vue';
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import { Tune } from '../models/Tune';
 import PlayingLogSummary from '~/components/PlayingLogSummary.vue';
+import StarRating from '~/components/StarRating.vue';
 
 @Component({
   components: {
-    PlayingLogSummary
+    PlayingLogSummary,
+    StarRating
   }
 })
 export default class TuneCard extends Vue {

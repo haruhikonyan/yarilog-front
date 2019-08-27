@@ -5,8 +5,17 @@ export class Tune {
   id: number | undefined;
   title!: string;
   description: string | null = null;
+
+  // 平均難易度 0~5 小数点第１位
+  averageDifficulty!: number;
+  // 平均体力 0~5 小数点第１位
+  averagePhysicality!: number;
+  // 平均面白さ 0~5 小数点第１位
+  averageInteresting!: number;
+  
   composer!: Composer;
   playingLogs: PlayingLog[] | undefined;
+
 }
 
 export interface TuneSearchObject {

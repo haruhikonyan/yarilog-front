@@ -3,10 +3,12 @@
     <div>
       <h4 class="mb-0">{{ tune.title }}</h4>
       <small class="text-muted mb-1">{{ tune.composer.displayName }}作曲</small>
+      <div>面白さ<StarRating :rate="(tune.averageInteresting / 5) * 100" />{{ tune.averageInteresting }}</div>
+      <div>体力<StarRating :rate="(tune.averagePhysicality / 5) * 100" />{{ tune.averagePhysicality }}</div>
+      <div>難易度<StarRating :rate="(tune.averageDifficulty / 5) * 100" />{{ tune.averageDifficulty }}</div>
       <div v-for="playingLog in playingLogs" :key="playingLog.id">
-        <PlayingLogSummary :playing-log="playingLog" />
-        <!-- TODO 区切りのブラッシュアップと最後には表示しないようにする -->
         <hr />
+        <PlayingLogSummary :playing-log="playingLog" />
       </div>
     </div>
   </section>
@@ -16,10 +18,12 @@
 import { Component, Vue } from 'vue-property-decorator';
 import { Tune } from '../../../models/Tune';
 import PlayingLogSummary from '~/components/PlayingLogSummary.vue';
+import StarRating from '~/components/StarRating.vue';
 
 @Component({
   components: {
-    PlayingLogSummary
+    PlayingLogSummary,
+    StarRating
   },
   async asyncData({ app, params }) {
     const tune = await app.$api.getTune(params.id);
