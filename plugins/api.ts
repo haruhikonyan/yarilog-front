@@ -3,7 +3,7 @@ import { Composer } from "~/models/Composer";
 import { Country } from "~/models/Country";
 import * as urljoin from 'url-join';
 import { PlayingLog, PlayingLogsWithCount } from "~/models/PlayingLog";
-import { Tune, TunesWithCount } from "~/models/Tune";
+import { Tune, TunesWithCount, PlayStyle } from "~/models/Tune";
 import { LoginObject } from "~/models/LoginObject";
 import { Instrument } from "~/models/Instrument";
 import { LoginResultObject } from "~/models/LoginResultObject";
@@ -24,6 +24,7 @@ export class Api {
   private readonly API_TUNE_URL = 'tunes';
   private readonly API_PLAYING_LOG_URL = 'playing-logs';
   private readonly API_INSTRUMENT_URL = 'instruments';
+  private readonly API_PLAYSTYLE_URL = 'playstyles';
 
   login(loginObject: LoginObject): Promise<LoginResultObject> {
     const url: string = urljoin(this.API_AUTH_URL, 'login');
@@ -57,6 +58,10 @@ export class Api {
   createComposer(composer: Composer): Promise<Composer> {
     return this.context.$axios.$post(this.API_COMPOSER_URL, composer)
   }
+  getComposersByPlaystyleId(id: string): Promise<Composer[]> {
+    const url: string = urljoin(this.API_COMPOSER_URL, "playstyles", id);
+    return this.context.$axios.$get(url);
+  }
   
   createCountry(country: Country): Promise<Country> {
     return this.context.$axios.$post(this.API_COUNTRY_URL, country)
@@ -77,9 +82,14 @@ export class Api {
     const url: string = urljoin(this.API_TUNE_URL, id);
     return this.context.$axios.$get(url)
   }
-  getTuneByComposer(composerId: string): Promise<Tune[]> {
-    const url: string = urljoin(this.API_TUNE_URL, 'composers', composerId);
-    return this.context.$axios.$get(url);
+  getTuneforSelector(composerId: number, playstyleId: number): Promise<Tune[]> {
+    const url: string = urljoin(this.API_TUNE_URL, 'tune-selector');
+    return this.context.$axios.$get(url, {
+      params: {
+        composerId,
+        playstyleId
+      }
+    });
   }
   createTune(tune: Tune): Promise<Tune> {
     return this.context.$axios.$post(this.API_TUNE_URL, tune)
@@ -182,6 +192,11 @@ export class Api {
   }
   getInstrument(id: string): Promise<Instrument> {
     const url: string = urljoin(this.API_INSTRUMENT_URL, id);
+    return this.context.$axios.$get(url)
+  }
+
+  getPlaystyles(): Promise<PlayStyle[]> {
+    const url = this.API_PLAYSTYLE_URL;
     return this.context.$axios.$get(url)
   }
 

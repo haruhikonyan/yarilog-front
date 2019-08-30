@@ -5,7 +5,7 @@
         演奏ログ新規作成ページ
       </h1>
       <PlayingLogForm
-        :composers="composers"
+        :playstyles="playstyles"
         :instruments="$store.state.instruments"
         :playing-log="playingLog"
         @on-submit="createPlayingLog"
@@ -21,21 +21,20 @@ import { User } from '~/models/User';
 import { PlayingLog, PlayerLevel } from '~/models/PlayingLog';
 import { Instrument } from '~/models/Instrument';
 import PlayingLogForm from '~/components/PlayingLogForm.vue';
-import { Composer } from '~/models/Composer';
-import { Tune } from '~/models/Tune';
+import { Tune, PlayStyle } from '~/models/Tune';
 
 @Component({
   components: {
     PlayingLogForm
   },
   async asyncData({ app }) {
-    const composers = await app.$api.getComposers();
+    const playstyles = await app.$api.getPlaystyles();
     const playingLog: PlayingLog = new PlayingLog();
-    return { composers, playingLog };
+    return { playstyles, playingLog };
   }
 })
 export default class Index extends Vue {
-  composers: Composer[] = [];
+  playstyles: PlayStyle[] = [];
   playingLog!: PlayingLog;
   async createPlayingLog() {
     const savedPlayingLog = await this.$api.createPlayingLog(this.playingLog);

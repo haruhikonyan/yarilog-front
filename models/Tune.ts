@@ -6,6 +6,9 @@ export class Tune {
   title!: string;
   description: string | null = null;
 
+  playstyle!: PlayStyle;
+  genres: Genre[] = [];
+
   // 平均難易度 0~5 小数点第１位
   averageDifficulty!: number;
   // 平均体力 0~5 小数点第１位
@@ -19,6 +22,16 @@ export class Tune {
   composer!: Composer;
   playingLogs: PlayingLog[] | undefined;
 
+}
+
+// 演奏形態
+export interface PlayStyle {
+  name: string;
+}
+
+// ジャンル(タグ)
+export interface Genre {
+  name: string;
 }
 
 export interface TuneSearchObject {

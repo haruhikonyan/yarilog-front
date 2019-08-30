@@ -1,6 +1,7 @@
 <template>
   <section class="container">
     <div>
+      <small class="text-muted mb-0">{{ playingLog.tune.playstyle.name }} {{ displayGanres }}</small>
       <h4 class="mb-0">{{ playingLog.tune.title }}</h4>
       <small class="text-muted mb-1">{{ playingLog.tune.composer.displayName }}作曲</small>
       <h5 class="text-center mb-0">
@@ -64,5 +65,10 @@ import { PlayingLog } from '~/models/PlayingLog';
 })
 export default class Index extends Vue {
   playingLog!: PlayingLog;
+
+  get displayGanres(): string {
+    const genresString = this.playingLog.tune.genres.map(g => g.name).toString();
+    return genresString ? `/ ${genresString}` : '';
+  }
 }
 </script>

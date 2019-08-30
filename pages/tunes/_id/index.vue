@@ -1,6 +1,7 @@
 <template>
   <section class="container">
     <div>
+      <small class="text-muted mb-0">{{ tune.playstyle.name }} {{ displayGanres }}</small>
       <h4 class="mb-0">{{ tune.title }}</h4>
       <small class="text-muted mb-1">{{ tune.composer.displayName }}作曲</small>
       <div>面白さ<StarRating :rate="(tune.averageInteresting / 5) * 100" />{{ tune.averageInteresting }}</div>
@@ -40,5 +41,10 @@ import StarRating from '~/components/StarRating.vue';
 })
 export default class Index extends Vue {
   tune!: Tune;
+
+  get displayGanres(): string {
+    const genresString = this.tune.genres.map(g => g.name).toString();
+    return genresString ? `/ ${genresString}` : '';
+  }
 }
 </script>
