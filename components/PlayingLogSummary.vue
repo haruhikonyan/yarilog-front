@@ -1,6 +1,9 @@
 <template>
   <nuxt-link :to="`/playing-logs/${playingLog.id}`">
-    <b-card-text class="mb-1">{{ playingLog.user.nickname }}さんの{{ playingLog.playDate }}演奏</b-card-text>
+    <small>
+      {{ playingLog.instrument.name }} {{ playingLog.position }} <b-badge>{{ playingLog.playerLevel }}</b-badge>
+    </small>
+    <b-card-text class="mb-0">{{ playingLog.user.nickname }}さんの{{ playingLog.playDate }}演奏</b-card-text>
     <pre class="text-muted mb-0 yrl-pre-wrap yrl-truncate-one-line">{{ playingLog.impressionOfInteresting }}</pre>
     <div slot="footer">
       面白さ: {{ playingLog.interesting }} 体力: {{ playingLog.physicality }} 難易度: {{ playingLog.difficulty }}
