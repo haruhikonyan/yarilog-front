@@ -1,7 +1,7 @@
 <template>
   <section class="container">
     <div>
-      <h1 class="text-center">{{ totalCount }}曲見つかりました</h1>
+      <h1 class="text-center">{{ currentDisplayCount }}曲目表示 / 全{{ totalCount }}曲</h1>
       <SearchBox
         :default-search-word="searchWord"
         :default-instrument-id="instrumentId"
@@ -79,7 +79,10 @@ export default class Index extends Vue {
     const tunesWithCount = await this.$api.searchTunes(searchWord, instrumentId, this.offset, this.perPage, 5);
     this.tunes = tunesWithCount.tunes;
     this.totalCount = tunesWithCount.totalCount;
-    this.$router.push({ path: 'tunes', query: { searchWord, instrumentId } });
+    this.$router.push({
+      path: 'tunes',
+      query: { searchWord: this.searchWord, instrumentId: this.instrumentId, offset: this.offset.toString() }
+    });
   }
   async pagenationInputHandler(currentPage) {
     // 現在のページ数から offset を計算
@@ -97,6 +100,12 @@ export default class Index extends Vue {
       path: 'tunes',
       query: { searchWord: this.searchWord, instrumentId: this.instrumentId, offset: this.offset.toString() }
     });
+    // ページャークリック後最上部までスクロールを戻す
+    window.scrollTo(0, 0);
+  }
+  get currentDisplayCount(): string {
+    const lastCount = this.offset + this.perPage < this.totalCount ? this.offset + this.perPage : this.totalCount;
+    return `${Number(this.offset) + 1}~${lastCount}`;
   }
 }
 </script>
