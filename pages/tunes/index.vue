@@ -1,8 +1,7 @@
 <template>
   <section class="container">
     <div>
-      <h1 v-if="totalCount === 0" class="text-center">検索した曲はありませんでした。</h1>
-      <h1 v-else class="text-center">{{ currentDisplayCount }}曲目表示 / 全{{ totalCount }}曲</h1>
+      <h1 class="text-center">{{ searchResultMessage }}</h1>
       <SearchBox
         :default-search-word="searchWord"
         :default-instrument-id="instrumentId"
@@ -104,9 +103,12 @@ export default class Index extends Vue {
     // ページャークリック後最上部までスクロールを戻す
     window.scrollTo(0, 0);
   }
-  get currentDisplayCount(): string {
+  get searchResultMessage(): string {
     const lastCount = this.offset + this.perPage < this.totalCount ? this.offset + this.perPage : this.totalCount;
-    return `${Number(this.offset) + 1}~${lastCount}`;
+
+    return this.totalCount === 0
+      ? '検索した曲はありませんでした。'
+      : `${Number(this.offset) + 1}~${lastCount}曲目表示 / 全${this.totalCount}曲`;
   }
 }
 </script>
