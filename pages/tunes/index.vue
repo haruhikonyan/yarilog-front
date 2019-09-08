@@ -1,7 +1,8 @@
 <template>
   <section class="container">
     <div>
-      <h1 class="text-center">{{ currentDisplayCount }}曲目表示 / 全{{ totalCount }}曲</h1>
+      <h1 v-if="totalCount === 0" class="text-center">検索した曲はありませんでした。</h1>
+      <h1 v-else class="text-center">{{ currentDisplayCount }}曲目表示 / 全{{ totalCount }}曲</h1>
       <SearchBox
         :default-search-word="searchWord"
         :default-instrument-id="instrumentId"
