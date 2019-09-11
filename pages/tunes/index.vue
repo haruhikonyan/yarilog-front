@@ -43,14 +43,15 @@ import { TuneSearchObject, Tune } from '../../models/Tune';
     const perPage: number = 10;
     const searchWord = query.searchWord as string;
     const instrumentId = query.instrumentId as string;
+    const composerId = query.composerId as string;
     const offsetString = query.offset as string;
     // offset が未設定 NaN になるのでその時は 0 をセット
     const offset = isNaN(Number(offsetString)) ? 0 : Number(offsetString);
     // tune に紐づく PlayingLog は最大5件にしておく
-    const { tunes, totalCount } = await app.$api.searchTunes(searchWord, instrumentId, offset, perPage, 5);
+    const { tunes, totalCount } = await app.$api.searchTunes(searchWord, instrumentId, composerId, offset, perPage, 5);
     // offset の値から現在のページを計算
     const currentPage: number = offset === 0 ? 1 : Math.floor(offset / perPage) + 1;
-    return { tunes, totalCount, searchWord, instrumentId, offset, currentPage, perPage };
+    return { tunes, totalCount, searchWord, instrumentId, composerId, offset, currentPage, perPage };
   },
   head(this: Index) {
     const searchWord = this.searchWord || '';
@@ -65,6 +66,7 @@ export default class Index extends Vue {
   totalCount!: number;
   searchWord!: string;
   instrumentId: string | null = null;
+  composerId: string | null = null;
   offset!: number;
   currentPage!: number;
   perPage!: number;
@@ -73,15 +75,27 @@ export default class Index extends Vue {
     '検索した曲はありませんでした。\n作曲家の名前などの表記揺れにご注意ください。\n例）ベートーベン => ベートーヴェン';
 
   async search(tuneSearchObject: TuneSearchObject) {
-    const { searchWord, instrumentId } = tuneSearchObject;
+    const { searchWord, instrumentId, composerId } = tuneSearchObject;
     // offset は 0 で初期化
     this.offset = 0;
-    const tunesWithCount = await this.$api.searchTunes(searchWord, instrumentId, this.offset, this.perPage, 5);
+    const tunesWithCount = await this.$api.searchTunes(
+      searchWord,
+      instrumentId,
+      composerId,
+      this.offset,
+      this.perPage,
+      5
+    );
     this.tunes = tunesWithCount.tunes;
     this.totalCount = tunesWithCount.totalCount;
     this.$router.push({
       path: 'tunes',
-      query: { searchWord: this.searchWord, instrumentId: this.instrumentId, offset: this.offset.toString() }
+      query: {
+        searchWord: this.searchWord,
+        instrumentId: this.instrumentId,
+        composerId: this.composerId,
+        offset: this.offset.toString()
+      }
     });
   }
   async pagenationInputHandler(currentPage) {
@@ -90,6 +104,7 @@ export default class Index extends Vue {
     const playingLogsWithCount = await this.$api.searchTunes(
       this.searchWord,
       this.instrumentId,
+      this.composerId,
       this.offset,
       this.perPage,
       5
@@ -98,7 +113,12 @@ export default class Index extends Vue {
     this.totalCount = playingLogsWithCount.totalCount;
     this.$router.push({
       path: 'tunes',
-      query: { searchWord: this.searchWord, instrumentId: this.instrumentId, offset: this.offset.toString() }
+      query: {
+        searchWord: this.searchWord,
+        instrumentId: this.instrumentId,
+        composerId: this.composerId,
+        offset: this.offset.toString()
+      }
     });
     // ページャークリック後最上部までスクロールを戻す
     window.scrollTo(0, 0);

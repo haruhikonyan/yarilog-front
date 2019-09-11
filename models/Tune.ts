@@ -1,5 +1,5 @@
-import { Composer } from "./Composer";
-import { PlayingLog } from "./PlayingLog";
+import { Composer } from './Composer';
+import { PlayingLog } from './PlayingLog';
 
 export class Tune {
   id: number | undefined;
@@ -21,7 +21,6 @@ export class Tune {
 
   composer!: Composer;
   playingLogs: PlayingLog[] | undefined;
-
 }
 
 // 演奏形態
@@ -37,6 +36,7 @@ export interface Genre {
 export interface TuneSearchObject {
   searchWord: string | null;
   instrumentId: string | null;
+  composerId: string | null;
 }
 
 export interface TunesWithCount {
