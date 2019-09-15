@@ -99,6 +99,8 @@ export class Api {
     searchWord: string | null,
     instrumentId?: string | null,
     composerId?: string | null,
+    playstyleId?: string | null,
+    genreId?: string | null,
     offset?: number,
     limit?: number,
     playingLogLimit?: number
@@ -111,7 +113,9 @@ export class Api {
         limit,
         playingLogLimit,
         instrumentId,
-        composerId
+        composerId,
+        playstyleId,
+        genreId
       }
     });
   }

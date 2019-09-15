@@ -37,6 +37,8 @@ export interface TuneSearchObject {
   searchWord: string | null;
   instrumentId: string | null;
   composerId: string | null;
+  playstyleId: string | null;
+  genreId: string | null;
 }
 
 export interface TunesWithCount {

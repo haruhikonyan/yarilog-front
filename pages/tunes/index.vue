@@ -44,11 +44,22 @@ import { TuneSearchObject, Tune } from '../../models/Tune';
     const searchWord = query.searchWord as string;
     const instrumentId = query.instrumentId as string;
     const composerId = query.composerId as string;
+    const playstyleId = query.playstyleId as string;
+    const genreId = query.genreId as string;
     const offsetString = query.offset as string;
     // offset が未設定 NaN になるのでその時は 0 をセット
     const offset = isNaN(Number(offsetString)) ? 0 : Number(offsetString);
     // tune に紐づく PlayingLog は最大5件にしておく
-    const { tunes, totalCount } = await app.$api.searchTunes(searchWord, instrumentId, composerId, offset, perPage, 5);
+    const { tunes, totalCount } = await app.$api.searchTunes(
+      searchWord,
+      instrumentId,
+      composerId,
+      playstyleId,
+      genreId,
+      offset,
+      perPage,
+      5
+    );
     // offset の値から現在のページを計算
     const currentPage: number = offset === 0 ? 1 : Math.floor(offset / perPage) + 1;
     return { tunes, totalCount, searchWord, instrumentId, composerId, offset, currentPage, perPage };
@@ -67,6 +78,8 @@ export default class Index extends Vue {
   searchWord!: string;
   instrumentId: string | null = null;
   composerId: string | null = null;
+  playstyleId: string | null = null;
+  genreId: string | null = null;
   offset!: number;
   currentPage!: number;
   perPage!: number;
@@ -75,13 +88,15 @@ export default class Index extends Vue {
     '検索した曲はありませんでした。\n作曲家の名前などの表記揺れにご注意ください。\n例）ベートーベン => ベートーヴェン';
 
   async search(tuneSearchObject: TuneSearchObject) {
-    const { searchWord, instrumentId, composerId } = tuneSearchObject;
+    const { searchWord, instrumentId, composerId, playstyleId, genreId } = tuneSearchObject;
     // offset は 0 で初期化
     this.offset = 0;
     const tunesWithCount = await this.$api.searchTunes(
       searchWord,
       instrumentId,
       composerId,
+      playstyleId,
+      genreId,
       this.offset,
       this.perPage,
       5
@@ -94,6 +109,8 @@ export default class Index extends Vue {
         searchWord: this.searchWord,
         instrumentId: this.instrumentId,
         composerId: this.composerId,
+        playstyleId: this.playstyleId,
+        genreId: this.genreId,
         offset: this.offset.toString()
       }
     });
@@ -105,6 +122,8 @@ export default class Index extends Vue {
       this.searchWord,
       this.instrumentId,
       this.composerId,
+      this.playstyleId,
+      this.genreId,
       this.offset,
       this.perPage,
       5
@@ -117,6 +136,8 @@ export default class Index extends Vue {
         searchWord: this.searchWord,
         instrumentId: this.instrumentId,
         composerId: this.composerId,
+        playstyleId: this.playstyleId,
+        genreId: this.genreId,
         offset: this.offset.toString()
       }
     });
