@@ -92,6 +92,9 @@ export default class ComposerSelector extends Vue {
       if (someInputComposer) {
         this.selectedComposer = someInputComposer;
         this.onSelect();
+      } else {
+        // 存在しなければ input を初期化する
+        this.suggestComponent.setText('');
       }
     }
   }
