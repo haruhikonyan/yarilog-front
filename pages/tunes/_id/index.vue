@@ -3,7 +3,9 @@
     <div>
       <small class="text-muted mb-0">{{ tune.playstyle.name }} {{ displayGanres }}</small>
       <h4 class="mb-0">{{ tune.title }}</h4>
-      <small class="text-muted mb-1">{{ tune.composer.displayName }}作曲</small>
+      <nuxt-link :to="`/composers/${tune.composer.id}`" class="text-muted small mb-1"
+        >{{ tune.composer.displayName }}作曲
+      </nuxt-link>
       <div>面白さ<StarRating :rate="(tune.averageInteresting / 5) * 100" />{{ tune.averageInteresting }}</div>
       <div>体力<StarRating :rate="(tune.averagePhysicality / 5) * 100" />{{ tune.averagePhysicality }}</div>
       <div>難易度<StarRating :rate="(tune.averageDifficulty / 5) * 100" />{{ tune.averageDifficulty }}</div>
