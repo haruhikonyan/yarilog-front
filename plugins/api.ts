@@ -3,7 +3,7 @@ import { Composer } from '~/models/Composer';
 import { Country } from '~/models/Country';
 import * as urljoin from 'url-join';
 import { PlayingLog, PlayingLogsWithCount } from '~/models/PlayingLog';
-import { Tune, TunesWithCount, PlayStyle } from '~/models/Tune';
+import { Tune, TunesWithCount, PlayStyle, TuneSearchObject } from '~/models/Tune';
 import { LoginObject } from '~/models/LoginObject';
 import { Instrument } from '~/models/Instrument';
 import { LoginResultObject } from '~/models/LoginResultObject';
@@ -62,6 +62,14 @@ export class Api {
     const url: string = urljoin(this.API_COMPOSER_URL, 'playstyles', id);
     return this.context.$axios.$get(url);
   }
+  searchComposers(searchWord): Promise<Composer[]> {
+    const url = urljoin(this.API_COMPOSER_URL, 'search');
+    return this.context.$axios.$get(url, {
+      params: {
+        searchWord
+      }
+    });
+  }
 
   createCountry(country: Country): Promise<Country> {
     return this.context.$axios.$post(this.API_COUNTRY_URL, country);
@@ -96,11 +104,7 @@ export class Api {
   }
 
   searchTunes(
-    searchWord: string | null,
-    instrumentId?: string | null,
-    composerId?: string | null,
-    playstyleId?: string | null,
-    genreId?: string | null,
+    tuneSearchObject: TuneSearchObject,
     offset?: number,
     limit?: number,
     playingLogLimit?: number
@@ -108,14 +112,14 @@ export class Api {
     const url = urljoin(this.API_TUNE_URL, 'search');
     return this.context.$axios.$get(url, {
       params: {
-        searchWord,
+        searchWord: tuneSearchObject.searchWord,
         offset,
         limit,
         playingLogLimit,
-        instrumentId,
-        composerId,
-        playstyleId,
-        genreId
+        instrumentId: tuneSearchObject.instrumentId,
+        composerId: tuneSearchObject.composerId,
+        playstyleId: tuneSearchObject.playstyleId,
+        genreId: tuneSearchObject.genreId
       }
     });
   }
