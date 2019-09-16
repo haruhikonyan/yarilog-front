@@ -2,7 +2,7 @@
   <section class="container">
     <div>
       <h1 class="text-center">{{ searchResultMessage }}</h1>
-      <SearchBox
+      <SearchForm
         :default-search-word="tuneSearchObject.searchWord"
         :default-instrument-id="tuneSearchObject.instrumentId"
         :default-composer-id="tuneSearchObject.composerId"
@@ -31,13 +31,13 @@
 import { Component, Vue } from 'vue-property-decorator';
 import { PlayingLog } from '~/models/PlayingLog';
 import TuneCard from '~/components/TuneCard.vue';
-import SearchBox from '~/components/SearchBox.vue';
+import SearchForm from '~/components/SearchForm.vue';
 import { TuneSearchObject, Tune } from '../../models/Tune';
 
 @Component({
   components: {
     TuneCard,
-    SearchBox
+    SearchForm
   },
   async asyncData({ app, query }) {
     // Tune の最大表示数を 10 に設定

@@ -4,7 +4,7 @@
       <h1>
         トップページ
       </h1>
-      <SearchBox
+      <SearchForm
         class="my-3"
         :placeholder="'曲を探す'"
         :instruments="$store.state.instruments"
@@ -44,13 +44,13 @@ import { Composer } from 'models/Composer';
 import Cookie from 'js-cookie';
 import { PlayingLog } from '../models/PlayingLog';
 import PlayingLogCard from '../components/PlayingLogCard.vue';
-import SearchBox from '../components/SearchBox.vue';
+import SearchForm from '../components/SearchForm.vue';
 import { TuneSearchObject } from '../models/Tune';
 
 @Component({
   components: {
     PlayingLogCard,
-    SearchBox
+    SearchForm
   },
   async asyncData({ app }) {
     const playingLogs = await app.$api.getPlayingLogs(5);

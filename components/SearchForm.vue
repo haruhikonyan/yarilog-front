@@ -33,7 +33,7 @@ import ComposerSelector from './ComposerSelector.vue';
     ComposerSelector
   }
 })
-export default class SearchBox extends Vue {
+export default class SearchForm extends Vue {
   @Prop({ type: String, default: null })
   defaultSearchWord!: string | null;
   // 初期値をから文字列にすることでデフォルトに 全楽器 が表示される
