@@ -3,26 +3,25 @@
     <div>
       <h3>{{ composer.fullName }}の演奏記録一覧</h3>
     </div>
-    <PlayingLogCard v-for="playingLog in playingLogs" :key="playingLog.id" :playing-log="playingLog" />
+    <TuneCard v-for="tune in tunes" :key="tune.id" :tune="tune" />
   </section>
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { PlayingLog } from '../../models/PlayingLog';
-import PlayingLogCard from '../../components/PlayingLogCard.vue';
-
+import TuneCard from '../../components/TuneCard.vue';
+import { Tune } from '../../models/Tune';
 @Component({
   components: {
-    PlayingLogCard
+    TuneCard
   },
   async asyncData({ app, params }) {
-    const playingLogs = await app.$api.getPlayingLogsByComposer(params.id);
-    const composer = await app.$api.getComposer(params.id);
-    return { playingLogs, composer };
+    const tunes = await app.$api.get(params.id);
+    const composer = await app.$api.searchTunes(params.id);
+    return { tunes, composer };
   }
 })
 export default class Index extends Vue {
-  playingLogs: PlayingLog[] = [];
+  tunes: Tune[] = [];
 }
 </script>

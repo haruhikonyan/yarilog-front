@@ -1,13 +1,13 @@
-import { User } from "./User";
-import { Tune } from "./Tune";
-import { Instrument } from "./Instrument";
+import { User } from './User';
+import { Tune } from './Tune';
+import { Instrument } from './Instrument';
 
 export enum PlayerLevel {
-  BEGINNER = "初心者",
-  INTERMEDIATE = "中級者",
-  SENIOR = "上級者",
-  UNIVERSITY_OF_MUSIC = "音大生",
-  PRO = "プロ"
+  BEGINNER = '初心者',
+  INTERMEDIATE = '中級者',
+  SENIOR = '上級者',
+  UNIVERSITY_OF_MUSIC = '音大生',
+  PRO = 'プロ'
 }
 
 export class PlayingLog {
@@ -50,14 +50,6 @@ export class PlayingLog {
 
   tune!: Tune;
   user!: User;
-
-  constructor() {
-  }
-}
-
-export interface PlayingLogSearchObject {
-  searchWord: string | null;
-  instrumentId: string | null;
 }
 
 export interface PlayingLogsWithCount {

@@ -3,8 +3,9 @@
     <div>
       <h1 class="text-center">{{ searchResultMessage }}</h1>
       <SearchBox
-        :default-search-word="searchWord"
-        :default-instrument-id="instrumentId"
+        :default-search-word="tuneSearchObject.searchWord"
+        :default-instrument-id="tuneSearchObject.instrumentId"
+        :default-composer-id="tuneSearchObject.composerId"
         :placeholder="'曲を探す'"
         :instruments="$store.state.instruments"
         class="my-3"
@@ -46,26 +47,24 @@ import { TuneSearchObject, Tune } from '../../models/Tune';
     const composerId = query.composerId as string;
     const playstyleId = query.playstyleId as string;
     const genreId = query.genreId as string;
-    const offsetString = query.offset as string;
-    // offset が未設定 NaN になるのでその時は 0 をセット
-    const offset = isNaN(Number(offsetString)) ? 0 : Number(offsetString);
-    // tune に紐づく PlayingLog は最大5件にしておく
-    const { tunes, totalCount } = await app.$api.searchTunes(
+    const tuneSearchObject: TuneSearchObject = {
       searchWord,
       instrumentId,
       composerId,
       playstyleId,
-      genreId,
-      offset,
-      perPage,
-      5
-    );
+      genreId
+    };
+    const offsetString = query.offset as string;
+    // offset が未設定 NaN になるのでその時は 0 をセット
+    const offset = isNaN(Number(offsetString)) ? 0 : Number(offsetString);
+    // tune に紐づく PlayingLog は最大5件にしておく
+    const { tunes, totalCount } = await app.$api.searchTunes(tuneSearchObject, offset, perPage, 5);
     // offset の値から現在のページを計算
     const currentPage: number = offset === 0 ? 1 : Math.floor(offset / perPage) + 1;
-    return { tunes, totalCount, searchWord, instrumentId, composerId, offset, currentPage, perPage };
+    return { tunes, totalCount, tuneSearchObject, offset, currentPage, perPage };
   },
   head(this: Index) {
-    const searchWord = this.searchWord || '';
+    const searchWord = this.tuneSearchObject.searchWord || '';
     return {
       title: `${searchWord} 曲検索結果 - 演りログ`,
       meta: [{ hid: 'description', name: 'description', content: `${searchWord} 曲検索結果` }]
@@ -75,11 +74,7 @@ import { TuneSearchObject, Tune } from '../../models/Tune';
 export default class Index extends Vue {
   tunes!: Tune[];
   totalCount!: number;
-  searchWord!: string;
-  instrumentId: string | null = null;
-  composerId: string | null = null;
-  playstyleId: string | null = null;
-  genreId: string | null = null;
+  tuneSearchObject!: TuneSearchObject;
   offset!: number;
   currentPage!: number;
   perPage!: number;
@@ -88,29 +83,20 @@ export default class Index extends Vue {
     '検索した曲はありませんでした。\n作曲家の名前などの表記揺れにご注意ください。\n例）ベートーベン => ベートーヴェン';
 
   async search(tuneSearchObject: TuneSearchObject) {
-    const { searchWord, instrumentId, composerId, playstyleId, genreId } = tuneSearchObject;
+    this.tuneSearchObject = tuneSearchObject;
     // offset は 0 で初期化
     this.offset = 0;
-    const tunesWithCount = await this.$api.searchTunes(
-      searchWord,
-      instrumentId,
-      composerId,
-      playstyleId,
-      genreId,
-      this.offset,
-      this.perPage,
-      5
-    );
+    const tunesWithCount = await this.$api.searchTunes(tuneSearchObject, this.offset, this.perPage, 5);
     this.tunes = tunesWithCount.tunes;
     this.totalCount = tunesWithCount.totalCount;
     this.$router.push({
       path: 'tunes',
       query: {
-        searchWord: this.searchWord,
-        instrumentId: this.instrumentId,
-        composerId: this.composerId,
-        playstyleId: this.playstyleId,
-        genreId: this.genreId,
+        searchWord: this.tuneSearchObject.searchWord,
+        instrumentId: this.tuneSearchObject.instrumentId,
+        composerId: this.tuneSearchObject.composerId,
+        playstyleId: this.tuneSearchObject.playstyleId,
+        genreId: this.tuneSearchObject.genreId,
         offset: this.offset.toString()
       }
     });
@@ -118,26 +104,17 @@ export default class Index extends Vue {
   async pagenationInputHandler(currentPage) {
     // 現在のページ数から offset を計算
     this.offset = this.perPage * (currentPage - 1);
-    const playingLogsWithCount = await this.$api.searchTunes(
-      this.searchWord,
-      this.instrumentId,
-      this.composerId,
-      this.playstyleId,
-      this.genreId,
-      this.offset,
-      this.perPage,
-      5
-    );
+    const playingLogsWithCount = await this.$api.searchTunes(this.tuneSearchObject, this.offset, this.perPage, 5);
     this.tunes = playingLogsWithCount.tunes;
     this.totalCount = playingLogsWithCount.totalCount;
     this.$router.push({
       path: 'tunes',
       query: {
-        searchWord: this.searchWord,
-        instrumentId: this.instrumentId,
-        composerId: this.composerId,
-        playstyleId: this.playstyleId,
-        genreId: this.genreId,
+        searchWord: this.tuneSearchObject.searchWord,
+        instrumentId: this.tuneSearchObject.instrumentId,
+        composerId: this.tuneSearchObject.composerId,
+        playstyleId: this.tuneSearchObject.playstyleId,
+        genreId: this.tuneSearchObject.genreId,
         offset: this.offset.toString()
       }
     });

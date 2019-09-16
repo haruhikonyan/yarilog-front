@@ -42,7 +42,7 @@ import { User } from '~/models/User';
 import { Country } from 'models/Country';
 import { Composer } from 'models/Composer';
 import Cookie from 'js-cookie';
-import { PlayingLog, PlayingLogSearchObject } from '../models/PlayingLog';
+import { PlayingLog } from '../models/PlayingLog';
 import PlayingLogCard from '../components/PlayingLogCard.vue';
 import SearchBox from '../components/SearchBox.vue';
 import { TuneSearchObject } from '../models/Tune';
@@ -61,8 +61,8 @@ import { TuneSearchObject } from '../models/Tune';
 })
 export default class Index extends Vue {
   search(tuneSearchObject: TuneSearchObject) {
-    const { searchWord, instrumentId } = tuneSearchObject;
-    this.$router.push({ path: 'tunes', query: { searchWord, instrumentId } });
+    const { searchWord, instrumentId, composerId } = tuneSearchObject;
+    this.$router.push({ path: 'tunes', query: { searchWord, instrumentId, composerId } });
   }
 }
 </script>
