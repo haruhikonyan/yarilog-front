@@ -3,7 +3,8 @@ const cookieparser = process.server ? require('cookieparser') : undefined;
 export const state = () => {
   return {
     auth: null,
-    instruments: null
+    instruments: [],
+    playstyles: []
   };
 };
 export const mutations = {
@@ -12,6 +13,9 @@ export const mutations = {
   },
   setInstruments(state, instruments) {
     state.instruments = instruments;
+  },
+  setPlaystyles(state, playstyles) {
+    state.playstyles = playstyles;
   }
 };
 export const actions = {
@@ -28,7 +32,9 @@ export const actions = {
     }
     // 楽器マスタを持っておく
     const instruments = await app.$api.getInstruments();
+    const playstyles = await app.$api.getPlaystyles();
     commit('setAuth', auth);
     commit('setInstruments', instruments);
+    commit('setPlaystyles', playstyles);
   }
 };

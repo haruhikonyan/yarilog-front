@@ -6,8 +6,9 @@
       </h1>
       <SearchForm
         class="my-3"
-        :placeholder="'曲を探す'"
+        placeholder="曲を探す(フリーワード)"
         :instruments="$store.state.instruments"
+        :playstyles="$store.state.playstyles"
         @on-search="search($event)"
       />
       <p><nuxt-link to="/composers">作曲家から演奏記録を探す</nuxt-link></p>
@@ -61,8 +62,8 @@ import { TuneSearchObject } from '../models/Tune';
 })
 export default class Index extends Vue {
   search(tuneSearchObject: TuneSearchObject) {
-    const { searchWord, instrumentId, composerId } = tuneSearchObject;
-    this.$router.push({ path: 'tunes', query: { searchWord, instrumentId, composerId } });
+    const { searchWord, instrumentId, composerId, playstyleId } = tuneSearchObject;
+    this.$router.push({ path: 'tunes', query: { searchWord, instrumentId, composerId, playstyleId } });
   }
 }
 </script>

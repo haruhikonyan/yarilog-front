@@ -6,7 +6,7 @@
     mode="select"
     :list="simpleSuggestionList"
     :debounce="200"
-    placeholder="全作曲家"
+    placeholder="作曲家で絞る"
     display-attribute="displayName"
     type="search"
     @select="onSelect"

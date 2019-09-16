@@ -4,10 +4,12 @@
       <h1 class="text-center">{{ searchResultMessage }}</h1>
       <SearchForm
         :default-search-word="tuneSearchObject.searchWord"
+        :default-playstyle-id="tuneSearchObject.playstyleId"
         :default-instrument-id="tuneSearchObject.instrumentId"
         :default-composer-id="tuneSearchObject.composerId"
-        :placeholder="'曲を探す'"
+        placeholder="曲を探す(フリーワード)"
         :instruments="$store.state.instruments"
+        :playstyles="$store.state.playstyles"
         class="my-3"
         @on-search="search($event)"
       />

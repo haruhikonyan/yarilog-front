@@ -1,6 +1,14 @@
 <template>
   <b-form @submit.prevent="searchButtonHandler">
-    <b-input v-model="searchWord" :placeholder="placeholder"></b-input>
+    <div class="d-flex">
+      <b-input v-model="searchWord" :placeholder="placeholder"></b-input>
+      <b-form-select v-model="selectedPlaystyleId" class="w-auto">
+        <option value="">演奏形態</option>
+        <option v-for="playstyle in playstyles" :key="playstyle.id" :value="playstyle.id.toString()">
+          {{ playstyle.name }}
+        </option>
+      </b-form-select>
+    </div>
     <div class="d-flex">
       <b-form-select v-model="selectedInstrumentId" class="w-auto">
         <option value="">全楽器</option>
@@ -25,7 +33,7 @@ import { PropType } from 'vue';
 import { PlayingLog } from '../models/PlayingLog';
 import { Instrument } from '../models/Instrument';
 import { Composer } from '../models/Composer';
-import { TuneSearchObject } from '../models/Tune';
+import { TuneSearchObject, PlayStyle } from '../models/Tune';
 import ComposerSelector from './ComposerSelector.vue';
 
 @Component({
@@ -36,6 +44,9 @@ import ComposerSelector from './ComposerSelector.vue';
 export default class SearchForm extends Vue {
   @Prop({ type: String, default: null })
   defaultSearchWord!: string | null;
+  // 初期値をから文字列にすることでデフォルトに 演奏形態 が表示される
+  @Prop({ type: String, default: '' })
+  defaultPlaystyleId!: string | null;
   // 初期値をから文字列にすることでデフォルトに 全楽器 が表示される
   @Prop({ type: String, default: '' })
   defaultInstrumentId!: string | null;
@@ -43,16 +54,20 @@ export default class SearchForm extends Vue {
   defaultComposerId!: string | null;
   @Prop({ type: Array as PropType<Instrument[]> })
   instruments!: Instrument[];
+  @Prop({ type: Array as PropType<PlayStyle[]> })
+  playstyles!: PlayStyle[];
   @Prop({ type: String })
   placeholder!: string[];
 
   searchWord!: string | null;
+  selectedPlaystyleId!: string | null;
   selectedInstrumentId!: string | null;
   selectedComposerId!: string | null;
 
   created() {
     // Prop を子コンポーネントでいじるのはよくない
     this.searchWord = this.defaultSearchWord;
+    this.selectedPlaystyleId = this.defaultPlaystyleId;
     this.selectedInstrumentId = this.defaultInstrumentId;
     this.selectedComposerId = this.defaultComposerId;
   }
@@ -70,7 +85,7 @@ export default class SearchForm extends Vue {
       searchWord: this.searchWord,
       instrumentId: this.selectedInstrumentId,
       composerId: this.selectedComposerId,
-      playstyleId: null,
+      playstyleId: this.selectedPlaystyleId,
       genreId: null
     };
   }
