@@ -8,7 +8,12 @@
           {{ instrument.shortName }}
         </option>
       </b-form-select>
-      <ComposerSelector class="flex-grow-1" @on-select="onSelectComposer($event)" />
+      <ComposerSelector
+        class="flex-grow-1"
+        :default-composer-id="defaultComposerId"
+        @on-select="onSelectComposer($event)"
+        @remove-composer="removeComposerId"
+      />
       <b-button class="text-nowrap" type="submit" variant="primary">検索</b-button>
     </div>
   </b-form>
@@ -31,10 +36,11 @@ import ComposerSelector from './ComposerSelector.vue';
 export default class SearchBox extends Vue {
   @Prop({ type: String, default: null })
   defaultSearchWord!: string | null;
-  @Prop({ type: String, default: null })
+  // 初期値をから文字列にすることでデフォルトに 全楽器 が表示される
+  @Prop({ type: String, default: '' })
   defaultInstrumentId!: string | null;
   @Prop({ type: String, default: null })
-  defaultSelectedComposerId!: string | null;
+  defaultComposerId!: string | null;
   @Prop({ type: Array as PropType<Instrument[]> })
   instruments!: Instrument[];
   @Prop({ type: String })
@@ -48,11 +54,14 @@ export default class SearchBox extends Vue {
     // Prop を子コンポーネントでいじるのはよくない
     this.searchWord = this.defaultSearchWord;
     this.selectedInstrumentId = this.defaultInstrumentId;
-    this.selectedComposerId = this.defaultSelectedComposerId;
+    this.selectedComposerId = this.defaultComposerId;
   }
 
   onSelectComposer(composerId: string) {
     this.selectedComposerId = composerId;
+  }
+  removeComposerId() {
+    this.selectedComposerId = null;
   }
 
   @Emit('on-search')
