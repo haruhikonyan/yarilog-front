@@ -34,11 +34,11 @@ export interface Genre {
 }
 
 export interface TuneSearchObject {
-  searchWord: string | null;
-  instrumentId: string | null;
-  composerId: string | null;
-  playstyleId: string | null;
-  genreId: string | null;
+  searchWord: string | null | undefined;
+  instrumentId: string | null | undefined;
+  composerId: string | null | undefined;
+  playstyleId: string | null | undefined;
+  genreId: string | null | undefined;
 }
 
 export interface TunesWithCount {
