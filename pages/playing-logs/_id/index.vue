@@ -1,5 +1,6 @@
 <template>
   <section class="container">
+    <Breadcrumb :playing-log="playingLog" />
     <div>
       <small class="text-muted mb-0">{{ playingLog.tune.playstyle.name }} {{ displayGanres }}</small>
       <h4 class="mb-0">{{ playingLog.tune.title }}</h4>
@@ -12,6 +13,7 @@
       </div>
       <b-card v-if="playingLog.impressionOfInteresting" class="mb-2" title="面白かったところ">
         <b-card-text>
+          <!-- TODO pre タグで文字を入れるとなんかエラーが出る -->
           <pre class="yrl-pre-wrap">{{ playingLog.impressionOfInteresting }}</pre>
         </b-card-text>
       </b-card>
@@ -45,9 +47,12 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import { PlayingLog } from '~/models/PlayingLog';
+import Breadcrumb from '~/components/Breadcrumb.vue';
 
 @Component({
-  components: {},
+  components: {
+    Breadcrumb
+  },
   async asyncData({ app, params }) {
     const playingLog = await app.$api.getPlayingLog(params.id);
     return { playingLog };

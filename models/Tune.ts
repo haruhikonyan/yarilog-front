@@ -25,11 +25,13 @@ export class Tune {
 
 // 演奏形態
 export interface PlayStyle {
+  id: number;
   name: string;
 }
 
 // ジャンル(タグ)
 export interface Genre {
+  id: number;
   name: string;
 }
 
