@@ -18,7 +18,7 @@
       </b-form-select>
       <ComposerSelector
         class="flex-grow-1"
-        :default-composer-id="defaultComposerId"
+        :default-composer="defaultComposer"
         @on-select="onSelectComposer($event)"
         @remove-composer="removeComposerId"
       />
@@ -50,8 +50,8 @@ export default class SearchForm extends Vue {
   // 初期値をから文字列にすることでデフォルトに 全楽器 が表示される
   @Prop({ type: String, default: '' })
   defaultInstrumentId!: string | null;
-  @Prop({ type: String, default: null })
-  defaultComposerId!: string | null;
+  @Prop({ type: Object as PropType<Composer>, default: null })
+  defaultComposer!: Composer | null;
   @Prop({ type: Array as PropType<Instrument[]> })
   instruments!: Instrument[];
   @Prop({ type: Array as PropType<PlayStyle[]> })
@@ -69,7 +69,7 @@ export default class SearchForm extends Vue {
     this.searchWord = this.defaultSearchWord;
     this.selectedPlaystyleId = this.defaultPlaystyleId;
     this.selectedInstrumentId = this.defaultInstrumentId;
-    this.selectedComposerId = this.defaultComposerId;
+    this.selectedComposerId = this.defaultComposer ? this.defaultComposer.id!.toString() : null;
   }
 
   onSelectComposer(composerId: string) {

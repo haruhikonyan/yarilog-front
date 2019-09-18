@@ -6,7 +6,7 @@
       :default-search-word="tuneSearchObject.searchWord"
       :default-playstyle-id="tuneSearchObject.playstyleId"
       :default-instrument-id="tuneSearchObject.instrumentId"
-      :default-composer-id="tuneSearchObject.composerId"
+      :default-composer="defaultComposer"
       placeholder="曲を探す(フリーワード)"
       :instruments="$store.state.instruments"
       :playstyles="$store.state.playstyles"
@@ -67,6 +67,7 @@ import { Instrument } from '../../models/Instrument';
     // offset の値から現在のページを計算
     const currentPage: number = offset === 0 ? 1 : Math.floor(offset / perPage) + 1;
 
+    // 作曲家が検索条件にあれば、パンくずや検索フォームで使う作曲家データを取得しておく
     const defaultComposer = composerId ? await app.$api.getComposer(composerId) : null;
     return { tunes, totalCount, tuneSearchObject, offset, currentPage, perPage, defaultComposer };
   },
@@ -105,6 +106,7 @@ export default class Index extends Vue {
     const tunesWithCount = await this.$api.searchTunes(tuneSearchObject, this.offset, this.perPage, 5);
     this.tunes = tunesWithCount.tunes;
     this.totalCount = tunesWithCount.totalCount;
+    // 作曲家が検索条件にあれば、パンくずや検索フォームで使う作曲家データを再取得する
     this.defaultComposer = this.tuneSearchObject.composerId
       ? await this.$api.getComposer(this.tuneSearchObject.composerId)
       : null;

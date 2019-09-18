@@ -6,10 +6,11 @@ $enable-responsive-font-sizes: true;
 .yrl-pre-wrap {
   white-space: pre-wrap;
 }
-.very-small {
+.yrl-very-small {
   font-size: 70%;
 }
 
+// custom bootstrap breadcrumb
 .breadcrumb-item {
   + .breadcrumb-item {
     @include media-breakpoint-down(xs) {

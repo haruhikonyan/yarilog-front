@@ -1,7 +1,5 @@
 <template>
-  <b-breadcrumb :items="items" class="very-small">
-    <b-breadcrumb-item class="pl-1" />
-  </b-breadcrumb>
+  <b-breadcrumb :items="items" class="yrl-very-small" />
 </template>
 
 <script lang="ts">
@@ -25,6 +23,7 @@ export default class Breadcrumb extends Vue {
   @Prop({ type: Object as PropType<Instrument> })
   instrument!: Instrument | null;
 
+  // パンくずリストに表示させる item を返す
   get items(): Object[] {
     if (this.playingLog) {
       return this.generatePlaingLogItems(this.playingLog);
@@ -32,12 +31,13 @@ export default class Breadcrumb extends Vue {
     if (this.tune) {
       return this.generateTuneItems(this.tune);
     }
+    // 曲と演奏記録詳細以外は検索結果画面で検索内容によって動的に出し分ける
     const items: Object[] = [];
-    if (this.composer) {
-      items.push(this.generateComposerItems(this.composer));
-    }
     if (this.playstyle) {
       items.push(this.generatePlaystyleItems(this.playstyle));
+    }
+    if (this.composer) {
+      items.push(this.generateComposerItems(this.composer));
     }
     if (this.instrument) {
       items.push(this.generateInstrumentItems(this.instrument));
