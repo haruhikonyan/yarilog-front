@@ -1,5 +1,6 @@
 <template>
   <section class="container">
+    <Breadcrumb :tune="tune" />
     <div>
       <small class="text-muted mb-0">{{ tune.playstyle.name }} {{ displayGanres }}</small>
       <h4 class="mb-0">{{ tune.title }}</h4>
@@ -22,11 +23,13 @@ import { Component, Vue } from 'vue-property-decorator';
 import { Tune } from '../../../models/Tune';
 import PlayingLogSummary from '~/components/PlayingLogSummary.vue';
 import StarRating from '~/components/StarRating.vue';
+import Breadcrumb from '~/components/Breadcrumb.vue';
 
 @Component({
   components: {
     PlayingLogSummary,
-    StarRating
+    StarRating,
+    Breadcrumb
   },
   async asyncData({ app, params }) {
     const tune = await app.$api.getTune(params.id);
