@@ -1,28 +1,27 @@
 <template>
   <section class="container">
-    <div>
-      <h1 class="text-center">{{ searchResultMessage }}</h1>
-      <SearchForm
-        :default-composer-id="tuneSearchObject.composerId"
-        placeholder="曲を探す(フリーワード)"
-        :instruments="$store.state.instruments"
-        :playstyles="$store.state.playstyles"
-        class="my-3"
-        @on-search="search($event)"
-      />
-      <b-alert v-if="tunes.length == 0" show variant="danger" class="yrl-pre-wrap">{{
-        noHitSearchResultMessage
-      }}</b-alert>
-      <TuneCard v-for="tune in tunes" :key="tune.id" :tune="tune" />
-      <!-- TODO 無限スクロールの方が今風かもしれない -->
-      <b-pagination
-        v-model="currentPage"
-        align="center"
-        :total-rows="totalCount"
-        :per-page="perPage"
-        @input="pagenationInputHandler($event)"
-      ></b-pagination>
-    </div>
+    <Breadcrumb :composer="defaultComposer" />
+    <h1 class="text-center">{{ searchResultMessage }}</h1>
+    <SearchForm
+      :default-composer-id="tuneSearchObject.composerId"
+      placeholder="曲を探す(フリーワード)"
+      :instruments="$store.state.instruments"
+      :playstyles="$store.state.playstyles"
+      class="my-3"
+      @on-search="search($event)"
+    />
+    <b-alert v-if="tunes.length == 0" show variant="danger" class="yrl-pre-wrap">{{
+      noHitSearchResultMessage
+    }}</b-alert>
+    <TuneCard v-for="tune in tunes" :key="tune.id" :tune="tune" />
+    <!-- TODO 無限スクロールの方が今風かもしれない -->
+    <b-pagination
+      v-model="currentPage"
+      align="center"
+      :total-rows="totalCount"
+      :per-page="perPage"
+      @input="pagenationInputHandler($event)"
+    ></b-pagination>
   </section>
 </template>
 
@@ -32,12 +31,15 @@ import { Component, Vue } from 'vue-property-decorator';
 import { PlayingLog } from '~/models/PlayingLog';
 import TuneCard from '~/components/TuneCard.vue';
 import SearchForm from '~/components/SearchForm.vue';
+import Breadcrumb from '~/components/Breadcrumb.vue';
 import { TuneSearchObject, Tune } from '../../models/Tune';
+import { Composer } from '../../models/Composer';
 
 @Component({
   components: {
     TuneCard,
-    SearchForm
+    SearchForm,
+    Breadcrumb
   },
   async asyncData({ app, query, params }) {
     // Tune の最大表示数を 10 に設定
@@ -56,7 +58,9 @@ import { TuneSearchObject, Tune } from '../../models/Tune';
     const { tunes, totalCount } = await app.$api.searchTunes(tuneSearchObject, offset, perPage, 5);
     // offset の値から現在のページを計算
     const currentPage: number = offset === 0 ? 1 : Math.floor(offset / perPage) + 1;
-    return { tunes, totalCount, tuneSearchObject, offset, currentPage, perPage };
+    // 作曲家が検索条件にあれば、パンくずや検索フォームで使う作曲家データを取得しておく
+    const defaultComposer = params.id ? await app.$api.getComposer(params.id) : null;
+    return { tunes, totalCount, tuneSearchObject, offset, currentPage, perPage, defaultComposer };
   },
   head(this: Index) {
     // TODO 作曲家ページ用にする
@@ -78,6 +82,7 @@ export default class Index extends Vue {
   noHitSearchResultMessage =
     '検索した曲はありませんでした。\n作曲家の名前などの表記揺れにご注意ください。\n例）ベートーベン => ベートーヴェン';
 
+  defaultComposer!: Composer | null;
   async search(tuneSearchObject: TuneSearchObject) {
     this.tuneSearchObject = tuneSearchObject;
     // offset は 0 で初期化
@@ -85,6 +90,10 @@ export default class Index extends Vue {
     const tunesWithCount = await this.$api.searchTunes(tuneSearchObject, this.offset, this.perPage, 5);
     this.tunes = tunesWithCount.tunes;
     this.totalCount = tunesWithCount.totalCount;
+    // 作曲家が検索条件にあれば、パンくずや検索フォームで使う作曲家データを再取得する
+    this.defaultComposer = this.tuneSearchObject.composerId
+      ? await this.$api.getComposer(this.tuneSearchObject.composerId)
+      : null;
     this.$router.push({
       path: '/tunes',
       query: {
