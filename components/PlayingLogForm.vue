@@ -1,6 +1,7 @@
 <template>
   <b-form @submit.prevent="submitHandler">
     <b-form-group label="演奏曲">
+      <span v-if="requireTuneError && !playingLog.tune" class="text-danger">{{ requireTuneError }}</span>
       <p v-if="playingLog.tune">
         {{ playingLog.tune.composer.displayName }}作曲 {{ playingLog.tune.title }}({{ playingLog.tune.playstyle.name }})
       </p>
@@ -124,6 +125,11 @@ export default class PlayingLogForm extends Vue {
   instruments!: Instrument[];
   @Prop({ type: Object as PropType<PlayingLog>, required: true })
   playingLog!: PlayingLog;
+
+  // TODO やっつけエラー表示機構なのでどうにかしたい
+  @Prop({ type: String, default: null })
+  requireTuneError!: string;
+
   playerLevelList: Object = PlayerLevel;
   // TuneSelector で選択された tune を playingLog にセットする
   selectTune(tune: Tune) {
