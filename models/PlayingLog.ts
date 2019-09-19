@@ -45,7 +45,7 @@ export class PlayingLog {
   otherPartInpression: string | null = null;
   // 非公開のメモ
   secretMemo: string | null = null;
-  //　下書きフラグ
+  // 下書きフラグ
   isDraft: boolean = false;
 
   tune!: Tune;

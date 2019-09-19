@@ -34,18 +34,16 @@ import { Composer } from '../models/Composer';
   }
 })
 export default class ComposerSelector extends Vue {
-  @Prop({ type: String, default: null })
-  defaultComposerId!: string | null;
+  @Prop({ type: Object as PropType<Composer>, default: null })
+  defaultComposer!: Composer | null;
 
   selectedComposer: Composer | null = null;
 
   get suggestComponent(): any {
     return this.$refs.suggestComponent;
   }
-  async created() {
-    if (this.defaultComposerId) {
-      this.selectedComposer = await this.$api.getComposer(this.defaultComposerId);
-    }
+  created() {
+    this.selectedComposer = this.defaultComposer;
   }
 
   get autoCompleteStyle() {
