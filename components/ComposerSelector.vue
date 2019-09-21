@@ -1,7 +1,7 @@
 <template>
   <vue-simple-suggest
     ref="suggestComponent"
-    v-model="selectedComposer"
+    :value="defaultComposer"
     :styles="autoCompleteStyle"
     mode="select"
     :list="simpleSuggestionList"
@@ -9,7 +9,7 @@
     placeholder="作曲家で絞る"
     display-attribute="displayName"
     type="search"
-    @select="onSelect"
+    :nullable-select="true"
     @input="inputHandler"
     @blur="blurHandler"
   >
@@ -37,15 +37,18 @@ export default class ComposerSelector extends Vue {
   @Prop({ type: Object as PropType<Composer>, default: null })
   defaultComposer!: Composer | null;
 
-  selectedComposer: Composer | null = null;
+  get selectedComposer(): Composer | null {
+    return this.defaultComposer;
+  }
+  set selectedComposer(value) {
+    this.onSelect(value);
+  }
 
   get suggestComponent(): any {
     return this.$refs.suggestComponent;
   }
-  created() {
-    this.selectedComposer = this.defaultComposer;
-  }
 
+  // bootstrap 用の style
   get autoCompleteStyle() {
     return {
       vueSimpleSuggest: 'position-relative',
@@ -60,8 +63,8 @@ export default class ComposerSelector extends Vue {
     return this.$api.searchComposers(searchWord);
   }
   @Emit('on-select')
-  onSelect(): string | null {
-    return this.selectedComposer ? this.selectedComposer.id!.toString() : null;
+  onSelect(composer: Composer | null): Composer | null {
+    return composer;
   }
   // input ボックスに入力した際に実行される
   inputHandler() {
@@ -71,15 +74,13 @@ export default class ComposerSelector extends Vue {
     }
     // 選択済みで選択済みの作曲家以外のものを入力しようとすると作曲家の選択と input を初期化する
     if (this.suggestComponent.text !== this.selectedComposer.displayName) {
-      this.removeComposer();
+      this.selectedComposer = null;
+      this.suggestComponent.setText('');
     }
   }
-  @Emit('remove-composer')
-  removeComposer(): void {
-    this.selectedComposer = null;
-    this.suggestComponent.setText('');
-  }
   // input からフォーカスが外れた際に実行される
+  // なぜか v-model や @select を利用すると :value を指定してるにも関わらず null で一旦初期化される
+  // select 等利用せず、すべてはここで決めるようにする(フォーカスが外れた瞬間にselect判断を行っている)
   blurHandler() {
     // 作曲家が選択されてないかつ、入力された文字がある時
     if (!this.selectedComposer && this.suggestComponent.text) {
@@ -89,7 +90,6 @@ export default class ComposerSelector extends Vue {
       );
       if (someInputComposer) {
         this.selectedComposer = someInputComposer;
-        this.onSelect();
       } else {
         // 存在しなければ input を初期化する
         this.suggestComponent.setText('');
