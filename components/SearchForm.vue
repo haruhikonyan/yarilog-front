@@ -20,7 +20,6 @@
         class="flex-grow-1"
         :default-composer="selectedComposer"
         @on-select="onSelectComposer($event)"
-        @remove-composer="removeComposer"
       />
       <b-button class="text-nowrap" type="submit" variant="primary">検索</b-button>
     </div>
@@ -59,31 +58,21 @@ export default class SearchForm extends Vue {
   @Prop({ type: String })
   placeholder!: string[];
 
-  searchWord!: string | null;
-  selectedPlaystyleId!: string | null;
-  selectedInstrumentId!: string | null;
-  get selectedComposer(): Composer | null {
-    return this.defaultComposer;
-  }
-  set selectedComposer(value) {
-    this.onSelectComposer(value);
-  }
+  searchWord: string | null = null;
+  selectedPlaystyleId: string | null = null;
+  selectedInstrumentId: string | null = null;
+  selectedComposer: Composer | null = null;
 
   created() {
-    // Prop を子コンポーネントでいじるのはよくない
+    // default があればそれを初期選択とする
     this.searchWord = this.defaultSearchWord;
     this.selectedPlaystyleId = this.defaultPlaystyleId;
     this.selectedInstrumentId = this.defaultInstrumentId;
     this.selectedComposer = this.defaultComposer;
   }
-  // get selectedComposer(): Composer | null {
-  //   return this.defaultComposer;
-  // }
 
-  @Emit('on-select-composer')
   onSelectComposer(composer: Composer | null) {
-    console.log('onSelectComposer', composer);
-    return composer;
+    this.selectedComposer = composer;
   }
   removeComposer() {
     this.selectedComposer = null;
