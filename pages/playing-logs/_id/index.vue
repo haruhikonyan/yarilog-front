@@ -36,7 +36,7 @@
         </b-card-text>
       </b-card>
       <h4>{{ playingLog.user.nickname }}さん</h4>
-      {{ changeDate }} に {{ playingLog.team }} にて演奏
+      {{ playDate }} に {{ playingLog.team }} にて演奏
     </div>
     <!-- TODO 同じ曲の演奏ログや同じ人の演奏ログを出す -->
   </section>
@@ -71,12 +71,12 @@ export default class Index extends Vue {
     return genresString ? `/ ${genresString}` : '';
   }
   // 日付変更処理
-  get changeDate(): string {
-    const changeDate = this.playingLog.playDate!.toString();
-    const year = changeDate.substr(0, 4);
-    const month = changeDate.substr(5, 2);
-    const day = changeDate.substr(8, 2);
-    return changeDate ? year + '年' + month + '月' + day + '日' : '';
+  get playDate(): string {
+    const playDate = new Date(this.playingLog.playDate!);
+    const year = playDate.getFullYear();
+    const month = playDate.getMonth() + 1;
+    const day = playDate.getDate();
+    return playDate ? `${year}年${month}月${day}日` : '';
   }
 }
 </script>
