@@ -3,11 +3,12 @@
     <Breadcrumb :composer="defaultComposer" />
     <h1 class="text-center">{{ searchResultMessage }}</h1>
     <SearchForm
-      :default-composer-id="tuneSearchObject.composerId"
+      :default-composer="defaultComposer"
       placeholder="曲を探す(フリーワード)"
       :instruments="$store.state.instruments"
       :playstyles="$store.state.playstyles"
       class="my-3"
+      @on-select-composer="selectComposer($event)"
       @on-search="search($event)"
     />
     <b-alert v-if="tunes.length == 0" show variant="danger" class="yrl-pre-wrap">{{
@@ -132,6 +133,10 @@ export default class Index extends Vue {
     return this.totalCount === 0
       ? '検索した曲はありませんでした。'
       : `${Number(this.offset) + 1}~${lastCount}曲目表示 / 全${this.totalCount}曲`;
+  }
+
+  selectComposer(composer: Composer) {
+    this.defaultComposer = composer;
   }
 }
 </script>

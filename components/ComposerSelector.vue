@@ -9,7 +9,6 @@
     placeholder="作曲家で絞る"
     display-attribute="displayName"
     type="search"
-    @select="onSelect"
     @input="inputHandler"
     @blur="blurHandler"
   >
@@ -37,13 +36,16 @@ export default class ComposerSelector extends Vue {
   @Prop({ type: Object as PropType<Composer>, default: null })
   defaultComposer!: Composer | null;
 
-  selectedComposer: Composer | null = null;
+  get selectedComposer(): Composer | null {
+    return this.defaultComposer;
+  }
+  set selectedComposer(value) {
+    console.log(value, 'selectedComposer');
+    this.onSelect(value);
+  }
 
   get suggestComponent(): any {
     return this.$refs.suggestComponent;
-  }
-  created() {
-    this.selectedComposer = this.defaultComposer;
   }
 
   get autoCompleteStyle() {
@@ -60,8 +62,8 @@ export default class ComposerSelector extends Vue {
     return this.$api.searchComposers(searchWord);
   }
   @Emit('on-select')
-  onSelect(): string | null {
-    return this.selectedComposer ? this.selectedComposer.id!.toString() : null;
+  onSelect(composer: Composer | null): Composer | null {
+    return composer;
   }
   // input ボックスに入力した際に実行される
   inputHandler() {
@@ -76,7 +78,9 @@ export default class ComposerSelector extends Vue {
   }
   @Emit('remove-composer')
   removeComposer(): void {
-    this.selectedComposer = null;
+    // this.selectedComposer = null;
+    console.log('removeComposer');
+    // this.onSelect(null);
     this.suggestComponent.setText('');
   }
   // input からフォーカスが外れた際に実行される
@@ -88,8 +92,9 @@ export default class ComposerSelector extends Vue {
         c => c.displayName === this.suggestComponent.text
       );
       if (someInputComposer) {
-        this.selectedComposer = someInputComposer;
-        this.onSelect();
+        // this.selectedComposer = someInputComposer;
+        console.log('blurHandler', someInputComposer);
+        this.onSelect(someInputComposer);
       } else {
         // 存在しなければ input を初期化する
         this.suggestComponent.setText('');

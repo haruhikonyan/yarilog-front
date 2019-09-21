@@ -18,9 +18,9 @@
       </b-form-select>
       <ComposerSelector
         class="flex-grow-1"
-        :default-composer="defaultComposer"
+        :default-composer="selectedComposer"
         @on-select="onSelectComposer($event)"
-        @remove-composer="removeComposerId"
+        @remove-composer="removeComposer"
       />
       <b-button class="text-nowrap" type="submit" variant="primary">検索</b-button>
     </div>
@@ -62,21 +62,31 @@ export default class SearchForm extends Vue {
   searchWord!: string | null;
   selectedPlaystyleId!: string | null;
   selectedInstrumentId!: string | null;
-  selectedComposerId!: string | null;
+  get selectedComposer(): Composer | null {
+    return this.defaultComposer;
+  }
+  set selectedComposer(value) {
+    this.onSelectComposer(value);
+  }
 
   created() {
     // Prop を子コンポーネントでいじるのはよくない
     this.searchWord = this.defaultSearchWord;
     this.selectedPlaystyleId = this.defaultPlaystyleId;
     this.selectedInstrumentId = this.defaultInstrumentId;
-    this.selectedComposerId = this.defaultComposer ? this.defaultComposer.id!.toString() : null;
+    this.selectedComposer = this.defaultComposer;
   }
+  // get selectedComposer(): Composer | null {
+  //   return this.defaultComposer;
+  // }
 
-  onSelectComposer(composerId: string) {
-    this.selectedComposerId = composerId;
+  @Emit('on-select-composer')
+  onSelectComposer(composer: Composer | null) {
+    console.log('onSelectComposer', composer);
+    return composer;
   }
-  removeComposerId() {
-    this.selectedComposerId = null;
+  removeComposer() {
+    this.selectedComposer = null;
   }
 
   @Emit('on-search')
@@ -84,7 +94,7 @@ export default class SearchForm extends Vue {
     return {
       searchWord: this.searchWord,
       instrumentId: this.selectedInstrumentId,
-      composerId: this.selectedComposerId,
+      composerId: this.selectedComposer ? this.selectedComposer.id!.toString() : null,
       playstyleId: this.selectedPlaystyleId,
       genreId: null
     };
