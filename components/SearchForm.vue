@@ -22,7 +22,16 @@
         placeholder="作曲家で絞る"
         @on-select="onSelectComposer($event)"
       />
-      <b-button class="text-nowrap" type="submit" variant="primary">検索</b-button>
+      <!-- TODO 1文字入力で disabled の場合にツールチップか何かで2文字以上入力してくださいと出す -->
+      <b-button
+        class="text-nowrap"
+        type="submit"
+        variant="primary"
+        value="検索"
+        :disabled="searchWord != null && searchWord.length === 1"
+      >
+        検索
+      </b-button>
     </div>
   </b-form>
 </template>
