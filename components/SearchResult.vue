@@ -1,0 +1,84 @@
+<template>
+  <section>
+    <Breadcrumb :composer="defaultComposer" :playstyle="defaultPlaystyle" :instrument="defaultInstrument" />
+    <h1 class="text-center">{{ searchResultMessage }}</h1>
+    <SearchForm
+      :default-search-word="tuneSearchObject.searchWord"
+      :default-playstyle-id="tuneSearchObject.playstyleId"
+      :default-instrument-id="tuneSearchObject.instrumentId"
+      :default-composer="defaultComposer"
+      placeholder="曲を探す(フリーワード)"
+      :instruments="$store.state.instruments"
+      :playstyles="$store.state.playstyles"
+      class="my-3"
+      @on-search="search($event)"
+    />
+    <b-alert v-if="tunes.length == 0" show variant="danger" class="yrl-pre-wrap">{{
+      noHitSearchResultMessage
+    }}</b-alert>
+    <TuneCard v-for="tune in tunes" :key="tune.id" :tune="tune" />
+    <!-- TODO 無限スクロールの方が今風かもしれない -->
+    <b-pagination
+      v-model="currentPage"
+      align="center"
+      :total-rows="totalCount"
+      :per-page="perPage"
+      @input="pagenationInputHandler($event)"
+    />
+  </section>
+</template>
+
+<script lang="ts">
+import { PropType } from 'vue';
+import { Component, Vue, Prop } from 'vue-property-decorator';
+import TuneCard from '~/components/TuneCard.vue';
+import SearchForm from '~/components/SearchForm.vue';
+import Breadcrumb from '~/components/Breadcrumb.vue';
+import { PlayingLog } from '../models/PlayingLog';
+import { TuneSearchObject, Tune, PlayStyle } from '../models/Tune';
+import { Instrument } from '../models/Instrument';
+import { Composer } from '../models/Composer';
+
+@Component({
+  components: {
+    TuneCard,
+    SearchForm,
+    Breadcrumb
+  }
+})
+export default class SearchResult extends Vue {
+  @Prop({ type: Object as PropType<TuneSearchObject>, required: true })
+  tuneSearchObject!: TuneSearchObject;
+  @Prop({ type: Array as PropType<Tune[]>, required: true })
+  tunes!: Tune[];
+  @Prop({ type: Number, required: true })
+  totalCount!: number;
+  @Prop({ type: Number, required: true })
+  offset!: number;
+  @Prop({ type: Number, required: true })
+  currentPage!: number;
+  @Prop({ type: Number, default: 10 })
+  perPage!: number;
+
+  // Prop にする？
+  noHitSearchResultMessage =
+    '検索した曲はありませんでした。\n作曲家の名前などの表記揺れにご注意ください。\n例）ベートーベン => ベートーヴェン';
+
+  @Prop({ type: Object as PropType<Composer>, default: null })
+  defaultComposer!: Composer | null;
+
+  get defaultPlaystyle(): PlayStyle | null {
+    return this.$store.state.playstyles.find(p => p.id.toString() === this.tuneSearchObject.playstyleId);
+  }
+  get defaultInstrument(): Instrument | null {
+    return this.$store.state.instruments.find(i => i.id.toString() === this.tuneSearchObject.instrumentId);
+  }
+  get searchResultMessage(): string {
+    const lastCount = this.offset + this.perPage < this.totalCount ? this.offset + this.perPage : this.totalCount;
+
+    return this.totalCount === 0
+      ? '検索した曲はありませんでした。'
+      : `${Number(this.offset) + 1}~${lastCount}曲目表示 / 全${this.totalCount}曲`;
+  }
+}
+</script>
