@@ -6,7 +6,7 @@
       :total-count="totalCount"
       :offset="offset"
       :per-page="perPage"
-      :default-composer="defaultComposer"
+      :default-playstyle-id="defaultPlaystyleId"
       @on-search="search($event)"
       @on-pagenation-input="pagenationInputHandler($event)"
     />
@@ -18,8 +18,6 @@ import { Component, Vue } from 'vue-property-decorator';
 import { PlayingLog } from '~/models/PlayingLog';
 import SearchResult from '~/components/SearchResult.vue';
 import { TuneSearchObject, Tune } from '../../models/Tune';
-import { Composer } from '../../models/Composer';
-
 @Component({
   components: {
     SearchResult
@@ -30,8 +28,8 @@ import { Composer } from '../../models/Composer';
     const tuneSearchObject: TuneSearchObject = {
       searchWord: undefined,
       instrumentId: undefined,
-      composerId: params.id,
-      playstyleId: undefined,
+      composerId: undefined,
+      playstyleId: params.id,
       genreId: undefined
     };
     const offsetString = query.offset as string;
@@ -39,9 +37,7 @@ import { Composer } from '../../models/Composer';
     const offset = isNaN(Number(offsetString)) ? 0 : Number(offsetString);
     // tune に紐づく PlayingLog は最大5件にしておく
     const { tunes, totalCount } = await app.$api.searchTunes(tuneSearchObject, offset, perPage, 5);
-    // 作曲家が検索条件にあれば、パンくずや検索フォームで使う作曲家データを取得しておく
-    const defaultComposer = params.id ? await app.$api.getComposer(params.id) : null;
-    return { tunes, totalCount, tuneSearchObject, offset, perPage, defaultComposer };
+    return { tunes, totalCount, tuneSearchObject, offset, perPage, defaultPlaystyleId: params.id };
   },
   head(this: Index) {
     // TODO 作曲家ページ用にする
@@ -60,7 +56,7 @@ export default class Index extends Vue {
   currentPage!: number;
   perPage!: number;
 
-  defaultComposer!: Composer | null;
+  defaultPlaystyleId!: number | null;
 
   async search(tuneSearchObject: TuneSearchObject) {
     this.tuneSearchObject = tuneSearchObject;
@@ -69,10 +65,6 @@ export default class Index extends Vue {
     const tunesWithCount = await this.$api.searchTunes(tuneSearchObject, this.offset, this.perPage, 5);
     this.tunes = tunesWithCount.tunes;
     this.totalCount = tunesWithCount.totalCount;
-    // 作曲家が検索条件にあれば、パンくずや検索フォームで使う作曲家データを再取得する
-    this.defaultComposer = this.tuneSearchObject.composerId
-      ? await this.$api.getComposer(this.tuneSearchObject.composerId)
-      : null;
     this.$router.push({
       path: '/tunes',
       query: {

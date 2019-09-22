@@ -58,8 +58,7 @@ export default class Breadcrumb extends Vue {
     return [
       {
         text: playstyle.name,
-        to: `/tunes?playstyleId=${playstyle.id}`
-        // to: `/playstyles/${playstyle.id}`
+        to: `/playstyles/${playstyle.id}`
       }
     ];
   }
@@ -67,8 +66,7 @@ export default class Breadcrumb extends Vue {
     return [
       {
         text: instrument.shortName,
-        to: `/tunes?instrumentId=${instrument.id}`
-        // to: `/instrumens/${instrument.id}`
+        to: `/instruments/${instrument.id}`
       }
     ];
   }
