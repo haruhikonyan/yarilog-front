@@ -4,9 +4,9 @@
       <h1>
         楽器一覧
       </h1>
-      <p v-for="instrument in $store.state.instruments" :key="instrument.id">
-        <!-- TODO URL は id ではなく楽器コードとか作れればそっちにする なければ id -->
-        <nuxt-link :to="`instruments/${instrument.id}`">{{ instrument.name }} の演奏ログ</nuxt-link>
+      <p v-for="tune in tunes" :key="tune.id">
+        <!-- TODO URL は id ではなく作曲家コードとか作れればそっちにする なければ id -->
+        <nuxt-link :to="`tunes/${tune.id}`">{{ tune.name }} の演奏記録が含まれた曲</nuxt-link>
       </p>
     </div>
   </section>
@@ -14,10 +14,16 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { Instrument } from '../../models/Instrument';
+import { Tune } from '../../models/Tune';
 
 @Component({
-  components: {}
+  components: {},
+  async asyncData({ app }) {
+    const tunes = await app.$api.getInstruments();
+    return { tunes };
+  }
 })
-export default class Index extends Vue {}
+export default class Index extends Vue {
+  tunes!: Tune[];
+}
 </script>

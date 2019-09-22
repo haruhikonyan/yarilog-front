@@ -66,8 +66,7 @@ export default class Breadcrumb extends Vue {
     return [
       {
         text: instrument.shortName,
-        to: `/tunes?instrumentId=${instrument.id}`
-        // to: `/instrumens/${instrument.id}`
+        to: `/instruments/${instrument.id}`
       }
     ];
   }
