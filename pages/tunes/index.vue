@@ -5,7 +5,6 @@
       :tunes="tunes"
       :total-count="totalCount"
       :offset="offset"
-      :current-page="currentPage"
       :per-page="perPage"
       :default-composer="defaultComposer"
     />
@@ -44,12 +43,10 @@ import { Instrument } from '../../models/Instrument';
     const offset = isNaN(Number(offsetString)) ? 0 : Number(offsetString);
     // tune に紐づく PlayingLog は最大5件にしておく
     const { tunes, totalCount } = await app.$api.searchTunes(tuneSearchObject, offset, perPage, 5);
-    // offset の値から現在のページを計算
-    const currentPage: number = offset === 0 ? 1 : Math.floor(offset / perPage) + 1;
 
     // 作曲家が検索条件にあれば、パンくずや検索フォームで使う作曲家データを取得しておく
     const defaultComposer = composerId ? await app.$api.getComposer(composerId) : null;
-    return { tunes, totalCount, tuneSearchObject, offset, currentPage, perPage, defaultComposer };
+    return { tunes, totalCount, tuneSearchObject, offset, perPage, defaultComposer };
   },
   head(this: Index) {
     const searchWord = this.tuneSearchObject.searchWord || '';
@@ -64,8 +61,9 @@ export default class Index extends Vue {
   totalCount!: number;
   tuneSearchObject!: TuneSearchObject;
   offset!: number;
-  currentPage!: number;
   perPage!: number;
+
+  defaultComposer!: Composer | null;
 
   async search(tuneSearchObject: TuneSearchObject) {
     this.tuneSearchObject = tuneSearchObject;

@@ -55,11 +55,10 @@ export default class SearchResult extends Vue {
   totalCount!: number;
   @Prop({ type: Number, required: true })
   offset!: number;
-  @Prop({ type: Number, required: true })
-  currentPage!: number;
   @Prop({ type: Number, default: 10 })
   perPage!: number;
 
+  currentPage: number = this.offset === 0 ? 1 : Math.floor(this.offset / this.perPage) + 1;
   // Prop にする？
   noHitSearchResultMessage =
     '検索した曲はありませんでした。\n作曲家の名前などの表記揺れにご注意ください。\n例）ベートーベン => ベートーヴェン';
