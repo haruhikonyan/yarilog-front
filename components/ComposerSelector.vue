@@ -66,7 +66,8 @@ export default class ComposerSelector extends Vue {
   }
 
   simpleSuggestionList(searchWord): Promise<Composer[]> {
-    return this.$api.searchComposers(searchWord);
+    // 2文字以上であれば作曲家を検索してサジェストする
+    return searchWord.length > 1 ? this.$api.searchComposers(searchWord) : Promise.resolve([]);
   }
   @Emit('on-select')
   onSelect(composer: Composer | null): Composer | null {
