@@ -11,7 +11,7 @@
       :instruments="$store.state.instruments"
       :playstyles="$store.state.playstyles"
       class="my-3"
-      @on-search="search($event)"
+      @on-search="onSearch($event)"
     />
     <b-alert v-if="tunes.length == 0" show variant="danger" class="yrl-pre-wrap">{{
       noHitSearchResultMessage
@@ -23,14 +23,14 @@
       align="center"
       :total-rows="totalCount"
       :per-page="perPage"
-      @input="pagenationInputHandler($event)"
+      @input="onPagenationInput($event)"
     />
   </section>
 </template>
 
 <script lang="ts">
 import { PropType } from 'vue';
-import { Component, Vue, Prop } from 'vue-property-decorator';
+import { Component, Vue, Prop, Emit } from 'vue-property-decorator';
 import TuneCard from '~/components/TuneCard.vue';
 import SearchForm from '~/components/SearchForm.vue';
 import Breadcrumb from '~/components/Breadcrumb.vue';
@@ -65,6 +65,16 @@ export default class SearchResult extends Vue {
 
   @Prop({ type: Object as PropType<Composer>, default: null })
   defaultComposer!: Composer | null;
+
+  @Emit('on-search')
+  onSearch(tuneSearchObject: TuneSearchObject): TuneSearchObject {
+    return tuneSearchObject;
+  }
+
+  @Emit('on-pagenation-input')
+  onPagenationInput(currentPage: number): number {
+    return currentPage;
+  }
 
   get defaultPlaystyle(): PlayStyle | null {
     return this.$store.state.playstyles.find(p => p.id.toString() === this.tuneSearchObject.playstyleId);

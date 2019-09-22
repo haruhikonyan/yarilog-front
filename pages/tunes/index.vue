@@ -7,6 +7,8 @@
       :offset="offset"
       :per-page="perPage"
       :default-composer="defaultComposer"
+      @on-search="search($event)"
+      @on-pagenation-input="pagenationInputHandler($event)"
     />
   </section>
 </template>
