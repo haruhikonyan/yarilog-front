@@ -6,15 +6,15 @@
     mode="select"
     :list="simpleSuggestionList"
     :debounce="200"
-    placeholder="作曲家で絞る"
-    display-attribute="displayName"
+    :placeholder="placeholder"
+    :display-attribute="displayAttribute"
     type="search"
     :nullable-select="true"
     @input="inputHandler"
     @blur="blurHandler"
   >
     <div slot="suggestion-item" slot-scope="{ suggestion }">
-      <span>{{ suggestion.displayName }}</span>
+      <span>{{ suggestion[displayAttribute] }}</span>
     </div>
   </vue-simple-suggest>
 </template>
@@ -36,6 +36,12 @@ import { Composer } from '../models/Composer';
 export default class ComposerSelector extends Vue {
   @Prop({ type: Object as PropType<Composer>, default: null })
   defaultComposer!: Composer | null;
+
+  @Prop({ type: String, default: '' })
+  placeholder!: string;
+
+  @Prop({ type: String, default: 'displayName' })
+  displayAttribute!: string;
 
   get selectedComposer(): Composer | null {
     return this.defaultComposer;
@@ -73,7 +79,7 @@ export default class ComposerSelector extends Vue {
       return;
     }
     // 選択済みで選択済みの作曲家以外のものを入力しようとすると作曲家の選択と input を初期化する
-    if (this.suggestComponent.text !== this.selectedComposer.displayName) {
+    if (this.suggestComponent.text !== this.selectedComposer[this.displayAttribute]) {
       this.selectedComposer = null;
       this.suggestComponent.setText('');
     }
@@ -86,7 +92,7 @@ export default class ComposerSelector extends Vue {
     if (!this.selectedComposer && this.suggestComponent.text) {
       // 入力された文字列に一致する作曲家が存在すればそれを選択する
       const someInputComposer = (this.suggestComponent.suggestions as Composer[]).find(
-        c => c.displayName === this.suggestComponent.text
+        c => c[this.displayAttribute] === this.suggestComponent.text
       );
       if (someInputComposer) {
         this.selectedComposer = someInputComposer;

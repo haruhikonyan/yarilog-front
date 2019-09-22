@@ -6,14 +6,21 @@
       </h1>
       <b-form @submit.prevent="createTune">
         <b-form-group label="作曲者">
-          <b-form-select v-model="newTune.composer" class="mb-3">
-            <option v-for="composer in composers" :key="composer.id" :value="composer">
-              {{ composer.fullName }}
-            </option>
-          </b-form-select>
+          <ComposerSelector
+            placeholder="作曲家検索"
+            display-attribute="fullName"
+            @on-select="onSelectComposer($event)"
+          />
         </b-form-group>
         <b-form-group label="タイトル" description="作曲家の名前は含めないように">
           <b-form-input v-model="newTune.title" required placeholder="交響曲第1番 ハ長調"></b-form-input>
+        </b-form-group>
+        <b-form-group label="演奏形態">
+          <b-form-select v-model="newTune.playstyle" class="mb-3">
+            <option v-for="playstyle in playstyles" :key="playstyle.id" :value="playstyle.id.toString()">
+              {{ playstyle.name }}
+            </option>
+          </b-form-select>
         </b-form-group>
 
         <b-form-group label="曲詳細">
@@ -37,12 +44,15 @@ import { Country } from '~/models/Country';
 import { Composer } from '~/models/Composer';
 import { PlayingLog } from '~/models/PlayingLog';
 import { Tune } from '~/models/Tune';
+import ComposerSelector from '~/components/ComposerSelector.vue';
 
 @Component({
-  components: {},
+  components: {
+    ComposerSelector
+  },
   async asyncData({ app }) {
-    const composersData = await app.$api.getComposers();
-    return { composers: composersData };
+    const playstyles = await app.$api.getPlaystyles();
+    return { playstyles };
   }
 })
 export default class Index extends Vue {
@@ -51,6 +61,10 @@ export default class Index extends Vue {
   async createTune() {
     await this.$api.createTune(this.newTune);
     this.$router.push('/playing-logs/new');
+  }
+
+  onSelectComposer(composer: Composer) {
+    this.newTune.composer = composer;
   }
 }
 </script>

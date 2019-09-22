@@ -19,6 +19,7 @@
       <ComposerSelector
         class="flex-grow-1"
         :default-composer="selectedComposer"
+        placeholder="作曲家で絞る"
         @on-select="onSelectComposer($event)"
       />
       <b-button class="text-nowrap" type="submit" variant="primary">検索</b-button>
