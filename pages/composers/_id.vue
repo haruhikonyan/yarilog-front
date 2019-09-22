@@ -93,13 +93,7 @@ export default class Index extends Vue {
     this.tunes = playingLogsWithCount.tunes;
     this.totalCount = playingLogsWithCount.totalCount;
     this.$router.push({
-      path: '/tunes',
       query: {
-        searchWord: this.tuneSearchObject.searchWord,
-        instrumentId: this.tuneSearchObject.instrumentId,
-        composerId: this.tuneSearchObject.composerId,
-        playstyleId: this.tuneSearchObject.playstyleId,
-        genreId: this.tuneSearchObject.genreId,
         offset: this.offset.toString()
       }
     });
