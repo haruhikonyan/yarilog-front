@@ -58,8 +58,7 @@ export default class Breadcrumb extends Vue {
     return [
       {
         text: playstyle.name,
-        to: `/tunes?playstyleId=${playstyle.id}`
-        // to: `/playstyles/${playstyle.id}`
+        to: `/playstyles/${playstyle.id}`
       }
     ];
   }
