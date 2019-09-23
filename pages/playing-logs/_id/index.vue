@@ -6,7 +6,8 @@
       <h4 class="mb-0">{{ playingLog.tune.title }}</h4>
       <small class="text-muted mb-1">{{ playingLog.tune.composer.displayName }}作曲</small>
       <h5 class="text-center mb-0">
-        面白さ: {{ playingLog.interesting }} 体力: {{ playingLog.physicality }} 難易度: {{ playingLog.difficulty }}
+        面白さ: {{ playingLog.interesting || '-' }} 体力: {{ playingLog.physicality || '-' }} 難易度:
+        {{ playingLog.difficulty || '-' }}
       </h5>
       <div class="text-muted text-center mb-3">
         {{ playingLog.instrument.name }} {{ playingLog.position }} <b-badge>{{ playingLog.playerLevel }}</b-badge>

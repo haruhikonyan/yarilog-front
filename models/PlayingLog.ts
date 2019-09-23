@@ -13,6 +13,8 @@ export enum PlayerLevel {
 export class PlayingLog {
   id: string | undefined;
 
+  arranger: string | null = null;
+
   // 演奏日
   playDate: Date | null = null;
 
@@ -29,11 +31,11 @@ export class PlayingLog {
   position: string | null = null;
 
   // 難易度 5段階
-  difficulty: number = 3;
+  difficulty: number | null = 3;
   // 体力 5段階
-  physicality: number = 3;
+  physicality: number | null = 3;
   // 面白さ 5段階
-  interesting: number = 3;
+  interesting: number | null = 3;
 
   // 面白かったところ
   impressionOfInteresting: string | null = null;

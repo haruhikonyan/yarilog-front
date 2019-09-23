@@ -1,6 +1,6 @@
 <template>
   <div class="star-rating">
-    <div class="star-rating-item" :style="{ width: `${rate}%` }"></div>
+    <div class="star-rating-item" :style="{ width: `${rate || 0}%` }"></div>
   </div>
 </template>
 
@@ -11,7 +11,7 @@ import { Component, Vue, Prop } from 'vue-property-decorator';
 @Component({})
 export default class StarRating extends Vue {
   @Prop({ type: Number, required: true })
-  rate!: number;
+  rate!: number | null;
 }
 </script>
 

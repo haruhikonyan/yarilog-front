@@ -6,9 +6,11 @@
           <h6 class="text-muted mb-0">{{ tune.playstyle.name }} {{ displayGanres }}</h6>
           <h4>{{ tune.title }}</h4>
           <h6 class="text-muted mb-0">{{ tune.composer.displayName }}作曲</h6>
-          <div>面白さ<StarRating :rate="(tune.averageInteresting / 5) * 100" />{{ tune.averageInteresting }}</div>
-          <div>体力<StarRating :rate="(tune.averagePhysicality / 5) * 100" />{{ tune.averagePhysicality }}</div>
-          <div>難易度<StarRating :rate="(tune.averageDifficulty / 5) * 100" />{{ tune.averageDifficulty }}</div>
+          <div>
+            面白さ<StarRating :rate="(tune.averageInteresting / 5) * 100" />{{ tune.averageInteresting || '-' }}
+          </div>
+          <div>体力<StarRating :rate="(tune.averagePhysicality / 5) * 100" />{{ tune.averagePhysicality || '-' }}</div>
+          <div>難易度<StarRating :rate="(tune.averageDifficulty / 5) * 100" />{{ tune.averageDifficulty || '-' }}</div>
           <font-awesome-icon icon="comment-dots" />{{ tune.countPlayingLogs }}件
         </div>
       </nuxt-link>

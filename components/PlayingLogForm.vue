@@ -33,16 +33,20 @@
       </b-form-select>
     </b-form-group>
 
-    <b-form-group label="面白さ" :description="`数の大きい方が面白い: ${playingLog.interesting}`">
-      <b-form-input v-model="playingLog.interesting" required type="range" min="0" max="5" step="0.1"></b-form-input>
+    <b-form-group label="評価しない">
+      <b-form-checkbox v-model="isNotEvalute" @change="isNotEvaluteCheckBoxHandler($event)" />
     </b-form-group>
 
-    <b-form-group label="体力" :description="`数の大きい方が疲れる: ${playingLog.physicality}`">
-      <b-form-input v-model="playingLog.physicality" required type="range" min="0" max="5" step="0.1"></b-form-input>
+    <b-form-group label="面白さ" :description="`数の大きい方が面白い: ${playingLog.interesting || '評価なし'}`">
+      <b-form-input v-model="playingLog.interesting" :disabled="isNotEvalute" type="range" min="0" max="5" step="0.1" />
     </b-form-group>
 
-    <b-form-group label="難易度" :description="`数の大きい方が難しい: ${playingLog.difficulty}`">
-      <b-form-input v-model="playingLog.difficulty" required type="range" min="0" max="5" step="0.1"></b-form-input>
+    <b-form-group label="体力" :description="`数の大きい方が疲れる: ${playingLog.physicality || '評価なし'}`">
+      <b-form-input v-model="playingLog.physicality" :disabled="isNotEvalute" type="range" min="0" max="5" step="0.1" />
+    </b-form-group>
+
+    <b-form-group label="難易度" :description="`数の大きい方が難しい: ${playingLog.difficulty || '評価なし'}`">
+      <b-form-input v-model="playingLog.difficulty" :disabled="isNotEvalute" type="range" min="0" max="5" step="0.1" />
     </b-form-group>
 
     <b-form-group label="面白かったところ">
@@ -131,11 +135,23 @@ export default class PlayingLogForm extends Vue {
   requireTuneError!: string;
 
   playerLevelList: Object = PlayerLevel;
+
+  isNotEvalute: boolean = false;
+
   // TuneSelector で選択された tune を playingLog にセットする
   selectTune(tune: Tune) {
     this.$set(this.playingLog, 'tune', tune);
   }
   @Emit('on-submit')
   submitHandler() {}
+
+  // 評価しないチェックボックスの挙動
+  isNotEvaluteCheckBoxHandler(isNotEvalute: boolean) {
+    // 評価しないにチェックした場合 null を入れる
+    // 評価しないからチェックを外した場合フォームの null の時の位置の 2.5 を設定する
+    this.playingLog.difficulty = isNotEvalute ? null : 2.5;
+    this.playingLog.physicality = isNotEvalute ? null : 2.5;
+    this.playingLog.interesting = isNotEvalute ? null : 2.5;
+  }
 }
 </script>
