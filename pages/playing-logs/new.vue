@@ -18,11 +18,8 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { User } from '~/models/User';
-import { PlayingLog, PlayerLevel } from '~/models/PlayingLog';
-import { Instrument } from '~/models/Instrument';
+import { PlayingLog } from '~/models/PlayingLog';
 import PlayingLogForm from '~/components/PlayingLogForm.vue';
-import { Tune, PlayStyle } from '~/models/Tune';
 
 @Component({
   components: {

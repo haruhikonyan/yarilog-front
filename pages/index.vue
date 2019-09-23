@@ -39,11 +39,6 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { User } from '~/models/User';
-import { Country } from 'models/Country';
-import { Composer } from 'models/Composer';
-import Cookie from 'js-cookie';
-import { PlayingLog } from '../models/PlayingLog';
 import PlayingLogCard from '../components/PlayingLogCard.vue';
 import SearchForm from '../components/SearchForm.vue';
 import { TuneSearchObject } from '../models/Tune';

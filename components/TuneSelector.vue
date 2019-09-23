@@ -40,7 +40,6 @@ import { Component, Vue, Prop, Emit } from 'vue-property-decorator';
 import { PropType } from 'vue';
 import { Composer } from '../models/Composer';
 import { Tune, PlayStyle } from '../models/Tune';
-import { PlayingLog } from '../models/PlayingLog';
 
 enum SELECT_MODE {
   PLAYSTYLE,

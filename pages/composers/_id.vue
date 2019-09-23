@@ -15,7 +15,6 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { PlayingLog } from '~/models/PlayingLog';
 import SearchResult from '~/components/SearchResult.vue';
 import { TuneSearchObject, Tune } from '../../models/Tune';
 import { Composer } from '../../models/Composer';

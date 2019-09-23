@@ -42,7 +42,7 @@ export default class PlayingLogCard extends Vue {
     // ログインユーザと id が一致していれば編集ボタンを出す(どこだろうと出すことにする)
     return this.$store.state.auth ? this.$store.state.auth.userId === this.playingLog.user!.id : false;
   }
-  editClickHandler(event) {
+  editClickHandler() {
     this.$router.push(`/playing-logs/${this.playingLog.id}/edit`);
   }
   get displayArranger(): string {
