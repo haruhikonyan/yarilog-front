@@ -5,7 +5,6 @@
 </template>
 
 <script lang="ts">
-import { PropType } from 'vue';
 import { Component, Vue, Prop } from 'vue-property-decorator';
 
 @Component({})

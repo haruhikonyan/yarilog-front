@@ -1,7 +1,16 @@
-import pkg from './package'
+import pkg from './package';
 
 export default {
   mode: 'universal',
+  buildModules: [
+    [
+      '@nuxt/typescript-build',
+      {
+        typeCheck: true,
+        ignoreNotFoundWarnings: true
+      }
+    ]
+  ],
 
   /*
    ** Headers of the page
@@ -24,17 +33,12 @@ export default {
   /*
    ** Global CSS
    */
-  css: [
-    '~/styles/custom.scss'
-  ],
+  css: ['~/styles/custom.scss'],
 
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: [
-    '~/plugins/api',
-    '~/plugins/axios'
-  ],
+  plugins: ['~/plugins/api', '~/plugins/axios'],
 
   /*
    ** Nuxt.js modules

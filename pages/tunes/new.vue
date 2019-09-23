@@ -39,10 +39,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { User } from '~/models/User';
-import { Country } from '~/models/Country';
 import { Composer } from '~/models/Composer';
-import { PlayingLog } from '~/models/PlayingLog';
 import { Tune } from '~/models/Tune';
 import ComposerSelector from '~/components/ComposerSelector.vue';
 

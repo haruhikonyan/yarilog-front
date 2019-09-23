@@ -39,7 +39,6 @@
 <script lang="ts">
 import { Component, Vue, Prop, Emit } from 'vue-property-decorator';
 import { PropType } from 'vue';
-import { PlayingLog } from '../models/PlayingLog';
 import { Instrument } from '../models/Instrument';
 import { Composer } from '../models/Composer';
 import { TuneSearchObject, PlayStyle } from '../models/Tune';
