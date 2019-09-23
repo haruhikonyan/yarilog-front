@@ -13,6 +13,7 @@ export enum PlayerLevel {
 export class PlayingLog {
   id: string | undefined;
 
+  // 編曲者
   arranger: string | null = null;
 
   // 演奏日

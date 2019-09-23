@@ -4,7 +4,7 @@
     <div>
       <small class="text-muted mb-0">{{ playingLog.tune.playstyle.name }} {{ displayGanres }}</small>
       <h4 class="mb-0">{{ playingLog.tune.title }}</h4>
-      <small class="text-muted mb-1">{{ playingLog.tune.composer.displayName }}作曲</small>
+      <small class="text-muted mb-1">{{ playingLog.tune.composer.displayName }}作曲{{ displayArranger }}</small>
       <h5 class="text-center mb-0">
         面白さ: {{ playingLog.interesting || '-' }} 体力: {{ playingLog.physicality || '-' }} 難易度:
         {{ playingLog.difficulty || '-' }}
@@ -83,6 +83,9 @@ export default class Index extends Vue {
     const month = playDate.getMonth() + 1;
     const day = playDate.getDate();
     return playDate ? `${year}年${month}月${day}日` : '';
+  }
+  get displayArranger(): string {
+    return this.playingLog.arranger ? `(${this.playingLog.arranger}編)` : '';
   }
 }
 </script>

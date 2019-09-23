@@ -9,6 +9,10 @@
       <TuneSelector :playstyles="playstyles" @select-tune="selectTune($event)" />
     </b-form-group>
 
+    <b-form-group label="編曲者">
+      <b-form-input v-model="playingLog.arranger" placeholder="ラヴェル"></b-form-input>
+    </b-form-group>
+
     <b-form-group label="担当パート">
       <b-form-select v-model="playingLog.instrument" required>
         <option v-for="instrument in instruments" :key="instrument.id" :value="instrument">

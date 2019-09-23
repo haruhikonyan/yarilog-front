@@ -4,7 +4,7 @@
       <div slot="header" class="d-flex justify-content-between">
         <div>
           <h4>{{ playingLog.tune.title }}</h4>
-          <h6 class="text-muted mb-0">{{ playingLog.tune.composer.displayName }}作曲</h6>
+          <h6 class="text-muted mb-0">{{ playingLog.tune.composer.displayName }}作曲{{ displayArranger }}</h6>
         </div>
         <b-button
           v-if="showEditButton"
@@ -44,6 +44,9 @@ export default class PlayingLogCard extends Vue {
   }
   editClickHandler(event) {
     this.$router.push(`/playing-logs/${this.playingLog.id}/edit`);
+  }
+  get displayArranger(): string {
+    return this.playingLog.arranger ? `(${this.playingLog.arranger}編)` : '';
   }
 }
 </script>
