@@ -136,7 +136,8 @@ export default class PlayingLogForm extends Vue {
 
   playerLevelList: Object = PlayerLevel;
 
-  isNotEvalute: boolean = false;
+  isNotEvalute: boolean =
+    this.playingLog.interesting == null && this.playingLog.difficulty == null && this.playingLog.physicality == null;
 
   // TuneSelector で選択された tune を playingLog にセットする
   selectTune(tune: Tune) {
