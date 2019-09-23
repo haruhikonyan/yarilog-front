@@ -24,8 +24,6 @@ import { Component, Vue, Prop, Emit } from 'vue-property-decorator';
 import { PropType } from 'vue';
 import VueSimpleSuggest from 'vue-simple-suggest';
 import 'vue-simple-suggest/dist/styles.css'; // Optional CSS
-import { PlayingLog } from '../models/PlayingLog';
-import { Instrument } from '../models/Instrument';
 import { Composer } from '../models/Composer';
 
 @Component({

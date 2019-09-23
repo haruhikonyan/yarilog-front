@@ -34,7 +34,6 @@ import { Component, Vue, Prop, Emit } from 'vue-property-decorator';
 import TuneCard from '~/components/TuneCard.vue';
 import SearchForm from '~/components/SearchForm.vue';
 import Breadcrumb from '~/components/Breadcrumb.vue';
-import { PlayingLog } from '../models/PlayingLog';
 import { TuneSearchObject, Tune, PlayStyle } from '../models/Tune';
 import { Instrument } from '../models/Instrument';
 import { Composer } from '../models/Composer';
