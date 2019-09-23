@@ -83,11 +83,16 @@ export default class SearchResult extends Vue {
     return this.$store.state.instruments.find(i => i.id.toString() === this.tuneSearchObject.instrumentId);
   }
   get searchResultMessage(): string {
-    const lastCount = this.offset + this.perPage < this.totalCount ? this.offset + this.perPage : this.totalCount;
+    const lastCount: number =
+      this.offset + this.perPage < this.totalCount ? this.offset + this.perPage : this.totalCount;
 
-    return this.totalCount === 0
-      ? '検索した曲はありませんでした。'
-      : `${Number(this.offset) + 1}~${lastCount}曲目表示 / 全${this.totalCount}曲`;
+    if (this.totalCount === 0) {
+      return '検索した曲はありませんでした。';
+    } else if (this.totalCount === 1) {
+      return '1曲目表示 / 全1曲';
+    } else {
+      return `${Number(this.offset) + 1}~${lastCount}曲目表示 / 全${this.totalCount}曲`;
+    }
   }
 }
 </script>
