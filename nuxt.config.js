@@ -2,6 +2,14 @@ import pkg from './package'
 
 export default {
   mode: 'universal',
+  
+  
+  buildModules: [
+    ['@nuxt/typescript-build', {
+      typeCheck: true,
+      ignoreNotFoundWarnings: true
+    }]
+  ],
 
   /*
    ** Headers of the page

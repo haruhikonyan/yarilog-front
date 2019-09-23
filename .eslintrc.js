@@ -9,6 +9,7 @@ module.exports = {
   },
   extends: [
     '@nuxtjs',
+    '@nuxtjs/eslint-config-typescript', // <= これを追加
     'plugin:nuxt/recommended',
     'plugin:prettier/recommended',
     'prettier',
