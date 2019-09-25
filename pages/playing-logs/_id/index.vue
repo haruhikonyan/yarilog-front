@@ -79,7 +79,7 @@ export default class Index extends Vue {
       const year = displayPlayDateString.getFullYear();
       const month = displayPlayDateString.getMonth() + 1;
       const day = displayPlayDateString.getDate();
-      return `${year}年${month}月${day}日`;
+      return `${year}年${month}月${day}日に`;
     }
   }
 }
