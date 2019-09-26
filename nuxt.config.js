@@ -60,7 +60,7 @@ export default {
   axios: {
     // See https://github.com/nuxt-community/axios-module#options
     baseURL: process.env.baseApiUrl,
-    browserBaseURL: process.env.baseBrouserApiUrl,
+    browserBaseURL: process.env.baseBrouserApiUrl
   },
   fontawesome: {
     imports: [
@@ -80,13 +80,14 @@ export default {
     extend(config, ctx) {
       // Run ESLint on save
       if (ctx.isDev && ctx.isClient) {
+        config.devtool = 'inline-cheap-module-source-map';
         config.module.rules.push({
           enforce: 'pre',
           test: /\.(js|vue)$/,
           loader: 'eslint-loader',
           exclude: /(node_modules)/
-        })
+        });
       }
     }
   }
-}
+};
