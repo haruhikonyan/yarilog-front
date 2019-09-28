@@ -39,7 +39,7 @@
         </b-card-text>
       </b-card>
       <h4>{{ playingLog.user.nickname }}さん</h4>
-      {{ displayPlayDate }} {{ playingLog.team }} にて演奏
+      {{ displayPlayDate }} {{ displayTeam }}
     </div>
     <!-- TODO 同じ曲の演奏ログや同じ人の演奏ログを出す -->
   </section>
@@ -85,7 +85,12 @@ export default class Index extends Vue {
     const year = playDate.getFullYear();
     const month = playDate.getMonth() + 1;
     const day = playDate.getDate();
-    return `${year}年${month}月${day}日に`;
+    return `${year}年${month}月${day}日`;
+  }
+  // 演奏団体表示処理
+  get displayTeam(): string {
+    const teamString = this.playingLog.team!.toString();
+    return teamString ? `${teamString}にて演奏` : `演奏`;
   }
   get displayArranger(): string {
     return this.playingLog.arranger ? `(${this.playingLog.arranger}編)` : '';
