@@ -92,7 +92,7 @@ export default class Index extends Vue {
     if (!this.playingLog.team) {
       return `演奏`;
     }
-    const teamString = this.playingLog.team!;
+    const teamString = this.playingLog.team;
     return `${teamString}にて演奏`;
   }
   get displayArranger(): string {
