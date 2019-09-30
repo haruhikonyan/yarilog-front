@@ -89,7 +89,7 @@ export default class Index extends Vue {
   }
   // 演奏団体表示処理
   get displayTeam(): string {
-   return this.playingLog.team ? `${this.playingLog.team}にて演奏` : `演奏`;
+    return this.playingLog.team ? `${this.playingLog.team}にて演奏` : `演奏`;
   }
   get displayArranger(): string {
     return this.playingLog.arranger ? `(${this.playingLog.arranger}編)` : '';

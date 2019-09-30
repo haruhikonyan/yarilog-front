@@ -48,7 +48,8 @@ export default {
     '@nuxtjs/axios',
     // Doc: https://bootstrap-vue.js.org/docs/
     'bootstrap-vue/nuxt',
-    'nuxt-fontawesome'
+    'nuxt-fontawesome',
+    '@nuxtjs/google-analytics'
   ],
   bootstrapVue: {
     bootstrapCSS: false, // Or `css: false`
@@ -69,6 +70,13 @@ export default {
         icons: ['fas']
       }
     ]
+  },
+  googleAnalytics: {
+    id: process.env.gaId || 'dummy'
+    // debug: {
+    //   enabled: true,
+    //   sendHitTask: true
+    // }
   },
   /*
    ** Build configuration
