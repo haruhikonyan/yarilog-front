@@ -2,7 +2,9 @@
   <div>
     <div class="mb-3">
       <b-navbar toggleable="lg" type="dark" variant="primary">
-        <b-navbar-brand to="/">yarilog</b-navbar-brand>
+        <b-navbar-brand to="/" class="py-0">
+          <img src="~/assets/logo.png" class="yrl-logo" alt="みゅーぐ" />
+        </b-navbar-brand>
 
         <b-navbar-toggle v-if="$store.state.auth" target="nav-collapse"></b-navbar-toggle>
 
@@ -40,3 +42,8 @@ export default class Index extends Vue {
   }
 }
 </script>
+<style lang="scss" scoped>
+.yrl-logo {
+  height: 40px;
+}
+</style>
