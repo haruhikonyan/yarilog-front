@@ -4,6 +4,7 @@
       <h1>
         マイページ
       </h1>
+      <!-- TODO oauth の場合はログインしたプロバイダ表示 -->
       <p>ユーザ名：{{ user.username }}</p>
       <p>メールアドレス：{{ user.mailAddress }}</p>
       <p>ニックネーム：{{ user.nickname }}</p>

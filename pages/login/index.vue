@@ -17,6 +17,10 @@
       <b-alert v-if="loginErrorMessage" show variant="danger">{{ loginErrorMessage }}</b-alert>
       <small><nuxt-link to="/users/new">ユーザ新規登録</nuxt-link></small>
     </div>
+    <b-button block variant="primary" :href="twitterLoginUrl">
+      twitterでログイン
+    </b-button>
+    {{ $store.state.auth }}
   </section>
 </template>
 
@@ -26,11 +30,15 @@ import Cookie from 'js-cookie';
 import { LoginObject } from '~/models/LoginObject';
 
 @Component({
-  middleware: 'notAuthenticated'
+  middleware: 'notAuthenticated',
+  asyncData({ env }) {
+    return { twitterLoginUrl: `${env.baseBrouserApiUrl}/auth/twitter` };
+  }
 })
 export default class Index extends Vue {
   loginObject: LoginObject = new LoginObject();
   loginErrorMessage: string | null = null;
+  twitterLoginUrl!: string;
   async postLogin() {
     // TODO 全部 try でかこうのも let 使わなきゃいけないのもどっちも嫌い
     try {
@@ -40,7 +48,7 @@ export default class Index extends Vue {
       });
       const auth = {
         accessToken: loginReultObject.token,
-        userId: loginReultObject.user.id
+        userId: loginReultObject.userId
       };
       this.$store.commit('setAuth', auth); // mutating to store for client rendering
       Cookie.set('auth', auth); // saving token in cookie for server rendering

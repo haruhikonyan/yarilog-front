@@ -97,5 +97,8 @@ export default {
         });
       }
     }
+  },
+  env: {
+    baseBrouserApiUrl: process.env.baseBrouserApiUrl
   }
 };
