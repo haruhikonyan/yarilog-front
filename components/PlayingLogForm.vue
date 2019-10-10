@@ -93,6 +93,10 @@
       <b-form-input v-model="playingLog.playDate" type="date"></b-form-input>
     </b-form-group>
 
+    <b-form-group label="演奏シーン">
+      <b-form-input v-model="playingLog.scene" placeholder="定期演奏会中プロ"></b-form-input>
+    </b-form-group>
+
     <b-form-group label="演奏団体">
       <b-form-input v-model="playingLog.team" placeholder="読売日本交響楽団"></b-form-input>
     </b-form-group>

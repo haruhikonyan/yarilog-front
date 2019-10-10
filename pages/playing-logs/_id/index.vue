@@ -2,9 +2,13 @@
   <section class="container">
     <Breadcrumb :playing-log="playingLog" />
     <div>
-      <small class="text-muted mb-0">{{ playingLog.tune.playstyle.name }} {{ displayGanres }}</small>
+      <small class="text-muted mb-0">
+        {{ playingLog.tune.playstyle.name }} {{ playingLog.tune.genres | displayGanres }}
+      </small>
       <h4 class="mb-0">{{ playingLog.tune.title }}</h4>
-      <small class="text-muted mb-1">{{ playingLog.tune.composer.displayName }}作曲{{ displayArranger }}</small>
+      <small class="text-muted mb-1">
+        {{ playingLog.tune.composer.displayName }}作曲{{ playingLog.arranger | displayArranger }}
+      </small>
       <h5 class="text-center mb-0">
         面白さ: {{ playingLog.interesting || '-' }} 体力: {{ playingLog.physicality || '-' }} 難易度:
         {{ playingLog.difficulty || '-' }}
@@ -39,7 +43,7 @@
         </b-card-text>
       </b-card>
       <h4>{{ playingLog.user.nickname }}さん</h4>
-      {{ displayPlayDate }} {{ displayTeam }}
+      {{ playingLog | displayPlayInfo }}
     </div>
     <!-- TODO 同じ曲の演奏ログや同じ人の演奏ログを出す -->
   </section>
@@ -71,28 +75,5 @@ import Breadcrumb from '~/components/Breadcrumb.vue';
 })
 export default class Index extends Vue {
   playingLog!: PlayingLog;
-
-  get displayGanres(): string {
-    const genresString = this.playingLog.tune.genres.map(g => g.name).toString();
-    return genresString ? `/ ${genresString}` : '';
-  }
-  // 日付変更処理
-  get displayPlayDate(): string {
-    if (!this.playingLog.playDate) {
-      return ``;
-    }
-    const playDate = new Date(this.playingLog.playDate);
-    const year = playDate.getFullYear();
-    const month = playDate.getMonth() + 1;
-    const day = playDate.getDate();
-    return `${year}年${month}月${day}日`;
-  }
-  // 演奏団体表示処理
-  get displayTeam(): string {
-    return this.playingLog.team ? `${this.playingLog.team}にて演奏` : `演奏`;
-  }
-  get displayArranger(): string {
-    return this.playingLog.arranger ? `(${this.playingLog.arranger}編)` : '';
-  }
 }
 </script>

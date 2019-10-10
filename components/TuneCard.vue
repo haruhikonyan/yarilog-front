@@ -3,7 +3,7 @@
     <b-card header-tag="header" footer-tag="footer" body-class="py-2" class="my-3">
       <nuxt-link slot="header" class="d-flex justify-content-between" :to="`/tunes/${tune.id}`">
         <div>
-          <h6 class="text-muted mb-0">{{ tune.playstyle.name }} {{ displayGanres }}</h6>
+          <h6 class="text-muted mb-0">{{ tune.playstyle.name }} {{ tune.genres | displayGanres }}</h6>
           <h4>{{ tune.title }}</h4>
           <h6 class="text-muted mb-0">{{ tune.composer.displayName }}作曲</h6>
           <div>
@@ -39,10 +39,5 @@ import StarRating from '~/components/StarRating.vue';
 export default class TuneCard extends Vue {
   @Prop({ type: Object as PropType<Tune>, required: true })
   tune!: Tune;
-
-  get displayGanres(): string {
-    const genresString = this.tune.genres.map(g => g.name).toString();
-    return genresString ? `/ ${genresString}` : '';
-  }
 }
 </script>

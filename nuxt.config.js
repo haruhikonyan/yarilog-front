@@ -38,7 +38,7 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['~/plugins/api', '~/plugins/axios'],
+  plugins: ['~/plugins/api', '~/plugins/axios', '~/plugins/playing-log-display-filter.ts'],
 
   /*
    ** Nuxt.js modules

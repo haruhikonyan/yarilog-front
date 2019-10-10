@@ -20,7 +20,6 @@
     <b-button block variant="primary" :href="twitterLoginUrl">
       twitterでログイン
     </b-button>
-    {{ $store.state.auth }}
   </section>
 </template>
 
