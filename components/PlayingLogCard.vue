@@ -27,7 +27,6 @@
         </div>
       </div>
     </b-card>
-    <span>{{ 10000 | formatPrice }}</span>
   </nuxt-link>
 </template>
 
