@@ -9,8 +9,10 @@
           <ComposerSelector
             placeholder="作曲家検索"
             display-attribute="fullName"
+            :default-composer="newTune.composer"
             @on-select="onSelectComposer($event)"
           />
+          <small class="float-right mr-1"><nuxt-link to="/composers/new">作曲家新規登録</nuxt-link></small>
         </b-form-group>
         <b-form-group label="タイトル" description="作曲家の名前は含めないように">
           <b-form-input v-model="newTune.title" required placeholder="交響曲第1番 ハ長調"></b-form-input>
@@ -47,14 +49,18 @@ import ComposerSelector from '~/components/ComposerSelector.vue';
   components: {
     ComposerSelector
   },
-  async asyncData({ app }) {
+  async asyncData({ app, query }) {
     const playstyles = await app.$api.getPlaystyles();
-    return { playstyles };
+    const composerId = query.composerId;
+    const newTune = new Tune();
+    newTune.composer = composerId ? await app.$api.getComposer(composerId) : null;
+    return { playstyles, newTune };
   }
 })
 export default class Index extends Vue {
   composers: Composer[] = [];
-  newTune: Tune = new Tune();
+  // TODO fix WARN  Cannot stringify arbitrary non-POJOs Tune
+  newTune!: Tune;
   async createTune() {
     await this.$api.createTune(this.newTune);
     this.$router.push('/playing-logs/new');
