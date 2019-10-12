@@ -49,6 +49,7 @@ import ComposerSelector from '~/components/ComposerSelector.vue';
   components: {
     ComposerSelector
   },
+  middleware: 'authenticated',
   async asyncData({ app, query }) {
     const playstyles = await app.$api.getPlaystyles();
     const composerId = query.composerId;

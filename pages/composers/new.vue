@@ -43,6 +43,7 @@ import ComposerSelector from '~/components/ComposerSelector.vue';
   components: {
     ComposerSelector
   },
+  middleware: 'authenticated',
   async asyncData({ app }) {
     const countries = await app.$api.getCountries();
     return { countries };
