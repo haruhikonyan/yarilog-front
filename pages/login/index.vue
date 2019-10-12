@@ -20,6 +20,15 @@
     <b-button block variant="secondary" @click="authTwitter">
       twitterでログイン
     </b-button>
+    <b-button block variant="secondary" @click="authFacebook">
+      facebookでログイン
+    </b-button>
+    <b-button block variant="secondary" @click="authGoogle">
+      googleでログイン
+    </b-button>
+    <b-button block variant="secondary" @click="authLine">
+      lineでログイン
+    </b-button>
   </section>
 </template>
 
@@ -31,7 +40,13 @@ import { LoginObject } from '~/models/LoginObject';
 @Component({
   middleware: 'notAuthenticated',
   asyncData({ env, query }) {
-    return { twitterLoginUrl: `${env.baseBrouserApiUrl}/auth/twitter`, callbackPath: query.callbackPath };
+    return {
+      twitterLoginUrl: `${env.baseBrouserApiUrl}/auth/twitter`,
+      facebookLoginUrl: `${env.baseBrouserApiUrl}/auth/facebook`,
+      googleLoginUrl: `${env.baseBrouserApiUrl}/auth/google`,
+      lineLoginUrl: `${env.baseBrouserApiUrl}/auth/line`,
+      callbackPath: query.callbackPath
+    };
   }
 })
 export default class Index extends Vue {
@@ -39,6 +54,9 @@ export default class Index extends Vue {
   loginErrorMessage: string | null = null;
   callbackPath: string | undefined;
   twitterLoginUrl!: string;
+  facebookLoginUrl!: string;
+  googleLoginUrl!: string;
+  lineLoginUrl!: string;
   async postLogin() {
     // TODO 全部 try でかこうのも let 使わなきゃいけないのもどっちも嫌い
     try {
@@ -63,6 +81,18 @@ export default class Index extends Vue {
   authTwitter() {
     this.saveCallbackPathToSessionStorage();
     location.href = this.twitterLoginUrl;
+  }
+  authFacebook() {
+    this.saveCallbackPathToSessionStorage();
+    location.href = this.facebookLoginUrl;
+  }
+  authGoogle() {
+    this.saveCallbackPathToSessionStorage();
+    location.href = this.googleLoginUrl;
+  }
+  authLine() {
+    this.saveCallbackPathToSessionStorage();
+    location.href = this.lineLoginUrl;
   }
   private saveCallbackPathToSessionStorage() {
     if (this.callbackPath) {
