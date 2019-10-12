@@ -24,7 +24,15 @@ import Cookie from 'js-cookie';
 export default class Index extends Vue {
   beforeCreate() {
     Cookie.set('auth', this.$store.state.auth);
-    this.$router.push('/mypage');
+  }
+  beforeMount() {
+    // beforeMount でやるのがよいかわからない(sessionStorageが使えるのがこのタイミング)
+    // callbackPath があればそっちへリダイレクトする
+    const callbackPath = sessionStorage.getItem('callbackPath');
+    if (callbackPath) {
+      sessionStorage.removeItem('callbackPath');
+    }
+    this.$router.push(callbackPath || '/mypage');
   }
 }
 </script>
