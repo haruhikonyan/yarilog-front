@@ -2,7 +2,17 @@
   <section class="container">
     <Breadcrumb :tune="tune" />
     <div>
-      <small class="text-muted mb-0">{{ tune.playstyle.name }} {{ displayGanres }}</small>
+      <small class="text-muted mb-0">
+        {{ tune.playstyle.name }}
+        <nuxt-link
+          v-for="genre in tune.genres"
+          :key="genre.id"
+          :to="`/genres/${genre.id}`"
+          class="badge badge-secondary mr-1"
+        >
+          {{ genre.name }}
+        </nuxt-link>
+      </small>
       <h4 class="mb-0">{{ tune.title }}</h4>
       <nuxt-link :to="`/composers/${tune.composer.id}`" class="text-muted small mb-1"
         >{{ tune.composer.displayName }}作曲
@@ -46,10 +56,5 @@ import Breadcrumb from '~/components/Breadcrumb.vue';
 })
 export default class Index extends Vue {
   tune!: Tune;
-
-  get displayGanres(): string {
-    const genresString = this.tune.genres.map(g => g.name).toString();
-    return genresString ? `/ ${genresString}` : '';
-  }
 }
 </script>

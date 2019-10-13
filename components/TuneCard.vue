@@ -3,7 +3,17 @@
     <b-card header-tag="header" footer-tag="footer" body-class="py-2" class="my-3">
       <nuxt-link slot="header" class="d-flex justify-content-between" :to="`/tunes/${tune.id}`">
         <div>
-          <h6 class="text-muted mb-0">{{ tune.playstyle.name }} {{ tune.genres | displayGanres }}</h6>
+          <h6 class="text-muted mb-0">
+            {{ tune.playstyle.name }}
+            <nuxt-link
+              v-for="genre in tune.genres"
+              :key="genre.id"
+              :to="`/genres/${genre.id}`"
+              class="badge badge-secondary mr-1"
+            >
+              {{ genre.name }}
+            </nuxt-link>
+          </h6>
           <h4>{{ tune.title }}</h4>
           <h6 class="text-muted mb-0">{{ tune.composer.displayName }}作曲</h6>
           <div>

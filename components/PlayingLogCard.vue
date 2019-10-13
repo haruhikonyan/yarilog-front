@@ -1,8 +1,19 @@
 <template>
   <nuxt-link :to="`/playing-logs/${playingLog.id}`">
-    <b-card header-tag="header" footer-tag="footer" body-class="py-2" class="my-3">
+    <b-card header-tag="header" footer-tag="footer" header-class="pt-1" body-class="py-2" class="my-3">
       <div slot="header" class="d-flex justify-content-between">
         <div>
+          <small class="text-muted mb-0">
+            {{ playingLog.tune.playstyle.name }}
+            <nuxt-link
+              v-for="genre in playingLog.tune.genres"
+              :key="genre.id"
+              :to="`/genres/${genre.id}`"
+              class="badge badge-secondary mr-1"
+            >
+              {{ genre.name }}
+            </nuxt-link>
+          </small>
           <h4>{{ playingLog.tune.title }}</h4>
           <h6 class="text-muted mb-0">
             {{ playingLog.tune.composer.displayName }}作曲{{ playingLog.arranger | displayArranger }}
@@ -11,7 +22,7 @@
         <b-button
           v-if="showEditButton"
           size="sm"
-          class="align-self-start text-nowrap mr-n3"
+          class="align-self-start text-nowrap mr-n3 mt-2"
           @click.prevent="editClickHandler"
           >編集</b-button
         >
