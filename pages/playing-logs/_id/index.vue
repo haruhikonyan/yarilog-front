@@ -4,14 +4,9 @@
     <div>
       <small class="text-muted mb-0">
         {{ playingLog.tune.playstyle.name }}
-        <nuxt-link
-          v-for="genre in playingLog.tune.genres"
-          :key="genre.id"
-          :to="`/genres/${genre.id}`"
-          class="badge badge-secondary mr-1"
-        >
+        <b-badge v-for="genre in playingLog.tune.genres" :key="genre.id" :to="`/genres/${genre.id}`" class="mr-1">
           {{ genre.name }}
-        </nuxt-link>
+        </b-badge>
       </small>
       <h4 class="mb-0">{{ playingLog.tune.title }}</h4>
       <small class="text-muted mb-1">

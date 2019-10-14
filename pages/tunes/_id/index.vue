@@ -4,15 +4,29 @@
     <div>
       <small class="text-muted mb-0">
         {{ tune.playstyle.name }}
-        <nuxt-link
-          v-for="genre in tune.genres"
-          :key="genre.id"
-          :to="`/genres/${genre.id}`"
-          class="badge badge-secondary mr-1"
-        >
+        <b-badge v-for="genre in tune.genres" :key="genre.id" :to="`/genres/${genre.id}`" class="mr-1">
           {{ genre.name }}
-        </nuxt-link>
+        </b-badge>
+        <b-badge v-if="$store.state.auth && !isEditingGenre" variant="primary" @click="addGenreHandler">
+          ジャンル追加
+        </b-badge>
       </small>
+      <b-form @submit.prevent="addGenre">
+        <b-input-group v-if="isEditingGenre" size="sm" class="mb-2">
+          <vue-simple-suggest
+            v-model="addGenreName"
+            display-attribute="name"
+            :styles="autoCompleteStyle"
+            :list="simpleSuggestionList"
+            :debounce="200"
+            placeholder="追加するジャンルを入力"
+            class="flex-grow-1"
+          />
+          <b-input-group-append>
+            <b-button class="yrl-add-genre-form-height" type="submit" variant="primary">追加</b-button>
+          </b-input-group-append>
+        </b-input-group>
+      </b-form>
       <h4 class="mb-0">{{ tune.title }}</h4>
       <nuxt-link :to="`/composers/${tune.composer.id}`" class="text-muted small mb-1"
         >{{ tune.composer.displayName }}作曲
@@ -30,7 +44,9 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
-import { Tune } from '../../../models/Tune';
+import VueSimpleSuggest from 'vue-simple-suggest';
+import 'vue-simple-suggest/dist/styles.css'; // Optional CSS
+import { Tune, Genre } from '../../../models/Tune';
 import PlayingLogSummary from '~/components/PlayingLogSummary.vue';
 import StarRating from '~/components/StarRating.vue';
 import Breadcrumb from '~/components/Breadcrumb.vue';
@@ -39,7 +55,8 @@ import Breadcrumb from '~/components/Breadcrumb.vue';
   components: {
     PlayingLogSummary,
     StarRating,
-    Breadcrumb
+    Breadcrumb,
+    VueSimpleSuggest
   },
   async asyncData({ app, params }) {
     const tune = await app.$api.getTune(params.id);
@@ -56,5 +73,51 @@ import Breadcrumb from '~/components/Breadcrumb.vue';
 })
 export default class Index extends Vue {
   tune!: Tune;
+  isEditingGenre: boolean = false;
+  addGenreName: string | null = null;
+
+  addGenreHandler() {
+    this.isEditingGenre = true;
+  }
+
+  async simpleSuggestionList(searchWord): Promise<Genre[]> {
+    // 2文字未満であれば空を返す
+    if (searchWord.length < 2) {
+      return [];
+    }
+    // 重複してるものは候補に出さない
+    const genreIds = this.tune.genres.map(g => g.id);
+    const results = await this.$api.searchGenres(searchWord);
+    return results.filter(r => !genreIds.includes(r.id));
+  }
+
+  // bootstrap 用の style
+  get autoCompleteStyle() {
+    return {
+      vueSimpleSuggest: 'position-relative',
+      inputWrapper: 'yrl-add-genre-form-height',
+      defaultInput: 'form-control yrl-add-genre-form-height',
+      suggestions: 'position-absolute list-group z-1000',
+      suggestItem: 'list-group-item'
+    };
+  }
+  async addGenre() {
+    if (!this.addGenreName) {
+      return;
+    }
+    // 重複してたら何もしない
+    if (this.tune.genres.map(g => g.name).includes(this.addGenreName)) {
+      return;
+    }
+    this.tune = await this.$api.addGenreToTune(this.tune.id!, this.addGenreName);
+    this.addGenreName = null;
+    this.isEditingGenre = false;
+  }
 }
 </script>
+<style lang="scss">
+// TODO むりやりグローバルで固定してるのどうにかしたい
+.yrl-add-genre-form-height {
+  height: 30px;
+}
+</style>

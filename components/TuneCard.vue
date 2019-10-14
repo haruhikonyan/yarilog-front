@@ -5,14 +5,9 @@
         <div>
           <h6 class="text-muted mb-0">
             {{ tune.playstyle.name }}
-            <nuxt-link
-              v-for="genre in tune.genres"
-              :key="genre.id"
-              :to="`/genres/${genre.id}`"
-              class="badge badge-secondary mr-1"
-            >
+            <b-badge v-for="genre in tune.genres" :key="genre.id" :to="`/genres/${genre.id}`" class="mr-1">
               {{ genre.name }}
-            </nuxt-link>
+            </b-badge>
           </h6>
           <h4>{{ tune.title }}</h4>
           <h6 class="text-muted mb-0">{{ tune.composer.displayName }}作曲</h6>
