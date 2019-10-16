@@ -15,6 +15,7 @@
         <PlayingLogSummary :playing-log="playingLog" />
       </div>
     </div>
+    <small class="float-right mr-1"><nuxt-link to="/playing-logs/new">演奏記録を追加</nuxt-link></small>
   </section>
 </template>
 
@@ -24,6 +25,7 @@ import { Tune } from '../../../models/Tune';
 import PlayingLogSummary from '~/components/PlayingLogSummary.vue';
 import StarRating from '~/components/StarRating.vue';
 import Breadcrumb from '~/components/Breadcrumb.vue';
+import { PlayingLog } from '../../../models/PlayingLog';
 
 @Component({
   components: {
@@ -50,6 +52,13 @@ export default class Index extends Vue {
   get displayGanres(): string {
     const genresString = this.tune.genres.map(g => g.name).toString();
     return genresString ? `/ ${genresString}` : '';
+  }
+  // ログ追加リンク
+  async asyncData({ app, query }) {
+    const tuneId = query.tuneId;
+    const newLog = new PlayingLog();
+    newLog.tune = tuneId ? await app.$api.getTune(tuneId) : null;
+    this.$router.push({ path: '/playing-logs/new', query: { tuneId: this.tune!.toString() } });
   }
 }
 </script>
