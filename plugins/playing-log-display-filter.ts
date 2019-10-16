@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import { PlayingLog } from '~/models/PlayingLog';
-import { Genre } from '~/models/Tune';
 
 const displaydate = (playDate: string | Date | null): string => {
   if (!playDate) {

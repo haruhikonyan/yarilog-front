@@ -1,6 +1,7 @@
 <template>
   <section class="container">
     <div class="text-center">
+      <ShareIcons :share-text="shareText" :share-path="sharePath" />
       <h1>
         トップページ
       </h1>
@@ -41,21 +42,28 @@
 import { Component, Vue } from 'vue-property-decorator';
 import PlayingLogCard from '../components/PlayingLogCard.vue';
 import SearchForm from '../components/SearchForm.vue';
+import ShareIcons from '../components/ShareIcons.vue';
 import { TuneSearchObject } from '../models/Tune';
 
 @Component({
   components: {
     PlayingLogCard,
-    SearchForm
+    SearchForm,
+    ShareIcons
   },
-  async asyncData({ app }) {
+  async asyncData({ app, route, env }) {
     const playingLogs = await app.$api.getPlayingLogs(5);
+    const sharePath = `${env.baseBrouserApiUrl}${route.path}`;
     const info = await app.$api.getInfo();
     const devInfo = await app.$api.getDevInfo();
-    return { playingLogs, info, devInfo };
+    return { playingLogs, sharePath, info, devInfo };
   }
 })
 export default class Index extends Vue {
+  // TODO ブラッシュアップ
+  get shareText(): string {
+    return '演奏記録、曲レビューサービス みゅーぐ';
+  }
   search(tuneSearchObject: TuneSearchObject) {
     const { searchWord, instrumentId, composerId, playstyleId } = tuneSearchObject;
     this.$router.push({ path: 'tunes', query: { searchWord, instrumentId, composerId, playstyleId } });

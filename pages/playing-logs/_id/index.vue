@@ -1,6 +1,7 @@
 <template>
   <section class="container">
     <Breadcrumb :playing-log="playingLog" />
+    <ShareIcons :share-text="shareText" :share-path="sharePath" class="float-right" />
     <div>
       <small class="text-muted mb-0">
         {{ playingLog.tune.playstyle.name }}
@@ -56,14 +57,17 @@
 import { Component, Vue } from 'vue-property-decorator';
 import { PlayingLog } from '~/models/PlayingLog';
 import Breadcrumb from '~/components/Breadcrumb.vue';
+import ShareIcons from '~/components/ShareIcons.vue';
 
 @Component({
   components: {
-    Breadcrumb
+    Breadcrumb,
+    ShareIcons
   },
-  async asyncData({ app, params }) {
+  async asyncData({ app, params, route, env }) {
     const playingLog = await app.$api.getPlayingLog(params.id);
-    return { playingLog };
+    const sharePath = `${env.baseBrouserApiUrl}${route.path}`;
+    return { playingLog, sharePath };
   },
   head(this: Index) {
     // なければ空文字列を入れて title に出てくるのを防ぐ
@@ -78,5 +82,14 @@ import Breadcrumb from '~/components/Breadcrumb.vue';
 })
 export default class Index extends Vue {
   playingLog!: PlayingLog;
+  // TODO ブラッシュアップ
+  get shareText(): string {
+    const nickname = this.playingLog.user.nickname;
+    const playInfo = this.$options.filters!.displayPlayInfo(this.playingLog);
+    const composerName = this.playingLog.tune.composer.displayName;
+    const tuneTitle = this.playingLog.tune.title;
+    const position = `${this.playingLog.instrument.shortName}${this.playingLog.position}`;
+    return `${nickname}さんの${playInfo}された、${composerName}作曲${tuneTitle}の${position}での演奏記録`;
+  }
 }
 </script>
