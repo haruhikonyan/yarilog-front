@@ -64,12 +64,8 @@ export default class Index extends Vue {
         loginId: this.loginObject.loginId,
         password: this.loginObject.password
       });
-      const auth = {
-        accessToken: loginReultObject.token,
-        userId: loginReultObject.userId
-      };
-      this.$store.commit('setAuth', auth); // mutating to store for client rendering
-      Cookie.set('auth', auth); // saving token in cookie for server rendering
+      this.$store.commit('setAuth', loginReultObject); // mutating to store for client rendering
+      Cookie.set('auth', loginReultObject); // saving token in cookie for server rendering
       this.$axios.setToken(loginReultObject.token, 'Bearer');
       this.$router.push(this.callbackPath || '/mypage');
     } catch (e) {

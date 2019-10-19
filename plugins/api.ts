@@ -26,6 +26,7 @@ export class Api {
   private readonly API_INSTRUMENT_URL = 'instruments';
   private readonly API_PLAYSTYLE_URL = 'playstyles';
   private readonly API_GENRE_URL = 'genres';
+  private readonly API_TERMS_URL = 'terms';
 
   login(loginObject: LoginObject): Promise<LoginResultObject> {
     const url: string = urljoin(this.API_AUTH_URL, 'login');
@@ -234,6 +235,16 @@ export class Api {
         searchWord
       }
     });
+  }
+
+  getLatestTos() {
+    const url = urljoin(this.API_TERMS_URL, 'latest-tos');
+    return this.context.$axios.$get(url);
+  }
+
+  getLatestPrivacyPolicy() {
+    const url = urljoin(this.API_TERMS_URL, 'latest-privacy-policy');
+    return this.context.$axios.$get(url);
   }
 
   // TODO 開発終わったら or 必要なくなったら消す

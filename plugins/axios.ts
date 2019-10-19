@@ -1,10 +1,10 @@
 import Cookie from 'js-cookie';
 
-export default ({ $axios, store, redirect, nuxtState }) => {
+export default ({ $axios, store, redirect }) => {
   // auth があれば CSR 用に token をセットする
   const auth = store.state.auth;
   if (auth != null) {
-    $axios.setToken(auth.accessToken, 'Bearer');
+    $axios.setToken(auth.token, 'Bearer');
   }
   $axios.onError(error => {
     if (error.response.status === 401) {

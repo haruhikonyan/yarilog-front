@@ -10,20 +10,16 @@ import Cookie from 'js-cookie';
   middleware: 'notAuthenticated',
   fetch({ query, store, app, redirect }) {
     // パラメータが足りなければログインページへ
-    if (!query.token || !query.userId) {
+    if (!query.token || !query.userId || !query.consentTos) {
       redirect('/login');
     }
-    const auth = {
-      accessToken: query.token,
-      userId: query.userId
-    };
-    store.commit('setAuth', auth);
+    store.commit('setAuth', query);
     app.$axios.setToken(query.token, 'Bearer');
   }
 })
 export default class Index extends Vue {
   beforeCreate() {
-    Cookie.set('auth', this.$store.state.auth);
+    Cookie.set('token', this.$store.state.auth.token);
   }
   beforeMount() {
     // beforeMount でやるのがよいかわからない(sessionStorageが使えるのがこのタイミング)
