@@ -52,6 +52,10 @@ export class Api {
   createUser(user: User): Promise<User> {
     return this.context.$axios.$post(this.API_USER_URL, user);
   }
+  consentTerms(concentTermsId: number) {
+    const url: string = urljoin(this.API_USER_URL, 'consent-terms');
+    return this.context.$axios.$post(url, { concentTermsId });
+  }
 
   getComposers(): Promise<Composer[]> {
     const url = this.API_COMPOSER_URL;
@@ -239,6 +243,11 @@ export class Api {
         searchWord
       }
     });
+  }
+
+  getLatestTermsId() {
+    const url = urljoin(this.API_TERMS_URL, 'latest-id');
+    return this.context.$axios.$get(url);
   }
 
   getLatestTos() {

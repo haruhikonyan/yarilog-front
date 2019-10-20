@@ -34,6 +34,7 @@ import Cookie from 'js-cookie';
   }
 })
 export default class Index extends Vue {
+  // TODO 共通化
   logout() {
     Cookie.remove('token');
     this.$store.commit('setAuth', null);

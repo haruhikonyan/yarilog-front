@@ -17,7 +17,7 @@ import { Component, Vue } from 'vue-property-decorator';
 @Component({
   components: {},
   async asyncData({ app }) {
-    const privacyPolicy = await app.$api.getPrivacyPolicy();
+    const privacyPolicy = await app.$api.getLatestPrivacyPolicy();
     return { privacyPolicy };
   }
 })

@@ -5,6 +5,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import Cookie from 'js-cookie';
+import { LoginResultObject } from '../../models/LoginResultObject';
 
 @Component({
   middleware: 'notAuthenticated',
@@ -13,7 +14,12 @@ import Cookie from 'js-cookie';
     if (!query.token || !query.userId || !query.consentTos) {
       redirect('/login');
     }
-    store.commit('setAuth', query);
+    const auth: LoginResultObject = {
+      token: query.token as string,
+      userId: query.userId as string,
+      consentTos: query.consentTos === 'true'
+    };
+    store.commit('setAuth', auth);
     app.$axios.setToken(query.token, 'Bearer');
   }
 })
