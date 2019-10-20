@@ -52,6 +52,18 @@ export class Api {
   createUser(user: User): Promise<User> {
     return this.context.$axios.$post(this.API_USER_URL, user);
   }
+  updateUserMailAddress(mailAddress: string): Promise<User> {
+    const url: string = urljoin(this.API_USER_URL, 'mail-address');
+    return this.context.$axios.$post(url, { mailAddress });
+  }
+  updateUserNickname(nickname: string): Promise<User> {
+    const url: string = urljoin(this.API_USER_URL, 'nickname');
+    return this.context.$axios.$post(url, { nickname });
+  }
+  updateUserDescription(description: string): Promise<User> {
+    const url: string = urljoin(this.API_USER_URL, 'description');
+    return this.context.$axios.$post(url, { description });
+  }
   consentTerms(concentTermsId: number) {
     const url: string = urljoin(this.API_USER_URL, 'consent-terms');
     return this.context.$axios.$post(url, { concentTermsId });

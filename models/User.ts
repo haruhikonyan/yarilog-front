@@ -5,4 +5,9 @@ export class User {
   password: string | null = null;
   nickname!: string;
   description: string | null = null;
+  externalAccount: ExternalAccount | undefined;
+}
+
+class ExternalAccount {
+  providerType!: string;
 }
