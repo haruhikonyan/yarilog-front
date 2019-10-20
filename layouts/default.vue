@@ -35,7 +35,7 @@ import Cookie from 'js-cookie';
 })
 export default class Index extends Vue {
   logout() {
-    Cookie.remove('auth');
+    Cookie.remove('token');
     this.$store.commit('setAuth', null);
     this.$axios.setToken(false);
     this.$router.push('/');

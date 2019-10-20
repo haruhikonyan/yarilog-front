@@ -20,20 +20,18 @@ export const mutations = {
 };
 export const actions = {
   async nuxtServerInit({ commit }, { req, $axios, app }) {
-    let auth = null;
     if (req.headers.cookie) {
       const parsed = cookieparser.parse(req.headers.cookie);
-      try {
-        auth = JSON.parse(parsed.auth);
-        $axios.setToken(auth.token, 'Bearer');
-      } catch (err) {
-        // No valid cookie found
+      if (parsed.token) {
+        $axios.setToken(parsed.token, 'Bearer');
+        const auth = await app.$api.getAuthObject();
+        commit('setAuth', auth);
       }
     }
     // 楽器マスタを持っておく
     const instruments = await app.$api.getInstruments();
     const playstyles = await app.$api.getPlaystyles();
-    commit('setAuth', auth);
+
     commit('setInstruments', instruments);
     commit('setPlaystyles', playstyles);
   }

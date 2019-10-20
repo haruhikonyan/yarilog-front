@@ -36,6 +36,10 @@ export class Api {
     const url: string = urljoin(this.API_AUTH_URL, 'me');
     return this.context.$axios.$get(url);
   }
+  getAuthObject(): Promise<LoginResultObject> {
+    const url: string = urljoin(this.API_AUTH_URL, 'auth-object');
+    return this.context.$axios.$get(url);
+  }
 
   getUsers(): Promise<User[]> {
     const url = this.API_USER_URL;

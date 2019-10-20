@@ -7,8 +7,9 @@ export default ({ $axios, store, redirect }) => {
     $axios.setToken(auth.token, 'Bearer');
   }
   $axios.onError(error => {
+    console.log(error);
     if (error.response.status === 401) {
-      Cookie.remove('auth');
+      Cookie.remove('token');
       store.commit('setAuth', null);
       $axios.setToken(false);
       redirect('/login');

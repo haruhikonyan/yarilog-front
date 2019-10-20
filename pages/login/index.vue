@@ -65,7 +65,7 @@ export default class Index extends Vue {
         password: this.loginObject.password
       });
       this.$store.commit('setAuth', loginReultObject); // mutating to store for client rendering
-      Cookie.set('auth', loginReultObject); // saving token in cookie for server rendering
+      Cookie.set('token', loginReultObject.token); // saving token in cookie for server rendering
       this.$axios.setToken(loginReultObject.token, 'Bearer');
       this.$router.push(this.callbackPath || '/mypage');
     } catch (e) {
