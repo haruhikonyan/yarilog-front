@@ -23,7 +23,7 @@
           </b-card>
         </b-collapse>
       </div>
-      <b-card class="mb-2" title="演りログ(仮称)とは">
+      <b-card class="mb-2" title="みゅーぐ(仮称)とは">
         <pre class="yrl-pre-wrap yrl-info text-left mb-0">{{ info }}</pre>
         <b-card-text class="mb-0">
           <a href="https://twitter.com/sasuganaryuseki" target="_blank">Twitter</a>

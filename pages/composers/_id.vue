@@ -46,7 +46,7 @@ import { Composer } from '../../models/Composer';
     // TODO 作曲家ページ用にする
     const searchWord = this.tuneSearchObject.searchWord || '';
     return {
-      title: `${searchWord} 曲検索結果 - 演りログ`,
+      title: `${searchWord} 曲検索結果 - みゅーぐ`,
       meta: [{ hid: 'description', name: 'description', content: `${searchWord} 曲検索結果` }]
     };
   }

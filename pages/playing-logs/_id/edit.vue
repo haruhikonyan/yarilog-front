@@ -24,6 +24,7 @@ import PlayingLogForm from '~/components/PlayingLogForm.vue';
   components: {
     PlayingLogForm
   },
+  middleware: 'authenticated',
   async asyncData({ app, params }) {
     const playingLog = await app.$api.getPlayingLog(params.id);
     return { playingLog };

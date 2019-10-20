@@ -40,7 +40,8 @@ import { Component, Vue } from 'vue-property-decorator';
 import { User } from '~/models/User';
 
 @Component({
-  components: {}
+  components: {},
+  middleware: 'notAuthenticated'
 })
 export default class Index extends Vue {
   newUser: User = new User();

@@ -66,7 +66,7 @@ import Breadcrumb from '~/components/Breadcrumb.vue';
   },
   head(this: Index) {
     return {
-      title: `${this.tune.title} ${this.tune.composer.fullName}作曲 - 演りログ`,
+      title: `${this.tune.title} ${this.tune.composer.fullName}作曲 - みゅーぐ`,
       meta: [{ hid: 'description', name: 'description', content: `${this.tune.description}` }]
     };
   }

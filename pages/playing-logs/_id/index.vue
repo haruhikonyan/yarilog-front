@@ -75,7 +75,7 @@ import ShareIcons from '~/components/ShareIcons.vue';
     return {
       title: `${this.playingLog.tune.title} ${this.playingLog.instrument.name}${position} ${
         this.playingLog.user.nickname
-      }さん演奏 - 演りログ`,
+      }さん演奏 - みゅーぐ`,
       meta: [{ hid: 'description', name: 'description', content: `${this.playingLog.impressionOfInteresting}` }]
     };
   }

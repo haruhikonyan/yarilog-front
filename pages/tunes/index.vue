@@ -51,7 +51,7 @@ import { Composer } from '../../models/Composer';
   head(this: Index) {
     const searchWord = this.tuneSearchObject.searchWord || '';
     return {
-      title: `${searchWord} 曲検索結果 - 演りログ`,
+      title: `${searchWord} 曲検索結果 - みゅーぐ`,
       meta: [{ hid: 'description', name: 'description', content: `${searchWord} 曲検索結果` }]
     };
   }

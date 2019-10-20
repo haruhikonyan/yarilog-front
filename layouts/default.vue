@@ -29,7 +29,7 @@ import Cookie from 'js-cookie';
 @Component({
   components: {},
   head: {
-    title: '演りログ',
+    title: 'みゅーぐ',
     meta: [{ hid: 'description', name: 'description', content: '演奏した曲のレビューサイト' }]
   }
 })
