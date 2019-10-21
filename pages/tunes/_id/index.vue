@@ -58,7 +58,7 @@ export default class Index extends Vue {
     const tuneId = query.tuneId;
     const newLog = new PlayingLog();
     newLog.tune = tuneId ? await app.$api.getTune(tuneId) : null;
-    this.$router.push({ path: '/playing-logs/new', query: { tuneId: this.tune!.toString() } });
+    this.$router.push({ path: '/playing-logs/new', query: { tuneId: tuneId.id!.toString() } });
   }
 }
 </script>
