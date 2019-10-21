@@ -55,6 +55,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import * as urljoin from 'url-join';
 import { PlayingLog } from '~/models/PlayingLog';
 import Breadcrumb from '~/components/Breadcrumb.vue';
 import ShareIcons from '~/components/ShareIcons.vue';
@@ -66,7 +67,7 @@ import ShareIcons from '~/components/ShareIcons.vue';
   },
   async asyncData({ app, params, route, env }) {
     const playingLog = await app.$api.getPlayingLog(params.id);
-    const sharePath = `${env.baseBrouserApiUrl}${route.path}`;
+    const sharePath = urljoin(env.baseBrouserApiUrl, route.path);
     return { playingLog, sharePath };
   },
   head(this: Index) {

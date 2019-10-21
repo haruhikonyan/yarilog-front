@@ -23,7 +23,7 @@
           </b-card>
         </b-collapse>
       </div>
-      <b-card class="mb-2" title="みゅーぐ(仮称)とは">
+      <b-card class="mb-2" title="みゅーぐとは">
         <pre class="yrl-pre-wrap yrl-info text-left mb-0">{{ info }}</pre>
         <b-card-text class="mb-0">
           <a href="https://twitter.com/sasuganaryuseki" target="_blank">Twitter</a>
@@ -40,6 +40,7 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import * as urljoin from 'url-join';
 import PlayingLogCard from '../components/PlayingLogCard.vue';
 import SearchForm from '../components/SearchForm.vue';
 import ShareIcons from '../components/ShareIcons.vue';
@@ -53,7 +54,7 @@ import { TuneSearchObject } from '../models/Tune';
   },
   async asyncData({ app, route, env }) {
     const playingLogs = await app.$api.getPlayingLogs(5);
-    const sharePath = `${env.baseBrouserApiUrl}${route.path}`;
+    const sharePath = urljoin(env.baseBrouserApiUrl, route.path);
     const info = await app.$api.getInfo();
     const devInfo = await app.$api.getDevInfo();
     return { playingLogs, sharePath, info, devInfo };
