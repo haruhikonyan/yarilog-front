@@ -103,6 +103,7 @@ export default {
     }
   },
   env: {
-    baseBrouserApiUrl: process.env.baseBrouserApiUrl
+    baseBrouserApiUrl: process.env.baseBrouserApiUrl,
+    frontUrl: process.env.frontUrl
   }
 };

@@ -18,6 +18,7 @@ services:
       # ubuntu の場合はこちらを使う
       # baseApiUrl: 'http://172.17.0.1:8080'
       baseBrouserApiUrl: 'http://localhost:8080'
+      frontUrl: 'http://localhost:3000'
     working_dir: /yarilog-front
 # volumes:
   # node-modules-data:

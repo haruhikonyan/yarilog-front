@@ -67,7 +67,7 @@ import ShareIcons from '~/components/ShareIcons.vue';
   },
   async asyncData({ app, params, route, env }) {
     const playingLog = await app.$api.getPlayingLog(params.id);
-    const sharePath = urljoin(env.baseBrouserApiUrl, route.path);
+    const sharePath = urljoin(env.frontUrl, route.path);
     return { playingLog, sharePath };
   },
   head(this: Index) {
