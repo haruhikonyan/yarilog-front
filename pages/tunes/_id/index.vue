@@ -34,6 +34,17 @@
       <div>面白さ<StarRating :rate="(tune.averageInteresting / 5) * 100" />{{ tune.averageInteresting || '-' }}</div>
       <div>体力<StarRating :rate="(tune.averagePhysicality / 5) * 100" />{{ tune.averagePhysicality || '-' }}</div>
       <div>難易度<StarRating :rate="(tune.averageDifficulty / 5) * 100" />{{ tune.averageDifficulty || '-' }}</div>
+      <b-form-select
+        v-model="selectedInstrumentId"
+        size="sm"
+        class="w-auto mt-2"
+        @change="selectedInstrumentChangeHandler($event)"
+      >
+        <option value="">全楽器</option>
+        <option v-for="instrument in $store.state.instruments" :key="instrument.id" :value="instrument.id">
+          {{ instrument.shortName }}
+        </option>
+      </b-form-select>
       <div v-for="playingLog in playingLogs" :key="playingLog.id">
         <hr />
         <PlayingLogSummary :playing-log="playingLog" />
@@ -50,6 +61,7 @@ import { Tune, Genre } from '../../../models/Tune';
 import PlayingLogSummary from '~/components/PlayingLogSummary.vue';
 import StarRating from '~/components/StarRating.vue';
 import Breadcrumb from '~/components/Breadcrumb.vue';
+import { PlayingLogsWithCount, PlayingLog } from '../../../models/PlayingLog';
 
 @Component({
   components: {
@@ -58,11 +70,18 @@ import Breadcrumb from '~/components/Breadcrumb.vue';
     Breadcrumb,
     VueSimpleSuggest
   },
-  async asyncData({ app, params }) {
+  async asyncData({ app, params, query }) {
     const tune = await app.$api.getTune(params.id);
+    const selectedInstrumentId = query.selectedInstrumentId || '';
     // 最新5件表示
-    const playingLogs = await app.$api.getPlayingLogsByTune(params.id, 0, 5);
-    return { tune, playingLogs };
+    const playingLogsWithCount: PlayingLogsWithCount = await app.$api.searchPlayingLogs(
+      null,
+      selectedInstrumentId,
+      params.id,
+      0,
+      5
+    );
+    return { tune, playingLogs: playingLogsWithCount.playingLogs, selectedInstrumentId };
   },
   head(this: Index) {
     return {
@@ -75,6 +94,8 @@ export default class Index extends Vue {
   tune!: Tune;
   isEditingGenre: boolean = false;
   addGenreName: string | null = null;
+  selectedInstrumentId!: string;
+  playingLogs!: PlayingLog[];
 
   addGenreHandler() {
     this.isEditingGenre = true;
@@ -112,6 +133,21 @@ export default class Index extends Vue {
     this.tune = await this.$api.addGenreToTune(this.tune.id!, this.addGenreName);
     this.addGenreName = null;
     this.isEditingGenre = false;
+  }
+  async selectedInstrumentChangeHandler(selectedInstrumentId: string) {
+    const playingLogsWithCount: PlayingLogsWithCount = await this.$api.searchPlayingLogs(
+      null,
+      selectedInstrumentId,
+      this.tune.id!.toString(),
+      0,
+      5
+    );
+    this.$router.push({
+      query: {
+        selectedInstrumentId
+      }
+    });
+    this.playingLogs = playingLogsWithCount.playingLogs;
   }
 }
 </script>

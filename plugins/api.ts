@@ -164,6 +164,7 @@ export class Api {
   searchPlayingLogs(
     searchWord: string | null,
     instrumentId?: string | null,
+    tuneId?: string | null,
     offset?: number,
     limit?: number
   ): Promise<PlayingLogsWithCount> {
@@ -171,9 +172,10 @@ export class Api {
     return this.context.$axios.$get(url, {
       params: {
         searchWord,
+        tuneId,
+        instrumentId,
         offset,
-        limit,
-        instrumentId
+        limit
       }
     });
   }
