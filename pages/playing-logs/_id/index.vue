@@ -46,7 +46,9 @@
           <pre class="yrl-pre-wrap mb-0">{{ playingLog.secretMemo }}</pre>
         </b-card-text>
       </b-card>
-      <h4>{{ playingLog.user.nickname }}さん</h4>
+      <h4>
+        <nuxt-link :to="`/users/${playingLog.user.id}`">{{ playingLog.user.nickname }}さん</nuxt-link>
+      </h4>
       {{ playingLog | displayPlayInfo }}
     </div>
     <!-- TODO 同じ曲の演奏ログや同じ人の演奏ログを出す -->

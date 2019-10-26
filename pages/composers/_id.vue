@@ -39,15 +39,13 @@ import { Composer } from '../../models/Composer';
     // tune に紐づく PlayingLog は最大5件にしておく
     const { tunes, totalCount } = await app.$api.searchTunes(tuneSearchObject, offset, perPage, 5);
     // 作曲家が検索条件にあれば、パンくずや検索フォームで使う作曲家データを取得しておく
-    const defaultComposer = params.id ? await app.$api.getComposer(params.id) : null;
+    const defaultComposer = await app.$api.getComposer(params.id);
     return { tunes, totalCount, tuneSearchObject, offset, perPage, defaultComposer };
   },
   head(this: Index) {
-    // TODO 作曲家ページ用にする
-    const searchWord = this.tuneSearchObject.searchWord || '';
     return {
-      title: `${searchWord} 曲検索結果 - みゅーぐ`,
-      meta: [{ hid: 'description', name: 'description', content: `${searchWord} 曲検索結果` }]
+      title: `${this.defaultComposer!.fullName}} 曲検索結果 - みゅーぐ`,
+      meta: [{ hid: 'description', name: 'description', content: `${this.defaultComposer!.fullName} 曲検索結果` }]
     };
   }
 })

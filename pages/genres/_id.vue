@@ -6,7 +6,6 @@
       :total-count="totalCount"
       :offset="offset"
       :per-page="perPage"
-      :default-playstyle-id="defaultPlaystyleId"
       @on-search="search($event)"
       @on-pagenation-input="pagenationInputHandler($event)"
     />
@@ -36,7 +35,7 @@ import { TuneSearchObject, Tune } from '../../models/Tune';
     const offset = isNaN(Number(offsetString)) ? 0 : Number(offsetString);
     // tune に紐づく PlayingLog は最大5件にしておく
     const { tunes, totalCount } = await app.$api.searchTunes(tuneSearchObject, offset, perPage, 5);
-    return { tunes, totalCount, tuneSearchObject, offset, perPage, defaultPlaystyleId: params.id };
+    return { tunes, totalCount, tuneSearchObject, offset, perPage };
   },
   head(this: Index) {
     // TODO 作曲家ページ用にする
@@ -54,8 +53,6 @@ export default class Index extends Vue {
   offset!: number;
   currentPage!: number;
   perPage!: number;
-
-  defaultPlaystyleId!: number | null;
 
   async search(tuneSearchObject: TuneSearchObject) {
     this.tuneSearchObject = tuneSearchObject;
