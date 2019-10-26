@@ -9,7 +9,9 @@
           {{ genre.name }}
         </b-badge>
       </small>
-      <h4 class="mb-0">{{ playingLog.tune.title }}</h4>
+      <h4 class="mb-0">
+        <nuxt-link :to="`/tunes/${playingLog.tune.id}`">{{ playingLog.tune.title }}</nuxt-link>
+      </h4>
       <small class="text-muted mb-1">
         {{ playingLog.tune.composer.displayName }}作曲{{ playingLog.arranger | displayArranger }}
       </small>
