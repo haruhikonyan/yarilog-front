@@ -29,13 +29,14 @@ import Cookie from 'js-cookie';
 @Component({
   components: {},
   head: {
-    title: '演りログ',
+    title: 'みゅーぐ',
     meta: [{ hid: 'description', name: 'description', content: '演奏した曲のレビューサイト' }]
   }
 })
 export default class Index extends Vue {
+  // TODO 共通化
   logout() {
-    Cookie.remove('auth');
+    Cookie.remove('token');
     this.$store.commit('setAuth', null);
     this.$axios.setToken(false);
     this.$router.push('/');

@@ -24,7 +24,8 @@ import PlayingLogForm from '~/components/PlayingLogForm.vue';
 @Component({
   components: {
     PlayingLogForm
-  }
+  },
+  middleware: 'authenticated'
 })
 export default class Index extends Vue {
   playingLog: PlayingLog = new PlayingLog();

@@ -27,8 +27,8 @@ import { TuneSearchObject, Tune } from '../../models/Tune';
       searchWord: undefined,
       instrumentId: undefined,
       composerId: undefined,
-      playstyleId: params.id,
-      genreId: undefined
+      playstyleId: undefined,
+      genreId: params.id
     };
     const offsetString = query.offset as string;
     // offset が未設定 NaN になるのでその時は 0 をセット

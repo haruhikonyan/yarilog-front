@@ -1,11 +1,17 @@
 <template>
   <section class="container">
     <Breadcrumb :playing-log="playingLog" />
+    <ShareIcons :share-text="shareText" :share-path="sharePath" class="float-right" />
     <div>
       <small class="text-muted mb-0">
-        {{ playingLog.tune.playstyle.name }} {{ playingLog.tune.genres | displayGanres }}
+        {{ playingLog.tune.playstyle.name }}
+        <b-badge v-for="genre in playingLog.tune.genres" :key="genre.id" :to="`/genres/${genre.id}`" class="mr-1">
+          {{ genre.name }}
+        </b-badge>
       </small>
-      <h4 class="mb-0">{{ playingLog.tune.title }}</h4>
+      <h4 class="mb-0">
+        <nuxt-link :to="`/tunes/${playingLog.tune.id}`">{{ playingLog.tune.title }}</nuxt-link>
+      </h4>
       <small class="text-muted mb-1">
         {{ playingLog.tune.composer.displayName }}作曲{{ playingLog.arranger | displayArranger }}
       </small>
@@ -42,7 +48,9 @@
           <pre class="yrl-pre-wrap mb-0">{{ playingLog.secretMemo }}</pre>
         </b-card-text>
       </b-card>
-      <h4>{{ playingLog.user.nickname }}さん</h4>
+      <h4>
+        <nuxt-link :to="`/users/${playingLog.user.id}`">{{ playingLog.user.nickname }}さん</nuxt-link>
+      </h4>
       {{ playingLog | displayPlayInfo }}
     </div>
     <!-- TODO 同じ曲の演奏ログや同じ人の演奏ログを出す -->
@@ -51,16 +59,20 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
+import * as urljoin from 'url-join';
 import { PlayingLog } from '~/models/PlayingLog';
 import Breadcrumb from '~/components/Breadcrumb.vue';
+import ShareIcons from '~/components/ShareIcons.vue';
 
 @Component({
   components: {
-    Breadcrumb
+    Breadcrumb,
+    ShareIcons
   },
-  async asyncData({ app, params }) {
+  async asyncData({ app, params, route, env }) {
     const playingLog = await app.$api.getPlayingLog(params.id);
-    return { playingLog };
+    const sharePath = urljoin(env.frontUrl, route.path);
+    return { playingLog, sharePath };
   },
   head(this: Index) {
     // なければ空文字列を入れて title に出てくるのを防ぐ
@@ -68,12 +80,21 @@ import Breadcrumb from '~/components/Breadcrumb.vue';
     return {
       title: `${this.playingLog.tune.title} ${this.playingLog.instrument.name}${position} ${
         this.playingLog.user.nickname
-      }さん演奏 - 演りログ`,
+      }さん演奏 - みゅーぐ`,
       meta: [{ hid: 'description', name: 'description', content: `${this.playingLog.impressionOfInteresting}` }]
     };
   }
 })
 export default class Index extends Vue {
   playingLog!: PlayingLog;
+  // TODO ブラッシュアップ
+  get shareText(): string {
+    const nickname = this.playingLog.user.nickname;
+    const playInfo = this.$options.filters!.displayPlayInfo(this.playingLog);
+    const composerName = this.playingLog.tune.composer.displayName;
+    const tuneTitle = this.playingLog.tune.title;
+    const position = `${this.playingLog.instrument.shortName}${this.playingLog.position}`;
+    return `${nickname}さんの${playInfo}された、${composerName}作曲${tuneTitle}の${position}での演奏記録`;
+  }
 }
 </script>

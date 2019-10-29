@@ -68,6 +68,10 @@ export default {
       {
         set: '@fortawesome/free-solid-svg-icons',
         icons: ['fas']
+      },
+      {
+        set: '@fortawesome/free-brands-svg-icons',
+        icons: ['fab']
       }
     ]
   },
@@ -99,6 +103,7 @@ export default {
     }
   },
   env: {
-    baseBrouserApiUrl: process.env.baseBrouserApiUrl
+    baseBrouserApiUrl: process.env.baseBrouserApiUrl,
+    frontUrl: process.env.frontUrl
   }
 };

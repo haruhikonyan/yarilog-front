@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import { PlayingLog } from '~/models/PlayingLog';
-import { Genre } from '~/models/Tune';
 
 const displaydate = (playDate: string | Date | null): string => {
   if (!playDate) {
@@ -17,11 +16,6 @@ Vue.filter('displayPlayInfo', (playingLog: PlayingLog) => {
   const displayTeam = playingLog.team || '';
   const displayScene = playingLog.scene || '';
   return `${displaydate(playingLog.playDate)} ${displayTeam} ${displayScene}にて演奏`;
-});
-
-Vue.filter('displayGanres', (genres: Genre[]) => {
-  const genresString = genres.map(g => g.name).toString();
-  return genresString ? `/ ${genresString}` : '';
 });
 
 Vue.filter('displayArranger', (arranger: string) => {
