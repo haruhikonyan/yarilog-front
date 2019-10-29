@@ -56,9 +56,9 @@ export default class Index extends Vue {
   // ログ追加リンク
   async asyncData({ app, query }) {
     const tuneId = query.tuneId;
-    const newLog = new PlayingLog();
-    newLog.tune = tuneId ? await app.$api.getTune(tuneId) : null;
-    this.$router.push({ path: '/playing-logs/new', query: { tuneId: tuneId.id!.toString() } });
+    const addLog = new PlayingLog();
+    addLog.tune = tuneId ? await app.$api.getTune(tuneId) : null;
+    this.$router.push({ path: '/playing-logs/new', query: { tuneId: tuneId!.toString() } });
   }
 }
 </script>
