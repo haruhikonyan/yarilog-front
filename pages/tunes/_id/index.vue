@@ -63,11 +63,10 @@ import { Tune, Genre } from '../../../models/Tune';
 import PlayingLogSummary from '~/components/PlayingLogSummary.vue';
 import StarRating from '~/components/StarRating.vue';
 import Breadcrumb from '~/components/Breadcrumb.vue';
-<<<<<<< HEAD
 import { PlayingLog } from '../../../models/PlayingLog';
 =======
 import { PlayingLogsWithCount, PlayingLog } from '../../../models/PlayingLog';
->>>>>>> 491536ecd816d36f7c0c83172588132986aede3a
+
 
 @Component({
   components: {
