@@ -25,7 +25,13 @@ import PlayingLogForm from '~/components/PlayingLogForm.vue';
   components: {
     PlayingLogForm
   },
-  middleware: 'authenticated'
+  middleware: 'authenticated',
+  async asyncData({ app, query }) {
+    const tuneId = query.tuneId;
+    const addLog = new PlayingLog();
+    addLog.tune = tuneId ? await app.$api.getTune(tuneId) : null;
+    return { tuneId, addLog };
+  }
 })
 export default class Index extends Vue {
   playingLog: PlayingLog = new PlayingLog();

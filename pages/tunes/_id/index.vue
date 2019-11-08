@@ -63,10 +63,7 @@ import { Tune, Genre } from '../../../models/Tune';
 import PlayingLogSummary from '~/components/PlayingLogSummary.vue';
 import StarRating from '~/components/StarRating.vue';
 import Breadcrumb from '~/components/Breadcrumb.vue';
-import { PlayingLog } from '../../../models/PlayingLog';
-=======
 import { PlayingLogsWithCount, PlayingLog } from '../../../models/PlayingLog';
-
 
 @Component({
   components: {
@@ -154,12 +151,12 @@ export default class Index extends Vue {
     });
     this.playingLogs = playingLogsWithCount.playingLogs;
   }
-  // ログ追加リンク
-  async asyncData({ app, query }) {
-    const tuneId = query.tuneId;
-    const addLog = new PlayingLog();
-    addLog.tune = tuneId ? await app.$api.getTune(tuneId) : null;
-    this.$router.push({ path: '/playing-logs/new', query: { tuneId: tuneId!.toString() } });
+  // ログ追加リンクに値を渡す
+  tunes: Tune[] = [];
+  newLog!: PlayingLog;
+  async getTune() {
+    await this.$api.getTune(this.tune.id);
+    this.$router.push('/playing-logs/new');
   }
 }
 </script>
