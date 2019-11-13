@@ -152,10 +152,9 @@ export default class Index extends Vue {
     this.playingLogs = playingLogsWithCount.playingLogs;
   }
   // ログ追加リンクに値を渡す
-  newTune: Tune = new Tune()
-  async getTunes(){
+  async getTunes() {
     const tune = await this.$api.getTunes(this.tune);
-    this.$router.push({ path: 'playing-logs/new', query: { tuneId:tune.id! } })
+    this.$router.push({ path: 'playing-logs/new', query: { tuneId: tune.id! } });
   }
 }
 </script>
