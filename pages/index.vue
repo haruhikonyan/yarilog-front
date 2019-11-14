@@ -12,25 +12,16 @@
         :playstyles="$store.state.playstyles"
         @on-search="search($event)"
       />
-      <p><nuxt-link to="/composers">作曲家から演奏記録を探す</nuxt-link></p>
-      <p><nuxt-link to="/countries">国から演奏記録を探す</nuxt-link></p>
-      <b-button v-if="!$store.state.auth" to="/users/new" variant="primary" class="mb-3">ユーザ新規作成</b-button>
-      <div>
-        <b-button v-b-toggle.dev-info block size="sm" variant="primary" class="mb-3">開発情報を見る</b-button>
-        <b-collapse id="dev-info" class="mb-3">
-          <b-card>
-            <pre class="yrl-pre-wrap yrl-info text-left mb-0">{{ devInfo }}</pre>
-          </b-card>
-        </b-collapse>
-      </div>
       <b-card class="mb-2" title="みゅーぐとは">
-        <pre class="yrl-pre-wrap yrl-info text-left mb-0">{{ info }}</pre>
-        <b-card-text class="mb-0">
-          <a href="https://twitter.com/sasuganaryuseki" target="_blank">Twitter</a>
-        </b-card-text>
-        <b-card-text class="mb-0">
-          <a href="https://www.facebook.com/ryuseki.sasuga" target="_blank">Facebook</a>
-        </b-card-text>
+        <pre class="yrl-pre-wrap yrl-info text-left mb-0">
+日本国内に楽器を演奏する人は人口の10%以上いると言われています。
+そんな楽器、そして演奏を愛する人々の演奏した記録を曲のレビュー(演奏記録)という形で残していけるWebサービスです。
+集まった曲のレビューを他の人が見ることで、その曲を演奏して見たいと思ってくれたり、その曲をやる機会があれば演奏のための参考にしたりできると思っています。
+また、こういった様々な人のレビューを見ることで不毛になりがちな選曲会議の助けにもなるだろうと思っています。
+もちろん、演奏した側もいままで演奏した記録を一元管理でき、眺めて思い出に浸ると行った使い方もできると思います。
+その記録を見てエキストラ奏者として誘って見たり。
+使い方は無限だと思っています。
+        </pre>
       </b-card>
       <p class="mt-3">最新の演奏記録</p>
     </div>
