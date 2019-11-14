@@ -20,6 +20,26 @@
       </b-navbar>
     </div>
     <nuxt />
+    <div class="text-center">
+      <hr />
+      <div>
+        <nuxt-link to="/tos">利用規約</nuxt-link>
+        <nuxt-link to="/privacy-policy">プライバシーポリシー</nuxt-link>
+      </div>
+      <div>
+        <a href="https://twitter.com/musig_net" target="_blank" class="d-block">
+          <font-awesome-icon icon="external-link-alt" />
+          公式twitter
+        </a>
+      </div>
+      <div class="mt-1">
+        <div>問い合わせはこちらまで</div>
+        <div>info.musig☆gmail.com</div>
+        <small>
+          「☆」を半角の「@」に変更してご利用ください
+        </small>
+      </div>
+    </div>
   </div>
 </template>
 <script lang="ts">

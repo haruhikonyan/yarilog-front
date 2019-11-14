@@ -1,10 +1,22 @@
 <template>
   <section class="container">
     <div>
-      <h1>
+      <h1 class="mb-3">
         ログインページ
       </h1>
-      <b-form @submit.prevent="postLogin">
+      <b-button block variant="secondary" @click="authTwitter">
+        Twitter でユーザ作成 / ログイン
+      </b-button>
+      <b-button block variant="secondary" @click="authFacebook">
+        Facebook でユーザ作成 / ログイン
+      </b-button>
+      <b-button block variant="secondary" @click="authGoogle">
+        Google でユーザ作成 / ログイン
+      </b-button>
+      <b-button block variant="secondary" @click="authLine">
+        LINE でユーザ作成 / ログイン
+      </b-button>
+      <b-form class="mt-3" @submit.prevent="postLogin">
         <b-form-group label="ユーザ名/メールアドレス">
           <b-form-input v-model="loginObject.loginId" required></b-form-input>
         </b-form-group>
@@ -17,18 +29,6 @@
       <b-alert v-if="loginErrorMessage" show variant="danger">{{ loginErrorMessage }}</b-alert>
       <small><nuxt-link to="/users/new">ユーザ新規登録</nuxt-link></small>
     </div>
-    <b-button block variant="secondary" @click="authTwitter">
-      twitterでログイン
-    </b-button>
-    <b-button block variant="secondary" @click="authFacebook">
-      facebookでログイン
-    </b-button>
-    <b-button block variant="secondary" @click="authGoogle">
-      googleでログイン
-    </b-button>
-    <b-button block variant="secondary" @click="authLine">
-      lineでログイン
-    </b-button>
   </section>
 </template>
 

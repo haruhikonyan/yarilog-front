@@ -46,9 +46,7 @@ import { TuneSearchObject } from '../models/Tune';
   async asyncData({ app, route, env }) {
     const playingLogs = await app.$api.getPlayingLogs(5);
     const sharePath = urljoin(env.frontUrl, route.path);
-    const info = await app.$api.getInfo();
-    const devInfo = await app.$api.getDevInfo();
-    return { playingLogs, sharePath, info, devInfo };
+    return { playingLogs, sharePath };
   }
 })
 export default class Index extends Vue {
