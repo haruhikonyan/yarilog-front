@@ -5,7 +5,7 @@
         <div>
           <h6 class="text-muted mb-0">
             {{ tune.playstyle.name }}
-            <b-badge v-for="genre in tune.genres" :key="genre.id" :to="`/genres/${genre.id}`" class="mr-1">
+            <b-badge v-for="genre in tune.genres" :key="genre.id" class="mr-1">
               {{ genre.name }}
             </b-badge>
           </h6>

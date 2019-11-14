@@ -5,7 +5,7 @@
         <div>
           <small class="text-muted mb-0">
             {{ playingLog.tune.playstyle.name }}
-            <b-badge v-for="genre in playingLog.tune.genres" :key="genre.id" :to="`/genres/${genre.id}`" class="mr-1">
+            <b-badge v-for="genre in playingLog.tune.genres" :key="genre.id" class="mr-1">
               {{ genre.name }}
             </b-badge>
           </small>
