@@ -28,10 +28,10 @@ import PlayingLogForm from '~/components/PlayingLogForm.vue';
   middleware: 'authenticated',
   // playinglogへの値セット
   async asyncData({ app, query }) {
-    const addLog = new PlayingLog();
-    const tuneId = query.tuneId;
-    addLog.tune = tuneId ? await app.$api.getTunes(tuneId) : null;
-    return { tuneId, addLog };
+    const addPlayingLog = new PlayingLog();
+    const tune = query.tune;
+    addPlayingLog.tune = tune ? await app.$api.getPlayingLog(tune) : null;
+    return { tune, addPlayingLog };
   }
 })
 export default class Index extends Vue {
