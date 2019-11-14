@@ -23,8 +23,8 @@
     <div class="text-center">
       <hr />
       <div>
-        <nuxt-link to="/tos">利用規約</nuxt-link>
-        <nuxt-link to="/privacy-policy">プライバシーポリシー</nuxt-link>
+        <nuxt-link to="/terms/tos">利用規約</nuxt-link>
+        <nuxt-link to="/terms/privacy-policy">プライバシーポリシー</nuxt-link>
       </div>
       <div>
         <a href="https://twitter.com/musig_net" target="_blank" class="d-block">
