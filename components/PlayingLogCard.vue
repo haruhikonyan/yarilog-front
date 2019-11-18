@@ -8,26 +8,23 @@
       footer-class="px-1"
       style="height: 330px"
     >
-      <div slot="header" class="d-flex justify-content-between">
-        <div>
-          <div class="text-muted small text-center mb-0">
-            {{ playingLog.tune.playstyle.name }}
-          </div>
-          <b-badge v-for="genre in playingLog.tune.genres" :key="genre.id" class="mr-1">
-            <span style="font-size: 10px;">{{ genre.name }}</span>
-          </b-badge>
-          <h6>{{ playingLog.tune.title }}</h6>
-          <h6 class="text-muted mb-0">
-            {{ playingLog.tune.composer.displayName }}作曲{{ playingLog.arranger | displayArranger }}
-          </h6>
-        </div>
-        <!-- <b-button
+      <div slot="header">
+        <font-awesome-icon
           v-if="showEditButton"
-          size="sm"
-          class="align-self-start text-nowrap mr-n3 mt-2"
+          class="yrl-edit-btn-absolute"
+          icon="pencil-alt"
           @click.prevent="editClickHandler"
-          >編集</b-button
-        > -->
+        />
+        <div class="text-muted small text-center mb-0">
+          {{ playingLog.tune.playstyle.name }}
+        </div>
+        <b-badge v-for="genre in playingLog.tune.genres" :key="genre.id" class="mr-1">
+          <span style="font-size: 10px;">{{ genre.name }}</span>
+        </b-badge>
+        <h6>{{ playingLog.tune.title }}</h6>
+        <h6 class="text-muted mb-0">
+          {{ playingLog.tune.composer.displayName }}作曲{{ playingLog.arranger | displayArranger }}
+        </h6>
       </div>
       <b-card-text class="mb-1" style="font-size: 12px;"
         >{{ playingLog.user.nickname }}さんの{{ playingLog.playDate }}演奏</b-card-text
@@ -83,5 +80,10 @@ export default class PlayingLogCard extends Vue {
   -webkit-line-clamp: 2;
   overflow: hidden;
   font-size: 10px;
+}
+.yrl-edit-btn-absolute {
+  position: absolute;
+  top: 5px;
+  right: 5px;
 }
 </style>
