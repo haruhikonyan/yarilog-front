@@ -1,37 +1,56 @@
 <template>
   <nuxt-link :to="`/playing-logs/${playingLog.id}`">
-    <b-card header-tag="header" footer-tag="footer" header-class="pt-1" body-class="py-2" class="my-3">
+    <b-card
+      header-tag="header"
+      footer-tag="footer"
+      header-class="pt-1 px-3"
+      body-class="py-2 px-3"
+      footer-class="px-1"
+      style="height: 330px"
+    >
       <div slot="header" class="d-flex justify-content-between">
         <div>
-          <small class="text-muted mb-0">
+          <div class="text-muted small text-center mb-0">
             {{ playingLog.tune.playstyle.name }}
-            <b-badge v-for="genre in playingLog.tune.genres" :key="genre.id" class="mr-1">
-              {{ genre.name }}
-            </b-badge>
-          </small>
-          <h4>{{ playingLog.tune.title }}</h4>
+          </div>
+          <b-badge v-for="genre in playingLog.tune.genres" :key="genre.id" class="mr-1">
+            <span style="font-size: 10px;">{{ genre.name }}</span>
+          </b-badge>
+          <h6>{{ playingLog.tune.title }}</h6>
           <h6 class="text-muted mb-0">
             {{ playingLog.tune.composer.displayName }}作曲{{ playingLog.arranger | displayArranger }}
           </h6>
         </div>
-        <b-button
+        <!-- <b-button
           v-if="showEditButton"
           size="sm"
           class="align-self-start text-nowrap mr-n3 mt-2"
           @click.prevent="editClickHandler"
           >編集</b-button
-        >
+        > -->
       </div>
-      <b-card-text class="mb-1">{{ playingLog.user.nickname }}さんの{{ playingLog.playDate }}演奏</b-card-text>
+      <b-card-text class="mb-1" style="font-size: 12px;"
+        >{{ playingLog.user.nickname }}さんの{{ playingLog.playDate }}演奏</b-card-text
+      >
       <pre class="text-muted mb-0 yrl-pre-wrap yrl-truncate-three-line">{{ playingLog.impressionOfInteresting }}</pre>
       <div slot="footer">
-        面白さ: {{ playingLog.interesting || '-' }} 体力: {{ playingLog.physicality || '-' }} 難易度:
-        {{ playingLog.difficulty || '-' }}
-        <div>
-          <b-badge>{{ playingLog.playerLevel }}</b-badge>
-          <b-badge>{{ playingLog.instrument.shortName }} {{ playingLog.position }}</b-badge>
+        <div class="row no-gutters text-center">
+          <div class="col-4">
+            <div>面白さ</div>
+            <div>{{ playingLog.interesting || '-' }}</div>
+          </div>
+          <div class="col-4">
+            <div>体力</div>
+            <div>{{ playingLog.physicality || '-' }}</div>
+          </div>
+          <div class="col-4">
+            <div>難易度</div>
+            <div>{{ playingLog.difficulty || '-' }}</div>
+          </div>
         </div>
       </div>
+      <b-badge>{{ playingLog.playerLevel }}</b-badge>
+      <b-badge>{{ playingLog.instrument.shortName }} {{ playingLog.position }}</b-badge>
     </b-card>
   </nuxt-link>
 </template>
@@ -61,7 +80,8 @@ export default class PlayingLogCard extends Vue {
   display: -webkit-box;
   /* autoprefixer: off */
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 3;
+  -webkit-line-clamp: 2;
   overflow: hidden;
+  font-size: 10px;
 }
 </style>

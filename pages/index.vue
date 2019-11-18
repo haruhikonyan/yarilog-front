@@ -25,7 +25,14 @@
       </b-card>
       <p class="mt-3">最新の演奏記録</p>
     </div>
-    <PlayingLogCard v-for="playingLog in playingLogs" :key="playingLog.id" :playing-log="playingLog" />
+    <div class="row yrl-o-2-column">
+      <PlayingLogCard
+        v-for="playingLog in playingLogs"
+        :key="playingLog.id"
+        :playing-log="playingLog"
+        class="col-6 mb-2"
+      />
+    </div>
   </section>
 </template>
 
@@ -68,5 +75,13 @@ export default class Index extends Vue {
   @include media-breakpoint-down(xs) {
     font-size: 70%;
   }
+}
+/*↓カラム間のガター幅が60px、カラムの左右の余白が30pxになる*/
+.yrl-o-2-column .col-6 {
+  padding: 0 7.5px;
+}
+/*カラムの左右の余白を15pxに戻す*/
+.yrl-o-2-column {
+  margin: 0 -7.5px;
 }
 </style>
