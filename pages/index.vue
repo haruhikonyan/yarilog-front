@@ -23,6 +23,32 @@
 使い方は無限だと思っています。
         </pre>
       </b-card>
+      <b-card class="mb-2" title="楽器から探す">
+        <!-- TODO 楽器種別分け -->
+        <div class="d-flex flex-wrap text-left">
+          <nuxt-link
+            v-for="instrument in $store.state.instruments"
+            :key="instrument.id"
+            :to="`/tunes?instrumentId=${instrument.id}`"
+            style="width: 100px; font-size: 12px"
+          >
+            >{{ instrument.name }}
+          </nuxt-link>
+        </div>
+      </b-card>
+      <b-card class="mb-2" title="作曲家から探す">
+        <!-- TODO 厳選 -->
+        <div class="d-flex flex-wrap text-left">
+          <nuxt-link
+            v-for="composer in composers"
+            :key="composer.id"
+            :to="`/tunes?composerId=${composer.id}`"
+            style="min-width: 100px; font-size: 12px; flex: auto"
+          >
+            >{{ composer.displayName }}
+          </nuxt-link>
+        </div>
+      </b-card>
       <p class="mt-3">最新の演奏記録</p>
     </div>
     <div class="row yrl-o-2-column">
@@ -51,9 +77,11 @@ import { TuneSearchObject } from '../models/Tune';
     ShareIcons
   },
   async asyncData({ app, route, env }) {
-    const playingLogs = await app.$api.getPlayingLogs(5);
+    const playingLogs = await app.$api.getPlayingLogs(6);
     const sharePath = urljoin(env.frontUrl, route.path);
-    return { playingLogs, sharePath };
+    // TODO 厳選
+    const composers = await app.$api.getComposers();
+    return { playingLogs, sharePath, composers: composers.slice(0, 30) };
   }
 })
 export default class Index extends Vue {

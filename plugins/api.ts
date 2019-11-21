@@ -84,7 +84,7 @@ export class Api {
     const url: string = urljoin(this.API_COMPOSER_URL, 'playstyles', id);
     return this.context.$axios.$get(url);
   }
-  searchComposers(searchWord): Promise<Composer[]> {
+  searchComposers(searchWord: string): Promise<Composer[]> {
     const url = urljoin(this.API_COMPOSER_URL, 'search');
     return this.context.$axios.$get(url, {
       params: {
