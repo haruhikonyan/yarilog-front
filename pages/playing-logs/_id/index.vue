@@ -93,8 +93,8 @@ export default class Index extends Vue {
     const playInfo = this.$options.filters!.displayPlayInfo(this.playingLog);
     const composerName = this.playingLog.tune.composer.displayName;
     const tuneTitle = this.playingLog.tune.title;
-    // playingLog.position が null のときは空文字を入れて null が表示されるのを避ける
-    const position = `${this.playingLog.instrument.shortName}` + `${this.playingLog.position || ''}`;
+    // playingLog.position が null のときは空文字列を入れてshareTextのコメントに出てくるのを防ぐ
+    const position = `${this.playingLog.instrument.shortName}${this.playingLog.position || ''}`;
     return `${nickname}さんの${playInfo}された、${composerName}作曲${tuneTitle}の${position}での演奏記録`;
   }
 }
