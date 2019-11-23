@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="yrl-navber-padding">
     <div class="mb-3">
-      <b-navbar toggleable="lg" type="dark" variant="primary">
+      <b-navbar toggleable="lg" type="dark" variant="primary" fixed="top">
         <b-navbar-brand to="/" class="py-0">
           <img src="~/assets/logo.png" class="yrl-logo" alt="みゅーぐ" />
         </b-navbar-brand>
@@ -64,6 +64,9 @@ export default class Index extends Vue {
 }
 </script>
 <style lang="scss" scoped>
+.yrl-navber-padding {
+  padding-top: 50px;
+}
 .yrl-logo {
   height: 40px;
 }
