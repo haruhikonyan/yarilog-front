@@ -30,7 +30,7 @@
             v-for="instrument in $store.state.instruments"
             :key="instrument.id"
             :to="`/tunes?instrumentId=${instrument.id}`"
-            style="width: 100px; font-size: 12px"
+            style="width: 96px; font-size: 12px"
           >
             >{{ instrument.name }}
           </nuxt-link>
@@ -43,7 +43,7 @@
             v-for="composer in composers"
             :key="composer.id"
             :to="`/tunes?composerId=${composer.id}`"
-            style="min-width: 100px; font-size: 12px; flex: auto"
+            style="min-width: 96px; font-size: 12px; flex: auto"
           >
             >{{ composer.displayName }}
           </nuxt-link>
@@ -51,13 +51,8 @@
       </b-card>
       <p class="mt-3">最新の演奏記録</p>
     </div>
-    <div class="row yrl-o-2-column">
-      <PlayingLogCard
-        v-for="playingLog in playingLogs"
-        :key="playingLog.id"
-        :playing-log="playingLog"
-        class="col-6 mb-2"
-      />
+    <div v-for="playingLog in playingLogs" :key="playingLog.id" class="mb-2">
+      <PlayingLogCard :playing-log="playingLog" />
     </div>
   </section>
 </template>
@@ -103,13 +98,5 @@ export default class Index extends Vue {
   @include media-breakpoint-down(xs) {
     font-size: 70%;
   }
-}
-/*↓カラム間のガター幅が60px、カラムの左右の余白が30pxになる*/
-.yrl-o-2-column .col-6 {
-  padding: 0 7.5px;
-}
-/*カラムの左右の余白を15pxに戻す*/
-.yrl-o-2-column {
-  margin: 0 -7.5px;
 }
 </style>

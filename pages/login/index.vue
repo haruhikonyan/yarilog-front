@@ -4,16 +4,16 @@
       <h1 class="mb-3">
         ログインページ
       </h1>
-      <b-button block variant="secondary" @click="authTwitter">
+      <b-button block variant="info" @click="authTwitter">
         Twitter でユーザ作成 / ログイン
       </b-button>
-      <b-button block variant="secondary" @click="authFacebook">
+      <b-button block variant="info" @click="authFacebook">
         Facebook でユーザ作成 / ログイン
       </b-button>
-      <b-button block variant="secondary" @click="authGoogle">
+      <b-button block variant="info" @click="authGoogle">
         Google でユーザ作成 / ログイン
       </b-button>
-      <b-button block variant="secondary" @click="authLine">
+      <b-button block variant="info" @click="authLine">
         LINE でユーザ作成 / ログイン
       </b-button>
       <b-form class="mt-3" @submit.prevent="postLogin">

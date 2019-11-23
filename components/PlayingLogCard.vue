@@ -1,13 +1,6 @@
 <template>
   <nuxt-link :to="`/playing-logs/${playingLog.id}`">
-    <b-card
-      header-tag="header"
-      footer-tag="footer"
-      header-class="pt-1 px-3"
-      body-class="py-2 px-3"
-      footer-class="px-1"
-      style="height: 330px"
-    >
+    <b-card header-tag="header" footer-tag="footer" header-class="pt-1 px-3" body-class="py-2 px-3" footer-class="px-1">
       <div slot="header">
         <font-awesome-icon
           v-if="showEditButton"
@@ -77,7 +70,7 @@ export default class PlayingLogCard extends Vue {
   display: -webkit-box;
   /* autoprefixer: off */
   -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 3;
   overflow: hidden;
   font-size: 10px;
 }
