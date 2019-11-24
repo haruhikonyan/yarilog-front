@@ -5,6 +5,9 @@
         作曲家新規作成ページ
       </h1>
       <b-form @submit.prevent="createComposer">
+        <b-form-group label="表示名" description="表示名でおねがいします">
+          <b-form-input v-model="newComposer.displayName" required placeholder="ベートーヴェン"></b-form-input>
+        </b-form-group>
         <b-form-group label="フルネーム" description="フルネームでおねがいします">
           <b-form-input
             v-model="newComposer.fullName"
@@ -52,8 +55,8 @@ import ComposerSelector from '~/components/ComposerSelector.vue';
 export default class Index extends Vue {
   newComposer: Composer = new Composer();
   async createComposer() {
-    // 表示名も一旦フルネームと同じにする
-    this.newComposer.displayName = this.newComposer.fullName;
+    // 表示名は個別にフォームで取得したのでフルネームの代入はしない
+    // this.newComposer.displayName = this.newComposer.fullName;
     const composer = await this.$api.createComposer(this.newComposer);
     this.$router.push({ path: '/tunes/new', query: { composerId: composer.id!.toString() } });
   }
