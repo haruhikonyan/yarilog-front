@@ -1,34 +1,66 @@
 <template>
   <section class="container">
-    <div>
-      <h1 class="mb-3">
-        ログインページ
-      </h1>
-      <b-button block variant="info" @click="authTwitter">
-        Twitter でユーザ作成 / ログイン
-      </b-button>
-      <b-button block variant="info" @click="authFacebook">
-        Facebook でユーザ作成 / ログイン
-      </b-button>
-      <b-button block variant="info" @click="authGoogle">
-        Google でユーザ作成 / ログイン
-      </b-button>
-      <b-button block variant="info" @click="authLine">
-        LINE でユーザ作成 / ログイン
-      </b-button>
-      <b-form class="mt-3" @submit.prevent="postLogin">
-        <b-form-group label="ユーザ名/メールアドレス">
-          <b-form-input v-model="loginObject.loginId" required></b-form-input>
-        </b-form-group>
-        <b-form-group label="パスワード">
-          <b-form-input v-model="loginObject.password" type="password" required></b-form-input>
-        </b-form-group>
-
-        <b-button block type="submit" variant="primary">ログイン</b-button>
-      </b-form>
-      <b-alert v-if="loginErrorMessage" show variant="danger">{{ loginErrorMessage }}</b-alert>
-      <small><nuxt-link to="/users/new">ユーザ新規登録</nuxt-link></small>
+    <h1 class="text-center mb-4">
+      無料会員登録/ログイン
+    </h1>
+    <div class="row no-gutters">
+      <div class="col-6">
+        <b-button squared block size="lg" class="border" @click="authTwitter">
+          <font-awesome-layers>
+            <font-awesome-icon :icon="['fab', 'twitter']" style="color: #55acee" />
+          </font-awesome-layers>
+          Twitter
+        </b-button>
+      </div>
+      <div class="col-6">
+        <b-button squared block size="lg" class="border" @click="authFacebook">
+          <font-awesome-layers>
+            <font-awesome-icon :icon="['fab', 'facebook']" style="color: #3b5998" />
+          </font-awesome-layers>
+          Facebook
+        </b-button>
+      </div>
+      <div class="col-6">
+        <b-button squared block size="lg" class="border" @click="authGoogle">
+          <font-awesome-layers>
+            <font-awesome-icon :icon="['fab', 'google']" />
+          </font-awesome-layers>
+          Google
+        </b-button>
+        <svg style="width:0;height:0;">
+          <defs>
+            <linearGradient id="grad1" x1="0%" y1="30%" x2="50%" y2="0%">
+              <stop offset="50%" stop-color="#34a853" />
+              <stop offset="50%" stop-color="#4285f4" />
+            </linearGradient>
+            <linearGradient id="grad2" x1="0%" y1="30%" x2="50%" y2="0%">
+              <stop offset="50%" stop-color="#fbbc05" />
+              <stop offset="50%" stop-color="#ea4335" />
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <div class="col-6">
+        <b-button squared block size="lg" class="border" @click="authLine">
+          <font-awesome-layers>
+            <font-awesome-icon :icon="['fab', 'line']" style="color: #00B900" />
+          </font-awesome-layers>
+          LINE
+        </b-button>
+      </div>
     </div>
+    <b-form class="mt-5" @submit.prevent="postLogin">
+      <b-form-group label-size="sm" label="ユーザ名/メールアドレス">
+        <b-form-input v-model="loginObject.loginId" size="sm" required></b-form-input>
+      </b-form-group>
+      <b-form-group label-size="sm" label="パスワード">
+        <b-form-input v-model="loginObject.password" size="sm" type="password" required></b-form-input>
+      </b-form-group>
+
+      <b-button block type="submit" variant="primary">ログイン</b-button>
+    </b-form>
+    <b-alert v-if="loginErrorMessage" show variant="danger">{{ loginErrorMessage }}</b-alert>
+    <small><nuxt-link to="/users/new">ユーザ新規登録</nuxt-link></small>
   </section>
 </template>
 
@@ -97,3 +129,22 @@ export default class Index extends Vue {
   }
 }
 </script>
+<style lang="scss">
+// see: https://stackoverflow.com/questions/52578726/fontawesome-5-multi-color-icon
+.fa-google path {
+  fill: url(#grad1);
+}
+.fa-google + .fa-google path {
+  fill: url(#grad2);
+}
+.icon {
+  display: inline-block;
+  position: relative;
+}
+.fa-google + .fa-google {
+  position: absolute;
+  left: 0;
+  top: 0;
+  clip-path: polygon(0% 0%, 120% 0%, 0% 75%);
+}
+</style>
