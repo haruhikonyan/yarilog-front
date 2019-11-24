@@ -17,7 +17,7 @@ export default class GenreBadge extends Vue {
   @Prop({ type: Object as PropType<Genre> })
   genre!: Genre;
   @Prop({ type: Boolean, default: false })
-  isLinkable: Boolean = false;
+  isLinkable!: Boolean;
 }
 </script>
 

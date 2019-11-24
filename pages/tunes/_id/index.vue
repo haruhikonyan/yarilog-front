@@ -65,6 +65,7 @@ import { Tune, Genre } from '../../../models/Tune';
 import PlayingLogSummary from '~/components/PlayingLogSummary.vue';
 import StarRating from '~/components/StarRating.vue';
 import Breadcrumb from '~/components/Breadcrumb.vue';
+import GenreBadge from '~/components/GenreBadge.vue';
 import { PlayingLogsWithCount, PlayingLog } from '../../../models/PlayingLog';
 
 @Component({
@@ -72,7 +73,8 @@ import { PlayingLogsWithCount, PlayingLog } from '../../../models/PlayingLog';
     PlayingLogSummary,
     StarRating,
     Breadcrumb,
-    VueSimpleSuggest
+    VueSimpleSuggest,
+    GenreBadge
   },
   async asyncData({ app, params, query }) {
     const tune = await app.$api.getTune(params.id);
