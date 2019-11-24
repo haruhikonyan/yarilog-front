@@ -5,9 +5,13 @@
     <div>
       <small class="text-muted mb-0">
         {{ playingLog.tune.playstyle.name }}
-        <b-badge v-for="genre in playingLog.tune.genres" :key="genre.id" :to="`/genres/${genre.id}`" class="mr-1">
-          {{ genre.name }}
-        </b-badge>
+        <GenreBadge
+          v-for="genre in playingLog.tune.genres"
+          :key="genre.id"
+          :genre="genre"
+          :is-linkable="true"
+          class="mr-1"
+        />
       </small>
       <h4 class="mb-0">
         <nuxt-link :to="`/tunes/${playingLog.tune.id}`">{{ playingLog.tune.title }}</nuxt-link>
@@ -20,7 +24,8 @@
         {{ playingLog.difficulty || '-' }}
       </h5>
       <div class="text-muted text-center mb-3">
-        {{ playingLog.instrument.name }} {{ playingLog.position }} <b-badge>{{ playingLog.playerLevel }}</b-badge>
+        {{ playingLog.instrument.name }} {{ playingLog.position }}
+        <b-badge style="background-color: rgb(246, 206, 173);">{{ playingLog.playerLevel }}</b-badge>
       </div>
       <b-card v-if="playingLog.impressionOfInteresting" class="mb-2" title="面白かったところ">
         <b-card-text>
@@ -63,11 +68,12 @@ import * as urljoin from 'url-join';
 import { PlayingLog } from '~/models/PlayingLog';
 import Breadcrumb from '~/components/Breadcrumb.vue';
 import ShareIcons from '~/components/ShareIcons.vue';
-
+import GenreBadge from '~/components/GenreBadge.vue';
 @Component({
   components: {
     Breadcrumb,
-    ShareIcons
+    ShareIcons,
+    GenreBadge
   },
   async asyncData({ app, params, route, env }) {
     const playingLog = await app.$api.getPlayingLog(params.id);

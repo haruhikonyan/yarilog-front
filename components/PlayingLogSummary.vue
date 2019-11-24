@@ -9,8 +9,10 @@
       面白さ: {{ playingLog.interesting || '-' }} 体力: {{ playingLog.physicality || '-' }} 難易度:
       {{ playingLog.difficulty || '-' }}
       <div>
-        <b-badge>{{ playingLog.playerLevel }}</b-badge>
-        <b-badge>{{ playingLog.instrument.shortName }} {{ playingLog.position }}</b-badge>
+        <b-badge style="background-color: rgb(246, 206, 173);">{{ playingLog.playerLevel }}</b-badge>
+        <b-badge style="background-color: rgb(246, 206, 173);"
+          >{{ playingLog.instrument.shortName }} {{ playingLog.position }}</b-badge
+        >
       </div>
     </div>
   </nuxt-link>

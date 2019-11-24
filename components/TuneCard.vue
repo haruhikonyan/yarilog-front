@@ -5,9 +5,7 @@
         <div>
           <h6 class="text-muted mb-0">
             {{ tune.playstyle.name }}
-            <b-badge v-for="genre in tune.genres" :key="genre.id" class="mr-1">
-              {{ genre.name }}
-            </b-badge>
+            <GenreBadge v-for="genre in tune.genres" :key="genre.id" :genre="genre" class="mr-1" />
           </h6>
           <h4>{{ tune.title }}</h4>
           <h6 class="text-muted mb-0">{{ tune.composer.displayName }}作曲</h6>
@@ -34,11 +32,12 @@ import { Component, Vue, Prop } from 'vue-property-decorator';
 import { Tune } from '../models/Tune';
 import PlayingLogSummary from '~/components/PlayingLogSummary.vue';
 import StarRating from '~/components/StarRating.vue';
-
+import GenreBadge from '~/components/GenreBadge.vue';
 @Component({
   components: {
     PlayingLogSummary,
-    StarRating
+    StarRating,
+    GenreBadge
   }
 })
 export default class TuneCard extends Vue {

@@ -11,9 +11,7 @@
         <div class="text-muted small text-center mb-0">
           {{ playingLog.tune.playstyle.name }}
         </div>
-        <b-badge v-for="genre in playingLog.tune.genres" :key="genre.id" class="mr-1">
-          <span style="font-size: 10px;">{{ genre.name }}</span>
-        </b-badge>
+        <GenreBadge v-for="genre in playingLog.tune.genres" :key="genre.id" :genre="genre" class="mr-1" />
         <h6>{{ playingLog.tune.title }}</h6>
         <h6 class="text-muted mb-0">
           {{ playingLog.tune.composer.displayName }}作曲{{ playingLog.arranger | displayArranger }}
@@ -39,8 +37,10 @@
           </div>
         </div>
       </div>
-      <b-badge>{{ playingLog.playerLevel }}</b-badge>
-      <b-badge>{{ playingLog.instrument.shortName }} {{ playingLog.position }}</b-badge>
+      <b-badge style="background-color: rgb(246, 206, 173);">{{ playingLog.playerLevel }}</b-badge>
+      <b-badge style="background-color: rgb(246, 206, 173);"
+        >{{ playingLog.instrument.shortName }} {{ playingLog.position }}</b-badge
+      >
     </b-card>
   </nuxt-link>
 </template>
@@ -49,8 +49,13 @@
 import { PropType } from 'vue';
 import { Component, Vue, Prop } from 'vue-property-decorator';
 import { PlayingLog } from '../models/PlayingLog';
+import GenreBadge from './GenreBadge.vue';
 
-@Component({})
+@Component({
+  components: {
+    GenreBadge
+  }
+})
 export default class PlayingLogCard extends Vue {
   @Prop({ type: Object as PropType<PlayingLog>, required: true })
   playingLog!: PlayingLog;
