@@ -49,7 +49,16 @@ export default {
     // Doc: https://bootstrap-vue.js.org/docs/
     'bootstrap-vue/nuxt',
     'nuxt-fontawesome',
-    '@nuxtjs/google-analytics'
+    '@nuxtjs/google-analytics',
+    [
+      '@nuxtjs/google-adsense',
+      {
+        id: process.env.adsenseId || 'dummy',
+        pageLevelAds: true,
+        analyticsUacct: process.env.gaId || 'dummy',
+        analyticsDomainName: process.env.domainName || 'dummy'
+      }
+    ]
   ],
   bootstrapVue: {
     bootstrapCSS: false, // Or `css: false`
