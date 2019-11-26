@@ -54,6 +54,7 @@
         <PlayingLogSummary :playing-log="playingLog" />
       </div>
     </div>
+    <small class="float-right mr-1"><nuxt-link to="/playing-logs/new">この曲の記録を追加</nuxt-link></small>
   </section>
 </template>
 
@@ -154,6 +155,11 @@ export default class Index extends Vue {
       }
     });
     this.playingLogs = playingLogsWithCount.playingLogs;
+  }
+  // ログ追加リンクに値を渡す
+  async getTunes() {
+    const tune = await this.$api.getTunes(this.tune);
+    this.$router.push({ path: 'playing-logs/new', query: { tuneId: tune.id! } });
   }
 }
 </script>
