@@ -50,7 +50,14 @@ import Cookie from 'js-cookie';
   components: {},
   head: {
     title: 'みゅーぐ',
-    meta: [{ hid: 'description', name: 'description', content: '演奏した曲のレビューサイト' }]
+    meta: [
+      {
+        hid: 'description',
+        name: 'description',
+        content:
+          '自分が演奏した曲を演奏記録という形で記録のできるサイトです。他人が書いた演奏記録を検索して自分の演奏や選曲の参考にしたり、自分の演奏した履歴を忘れないように記録することができます。'
+      }
+    ]
   }
 })
 export default class Index extends Vue {
