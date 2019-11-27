@@ -29,7 +29,7 @@
           <nuxt-link
             v-for="instrument in $store.state.instruments"
             :key="instrument.id"
-            :to="`/tunes?instrumentId=${instrument.id}`"
+            :to="`/instruments/${instrument.id}`"
             style="width: 96px; font-size: 12px"
           >
             >{{ instrument.name }}
@@ -37,12 +37,11 @@
         </div>
       </b-card>
       <b-card class="mb-2" title="作曲家から探す">
-        <!-- TODO 厳選 -->
         <div class="d-flex flex-wrap text-left">
           <nuxt-link
             v-for="composer in composers"
             :key="composer.id"
-            :to="`/tunes?composerId=${composer.id}`"
+            :to="`/composers/${composer.id}`"
             style="min-width: 96px; font-size: 12px; flex: auto"
           >
             >{{ composer.displayName }}
@@ -56,6 +55,18 @@
         <PlayingLogCard :playing-log="playingLog" />
       </div>
     </div>
+    <b-card class="mb-2 text-center" title="ジャンルから探す">
+      <div class="d-flex flex-wrap text-left">
+        <nuxt-link
+          v-for="genre in genres"
+          :key="genre.id"
+          :to="`/genres/${genre.id}`"
+          style="width: 96px; font-size: 12px"
+        >
+          >{{ genre.name }}
+        </nuxt-link>
+      </div>
+    </b-card>
   </section>
 </template>
 
@@ -76,9 +87,9 @@ import { TuneSearchObject } from '../models/Tune';
   async asyncData({ app, route, env }) {
     const playingLogs = await app.$api.getPlayingLogs(6);
     const sharePath = urljoin(env.frontUrl, route.path);
-    // TODO 厳選
-    const composers = await app.$api.getComposers();
-    return { playingLogs, sharePath, composers: composers.slice(0, 30) };
+    const composers = await app.$api.getTopPageLinkedComposers();
+    const genres = await app.$api.getTopPageLinkedGenres();
+    return { playingLogs, sharePath, composers, genres };
   }
 })
 export default class Index extends Vue {

@@ -77,6 +77,10 @@ export class Api {
     const url: string = urljoin(this.API_COMPOSER_URL, id);
     return this.context.$axios.$get(url);
   }
+  getTopPageLinkedComposers(): Promise<Composer[]> {
+    const url = urljoin(this.API_COMPOSER_URL, 'top-page-linked');
+    return this.context.$axios.$get(url);
+  }
   createComposer(composer: Composer): Promise<Composer> {
     return this.context.$axios.$post(this.API_COMPOSER_URL, composer);
   }
@@ -257,6 +261,10 @@ export class Api {
         searchWord
       }
     });
+  }
+  getTopPageLinkedGenres(): Promise<Genre[]> {
+    const url = urljoin(this.API_GENRE_URL, 'top-page-linked');
+    return this.context.$axios.$get(url);
   }
 
   getLatestTermsId() {
