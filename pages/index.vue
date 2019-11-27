@@ -23,7 +23,7 @@
 使い方は無限だと思っています。
         </pre>
       </b-card>
-      <b-card class="mb-2" title="楽器から探す">
+      <b-card class="mb-2" title="演奏楽器から探す">
         <!-- TODO 楽器種別分け -->
         <div class="d-flex flex-wrap text-left">
           <nuxt-link
