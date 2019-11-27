@@ -51,8 +51,10 @@
       </b-card>
       <p class="mt-3">最新の演奏記録</p>
     </div>
-    <div v-for="playingLog in playingLogs" :key="playingLog.id" class="mb-2">
-      <PlayingLogCard :playing-log="playingLog" />
+    <div class="row">
+      <div v-for="playingLog in playingLogs" :key="playingLog.id" class="mb-2 col-md-6">
+        <PlayingLogCard :playing-log="playingLog" />
+      </div>
     </div>
   </section>
 </template>

@@ -70,6 +70,9 @@ export default class PlayingLogCard extends Vue {
 }
 </script>
 <style lang="scss" scoped>
+@import 'bootstrap/scss/_functions.scss';
+@import 'bootstrap/scss/_variables.scss';
+@import 'bootstrap/scss/mixins/_breakpoints.scss';
 // 3行に固定して余った分は省略
 .yrl-truncate-three-line {
   display: -webkit-box;
@@ -78,6 +81,10 @@ export default class PlayingLogCard extends Vue {
   -webkit-line-clamp: 3;
   overflow: hidden;
   font-size: 10px;
+  @include media-breakpoint-up(md) {
+    // md 以上は3行分確保する(15px * 3)
+    height: 45px;
+  }
 }
 .yrl-edit-btn-absolute {
   position: absolute;
