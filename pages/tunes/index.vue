@@ -55,10 +55,11 @@ import { Composer } from '../../models/Composer';
     metaInfo.title = `${searchWord} 曲検索結果 - みゅーぐ`;
     metaInfo.meta = [{ hid: 'description', name: 'description', content: `${searchWord} 曲検索結果` }];
     // 値があるものだけ抽出する
-    const exsistTuneSearchObject = Object.entries(this.tuneSearchObject).filter(([_key, value]) => !!value);
+    const existTuneSearchObject = Object.entries(this.tuneSearchObject).filter(([_key, value]) => !!value);
     // 検索クエリの値が1つだったら canonical タグをつける
-    if (exsistTuneSearchObject.length === 1) {
-      const [key, value] = o[0];
+    if (existTuneSearchObject.length === 1) {
+      // 一つしかないはずなので先頭取得
+      const [[key, value]] = existTuneSearchObject;
       switch (key) {
         case 'searchWord':
           // ただし、searchWord は不要
