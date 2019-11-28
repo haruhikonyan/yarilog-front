@@ -16,6 +16,7 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import SearchResult from '~/components/SearchResult.vue';
+import { MetaInfo } from 'vue-meta';
 import { TuneSearchObject, Tune } from '../../models/Tune';
 import { Composer } from '../../models/Composer';
 
@@ -49,11 +50,34 @@ import { Composer } from '../../models/Composer';
     return { tunes, totalCount, tuneSearchObject, offset, perPage, defaultComposer };
   },
   head(this: Index) {
+    const metaInfo: MetaInfo = {};
     const searchWord = this.tuneSearchObject.searchWord || '';
-    return {
-      title: `${searchWord} 曲検索結果 - みゅーぐ`,
-      meta: [{ hid: 'description', name: 'description', content: `${searchWord} 曲検索結果` }]
-    };
+    metaInfo.title = `${searchWord} 曲検索結果 - みゅーぐ`;
+    metaInfo.meta = [{ hid: 'description', name: 'description', content: `${searchWord} 曲検索結果` }];
+    // 値があるものだけ抽出する
+    const exsistTuneSearchObject = Object.entries(this.tuneSearchObject).filter(([_key, value]) => !!value);
+    // 検索クエリの値が1つだったら canonical タグをつける
+    if (exsistTuneSearchObject.length === 1) {
+      const [key, value] = o[0];
+      switch (key) {
+        case 'searchWord':
+          // ただし、searchWord は不要
+          break;
+        case 'instrumentId':
+          metaInfo.link = [{ rel: 'canonical', href: `/instrument/${value}` }];
+          break;
+        case 'composerId':
+          metaInfo.link = [{ rel: 'canonical', href: `/composer/${value}` }];
+          break;
+        case 'playstyleId':
+          metaInfo.link = [{ rel: 'canonical', href: `/playstyle/${value}` }];
+          break;
+        case 'genreId':
+          metaInfo.link = [{ rel: 'canonical', href: `/genre/${value}` }];
+          break;
+      }
+    }
+    return metaInfo;
   }
 })
 export default class Index extends Vue {
