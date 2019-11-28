@@ -7,6 +7,7 @@
       :offset="offset"
       :per-page="perPage"
       :default-composer="defaultComposer"
+      :description="defaultComposer.description"
       @on-search="search($event)"
       @on-pagenation-input="pagenationInputHandler($event)"
     />
@@ -45,7 +46,13 @@ import { Composer } from '../../models/Composer';
   head(this: Index) {
     return {
       title: `${this.defaultComposer!.fullName}} 曲検索結果 - みゅーぐ`,
-      meta: [{ hid: 'description', name: 'description', content: `${this.defaultComposer!.fullName} 曲検索結果` }]
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: `${this.defaultComposer!.fullName} 曲検索結果 ${this.defaultComposer!.description}`
+        }
+      ]
     };
   }
 })

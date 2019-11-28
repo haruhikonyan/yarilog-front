@@ -1,7 +1,7 @@
 <template>
   <section>
     <Breadcrumb :composer="defaultComposer" :playstyle="defaultPlaystyle" :instrument="defaultInstrument" />
-    <h1 class="text-center">{{ searchResultMessage }}</h1>
+    <h2 class="text-center">{{ searchResultMessage }}</h2>
     <SearchForm
       :default-search-word="tuneSearchObject.searchWord"
       :default-playstyle-id="tuneSearchObject.playstyleId"
@@ -25,6 +25,7 @@
       :per-page="perPage"
       @input="onPagenationInput($event)"
     />
+    <pre v-if="description" class="yrl-pre-wrap">{{ description }}</pre>
   </section>
 </template>
 
@@ -56,6 +57,8 @@ export default class SearchResult extends Vue {
   offset!: number;
   @Prop({ type: Number, default: 10 })
   perPage!: number;
+  @Prop({ type: String, default: null })
+  description!: string;
 
   currentPage: number = this.offset === 0 ? 1 : Math.floor(this.offset / this.perPage) + 1;
   // Prop にする？

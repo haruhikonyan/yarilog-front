@@ -37,7 +37,6 @@
       <div>面白さ<StarRating :rate="(tune.averageInteresting / 5) * 100" />{{ tune.averageInteresting || '-' }}</div>
       <div>体力<StarRating :rate="(tune.averagePhysicality / 5) * 100" />{{ tune.averagePhysicality || '-' }}</div>
       <div>難易度<StarRating :rate="(tune.averageDifficulty / 5) * 100" />{{ tune.averageDifficulty || '-' }}</div>
-      <pre class="mt-2 yrl-pre-wrap">{{ tune.description }}</pre>
       <b-form-select
         v-model="selectedInstrumentId"
         size="sm"
@@ -54,6 +53,7 @@
         <PlayingLogSummary :playing-log="playingLog" />
       </div>
     </div>
+    <pre class="mt-4 yrl-pre-wrap">{{ tune.description }}</pre>
   </section>
 </template>
 
