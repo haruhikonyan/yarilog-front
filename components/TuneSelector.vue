@@ -1,6 +1,7 @@
 <template>
   <div>
     <b-modal id="modal-tune-selector" scrollable title="演奏曲選択">
+      <b-form-input v-model="filterStrings" class="mb-2" placeholder="絞り込む"></b-form-input>
       <b-list-group v-if="selectMode === SELECT_MODE.PLAYSTYLE">
         <b-list-group-item v-for="playstyle in playstyles" :key="playstyle.id" @click="selectPlaystyle(playstyle.id)">
           <span>{{ playstyle.name }} </span>
@@ -77,6 +78,9 @@ export default class TuneSelector extends Vue {
   selectedComposerId: number | null = null;
   composersGroupByPlaystyle: ComposersGroupByPlaystyle[] = [];
 
+  // 絞り込み文字列
+  filterStrings = '';
+
   get selectMode(): SELECT_MODE {
     if (this.selectedPlaystyleId && this.selectedComposerId) {
       return SELECT_MODE.TUNE;
@@ -107,6 +111,7 @@ export default class TuneSelector extends Vue {
       targetTgbp!.tunes = await this.$api.getTuneforSelector(composerId, this.selectedPlaystyleId!);
     }
     this.selectedComposerId = composerId;
+    this.filterStrings = '';
   }
 
   get selectingComposers(): Composer[] {
@@ -117,8 +122,8 @@ export default class TuneSelector extends Vue {
     // 選択されてる演奏形態から作曲家を絞り込む
     const targetTgbp = this.composersGroupByPlaystyle.find(cgbp => cgbp.playstyleId === this.selectedPlaystyleId);
     if (targetTgbp) {
-      // 演奏形態でグルーピングされた作曲家から曲を返す
-      return targetTgbp.tgbcs.map(tgbc => tgbc.composer);
+      // 演奏形態でグルーピングされた作曲家から曲から絞り込み文字列で絞り込んで返す
+      return targetTgbp.tgbcs.map(tgbc => tgbc.composer).filter(tgbc => tgbc.displayName.includes(this.filterStrings));
     } else {
       return [];
     }
@@ -127,7 +132,7 @@ export default class TuneSelector extends Vue {
   get selectingTunes(): Tune[] {
     const targetCgbp = this.composersGroupByPlaystyle.find(cgbp => cgbp.playstyleId === this.selectedPlaystyleId);
     const targetTgbp = targetCgbp!.tgbcs.find(tgbc => tgbc.composer.id === this.selectedComposerId);
-    return targetTgbp!.tunes;
+    return targetTgbp!.tunes.filter(tune => tune.title.includes(this.filterStrings));
   }
 
   @Emit('select-tune')
@@ -137,13 +142,16 @@ export default class TuneSelector extends Vue {
     // 作曲家、演奏形態を未選択状態にする
     this.selectedPlaystyleId = null;
     this.selectedComposerId = null;
+    this.filterStrings = '';
     return tune;
   }
 
   cancelSelectTune() {
+    this.filterStrings = '';
     this.selectedComposerId = null;
   }
   cancelSelectComposer() {
+    this.filterStrings = '';
     this.selectedPlaystyleId = null;
   }
 }
