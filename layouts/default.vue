@@ -2,7 +2,7 @@
   <div class="yrl-navbar-padding">
     <div class="mb-3">
       <b-navbar toggleable="lg" type="dark" variant="primary" fixed="top" class="py-0">
-        <b-navbar-brand to="/" class="py-0">
+        <b-navbar-brand to="/" class="py-1">
           <img src="~/assets/logo.png" class="yrl-logo" alt="みゅーぐ" />
         </b-navbar-brand>
 
@@ -11,9 +11,9 @@
         <b-collapse v-if="$store.state.auth" id="nav-collapse" is-nav>
           <!-- Right aligned nav items -->
           <b-navbar-nav class="ml-auto">
-            <b-dropdown-item to="/mypage">マイページ</b-dropdown-item>
-            <b-dropdown-item to="/playing-logs/new">演奏記録をつける</b-dropdown-item>
-            <b-dropdown-item @click="logout">ログアウト</b-dropdown-item>
+            <b-dropdown-item to="/mypage"><span class="text-white">マイページ</span></b-dropdown-item>
+            <b-dropdown-item to="/playing-logs/new"><span class="text-white">演奏記録をつける</span></b-dropdown-item>
+            <b-dropdown-item @click="logout"><span class="text-white">ログアウト</span></b-dropdown-item>
           </b-navbar-nav>
         </b-collapse>
         <b-navbar-brand v-if="!$store.state.auth" class="ml-auto" to="/login">ログイン</b-navbar-brand>
