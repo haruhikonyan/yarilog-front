@@ -25,6 +25,18 @@ import PlayingLogCard from '../../components/PlayingLogCard.vue';
     const user = await app.$api.getUser(params.id);
     const playingLogs = await app.$api.getPlayingLogsByUser(params.id, 0, 0);
     return { user, playingLogs };
+  },
+  head(this: Index) {
+    return {
+      title: `${this.user!.nickname} さんの演奏記録 - みゅーぐ`,
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: `${this.user!.nickname} さんの演奏記録 ${this.user!.description}`
+        }
+      ]
+    };
   }
 })
 export default class Index extends Vue {

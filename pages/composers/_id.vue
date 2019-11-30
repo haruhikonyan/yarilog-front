@@ -45,7 +45,7 @@ import { Composer } from '../../models/Composer';
   },
   head(this: Index) {
     return {
-      title: `${this.defaultComposer!.fullName}} 曲検索結果 - みゅーぐ`,
+      title: `${this.defaultComposer!.fullName} 曲検索結果 - みゅーぐ`,
       meta: [
         {
           hid: 'description',
