@@ -48,7 +48,7 @@ export default class Index extends Vue {
   async createUser() {
     await this.$api.createUser(this.newUser);
     // TODO 自動的にログインしてマイページに飛ばしたい
-    this.$router.push('/login');
+    this.$router.push({ path: '/login', query: { callbackPath: this.$route.query.callbackPath } });
   }
 }
 </script>

@@ -60,7 +60,7 @@
       <b-button block type="submit" variant="primary">ログイン</b-button>
     </b-form>
     <b-alert v-if="loginErrorMessage" show variant="danger">{{ loginErrorMessage }}</b-alert>
-    <small><nuxt-link to="/users/new">ユーザ新規登録</nuxt-link></small>
+    <small><nuxt-link :to="createUserLocation">ユーザ新規登録</nuxt-link></small>
   </section>
 </template>
 
@@ -89,6 +89,14 @@ export default class Index extends Vue {
   facebookLoginUrl!: string;
   googleLoginUrl!: string;
   lineLoginUrl!: string;
+
+  /**
+   * ユーザ新規作成(own)の Location を生成する
+   */
+  get createUserLocation() {
+    // collbackPath があればつける
+    return { path: '/users/new', query: { callbackPath: this.callbackPath } };
+  }
   async postLogin() {
     // TODO 全部 try でかこうのも let 使わなきゃいけないのもどっちも嫌い
     try {
