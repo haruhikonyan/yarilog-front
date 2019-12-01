@@ -3,7 +3,7 @@
     <div class="mb-3">
       <b-navbar toggleable="lg" type="dark" variant="primary" fixed="top" class="py-0">
         <b-navbar-brand to="/" class="py-1">
-          <img src="~/assets/logo.png" class="yrl-logo" alt="みゅーぐ" />
+          <img src="~/assets/logo.gif" class="yrl-logo" alt="みゅーぐ" />
         </b-navbar-brand>
 
         <b-navbar-toggle v-if="$store.state.auth" target="nav-collapse"></b-navbar-toggle>
