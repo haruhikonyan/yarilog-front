@@ -1,9 +1,10 @@
 <template>
   <section>
-    <b-jumbotron :fluid="true" class="yrl-top-title text-sm-center p-4 mt-n3">
+    <b-jumbotron fluid class="yrl-top-title text-sm-center p-4 mt-n3">
       <h2>音楽を奏でるすべての人へ</h2>
       <h2>演奏記録の共有サイト</h2>
       <h2>みゅーぐ</h2>
+      <b-button variant="primary" block class="mt-3" to="/playing-logs/new">演奏記録を書く</b-button>
     </b-jumbotron>
     <div class="container">
       <div class="text-center">
