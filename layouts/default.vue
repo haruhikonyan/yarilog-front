@@ -22,6 +22,7 @@
     <nuxt />
     <div class="text-center">
       <hr />
+      <ShareIcons :share-text="shareText" :share-path="sharePath" />
       <div>
         <nuxt-link to="/terms/tos">利用規約</nuxt-link>
         <nuxt-link to="/terms/privacy-policy">プライバシーポリシー</nuxt-link>
@@ -45,9 +46,12 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import Cookie from 'js-cookie';
+import ShareIcons from '~/components/ShareIcons.vue';
 
 @Component({
-  components: {},
+  components: {
+    ShareIcons
+  },
   head: {
     title: '音楽を奏でるすべての人へ 演奏記録の共有サイト みゅーぐ',
     meta: [
@@ -67,6 +71,13 @@ export default class Index extends Vue {
     this.$store.commit('setAuth', null);
     this.$axios.setToken(false);
     this.$router.push('/');
+  }
+  // TODO ブラッシュアップ
+  get shareText(): string {
+    return '音楽を奏でるすべての人へ 演奏記録の共有サイト みゅーぐ';
+  }
+  get sharePath(): string {
+    return process.env.frontUrl!;
   }
 }
 </script>
