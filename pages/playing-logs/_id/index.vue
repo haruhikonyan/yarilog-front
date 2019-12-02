@@ -58,6 +58,9 @@
       </h4>
       {{ playingLog | displayPlayInfo }}
     </div>
+    <nuxt-link class="small d-block text-right my-2" :to="createPlayingLogLocation">
+      この曲の演奏記録を書く
+    </nuxt-link>
     <!-- TODO 同じ曲の演奏ログや同じ人の演奏ログを出す -->
   </section>
 </template>
@@ -93,6 +96,10 @@ import GenreBadge from '~/components/GenreBadge.vue';
 })
 export default class Index extends Vue {
   playingLog!: PlayingLog;
+
+  get createPlayingLogLocation() {
+    return { path: '/playing-logs/new', query: { tuneId: this.playingLog.tune.id!.toString() } };
+  }
   // TODO ブラッシュアップ
   get shareText(): string {
     const nickname = this.playingLog.user.nickname;
