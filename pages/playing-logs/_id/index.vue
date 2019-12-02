@@ -1,9 +1,9 @@
 <template>
   <section class="container">
-    <Breadcrumb :playing-log="playingLog" />
-    <ShareIcons :share-text="shareText" :share-path="sharePath" class="float-right" />
-    <div>
-      <small class="text-muted mb-0">
+    <Breadcrumb :playing-log="playingLog" class="mb-1" />
+    <div class="d-flex">
+      <!-- TODO ジャンルがたくさんついた時のレイアウト -->
+      <small class="text-muted align-self-end">
         {{ playingLog.tune.playstyle.name }}
         <GenreBadge
           v-for="genre in playingLog.tune.genres"
@@ -13,51 +13,52 @@
           class="mr-1"
         />
       </small>
-      <h4 class="mb-0">
-        <nuxt-link :to="`/tunes/${playingLog.tune.id}`">{{ playingLog.tune.title }}</nuxt-link>
-      </h4>
-      <small class="text-muted mb-1">
-        {{ playingLog.tune.composer.displayName }}作曲{{ playingLog.arranger | displayArranger }}
-      </small>
-      <h5 class="text-center mb-0">
-        面白さ: {{ playingLog.interesting || '-' }} 体力: {{ playingLog.physicality || '-' }} 難易度:
-        {{ playingLog.difficulty || '-' }}
-      </h5>
-      <div class="text-muted text-center mb-3">
-        {{ playingLog.instrument.name }} {{ playingLog.position }}
-        <b-badge style="background-color: rgb(246, 206, 173);">{{ playingLog.playerLevel }}</b-badge>
-      </div>
-      <b-card v-if="playingLog.impressionOfInteresting" class="mb-2" title="面白かったところ">
-        <b-card-text>
-          <!-- TODO pre タグで文字を入れるとなんかエラーが出る -->
-          <pre class="yrl-pre-wrap">{{ playingLog.impressionOfInteresting }}</pre>
-        </b-card-text>
-      </b-card>
-      <b-card v-if="playingLog.impressionOfDifficulty" class="mb-2" title="難しかったところ">
-        <b-card-text>
-          <pre class="yrl-pre-wrap mb-0">{{ playingLog.impressionOfDifficulty }}</pre>
-        </b-card-text>
-      </b-card>
-      <b-card v-if="playingLog.reflectionForNext" class="mb-2" title="次回への反省やアドバイス">
-        <b-card-text>
-          <pre class="yrl-pre-wrap mb-0">{{ playingLog.reflectionForNext }}</pre>
-        </b-card-text>
-      </b-card>
-      <b-card v-if="playingLog.otherPartInpression" class="mb-2" title="全体の感想">
-        <b-card-text>
-          <pre class="yrl-pre-wrap mb-0">{{ playingLog.otherPartInpression }}</pre>
-        </b-card-text>
-      </b-card>
-      <b-card v-if="playingLog.secretMemo" class="mb-2" title="非公開の自分用メモ" sub-title="自分にしか見えません">
-        <b-card-text>
-          <pre class="yrl-pre-wrap mb-0">{{ playingLog.secretMemo }}</pre>
-        </b-card-text>
-      </b-card>
-      <h4>
-        <nuxt-link :to="`/users/${playingLog.user.id}`">{{ playingLog.user.nickname }}さん</nuxt-link>
-      </h4>
-      {{ playingLog | displayPlayInfo }}
+      <ShareIcons :share-text="shareText" :share-path="sharePath" class="ml-auto" />
     </div>
+    <h4 class="mb-0">
+      <nuxt-link :to="`/tunes/${playingLog.tune.id}`">{{ playingLog.tune.title }}</nuxt-link>
+    </h4>
+    <small class="text-muted mb-1">
+      {{ playingLog.tune.composer.displayName }}作曲{{ playingLog.arranger | displayArranger }}
+    </small>
+    <h5 class="text-center mb-0">
+      面白さ: {{ playingLog.interesting || '-' }} 体力: {{ playingLog.physicality || '-' }} 難易度:
+      {{ playingLog.difficulty || '-' }}
+    </h5>
+    <div class="text-muted text-center mb-3">
+      {{ playingLog.instrument.name }} {{ playingLog.position }}
+      <b-badge style="background-color: rgb(246, 206, 173);">{{ playingLog.playerLevel }}</b-badge>
+    </div>
+    <b-card v-if="playingLog.impressionOfInteresting" class="mb-2" title="面白かったところ">
+      <b-card-text>
+        <!-- TODO pre タグで文字を入れるとなんかエラーが出る -->
+        <pre class="yrl-pre-wrap">{{ playingLog.impressionOfInteresting }}</pre>
+      </b-card-text>
+    </b-card>
+    <b-card v-if="playingLog.impressionOfDifficulty" class="mb-2" title="難しかったところ">
+      <b-card-text>
+        <pre class="yrl-pre-wrap mb-0">{{ playingLog.impressionOfDifficulty }}</pre>
+      </b-card-text>
+    </b-card>
+    <b-card v-if="playingLog.reflectionForNext" class="mb-2" title="次回への反省やアドバイス">
+      <b-card-text>
+        <pre class="yrl-pre-wrap mb-0">{{ playingLog.reflectionForNext }}</pre>
+      </b-card-text>
+    </b-card>
+    <b-card v-if="playingLog.otherPartInpression" class="mb-2" title="全体の感想">
+      <b-card-text>
+        <pre class="yrl-pre-wrap mb-0">{{ playingLog.otherPartInpression }}</pre>
+      </b-card-text>
+    </b-card>
+    <b-card v-if="playingLog.secretMemo" class="mb-2" title="非公開の自分用メモ" sub-title="自分にしか見えません">
+      <b-card-text>
+        <pre class="yrl-pre-wrap mb-0">{{ playingLog.secretMemo }}</pre>
+      </b-card-text>
+    </b-card>
+    <h4>
+      <nuxt-link :to="`/users/${playingLog.user.id}`">{{ playingLog.user.nickname }}さん</nuxt-link>
+    </h4>
+    {{ playingLog | displayPlayInfo }}
     <nuxt-link class="small d-block text-right my-2" :to="createPlayingLogLocation">
       この曲の演奏記録を書く
     </nuxt-link>
