@@ -52,9 +52,11 @@ import ComposerSelector from '~/components/ComposerSelector.vue';
   middleware: 'authenticated',
   async asyncData({ app, query }) {
     const playstyles = await app.$api.getPlaystyles();
-    const composerId = query.composerId;
     const newTune = new Tune();
-    newTune.composer = composerId ? await app.$api.getComposer(composerId) : null;
+    const composerId = query.composerId;
+    if (composerId) {
+      newTune.composer = await app.$api.getComposer(composerId);
+    }
     return { playstyles, newTune };
   }
 })

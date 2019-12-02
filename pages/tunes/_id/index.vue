@@ -37,23 +37,28 @@
       <div>面白さ<StarRating :rate="(tune.averageInteresting / 5) * 100" />{{ tune.averageInteresting || '-' }}</div>
       <div>体力<StarRating :rate="(tune.averagePhysicality / 5) * 100" />{{ tune.averagePhysicality || '-' }}</div>
       <div>難易度<StarRating :rate="(tune.averageDifficulty / 5) * 100" />{{ tune.averageDifficulty || '-' }}</div>
-      <b-form-select
-        v-model="selectedInstrumentId"
-        size="sm"
-        class="w-auto mt-2"
-        @change="selectedInstrumentChangeHandler($event)"
-      >
-        <option value="">全楽器</option>
-        <option v-for="instrument in $store.state.instruments" :key="instrument.id" :value="instrument.id">
-          {{ instrument.shortName }}
-        </option>
-      </b-form-select>
+      <div class="d-flex">
+        <b-form-select
+          v-model="selectedInstrumentId"
+          size="sm"
+          class="w-auto mt-2"
+          @change="selectedInstrumentChangeHandler($event)"
+        >
+          <option value="">全楽器</option>
+          <option v-for="instrument in $store.state.instruments" :key="instrument.id" :value="instrument.id">
+            {{ instrument.shortName }}
+          </option>
+        </b-form-select>
+        <nuxt-link class="small ml-auto align-self-end" :to="createPlayingLogLocation">
+          この曲の演奏記録を書く
+        </nuxt-link>
+      </div>
       <div v-for="playingLog in playingLogs" :key="playingLog.id">
         <hr />
         <PlayingLogSummary :playing-log="playingLog" />
       </div>
     </div>
-    <pre class="mt-4 yrl-pre-wrap">{{ tune.description }}</pre>
+    <pre v-if="tune.description" class="mt-4 yrl-pre-wrap">{{ tune.description }}</pre>
   </section>
 </template>
 
@@ -102,6 +107,10 @@ export default class Index extends Vue {
   addGenreName: string | null = null;
   selectedInstrumentId!: string;
   playingLogs!: PlayingLog[];
+
+  get createPlayingLogLocation() {
+    return { path: '/playing-logs/new', query: { tuneId: this.tune.id!.toString() } };
+  }
 
   addGenreHandler() {
     this.isEditingGenre = true;

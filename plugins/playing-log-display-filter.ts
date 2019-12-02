@@ -13,6 +13,7 @@ const displaydate = (playDate: string | Date | null): string => {
 };
 
 Vue.filter('displayPlayInfo', (playingLog: PlayingLog) => {
+  // TODO どのパラメータもない場合考慮
   const displayTeam = playingLog.team || '';
   const displayScene = playingLog.scene || '';
   return `${displaydate(playingLog.playDate)} ${displayTeam} ${displayScene}にて演奏`;
