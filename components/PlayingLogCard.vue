@@ -6,6 +6,7 @@
           v-if="showEditButton"
           class="yrl-edit-btn-absolute"
           icon="pencil-alt"
+          size="lg"
           @click.prevent="editClickHandler"
         />
         <div class="text-muted small text-center mb-0">
@@ -88,7 +89,7 @@ export default class PlayingLogCard extends Vue {
 }
 .yrl-edit-btn-absolute {
   position: absolute;
-  top: 5px;
-  right: 5px;
+  top: 6px;
+  right: 6px;
 }
 </style>

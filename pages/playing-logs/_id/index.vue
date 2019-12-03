@@ -1,6 +1,7 @@
 <template>
   <section class="container">
-    <Breadcrumb :playing-log="playingLog" class="mb-1" />
+    <Breadcrumb :playing-log="playingLog" class="mb-0" />
+    <nuxt-link v-if="showEditButton" :to="`/playing-logs/${playingLog.id}/edit`">編集する</nuxt-link>
     <div class="d-flex">
       <!-- TODO ジャンルがたくさんついた時のレイアウト -->
       <small class="text-muted align-self-end">
@@ -110,6 +111,10 @@ export default class Index extends Vue {
     // playingLog.position が null のときは空文字列を入れてshareTextのコメントに出てくるのを防ぐ
     const position = `${this.playingLog.instrument.shortName}${this.playingLog.position || ''}`;
     return `${nickname}さんの${playInfo}された、${composerName}作曲${tuneTitle}の${position}での演奏記録`;
+  }
+  get showEditButton(): boolean {
+    // ログインユーザと id が一致していれば編集ボタンを出す(どこだろうと出すことにする)
+    return this.$store.state.auth ? this.$store.state.auth.userId === this.playingLog.user!.id : false;
   }
 }
 </script>

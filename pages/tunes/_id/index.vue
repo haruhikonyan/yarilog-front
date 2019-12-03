@@ -58,7 +58,11 @@
         <PlayingLogSummary :playing-log="playingLog" />
       </div>
     </div>
-    <pre v-if="tune.description" class="mt-4 yrl-pre-wrap">{{ tune.description }}</pre>
+    <!-- TODO ページャ実装 -->
+    <div v-if="tune.description">
+      <hr />
+      <pre class="yrl-pre-wrap">{{ tune.description }}</pre>
+    </div>
   </section>
 </template>
 
@@ -84,13 +88,13 @@ import { PlayingLogsWithCount, PlayingLog } from '../../../models/PlayingLog';
   async asyncData({ app, params, query }) {
     const tune = await app.$api.getTune(params.id);
     const selectedInstrumentId = query.selectedInstrumentId || '';
-    // 最新5件表示
+    // 最新10件表示
     const playingLogsWithCount: PlayingLogsWithCount = await app.$api.searchPlayingLogs(
       null,
       selectedInstrumentId,
       params.id,
       0,
-      5
+      10
     );
     return { tune, playingLogs: playingLogsWithCount.playingLogs, selectedInstrumentId };
   },

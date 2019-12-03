@@ -7,7 +7,11 @@
       </p>
       <pre>{{ user.description }}</pre>
 
-      <PlayingLogCard v-for="playingLog in playingLogs" :key="playingLog.id" :playing-log="playingLog" />
+      <div class="row">
+        <div v-for="playingLog in playingLogs" :key="playingLog.id" class="mb-2 col-md-6">
+          <PlayingLogCard :playing-log="playingLog" />
+        </div>
+      </div>
     </div>
   </section>
 </template>
