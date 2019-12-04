@@ -11,7 +11,7 @@
             v-model="newUser.username"
             required
             pattern="^[0-9A-Za-z]+$"
-            placeholder="yarilogger"
+            placeholder="みゅーぐまん"
           ></b-form-input>
         </b-form-group>
         <b-form-group label="メールアドレス">
@@ -19,7 +19,7 @@
             v-model="newUser.mailAddress"
             type="email"
             required
-            placeholder="yarilog@gmail.com"
+            placeholder="info.musig@gmail.com"
           ></b-form-input>
         </b-form-group>
         <b-form-group label="パスワード">

@@ -24,22 +24,14 @@
       <hr />
       <ShareIcons :share-text="shareText" :share-path="sharePath" />
       <div>
-        <nuxt-link to="/terms/tos">利用規約</nuxt-link>
-        <nuxt-link to="/terms/privacy-policy">プライバシーポリシー</nuxt-link>
+        <nuxt-link to="/terms/tos" class="mr-1">利用規約</nuxt-link>
+        <nuxt-link to="/terms/privacy-policy" class="mr-1">プライバシーポリシー</nuxt-link>
+        <nuxt-link to="/inquiry">お問い合わせ</nuxt-link>
       </div>
-      <div>
-        <a href="https://twitter.com/musig_net" target="_blank" class="d-block">
-          <font-awesome-icon icon="external-link-alt" />
-          公式twitter
-        </a>
-      </div>
-      <div class="mt-1">
-        <div>問い合わせはこちらまで</div>
-        <div>info.musig☆gmail.com</div>
-        <small>
-          「☆」を半角の「@」に変更してご利用ください
-        </small>
-      </div>
+      <a href="https://twitter.com/musig_net" target="_blank">
+        <font-awesome-icon icon="external-link-alt" />
+        公式twitter
+      </a>
     </div>
   </div>
 </template>

@@ -7,9 +7,7 @@ import { Tune, TunesWithCount, PlayStyle, TuneSearchObject, Genre } from '~/mode
 import { LoginObject } from '~/models/LoginObject';
 import { Instrument } from '~/models/Instrument';
 import { LoginResultObject } from '~/models/LoginResultObject';
-
-// TODO 開発終わったら or 必要なくなったら消す
-import axios from 'axios';
+import { Inquiry, InquiryType } from '~/models/Inquiry';
 
 export class Api {
   // TODO この context の型取得したい
@@ -27,6 +25,8 @@ export class Api {
   private readonly API_PLAYSTYLE_URL = 'playstyles';
   private readonly API_GENRE_URL = 'genres';
   private readonly API_TERMS_URL = 'terms';
+  private readonly API_INQUIRIES_URL = 'inquiries';
+  private readonly API_INQUIRY_TYPES_URL = 'inquiry-types';
 
   login(loginObject: LoginObject): Promise<LoginResultObject> {
     const url: string = urljoin(this.API_AUTH_URL, 'login');
@@ -282,18 +282,12 @@ export class Api {
     return this.context.$axios.$get(url);
   }
 
-  // TODO 開発終わったら or 必要なくなったら消す
-  async getInfo(): Promise<string> {
-    const url = 'https://gist.githubusercontent.com/haruhikonyan/b7df281804d891c5da907ea16be83c65/raw/';
-    const { data } = await axios.get(url);
-    return data;
+  createInquiry(inquiry: Inquiry): Promise<Inquiry> {
+    return this.context.$axios.$post(this.API_INQUIRIES_URL, inquiry);
   }
 
-  // TODO 開発終わったら or 必要なくなったら消す
-  async getDevInfo(): Promise<string> {
-    const url = 'https://gist.githubusercontent.com/haruhikonyan/935a14e3e9aa1c41522b6aa8e3b1fa6d/raw';
-    const { data } = await axios.get(url);
-    return data;
+  getInquiryTypes(): Promise<InquiryType[]> {
+    return this.context.$axios.$get(this.API_INQUIRY_TYPES_URL);
   }
 }
 
