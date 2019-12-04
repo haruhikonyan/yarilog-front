@@ -47,13 +47,21 @@ import { Composer } from '../../models/Composer';
     return { tunes, totalCount, tuneSearchObject, offset, perPage, defaultComposer };
   },
   head(this: Index) {
+    const title = `${this.defaultComposer!.fullName} 曲検索結果 - みゅーぐ`;
+    const description = `${this.defaultComposer!.fullName} 曲検索結果 ${this.defaultComposer!.description}`;
     return {
-      title: `${this.defaultComposer!.fullName} 曲検索結果 - みゅーぐ`,
+      title,
       meta: [
         {
           hid: 'description',
           name: 'description',
-          content: `${this.defaultComposer!.fullName} 曲検索結果 ${this.defaultComposer!.description}`
+          content: description
+        },
+        { hid: 'og:title', property: 'og:title', content: title },
+        {
+          hid: 'og:description',
+          property: 'og:description',
+          content: description
         }
       ]
     };

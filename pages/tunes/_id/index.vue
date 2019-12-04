@@ -102,9 +102,23 @@ import { PlayingLogsWithCount, PlayingLog } from '../../../models/PlayingLog';
     return { tune, playingLogs: playingLogsWithCount.playingLogs, selectedInstrumentId };
   },
   head(this: Index) {
+    const title = `${this.tune.title} ${this.tune.composer.fullName}作曲 - みゅーぐ`;
+    const description = `${this.tune.description}`;
     return {
-      title: `${this.tune.title} ${this.tune.composer.fullName}作曲 - みゅーぐ`,
-      meta: [{ hid: 'description', name: 'description', content: `${this.tune.description}` }]
+      title,
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: description
+        },
+        { hid: 'og:title', property: 'og:title', content: title },
+        {
+          hid: 'og:description',
+          property: 'og:description',
+          content: description
+        }
+      ]
     };
   }
 })

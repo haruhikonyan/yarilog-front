@@ -52,8 +52,22 @@ import { Composer } from '../../models/Composer';
   head(this: Index) {
     const metaInfo: MetaInfo = {};
     const searchWord = this.tuneSearchObject.searchWord || '';
-    metaInfo.title = `${searchWord} 曲検索結果 - みゅーぐ`;
-    metaInfo.meta = [{ hid: 'description', name: 'description', content: `${searchWord} 曲検索結果` }];
+    const title = `${searchWord} 曲検索結果 - みゅーぐ`;
+    const description = `${searchWord} 曲検索結果`;
+    metaInfo.title = title;
+    metaInfo.meta = [
+      {
+        hid: 'description',
+        name: 'description',
+        content: description
+      },
+      { hid: 'og:title', property: 'og:title', content: title },
+      {
+        hid: 'og:description',
+        property: 'og:description',
+        content: description
+      }
+    ];
     // 値があるものだけ抽出する
     const existTuneSearchObject = Object.entries(this.tuneSearchObject).filter(([_key, value]) => !!value);
     // 検索クエリの値が1つだったら canonical タグをつける

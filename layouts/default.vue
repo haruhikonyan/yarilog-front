@@ -43,17 +43,6 @@ import ShareIcons from '~/components/ShareIcons.vue';
 @Component({
   components: {
     ShareIcons
-  },
-  head: {
-    title: '音楽を奏でるすべての人へ 演奏記録の共有サイト みゅーぐ',
-    meta: [
-      {
-        hid: 'description',
-        name: 'description',
-        content:
-          '『みゅーぐ』は楽器、そして演奏を愛する人々が演奏した記録・思い出を曲のレビュー(演奏記録)という形で残していけるWebサービスです。'
-      }
-    ]
   }
 })
 export default class Index extends Vue {

@@ -1,5 +1,3 @@
-import pkg from './package';
-
 export default {
   mode: 'universal',
   buildModules: [
@@ -16,11 +14,31 @@ export default {
    ** Headers of the page
    */
   head: {
-    title: pkg.name,
+    title: '音楽を奏でるすべての人へ 演奏記録の共有サイト みゅーぐ',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-      { hid: 'description', name: 'description', content: pkg.description }
+      {
+        hid: 'description',
+        name: 'description',
+        content:
+          '『みゅーぐ』は楽器、そして演奏を愛する人々が演奏した記録・思い出を曲のレビュー(演奏記録)という形で残していけるWebサービスです。'
+      },
+      {
+        hid: 'og:site_name',
+        property: 'og:site_name',
+        content: '音楽を奏でるすべての人へ 演奏記録の共有サイト みゅーぐ'
+      },
+      { hid: 'og:type', property: 'og:type', content: 'website' },
+      { hid: 'og:url', property: 'og:url', content: process.env.frontUrl },
+      { hid: 'og:title', property: 'og:title', content: '音楽を奏でるすべての人へ 演奏記録の共有サイト みゅーぐ' },
+      {
+        hid: 'og:description',
+        property: 'og:description',
+        content:
+          '『みゅーぐ』は楽器、そして演奏を愛する人々が演奏した記録・思い出を曲のレビュー(演奏記録)という形で残していけるWebサービスです。'
+      },
+      { hid: 'og:image', property: 'og:image', content: `${process.env.frontUrl}/ogp.png` }
     ],
     link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }]
   },

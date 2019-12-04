@@ -86,13 +86,27 @@ import GenreBadge from '~/components/GenreBadge.vue';
     return { playingLog, sharePath };
   },
   head(this: Index) {
-    // なければ空文字列を入れて title に出てくるのを防ぐ
     const position = this.playingLog.position || '';
+    // なければ空文字列を入れて title に出てくるのを防ぐ
+    const title = `${this.playingLog.tune.title} ${this.playingLog.instrument.name}${position} ${
+      this.playingLog.user.nickname
+    }さん演奏 - みゅーぐ`;
+    const description = `${this.playingLog.impressionOfInteresting}`;
     return {
-      title: `${this.playingLog.tune.title} ${this.playingLog.instrument.name}${position} ${
-        this.playingLog.user.nickname
-      }さん演奏 - みゅーぐ`,
-      meta: [{ hid: 'description', name: 'description', content: `${this.playingLog.impressionOfInteresting}` }]
+      title,
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: description
+        },
+        { hid: 'og:title', property: 'og:title', content: title },
+        {
+          hid: 'og:description',
+          property: 'og:description',
+          content: description
+        }
+      ]
     };
   }
 })

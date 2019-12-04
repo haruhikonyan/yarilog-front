@@ -38,11 +38,26 @@ import { TuneSearchObject, Tune } from '../../models/Tune';
     return { tunes, totalCount, tuneSearchObject, offset, perPage };
   },
   head(this: Index) {
-    // TODO 作曲家ページ用にする
+    // TODO ジャンルページ用にする
     const searchWord = this.tuneSearchObject.searchWord || '';
+    const title = `${searchWord} 曲検索結果 - みゅーぐ`;
+    const description = `${searchWord} 曲検索結果`;
+
     return {
-      title: `${searchWord} 曲検索結果 - みゅーぐ`,
-      meta: [{ hid: 'description', name: 'description', content: `${searchWord} 曲検索結果` }]
+      title,
+      meta: [
+        {
+          hid: 'description',
+          name: 'description',
+          content: description
+        },
+        { hid: 'og:title', property: 'og:title', content: title },
+        {
+          hid: 'og:description',
+          property: 'og:description',
+          content: description
+        }
+      ]
     };
   }
 })
