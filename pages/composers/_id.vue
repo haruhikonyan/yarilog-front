@@ -11,6 +11,9 @@
       @on-search="search($event)"
       @on-pagenation-input="pagenationInputHandler($event)"
     />
+    <nuxt-link class="small d-block text-right" :to="inquiryMistakeLocation">
+      作曲家情報が間違っている
+    </nuxt-link>
   </section>
 </template>
 
@@ -65,6 +68,10 @@ export default class Index extends Vue {
   perPage!: number;
 
   defaultComposer!: Composer | null;
+
+  get inquiryMistakeLocation() {
+    return { path: '/inquiry', query: { inquiryTypeId: '2', content: `path: ${this.$route.path}` } };
+  }
 
   async search(tuneSearchObject: TuneSearchObject) {
     this.tuneSearchObject = tuneSearchObject;

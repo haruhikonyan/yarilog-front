@@ -63,6 +63,9 @@
       <hr />
       <pre class="yrl-pre-wrap">{{ tune.description }}</pre>
     </div>
+    <nuxt-link class="small d-block text-right" :to="inquiryMistakeLocation">
+      曲情報が間違っている
+    </nuxt-link>
   </section>
 </template>
 
@@ -114,6 +117,9 @@ export default class Index extends Vue {
 
   get createPlayingLogLocation() {
     return { path: '/playing-logs/new', query: { tuneId: this.tune.id!.toString() } };
+  }
+  get inquiryMistakeLocation() {
+    return { path: '/inquiry', query: { inquiryTypeId: '2', content: `path: ${this.$route.path}` } };
   }
 
   addGenreHandler() {

@@ -11,7 +11,6 @@
         :require-tune-error="requireTuneError"
         @on-submit="createPlayingLog"
       />
-      <nuxt-link to="/tunes/new">曲作成</nuxt-link>
     </div>
   </section>
 </template>

@@ -7,6 +7,12 @@
       </p>
       <b-button variant="primary" block @click="$bvModal.show('modal-tune-selector')">演奏曲を選択する</b-button>
       <TuneSelector :playstyles="playstyles" @select-tune="selectTune($event)" />
+      <div class="d-flex small">
+        <nuxt-link to="/tunes/new">曲作成</nuxt-link>
+        <nuxt-link class=" ml-auto align-self-end" :to="inquiryMistakeLocation">
+          曲・作曲家情報が間違っている
+        </nuxt-link>
+      </div>
     </b-form-group>
 
     <b-form-group label="編曲者">
@@ -147,6 +153,9 @@ export default class PlayingLogForm extends Vue {
   isNotEvalute: boolean =
     this.playingLog.interesting == null && this.playingLog.difficulty == null && this.playingLog.physicality == null;
 
+  get inquiryMistakeLocation() {
+    return { path: '/inquiry', query: { inquiryTypeId: '2' } };
+  }
   // TuneSelector で選択された tune を playingLog にセットする
   selectTune(tune: Tune) {
     this.$set(this.playingLog, 'tune', tune);

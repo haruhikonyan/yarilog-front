@@ -55,7 +55,8 @@
 是非、『みゅーぐ』を自由に活用してください。
 楽器と演奏を愛するみなさんの活動の一助になれば幸いです。
 
-なお、みゅーぐの開発を手伝ってくださる方を募集しています。興味のある方は問い合わせフォームもしくはメールなどでご連絡ください。
+なお、みゅーぐの開発を手伝ってくださる方を募集しています。
+興味のある方は<nuxt-link :to="inquiryDevLocation">問い合わせフォーム</nuxt-link>もしくは<a href="https://twitter.com/musig_net" target="_blank">公式twitter</a>などでご連絡ください。
         </pre>
       </b-card>
       <b-card class="mb-2 text-center" title="ジャンルから探す">
@@ -95,6 +96,9 @@ import { TuneSearchObject } from '../models/Tune';
 export default class Index extends Vue {
   leadSentence =
     '『みゅーぐ』は楽器、そして演奏を愛する人々が演奏した記録・思い出を、演奏記録という形で残していけるWebサービスです。';
+  get inquiryDevLocation() {
+    return { path: '/inquiry', query: { inquiryTypeId: '7' } };
+  }
   search(tuneSearchObject: TuneSearchObject) {
     const { searchWord, instrumentId, composerId, playstyleId } = tuneSearchObject;
     this.$router.push({ path: 'tunes', query: { searchWord, instrumentId, composerId, playstyleId } });
