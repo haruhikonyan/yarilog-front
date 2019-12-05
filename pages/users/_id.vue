@@ -5,7 +5,7 @@
       <p>
         自己紹介
       </p>
-      <pre>{{ user.description }}</pre>
+      <pre class="yrl-pre-wrap">{{ user.description }}</pre>
 
       <div class="row">
         <div v-for="playingLog in playingLogs" :key="playingLog.id" class="mb-2 col-md-6">
@@ -31,13 +31,21 @@ import PlayingLogCard from '../../components/PlayingLogCard.vue';
     return { user, playingLogs };
   },
   head(this: Index) {
+    const title = `${this.user!.nickname} さんの演奏記録 - みゅーぐ`;
+    const description = `${this.user!.nickname} さんの演奏記録 ${this.user!.description}`;
     return {
-      title: `${this.user!.nickname} さんの演奏記録 - みゅーぐ`,
+      title,
       meta: [
         {
           hid: 'description',
           name: 'description',
-          content: `${this.user!.nickname} さんの演奏記録 ${this.user!.description}`
+          content: description
+        },
+        { hid: 'og:title', property: 'og:title', content: title },
+        {
+          hid: 'og:description',
+          property: 'og:description',
+          content: description
         }
       ]
     };

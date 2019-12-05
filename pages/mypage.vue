@@ -34,7 +34,7 @@
           自己紹介
           <b-button size="sm" @click="editDescription">編集</b-button>
         </p>
-        <pre>{{ user.description }}</pre>
+        <pre class="yrl-pre-wrap">{{ user.description }}</pre>
       </template>
       <b-form v-else inline class="mb-3">
         <b-form-textarea v-model="editingDescription" rows="6"></b-form-textarea>
