@@ -103,7 +103,7 @@ import { PlayingLogsWithCount, PlayingLog } from '../../../models/PlayingLog';
   },
   head(this: Index) {
     const title = `${this.tune.title} ${this.tune.composer.fullName}作曲 - みゅーぐ`;
-    const description = `${this.tune.description}`;
+    const description = this.tune.description || `${this.tune.title} ${this.tune.composer.fullName}作曲`;
     return {
       title,
       meta: [

@@ -91,7 +91,13 @@ import GenreBadge from '~/components/GenreBadge.vue';
     const title = `${this.playingLog.tune.title} ${this.playingLog.instrument.name}${position} ${
       this.playingLog.user.nickname
     }さん演奏 - みゅーぐ`;
-    const description = `${this.playingLog.impressionOfInteresting}`;
+    // TODO ブラッシュアップ
+    const description =
+      this.playingLog.impressionOfInteresting ||
+      this.playingLog.impressionOfDifficulty ||
+      this.playingLog.reflectionForNext ||
+      this.playingLog.otherPartInpression ||
+      title;
     return {
       title,
       meta: [
