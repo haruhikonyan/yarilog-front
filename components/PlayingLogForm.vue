@@ -83,9 +83,9 @@
       </b-form-select>
     </b-form-group>
 
-    <b-form-group label="評価しない">
+    <b-form-group>
       <span slot="label">
-        担当パート
+        評価しない
         <font-awesome-icon id="is-not-evalute" v-b-tooltip.hover icon="question-circle" />
         <b-tooltip target="is-not-evalute" triggers="hover" custom-class="yrl-playing-log-form-lg-tooltip">
           遠い過去のものなど当時のレベルでの評価ができない場合などは評価を棄権しましょう
