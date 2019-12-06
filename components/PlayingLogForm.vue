@@ -1,6 +1,20 @@
 <template>
   <b-form @submit.prevent="submitHandler">
-    <b-form-group label="演奏曲">
+    <b-form-group>
+      <span slot="label">
+        演奏曲
+        <font-awesome-icon id="tune" v-b-tooltip.hover icon="question-circle" />
+        <!-- TODO リンクの色調整 -->
+        <b-tooltip target="tune" triggers="hover" custom-class="yrl-playing-log-form-lg-tooltip">
+          演奏曲を選択してください<br />
+          抜粋に関して無いものは自分で<nuxt-link to="/tunes/new">登録</nuxt-link>をするか、
+          <nuxt-link :to="getInquiryLocation(2)">問い合わせフォーム</nuxt-link>よりリクエストをお願いします<br />
+          もしくは、全曲版を選択してください<br />
+          表記の間違えなどを発見した場合はこちらも
+          <nuxt-link :to="getInquiryLocation(3)">問い合わせフォーム</nuxt-link>
+          より指摘をお願いします。
+        </b-tooltip>
+      </span>
       <span v-if="requireTuneError && !playingLog.tune" class="text-danger">{{ requireTuneError }}</span>
       <p v-if="playingLog.tune">
         {{ playingLog.tune.composer.displayName }}作曲 {{ playingLog.tune.title }}({{ playingLog.tune.playstyle.name }})
@@ -19,7 +33,15 @@
       <b-form-input v-model="playingLog.arranger" placeholder="ラヴェル"></b-form-input>
     </b-form-group>
 
-    <b-form-group label="担当パート">
+    <b-form-group>
+      <span slot="label">
+        担当パート
+        <font-awesome-icon id="instrument" v-b-tooltip.hover icon="question-circle" />
+        <b-tooltip target="instrument" triggers="hover" custom-class="yrl-playing-log-form-lg-tooltip">
+          選択肢の中から楽器を選んでください<br />
+          細かい種別や特殊楽器や持ち替えなどはポジションに入力してください
+        </b-tooltip>
+      </span>
       <b-form-select v-model="playingLog.instrument" required>
         <option v-for="instrument in instruments" :key="instrument.id" :value="instrument">
           {{ instrument.name }}
@@ -27,11 +49,29 @@
       </b-form-select>
     </b-form-group>
 
-    <b-form-group label="ポジション">
+    <b-form-group>
+      <span slot="label">
+        ポジション
+        <font-awesome-icon id="position" v-b-tooltip.hover icon="question-circle" />
+        <b-tooltip target="position" triggers="hover" custom-class="yrl-playing-log-form-lg-tooltip">
+          持ち替えなど細かい種別はここの欄に入力してください
+        </b-tooltip>
+      </span>
       <b-form-input v-model="playingLog.position" placeholder="2nd assi"></b-form-input>
     </b-form-group>
 
-    <b-form-group label="自分のレベル">
+    <b-form-group :description="playerLevelDescription">
+      <span slot="label">
+        自分のレベル
+        <font-awesome-icon id="player-level" v-b-tooltip.hover icon="question-circle" />
+        <b-tooltip target="player-level" triggers="hover" custom-class="yrl-playing-log-form-lg-tooltip">
+          目安としてブランクが無いことを前提に<br />
+          初心者；本番経験 〜10回程度<br />
+          中級者；本番経験 10〜30回程度<br />
+          上級者；本番経験 30〜回程度<br />
+          あまり謙遜をして中級者を選択しがちにならないようにしてください
+        </b-tooltip>
+      </span>
       <b-form-select v-model="playingLog.playerLevel" required>
         <option
           v-for="playerLevel in Object.keys(playerLevelList)"
@@ -44,6 +84,13 @@
     </b-form-group>
 
     <b-form-group label="評価しない">
+      <span slot="label">
+        担当パート
+        <font-awesome-icon id="is-not-evalute" v-b-tooltip.hover icon="question-circle" />
+        <b-tooltip target="is-not-evalute" triggers="hover" custom-class="yrl-playing-log-form-lg-tooltip">
+          遠い過去のものなど当時のレベルでの評価ができない場合などは評価を棄権しましょう
+        </b-tooltip>
+      </span>
       <b-form-checkbox v-model="isNotEvalute" @change="isNotEvaluteCheckBoxHandler($event)" />
     </b-form-group>
 
@@ -110,7 +157,7 @@
     <b-form-group label="非公開の自分用メモ">
       <b-form-textarea
         v-model="playingLog.secretMemo"
-        placeholder="風邪で本調子ではなかった"
+        placeholder="風邪で本調子ではなかった 憧れの先輩の隣で演奏できた 指揮者がかっこよかった"
         rows="3"
         max-rows="6"
       ></b-form-textarea>
@@ -148,7 +195,7 @@ export default class PlayingLogForm extends Vue {
   @Prop({ type: String, default: null })
   requireTuneError!: string;
 
-  playerLevelList: Object = PlayerLevel;
+  playerLevelList = PlayerLevel;
 
   isNotEvalute: boolean =
     this.playingLog.interesting == null && this.playingLog.difficulty == null && this.playingLog.physicality == null;
@@ -156,6 +203,15 @@ export default class PlayingLogForm extends Vue {
   get inquiryMistakeLocation() {
     return { path: '/inquiry', query: { inquiryTypeId: '2' } };
   }
+
+  get playerLevelDescription() {
+    return this.playingLog.playerLevel === this.playerLevelList.INTERMEDIATE ? '謙遜して中級者を選んでませんか？' : '';
+  }
+  // TODO 共通化 utilプラグインとか？
+  getInquiryLocation(inquiryTypeId: number) {
+    return { path: '/inquiry', query: { inquiryTypeId: inquiryTypeId.toString() } };
+  }
+
   // TuneSelector で選択された tune を playingLog にセットする
   selectTune(tune: Tune) {
     this.$set(this.playingLog, 'tune', tune);
@@ -173,3 +229,10 @@ export default class PlayingLogForm extends Vue {
   }
 }
 </script>
+<style lang="scss">
+.yrl-playing-log-form-lg-tooltip {
+  .tooltip-inner {
+    max-width: 230px;
+  }
+}
+</style>
