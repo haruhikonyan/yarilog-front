@@ -147,11 +147,13 @@ export default class TuneSelector extends Vue {
   sortTunes(tunes: Tune[]): Tune[] {
     // return するソート後の配列
     const sortedTunes: Tune[] = [];
+    // ソートする要素のまとまりたち
     const symphonyList: Tune[] = [];
     const symphonicPoem: Tune[] = [];
     const concertoTunes: Tune[] = [];
     const operaTunes: Tune[] = [];
     const overtureTunes: Tune[] = [];
+    // 抽出しないのこりの曲
     const remainingTunes: Tune[] = [];
     tunes.forEach(t => {
       // TODO ジャンルを使えばもっといい感じになるか？
@@ -191,13 +193,8 @@ export default class TuneSelector extends Vue {
       ...remainingTunes
     );
     // see: https://ginpen.com/2018/12/18/array-unique/
-    // id 重複削除
-    return sortedTunes.reduce((a: Tune[], v) => {
-      if (!a.some((e: Tune) => e.id === v.id)) {
-        a.push(v);
-      }
-      return a;
-    }, []);
+    // 念の為 id 重複削除
+    return [...new Map(sortedTunes.map(v => [v.id, v])).values()];
   }
 
   @Emit('select-tune')
