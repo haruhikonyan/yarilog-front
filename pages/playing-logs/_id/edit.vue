@@ -2,7 +2,7 @@
   <section class="container">
     <div>
       <h1 class="title">
-        演奏ログ編集ページ
+        演奏記録編集ページ
       </h1>
       <PlayingLogForm
         :playstyles="$store.state.playstyles"

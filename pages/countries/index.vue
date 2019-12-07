@@ -6,7 +6,7 @@
       </h1>
       <p v-for="country in countries" :key="country.id">
         <!-- TODO URL は id ではなく国コードとか作れればそっちにする なければ id -->
-        <nuxt-link :to="`countries/${country.id}`">{{ country.name }} 出身作曲家の演奏ログ</nuxt-link>
+        <nuxt-link :to="`countries/${country.id}`">{{ country.name }} 出身作曲家の演奏記録</nuxt-link>
       </p>
     </div>
   </section>

@@ -6,7 +6,7 @@
       </h1>
       <p v-for="composer in composers" :key="composer.id">
         <!-- TODO URL は id ではなく作曲家コードとか作れればそっちにする なければ id -->
-        <nuxt-link :to="`composers/${composer.id}`">{{ composer.displayName }} の演奏ログ</nuxt-link>
+        <nuxt-link :to="`composers/${composer.id}`">{{ composer.displayName }} の演奏記録</nuxt-link>
       </p>
     </div>
   </section>

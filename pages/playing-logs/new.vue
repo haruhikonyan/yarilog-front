@@ -2,7 +2,7 @@
   <section class="container">
     <div>
       <h1 class="title">
-        演奏ログ新規作成ページ
+        演奏記録新規作成
       </h1>
       <PlayingLogForm
         :playstyles="$store.state.playstyles"

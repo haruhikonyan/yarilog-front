@@ -63,7 +63,7 @@
     <nuxt-link class="small d-block text-right my-2" :to="createPlayingLogLocation">
       この曲の演奏記録を書く
     </nuxt-link>
-    <!-- TODO 同じ曲の演奏ログや同じ人の演奏ログを出す -->
+    <!-- TODO 同じ曲の演奏記録や同じ人の演奏記録を出す -->
   </section>
 </template>
 

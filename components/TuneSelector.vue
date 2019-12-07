@@ -1,7 +1,15 @@
 <template>
   <div>
-    <b-modal id="modal-tune-selector" scrollable title="演奏曲選択">
-      <b-form-input v-model="filterStrings" class="mb-2" placeholder="絞り込む"></b-form-input>
+    <b-modal id="modal-tune-selector" title-class="flex-grow-1" scrollable>
+      <div slot="modal-title">
+        演奏曲選択
+        <b-form-input
+          v-if="selectMode !== SELECT_MODE.PLAYSTYLE"
+          v-model="filterStrings"
+          size="sm"
+          placeholder="絞り込む"
+        />
+      </div>
       <b-list-group v-if="selectMode === SELECT_MODE.PLAYSTYLE">
         <b-list-group-item v-for="playstyle in playstyles" :key="playstyle.id" @click="selectPlaystyle(playstyle.id)">
           <span>{{ playstyle.name }} </span>
@@ -132,7 +140,64 @@ export default class TuneSelector extends Vue {
   get selectingTunes(): Tune[] {
     const targetCgbp = this.composersGroupByPlaystyle.find(cgbp => cgbp.playstyleId === this.selectedPlaystyleId);
     const targetTgbp = targetCgbp!.tgbcs.find(tgbc => tgbc.composer.id === this.selectedComposerId);
-    return targetTgbp!.tunes.filter(tune => tune.title.includes(this.filterStrings));
+    const tunes = targetTgbp!.tunes.filter(tune => tune.title.includes(this.filterStrings));
+    return this.sortTunes(tunes);
+  }
+
+  sortTunes(tunes: Tune[]): Tune[] {
+    // return するソート後の配列
+    const sortedTunes: Tune[] = [];
+    const symphonyList: Tune[] = [];
+    const symphonicPoem: Tune[] = [];
+    const concertoTunes: Tune[] = [];
+    const operaTunes: Tune[] = [];
+    const overtureTunes: Tune[] = [];
+    const remainingTunes: Tune[] = [];
+    tunes.forEach(t => {
+      // TODO ジャンルを使えばもっといい感じになるか？
+      if (t.title.includes('交響曲')) {
+        symphonyList.push(t);
+        return;
+      }
+      if (t.title.includes('交響詩')) {
+        symphonicPoem.push(t);
+        return;
+      }
+      if (t.title.includes('協奏曲')) {
+        concertoTunes.push(t);
+        return;
+      }
+      if (t.title.includes('歌劇')) {
+        operaTunes.push(t);
+        return;
+      }
+      if (t.title.includes('序曲') && !t.title.includes('歌劇')) {
+        overtureTunes.push(t);
+        return;
+      }
+      remainingTunes.push(t);
+    });
+    // のこりはソート
+    remainingTunes.sort((a, b) => {
+      return a.title < b.title ? -1 : 1;
+    });
+    // 抽出したものを上から積み上げ、最後にのこりを結合
+    sortedTunes.push(
+      ...symphonyList,
+      ...symphonicPoem,
+      ...concertoTunes,
+      ...operaTunes,
+      ...overtureTunes,
+      ...remainingTunes
+    );
+    // see: https://ginpen.com/2018/12/18/array-unique/
+    // id 重複削除
+    return sortedTunes.reduce((a: Tune[], v) => {
+      if (!a.some((e: Tune) => e.id === v.id)) {
+        a.push(v);
+      }
+      return a;
+    }, []);
   }
 
   @Emit('select-tune')

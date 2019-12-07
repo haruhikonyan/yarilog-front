@@ -50,7 +50,7 @@
         <b-button size="sm" @click="isDescriptionEditing = false">キャンセル</b-button>
       </b-form>
 
-      <b-button block to="/playing-logs/new" variant="primary" class="mb-3">演奏ログをつける</b-button>
+      <b-button block to="/playing-logs/new" variant="primary" class="mb-3">演奏記録をつける</b-button>
       <div>
         <h3>{{ user.nickname }}の演奏記録</h3>
       </div>
