@@ -16,14 +16,14 @@
           :playstyles="$store.state.playstyles"
           @on-search="search($event)"
         />
-        <b-card class="mb-2" title="演奏楽器から探す">
+        <b-card class="mb-2" title="演奏楽器から探す" body-class="px-2">
           <!-- TODO 楽器種別分け -->
           <div class="d-flex flex-wrap text-left">
             <nuxt-link
               v-for="instrument in $store.state.instruments"
               :key="instrument.id"
               :to="`/instruments/${instrument.id}`"
-              style="width: 96px; font-size: 12px"
+              class="yrl-instrument-link"
             >
               >{{ instrument.name }}
             </nuxt-link>
@@ -35,7 +35,7 @@
               v-for="composer in composers"
               :key="composer.id"
               :to="`/composers/${composer.id}`"
-              style="min-width: 96px; font-size: 12px; flex: auto"
+              style="min-width: 96px; font-size: 13px; flex: auto"
             >
               >{{ composer.displayName }}
             </nuxt-link>
@@ -65,7 +65,7 @@
             v-for="genre in genres"
             :key="genre.id"
             :to="`/genres/${genre.id}`"
-            style="width: 96px; font-size: 12px"
+            style="width: 96px; font-size: 13px"
           >
             >{{ genre.name }}
           </nuxt-link>
@@ -119,5 +119,9 @@ export default class Index extends Vue {
   background-size: cover;
   color: white;
   text-shadow: 1px 1px 0 black;
+}
+.yrl-instrument-link {
+  width: 104px;
+  font-size: 13px;
 }
 </style>
