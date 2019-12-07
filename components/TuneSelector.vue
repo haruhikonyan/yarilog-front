@@ -173,7 +173,7 @@ export default class TuneSelector extends Vue {
         operaTunes.push(t);
         return;
       }
-      if (t.title.includes('序曲') && !t.title.includes('歌劇')) {
+      if (t.title.includes('序曲')) {
         overtureTunes.push(t);
         return;
       }
@@ -192,9 +192,7 @@ export default class TuneSelector extends Vue {
       ...overtureTunes,
       ...remainingTunes
     );
-    // see: https://ginpen.com/2018/12/18/array-unique/
-    // 念の為 id 重複削除
-    return [...new Map(sortedTunes.map(v => [v.id, v])).values()];
+    return sortedTunes;
   }
 
   @Emit('select-tune')
