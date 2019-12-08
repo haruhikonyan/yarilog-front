@@ -1,6 +1,7 @@
 <template>
   <section class="container">
     <Breadcrumb :tune="tune" />
+    <adsbygoogle :ad-slot="horizontalAdId" />
     <div>
       <small class="text-muted mb-0">
         {{ tune.playstyle.name }}
@@ -88,7 +89,7 @@ import { PlayingLogsWithCount, PlayingLog } from '../../../models/PlayingLog';
     VueSimpleSuggest,
     GenreBadge
   },
-  async asyncData({ app, params, query }) {
+  async asyncData({ app, params, query, env }) {
     const tune = await app.$api.getTune(params.id);
     const selectedInstrumentId = query.selectedInstrumentId || '';
     // 最新10件表示
@@ -99,7 +100,12 @@ import { PlayingLogsWithCount, PlayingLog } from '../../../models/PlayingLog';
       0,
       10
     );
-    return { tune, playingLogs: playingLogsWithCount.playingLogs, selectedInstrumentId };
+    return {
+      tune,
+      playingLogs: playingLogsWithCount.playingLogs,
+      selectedInstrumentId,
+      horizontalAdId: env.horizontalAdId
+    };
   },
   head(this: Index) {
     const title = `${this.tune.title} ${this.tune.composer.fullName}作曲 - みゅーぐ`;

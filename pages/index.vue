@@ -29,6 +29,7 @@
             </nuxt-link>
           </div>
         </b-card>
+        <adsbygoogle :ad-slot="horizontalAdId" />
         <b-card class="mb-2" title="作曲家から探す">
           <div class="d-flex flex-wrap text-left">
             <nuxt-link
@@ -48,6 +49,7 @@
           <PlayingLogCard :playing-log="playingLog" />
         </div>
       </div>
+      <adsbygoogle :ad-slot="horizontalAdId" />
       <b-card class="mb-2 text-center" title="みゅーぐ開発において">
         <pre class="yrl-pre-wrap yrl-info text-left mb-0">
 日本国内で楽器を演奏する人は人口の10%、つまり1200万人以上いると言われています。
@@ -86,11 +88,11 @@ import { TuneSearchObject } from '../models/Tune';
     PlayingLogCard,
     SearchForm
   },
-  async asyncData({ app }) {
+  async asyncData({ app, env }) {
     const playingLogs = await app.$api.getPlayingLogs(6);
     const composers = await app.$api.getTopPageLinkedComposers();
     const genres = await app.$api.getTopPageLinkedGenres();
-    return { playingLogs, composers, genres };
+    return { playingLogs, composers, genres, horizontalAdId: env.horizontalAdId };
   }
 })
 export default class Index extends Vue {

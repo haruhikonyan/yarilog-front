@@ -2,6 +2,7 @@
   <section>
     <Breadcrumb :composer="defaultComposer" :playstyle="defaultPlaystyle" :instrument="defaultInstrument" />
     <h2 class="text-center">{{ searchResultMessage }}</h2>
+    <adsbygoogle :ad-slot="horizontalAdId" />
     <SearchForm
       :default-search-word="tuneSearchObject.searchWord"
       :default-playstyle-id="tuneSearchObject.playstyleId"
@@ -95,6 +96,9 @@ export default class SearchResult extends Vue {
     } else {
       return `${Number(this.offset) + 1}~${lastCount}曲目表示 / 全${this.totalCount}曲`;
     }
+  }
+  get horizontalAdId(): string {
+    return process.env.horizontalAdId!;
   }
 }
 </script>

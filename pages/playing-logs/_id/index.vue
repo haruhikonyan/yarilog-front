@@ -1,6 +1,7 @@
 <template>
   <section class="container">
     <Breadcrumb :playing-log="playingLog" class="mb-0" />
+    <adsbygoogle :ad-slot="horizontalAdId" />
     <nuxt-link v-if="showEditButton" :to="`/playing-logs/${playingLog.id}/edit`">編集する</nuxt-link>
     <div class="d-flex">
       <!-- TODO ジャンルがたくさんついた時のレイアウト -->
@@ -83,7 +84,7 @@ import GenreBadge from '~/components/GenreBadge.vue';
   async asyncData({ app, params, route, env }) {
     const playingLog = await app.$api.getPlayingLog(params.id);
     const sharePath = urljoin(env.frontUrl, route.path);
-    return { playingLog, sharePath };
+    return { playingLog, sharePath, horizontalAdId: env.horizontalAdId };
   },
   head(this: Index) {
     const position = this.playingLog.position || '';
