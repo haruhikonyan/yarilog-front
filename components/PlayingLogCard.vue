@@ -9,6 +9,7 @@
           size="lg"
           @click.prevent="editClickHandler"
         />
+        <div v-if="playingLog.isDraft" class="text-center">下書き</div>
         <div class="text-muted small text-center mb-0">
           {{ playingLog.tune.playstyle.name }}
         </div>

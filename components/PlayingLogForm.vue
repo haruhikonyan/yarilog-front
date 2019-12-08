@@ -29,7 +29,11 @@
       </div>
     </b-form-group>
 
-    <b-form-group label="編曲者">
+    <b-form-group>
+      <span slot="label">
+        編曲者
+        <b-badge variant="info">任意</b-badge>
+      </span>
       <b-form-input v-model="playingLog.arranger" placeholder="ラヴェル"></b-form-input>
     </b-form-group>
 
@@ -52,6 +56,7 @@
     <b-form-group>
       <span slot="label">
         ポジション
+        <b-badge variant="info">任意</b-badge>
         <font-awesome-icon id="position" v-b-tooltip.hover icon="question-circle" />
         <b-tooltip target="position" triggers="hover" custom-class="yrl-playing-log-form-lg-tooltip">
           持ち替えなど細かい種別はここの欄に入力してください
@@ -106,7 +111,11 @@
       <b-form-input v-model="playingLog.difficulty" :disabled="isNotEvalute" type="range" min="0" max="5" step="0.1" />
     </b-form-group>
 
-    <b-form-group label="面白かったところ">
+    <b-form-group>
+      <span slot="label">
+        面白かったところ
+        <b-badge variant="info">任意</b-badge>
+      </span>
       <b-form-textarea
         v-model="playingLog.impressionOfInteresting"
         placeholder="4楽章が吹きごたえあって面白かった"
@@ -115,7 +124,11 @@
       ></b-form-textarea>
     </b-form-group>
 
-    <b-form-group label="難しかったところ">
+    <b-form-group>
+      <span slot="label">
+        難しかったところ
+        <b-badge variant="info">任意</b-badge>
+      </span>
       <b-form-textarea
         v-model="playingLog.impressionOfDifficulty"
         placeholder="3楽章のメロディー合わせるのに苦労した"
@@ -124,7 +137,11 @@
       ></b-form-textarea>
     </b-form-group>
 
-    <b-form-group label="次回への反省やアドバイス">
+    <b-form-group>
+      <span slot="label">
+        次回への反省やアドバイス
+        <b-badge variant="info">任意</b-badge>
+      </span>
       <b-form-textarea
         v-model="playingLog.reflectionForNext"
         placeholder="1楽章 B のところからのリズムもっと練習する"
@@ -133,7 +150,11 @@
       ></b-form-textarea>
     </b-form-group>
 
-    <b-form-group label="他パートや全体の感想">
+    <b-form-group>
+      <span slot="label">
+        他パートや全体の感想
+        <b-badge variant="info">任意</b-badge>
+      </span>
       <b-form-textarea
         v-model="playingLog.otherPartInpression"
         placeholder="4楽章コーダの弦楽器の細かい音符が難しそうだった"
@@ -142,19 +163,35 @@
       ></b-form-textarea>
     </b-form-group>
 
-    <b-form-group label="演奏日">
+    <b-form-group>
+      <span slot="label">
+        演奏日
+        <b-badge variant="info">任意</b-badge>
+      </span>
       <b-form-input v-model="playingLog.playDate" type="date"></b-form-input>
     </b-form-group>
 
-    <b-form-group label="演奏シーン">
+    <b-form-group>
+      <span slot="label">
+        演奏シーン
+        <b-badge variant="info">任意</b-badge>
+      </span>
       <b-form-input v-model="playingLog.scene" placeholder="定期演奏会中プロ"></b-form-input>
     </b-form-group>
 
-    <b-form-group label="演奏団体">
+    <b-form-group>
+      <span slot="label">
+        演奏団体
+        <b-badge variant="info">任意</b-badge>
+      </span>
       <b-form-input v-model="playingLog.team" placeholder="読売日本交響楽団"></b-form-input>
     </b-form-group>
 
-    <b-form-group label="非公開の自分用メモ">
+    <b-form-group>
+      <span slot="label">
+        非公開の自分用メモ
+        <b-badge variant="info">任意</b-badge>
+      </span>
       <b-form-textarea
         v-model="playingLog.secretMemo"
         placeholder="風邪で本調子ではなかった 憧れの先輩の隣で演奏できた 指揮者がかっこよかった"
@@ -162,8 +199,8 @@
         max-rows="6"
       ></b-form-textarea>
     </b-form-group>
-    <b-form-group label="下書き">
-      <b-form-checkbox v-model="playingLog.isDraft"> </b-form-checkbox>
+    <b-form-group label="下書き" description="下書きを有効にすると、自分しか閲覧できないようになります">
+      <b-form-checkbox v-model="playingLog.isDraft" />
     </b-form-group>
     <b-button block type="submit" variant="primary">保存</b-button>
   </b-form>
