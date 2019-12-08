@@ -20,7 +20,7 @@
       </b-navbar>
     </div>
     <nuxt />
-    <adsbygoogle :ad-slot="squareAdId" />
+    <adsbygoogle :ad-slot="bottomAdId" />
     <div class="text-center">
       <hr />
       <ShareIcons :share-text="shareText" :share-path="sharePath" />
@@ -61,8 +61,8 @@ export default class Index extends Vue {
   get sharePath(): string {
     return process.env.frontUrl!;
   }
-  get squareAdId(): string {
-    return process.env.squareAdId!;
+  get bottomAdId(): string {
+    return process.env.bottomAdId!;
   }
 }
 </script>

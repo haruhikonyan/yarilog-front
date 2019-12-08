@@ -1,7 +1,7 @@
 <template>
   <section class="container">
     <Breadcrumb :tune="tune" />
-    <adsbygoogle :ad-slot="horizontalAdId" />
+    <adsbygoogle :ad-slot="topAdId" />
     <div>
       <small class="text-muted mb-0">
         {{ tune.playstyle.name }}
@@ -104,7 +104,7 @@ import { PlayingLogsWithCount, PlayingLog } from '../../../models/PlayingLog';
       tune,
       playingLogs: playingLogsWithCount.playingLogs,
       selectedInstrumentId,
-      horizontalAdId: env.horizontalAdId
+      topAdId: env.topAdId
     };
   },
   head(this: Index) {

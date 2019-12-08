@@ -1,7 +1,7 @@
 <template>
   <section class="container">
     <h1>{{ user.nickname }} さん</h1>
-    <adsbygoogle :ad-slot="horizontalAdId" />
+    <adsbygoogle :ad-slot="topAdId" />
     <p>
       自己紹介
     </p>
@@ -26,7 +26,7 @@ import PlayingLogCard from '../../components/PlayingLogCard.vue';
   async asyncData({ app, params, env }) {
     const user = await app.$api.getUser(params.id);
     const playingLogs = await app.$api.getPlayingLogsByUser(params.id, 0, 0);
-    return { user, playingLogs, horizontalAdId: env.horizontalAdId };
+    return { user, playingLogs, topAdId: env.topAdId };
   },
   head(this: Index) {
     const title = `${this.user!.nickname} さんの演奏記録 - みゅーぐ`;
