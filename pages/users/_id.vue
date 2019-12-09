@@ -1,7 +1,7 @@
 <template>
   <section class="container">
     <h1>{{ user.nickname }} さん</h1>
-    <adsbygoogle :ad-slot="topAdId" />
+    <adsbygoogle :ad-slot="topAdId" ad-format="horizontal" />
     <p>
       自己紹介
     </p>

@@ -2,7 +2,7 @@
   <section>
     <Breadcrumb :composer="defaultComposer" :playstyle="defaultPlaystyle" :instrument="defaultInstrument" />
     <h2 class="text-center">{{ searchResultMessage }}</h2>
-    <adsbygoogle :ad-slot="topAdId" />
+    <adsbygoogle :ad-slot="topAdId" ad-format="horizontal" />
     <SearchForm
       :default-search-word="tuneSearchObject.searchWord"
       :default-playstyle-id="tuneSearchObject.playstyleId"

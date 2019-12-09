@@ -29,7 +29,7 @@
             </nuxt-link>
           </div>
         </b-card>
-        <adsbygoogle :ad-slot="topAdId" />
+        <adsbygoogle :ad-slot="topAdId" ad-format="horizontal" />
         <b-card class="mb-2" title="作曲家から探す">
           <div class="d-flex flex-wrap text-left">
             <nuxt-link
@@ -49,7 +49,7 @@
           <PlayingLogCard :playing-log="playingLog" />
         </div>
       </div>
-      <adsbygoogle :ad-slot="middleAdId" />
+      <adsbygoogle :ad-slot="middleAdId" ad-format="horizontal" />
       <b-card class="mb-2 text-center" title="みゅーぐ開発において">
         <pre class="yrl-pre-wrap yrl-info text-left mb-0">
 日本国内で楽器を演奏する人は人口の10%、つまり1200万人以上いると言われています。

@@ -1,7 +1,7 @@
 <template>
   <section class="container">
     <Breadcrumb :playing-log="playingLog" class="mb-0" />
-    <adsbygoogle :ad-slot="topAdId" />
+    <adsbygoogle :ad-slot="topAdId" ad-format="horizontal" />
     <nuxt-link v-if="showEditButton" :to="`/playing-logs/${playingLog.id}/edit`">編集する</nuxt-link>
     <div class="d-flex">
       <!-- TODO ジャンルがたくさんついた時のレイアウト -->

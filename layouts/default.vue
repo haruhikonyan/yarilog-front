@@ -20,7 +20,7 @@
       </b-navbar>
     </div>
     <nuxt />
-    <adsbygoogle :ad-slot="bottomAdId" />
+    <adsbygoogle :ad-slot="bottomAdId" ad-format="horizontal" class="mt-3" />
     <div class="text-center">
       <hr />
       <ShareIcons :share-text="shareText" :share-path="sharePath" />

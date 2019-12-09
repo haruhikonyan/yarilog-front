@@ -1,7 +1,7 @@
 <template>
   <section class="container">
     <Breadcrumb :tune="tune" />
-    <adsbygoogle :ad-slot="topAdId" />
+    <adsbygoogle :ad-slot="topAdId" ad-format="horizontal" />
     <div>
       <small class="text-muted mb-0">
         {{ tune.playstyle.name }}
