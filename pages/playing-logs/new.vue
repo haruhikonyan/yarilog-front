@@ -44,6 +44,10 @@ export default class Index extends Vue {
       window.scrollTo(0, 0);
       return;
     }
+    // 空文字列とか怪しい値は明示的に null にする
+    if (!this.playingLog.playDate) {
+      this.playingLog.playDate = null;
+    }
     const savedPlayingLog = await this.$api.createPlayingLog(this.playingLog);
     this.$router.push(savedPlayingLog.id!);
   }

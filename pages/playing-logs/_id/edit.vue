@@ -33,6 +33,10 @@ import PlayingLogForm from '~/components/PlayingLogForm.vue';
 export default class Index extends Vue {
   playingLog!: PlayingLog;
   async updatePlayingLog() {
+    // 空文字列とか怪しい値は明示的に null にする
+    if (!this.playingLog.playDate) {
+      this.playingLog.playDate = null;
+    }
     const savedPlayingLog = await this.$api.updatePlayingLog(this.playingLog);
     this.$router.push(`/playing-logs/${savedPlayingLog.id!}`);
   }
