@@ -4,7 +4,6 @@
     <adsbygoogle :ad-slot="topAdId" ad-format="horizontal" />
     <div>
       <small class="text-muted mb-0">
-        {{ tune.playstyle.name }}
         <GenreBadge v-for="genre in tune.genres" :key="genre.id" :genre="genre" :is-linkable="true" class="mr-1" />
         <b-badge
           v-if="$store.state.auth && !isEditingGenre"

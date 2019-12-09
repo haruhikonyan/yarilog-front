@@ -17,7 +17,7 @@
       </span>
       <span v-if="requireTuneError && !playingLog.tune" class="text-danger">{{ requireTuneError }}</span>
       <p v-if="playingLog.tune">
-        {{ playingLog.tune.composer.displayName }}作曲 {{ playingLog.tune.title }}({{ playingLog.tune.playstyle.name }})
+        {{ playingLog.tune.composer.displayName }}作曲 {{ playingLog.tune.title }}({{ playingLog.playstyle.name }})
       </p>
       <b-button variant="primary" block @click="$bvModal.show('modal-tune-selector')">演奏曲を選択する</b-button>
       <TuneSelector :playstyles="playstyles" @select-tune="selectTune($event)" />
@@ -27,6 +27,13 @@
           曲・作曲家情報が間違っている
         </nuxt-link>
       </div>
+    </b-form-group>
+    <b-form-group label="演奏形態">
+      <b-form-select v-model="playingLog.playstyle" class="mb-3">
+        <option v-for="playstyle in playstyles" :key="playstyle.id" :value="playstyle.id.toString()">
+          {{ playstyle.name }}
+        </option>
+      </b-form-select>
     </b-form-group>
 
     <b-form-group>

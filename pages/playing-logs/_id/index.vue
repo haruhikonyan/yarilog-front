@@ -6,7 +6,7 @@
     <div class="d-flex">
       <!-- TODO ジャンルがたくさんついた時のレイアウト -->
       <small class="text-muted align-self-end">
-        {{ playingLog.tune.playstyle.name }}
+        {{ playingLog.playstyle.name }}
         <GenreBadge
           v-for="genre in playingLog.tune.genres"
           :key="genre.id"
