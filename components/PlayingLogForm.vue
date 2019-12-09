@@ -6,10 +6,10 @@
         <font-awesome-icon id="tune" v-b-tooltip.hover icon="question-circle" />
         <!-- TODO リンクの色調整 -->
         <b-tooltip target="tune" triggers="hover" custom-class="yrl-playing-log-form-lg-tooltip">
-          演奏曲を選択してください<br />
+          演奏曲を選択してください。<br />
           抜粋に関して無いものは自分で<nuxt-link to="/tunes/new">登録</nuxt-link>をするか、
-          <nuxt-link :to="getInquiryLocation(2)">問い合わせフォーム</nuxt-link>よりリクエストをお願いします<br />
-          もしくは、全曲版を選択してください<br />
+          <nuxt-link :to="getInquiryLocation(2)">問い合わせフォーム</nuxt-link>よりリクエストをお願いします。<br />
+          もしくは、全曲版を選択してください。<br />
           表記の間違えなどを発見した場合はこちらも
           <nuxt-link :to="getInquiryLocation(3)">問い合わせフォーム</nuxt-link>
           より指摘をお願いします。
@@ -42,8 +42,8 @@
         担当パート
         <font-awesome-icon id="instrument" v-b-tooltip.hover icon="question-circle" />
         <b-tooltip target="instrument" triggers="hover" custom-class="yrl-playing-log-form-lg-tooltip">
-          選択肢の中から楽器を選んでください<br />
-          細かい種別や特殊楽器や持ち替えなどはポジションに入力してください
+          選択肢の中から楽器を選んでください。<br />
+          細かい種別や特殊楽器や持ち替えなどはポジションに入力してください。
         </b-tooltip>
       </span>
       <b-form-select v-model="playingLog.instrument" required>
@@ -59,22 +59,21 @@
         <b-badge variant="info">任意</b-badge>
         <font-awesome-icon id="position" v-b-tooltip.hover icon="question-circle" />
         <b-tooltip target="position" triggers="hover" custom-class="yrl-playing-log-form-lg-tooltip">
-          持ち替えなど細かい種別はここの欄に入力してください
+          持ち替えなど細かい種別はここの欄に入力してください。
         </b-tooltip>
       </span>
       <b-form-input v-model="playingLog.position" placeholder="2nd assi"></b-form-input>
     </b-form-group>
 
-    <b-form-group :description="playerLevelDescription">
+    <b-form-group>
       <span slot="label">
         自分のレベル
         <font-awesome-icon id="player-level" v-b-tooltip.hover icon="question-circle" />
         <b-tooltip target="player-level" triggers="hover" custom-class="yrl-playing-log-form-lg-tooltip">
-          目安としてブランクが無いことを前提に<br />
+          目安としてブランクが無いことを前提に、<br />
           初心者；本番経験 〜10回程度<br />
           中級者；本番経験 10〜30回程度<br />
           上級者；本番経験 30〜回程度<br />
-          あまり謙遜をして中級者を選択しがちにならないようにしてください
         </b-tooltip>
       </span>
       <b-form-select v-model="playingLog.playerLevel" required>
@@ -90,10 +89,10 @@
 
     <b-form-group>
       <span slot="label">
-        評価しない
+        点数で評価しない
         <font-awesome-icon id="is-not-evalute" v-b-tooltip.hover icon="question-circle" />
         <b-tooltip target="is-not-evalute" triggers="hover" custom-class="yrl-playing-log-form-lg-tooltip">
-          遠い過去のものなど当時のレベルでの評価ができない場合などは評価を棄権しましょう
+          遠い過去のものなど当時のレベルでの評価ができない場合などは評価を棄権しましょう。
         </b-tooltip>
       </span>
       <b-form-checkbox v-model="isNotEvalute" @change="isNotEvaluteCheckBoxHandler($event)" />
@@ -118,7 +117,7 @@
       </span>
       <b-form-textarea
         v-model="playingLog.impressionOfInteresting"
-        placeholder="4楽章が吹きごたえあって面白かった"
+        placeholder="4楽章が吹きごたえあって面白かった。"
         rows="3"
         max-rows="6"
       ></b-form-textarea>
@@ -131,7 +130,7 @@
       </span>
       <b-form-textarea
         v-model="playingLog.impressionOfDifficulty"
-        placeholder="3楽章のメロディー合わせるのに苦労した"
+        placeholder="3楽章のメロディー合わせるのに苦労した。"
         rows="3"
         max-rows="6"
       ></b-form-textarea>
@@ -144,7 +143,7 @@
       </span>
       <b-form-textarea
         v-model="playingLog.reflectionForNext"
-        placeholder="1楽章 B のところからのリズムもっと練習する"
+        placeholder="1楽章 B のところからのリズムもっと練習する。"
         rows="3"
         max-rows="6"
       ></b-form-textarea>
@@ -157,7 +156,7 @@
       </span>
       <b-form-textarea
         v-model="playingLog.otherPartInpression"
-        placeholder="4楽章コーダの弦楽器の細かい音符が難しそうだった"
+        placeholder="4楽章コーダの弦楽器の細かい音符が難しそうだった。"
         rows="3"
         max-rows="6"
       ></b-form-textarea>
@@ -184,7 +183,7 @@
         演奏団体
         <b-badge variant="info">任意</b-badge>
       </span>
-      <b-form-input v-model="playingLog.team" placeholder="読売日本交響楽団"></b-form-input>
+      <b-form-input v-model="playingLog.team" placeholder="みゅーぐ管弦楽団"></b-form-input>
     </b-form-group>
 
     <b-form-group>
@@ -194,12 +193,12 @@
       </span>
       <b-form-textarea
         v-model="playingLog.secretMemo"
-        placeholder="風邪で本調子ではなかった 憧れの先輩の隣で演奏できた 指揮者がかっこよかった"
+        placeholder="風邪で本調子ではなかった。憧れの先輩の隣で演奏できた。指揮者がかっこよかった。"
         rows="3"
         max-rows="6"
       ></b-form-textarea>
     </b-form-group>
-    <b-form-group label="下書き" description="下書きを有効にすると、自分しか閲覧できないようになります">
+    <b-form-group label="下書き" description="下書きを有効にすると、自分しか閲覧できないようになります。">
       <b-form-checkbox v-model="playingLog.isDraft" />
     </b-form-group>
     <b-button block type="submit" variant="primary">保存</b-button>
@@ -239,10 +238,6 @@ export default class PlayingLogForm extends Vue {
 
   get inquiryMistakeLocation() {
     return { path: '/inquiry', query: { inquiryTypeId: '2' } };
-  }
-
-  get playerLevelDescription() {
-    return this.playingLog.playerLevel === this.playerLevelList.INTERMEDIATE ? '謙遜して中級者を選んでませんか？' : '';
   }
   // TODO 共通化 utilプラグインとか？
   getInquiryLocation(inquiryTypeId: number) {
