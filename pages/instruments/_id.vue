@@ -6,7 +6,7 @@
       :total-count="totalCount"
       :offset="offset"
       :per-page="perPage"
-      :default-instrument-id="defaultInstrumentId"
+      :default-instrument-id="defaultInstrument.id"
       @on-search="search($event)"
       @on-pagenation-input="pagenationInputHandler($event)"
     />
@@ -17,11 +17,12 @@
 import { Component, Vue } from 'vue-property-decorator';
 import SearchResult from '~/components/SearchResult.vue';
 import { TuneSearchObject, Tune } from '../../models/Tune';
+import { Instrument } from '../../models/Instrument';
 @Component({
   components: {
     SearchResult
   },
-  async asyncData({ app, query, params }) {
+  async asyncData({ app, query, params, store }) {
     // Tune の最大表示数を 10 に設定
     const perPage: number = 10;
     const tuneSearchObject: TuneSearchObject = {
@@ -36,13 +37,12 @@ import { TuneSearchObject, Tune } from '../../models/Tune';
     const offset = isNaN(Number(offsetString)) ? 0 : Number(offsetString);
     // tune に紐づく PlayingLog は最大5件にしておく
     const { tunes, totalCount } = await app.$api.searchTunes(tuneSearchObject, offset, perPage, 5);
-    return { tunes, totalCount, tuneSearchObject, offset, perPage, defaultInstrumentId: params.id };
+    const defaultInstrument = store.state.instruments.find(i => i.id.toString() === params.id);
+    return { tunes, totalCount, tuneSearchObject, offset, perPage, defaultInstrument };
   },
   head(this: Index) {
-    // TODO 楽器ページ用にする
-    const searchWord = this.tuneSearchObject.searchWord || '';
-    const title = `${searchWord} 曲検索結果 - みゅーぐ`;
-    const description = `${searchWord} 曲検索結果`;
+    const title = `${this.defaultInstrument.name} 曲検索結果 - みゅーぐ`;
+    const description = `${this.defaultInstrument.name} 曲検索結果`;
 
     return {
       title,
@@ -69,6 +69,7 @@ export default class Index extends Vue {
   offset!: number;
   currentPage!: number;
   perPage!: number;
+  defaultInstrument!: Instrument;
 
   defaultPlaystyleId!: number | null;
 

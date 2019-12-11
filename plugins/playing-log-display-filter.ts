@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import { PlayingLog } from '~/models/PlayingLog';
 
-const displaydate = (playDate: string | Date | null): string => {
+const convartDisplayDate = (playDate: string | Date | null): string => {
   if (!playDate) {
     return ``;
   }
@@ -13,10 +13,11 @@ const displaydate = (playDate: string | Date | null): string => {
 };
 
 Vue.filter('displayPlayInfo', (playingLog: PlayingLog) => {
-  // TODO どのパラメータもない場合考慮
+  // TODO ブラッシアップ
   const displayTeam = playingLog.team || '';
   const displayScene = playingLog.scene || '';
-  return `${displaydate(playingLog.playDate)} ${displayTeam} ${displayScene}にて演奏`;
+  const displayDate = convartDisplayDate(playingLog.playDate);
+  return displayTeam || displayScene || displayDate ? `${displayDate} ${displayTeam} ${displayScene}にて演奏` : '';
 });
 
 Vue.filter('displayArranger', (arranger: string) => {

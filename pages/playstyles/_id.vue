@@ -15,12 +15,12 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import SearchResult from '~/components/SearchResult.vue';
-import { TuneSearchObject, Tune } from '../../models/Tune';
+import { TuneSearchObject, Tune, PlayStyle } from '../../models/Tune';
 @Component({
   components: {
     SearchResult
   },
-  async asyncData({ app, query, params }) {
+  async asyncData({ app, query, params, store }) {
     // Tune の最大表示数を 10 に設定
     const perPage: number = 10;
     const tuneSearchObject: TuneSearchObject = {
@@ -35,14 +35,14 @@ import { TuneSearchObject, Tune } from '../../models/Tune';
     const offset = isNaN(Number(offsetString)) ? 0 : Number(offsetString);
     // tune に紐づく PlayingLog は最大5件にしておく
     const { tunes, totalCount } = await app.$api.searchTunes(tuneSearchObject, offset, perPage, 5);
-    return { tunes, totalCount, tuneSearchObject, offset, perPage };
+    const defaultPlaystyle = store.state.playstyles.find(p => p.id.toString() === params.id);
+    return { tunes, totalCount, tuneSearchObject, offset, perPage, defaultPlaystyle };
   },
 
   head(this: Index) {
     // TODO ジャンルページ用にする
-    const searchWord = this.tuneSearchObject.searchWord || '';
-    const title = `${searchWord} 曲検索結果 - みゅーぐ`;
-    const description = `${searchWord} 曲検索結果`;
+    const title = `${this.defaultPlaystyle.name} 曲検索結果 - みゅーぐ`;
+    const description = `${this.defaultPlaystyle.name} 曲検索結果`;
 
     return {
       title,
@@ -69,6 +69,7 @@ export default class Index extends Vue {
   offset!: number;
   currentPage!: number;
   perPage!: number;
+  defaultPlaystyle!: PlayStyle;
 
   async search(tuneSearchObject: TuneSearchObject) {
     this.tuneSearchObject = tuneSearchObject;
