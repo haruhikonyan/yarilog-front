@@ -16,9 +16,7 @@
         </b-tooltip>
       </span>
       <span v-if="requireTuneError && !playingLog.tune" class="text-danger">{{ requireTuneError }}</span>
-      <p v-if="playingLog.tune">
-        {{ playingLog.tune.composer.displayName }}作曲 {{ playingLog.tune.title }}({{ playingLog.playstyle.name }})
-      </p>
+      <p v-if="playingLog.tune">{{ playingLog.tune.composer.displayName }}作曲 {{ playingLog.tune.title }}</p>
       <b-button variant="primary" block @click="$bvModal.show('modal-tune-selector')">演奏曲を選択する</b-button>
       <TuneSelector :playstyles="playstyles" @select-tune="selectTune($event)" />
       <div class="d-flex small">

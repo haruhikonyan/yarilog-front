@@ -37,16 +37,27 @@
       <div>面白さ<StarRating :rate="(tune.averageInteresting / 5) * 100" />{{ tune.averageInteresting || '-' }}</div>
       <div>体力<StarRating :rate="(tune.averagePhysicality / 5) * 100" />{{ tune.averagePhysicality || '-' }}</div>
       <div>難易度<StarRating :rate="(tune.averageDifficulty / 5) * 100" />{{ tune.averageDifficulty || '-' }}</div>
-      <div class="d-flex">
+      <div class="d-flex mt-2">
         <b-form-select
           v-model="selectedInstrumentId"
           size="sm"
-          class="w-auto mt-2"
-          @change="selectedInstrumentChangeHandler($event)"
+          class="w-auto mr-2"
+          @change="selectedSortChangeHandler($event)"
         >
           <option value="">全楽器</option>
           <option v-for="instrument in $store.state.instruments" :key="instrument.id" :value="instrument.id">
             {{ instrument.shortName }}
+          </option>
+        </b-form-select>
+        <b-form-select
+          v-model="selectedPlaystyleId"
+          size="sm"
+          class="w-auto"
+          @change="selectedSortChangeHandler($event)"
+        >
+          <option value="">全編成</option>
+          <option v-for="playstyle in $store.state.playstyles" :key="playstyle.id" :value="playstyle.id">
+            {{ playstyle.name }}
           </option>
         </b-form-select>
         <nuxt-link class="small ml-auto align-self-end" :to="createPlayingLogLocation">
@@ -91,10 +102,12 @@ import { PlayingLogsWithCount, PlayingLog } from '../../../models/PlayingLog';
   async asyncData({ app, params, query, env }) {
     const tune = await app.$api.getTune(params.id);
     const selectedInstrumentId = query.selectedInstrumentId || '';
+    const selectedPlaystyleId = query.selectedPlaystyleId || '';
     // 最新10件表示
     const playingLogsWithCount: PlayingLogsWithCount = await app.$api.searchPlayingLogs(
       null,
       selectedInstrumentId,
+      selectedPlaystyleId,
       params.id,
       0,
       10
@@ -103,6 +116,7 @@ import { PlayingLogsWithCount, PlayingLog } from '../../../models/PlayingLog';
       tune,
       playingLogs: playingLogsWithCount.playingLogs,
       selectedInstrumentId,
+      selectedPlaystyleId,
       topAdId: env.topAdId
     };
   },
@@ -132,6 +146,7 @@ export default class Index extends Vue {
   isEditingGenre: boolean = false;
   addGenreName: string | null = null;
   selectedInstrumentId!: string;
+  selectedPlaystyleId!: string;
   playingLogs!: PlayingLog[];
 
   get createPlayingLogLocation() {
@@ -178,17 +193,19 @@ export default class Index extends Vue {
     this.addGenreName = null;
     this.isEditingGenre = false;
   }
-  async selectedInstrumentChangeHandler(selectedInstrumentId: string) {
+  async selectedSortChangeHandler() {
     const playingLogsWithCount: PlayingLogsWithCount = await this.$api.searchPlayingLogs(
       null,
-      selectedInstrumentId,
+      this.selectedInstrumentId,
+      this.selectedPlaystyleId,
       this.tune.id!.toString(),
       0,
       5
     );
     this.$router.push({
       query: {
-        selectedInstrumentId
+        selectedInstrumentId: this.selectedInstrumentId,
+        selectedPlaystyleId: this.selectedPlaystyleId
       }
     });
     this.playingLogs = playingLogsWithCount.playingLogs;

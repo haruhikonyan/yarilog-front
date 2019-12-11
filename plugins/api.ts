@@ -168,6 +168,7 @@ export class Api {
   searchPlayingLogs(
     searchWord: string | null,
     instrumentId?: string | null,
+    playstyleId?: string | null,
     tuneId?: string | null,
     offset?: number,
     limit?: number
@@ -178,6 +179,7 @@ export class Api {
         searchWord,
         tuneId,
         instrumentId,
+        playstyleId,
         offset,
         limit
       }
