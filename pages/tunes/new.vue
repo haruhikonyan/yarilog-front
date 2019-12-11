@@ -17,8 +17,8 @@
         <b-form-group label="タイトル" description="作曲家の名前は含めないように">
           <b-form-input v-model="newTune.title" required placeholder="交響曲第1番 ハ長調"></b-form-input>
         </b-form-group>
-        <b-form-group label="演奏形態">
-          <b-form-select v-model="newTune.playstyle" class="mb-3">
+        <b-form-group label="編成">
+          <b-form-select v-model="newTune.playstyle">
             <option v-for="playstyle in playstyles" :key="playstyle.id" :value="playstyle.id.toString()">
               {{ playstyle.name }}
             </option>
