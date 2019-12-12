@@ -1,9 +1,15 @@
 <template>
   <div>
-    <b-modal id="modal-tune-selector" title-class="flex-grow-1" scrollable>
+    <b-modal id="modal-tune-selector" title-class="flex-grow-1" content-class="yrl-tune-selector-modal" scrollable>
       <div slot="modal-title">
-        演奏曲選択
-        <b-form-input v-if="selectMode === SELECT_MODE.TUNE" v-model="filterStrings" size="sm" placeholder="絞り込む" />
+        演奏曲選択{{ displaySelectedComposerName }}
+        <b-form-input
+          v-if="selectMode === SELECT_MODE.TUNE"
+          v-model="filterStrings"
+          size="sm"
+          placeholder="絞り込む"
+          class="mt-1"
+        />
       </div>
       <div v-if="selectMode === SELECT_MODE.COMPOSER">
         <ComposerSelector placeholder="作曲家検索" display-attribute="fullName" @on-select="onSelectComposer($event)" />
@@ -54,17 +60,20 @@ export default class TuneSelector extends Vue {
   // template から参照できるように代入
   SELECT_MODE = SELECT_MODE;
 
-  selectedComposerId: number | null = null;
+  selectedComposer: Composer | null = null;
   tunesGroupByComposerList: TunesGroupByComposer[] = [];
 
   // 絞り込み文字列
   filterStrings = '';
 
   get selectMode(): SELECT_MODE {
-    return this.selectedComposerId ? SELECT_MODE.TUNE : SELECT_MODE.COMPOSER;
+    return this.selectedComposer ? SELECT_MODE.TUNE : SELECT_MODE.COMPOSER;
   }
 
   async onSelectComposer(composer: Composer) {
+    if (!composer) {
+      return;
+    }
     const targetTgbp = this.tunesGroupByComposerList.find(tgbc => tgbc.composer.id === composer.id);
     // 作曲家に対して曲が未取得であれば API を叩いて曲を取得しにいく
     if (!targetTgbp) {
@@ -73,15 +82,22 @@ export default class TuneSelector extends Vue {
       newTgbc.tunes = await this.$api.getTunesByComposerId(composer.id!);
       this.tunesGroupByComposerList.push(newTgbc);
     }
-    this.selectedComposerId = composer.id!;
+    this.selectedComposer = composer;
     this.filterStrings = '';
   }
 
   // 選択する tunes を返す
   get selectingTunes(): Tune[] {
-    const targetTgbp = this.tunesGroupByComposerList.find(tgbc => tgbc.composer.id === this.selectedComposerId);
+    if (!this.selectedComposer) {
+      return [];
+    }
+    const targetTgbp = this.tunesGroupByComposerList.find(tgbc => tgbc.composer.id === this.selectedComposer!.id);
     const tunes = targetTgbp!.tunes.filter(tune => tune.title.includes(this.filterStrings));
     return this.sortTunes(tunes);
+  }
+
+  get displaySelectedComposerName() {
+    return this.selectedComposer ? ` / ${this.selectedComposer.displayName}` : '';
   }
 
   sortTunes(tunes: Tune[]): Tune[] {
@@ -139,15 +155,20 @@ export default class TuneSelector extends Vue {
   selectTune(tune: Tune) {
     // モーダルを閉じる
     this.$bvModal.hide('modal-tune-selector');
-    // 作曲家、を未選択状態にする
-    this.selectedComposerId = null;
+    // 作曲家を未選択状態にする
+    this.selectedComposer = null;
     this.filterStrings = '';
     return tune;
   }
 
   cancelSelectTune() {
     this.filterStrings = '';
-    this.selectedComposerId = null;
+    this.selectedComposer = null;
   }
 }
 </script>
+<style lang="scss">
+.yrl-tune-selector-modal {
+  height: calc(100vh - 5rem);
+}
+</style>
