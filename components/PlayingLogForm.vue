@@ -21,14 +21,14 @@
       <TuneSelector @select-tune="selectTune($event)" />
       <div class="d-flex small">
         <nuxt-link to="/tunes/new">曲作成</nuxt-link>
-        <nuxt-link class=" ml-auto align-self-end" :to="inquiryMistakeLocation">
+        <nuxt-link class="ml-auto align-self-end" :to="inquiryMistakeLocation">
           曲・作曲家情報が間違っている
         </nuxt-link>
       </div>
     </b-form-group>
-    <b-form-group label="演奏形態">
-      <b-form-select v-model="playingLog.playstyle" class="mb-3">
-        <option v-for="playstyle in playstyles" :key="playstyle.id" :value="playstyle.id.toString()">
+    <b-form-group label="編成">
+      <b-form-select v-model="playingLog.playstyle">
+        <option v-for="playstyle in playstyles" :key="playstyle.id" :value="playstyle">
           {{ playstyle.name }}
         </option>
       </b-form-select>
@@ -44,7 +44,7 @@
 
     <b-form-group>
       <span slot="label">
-        担当パート
+        担当楽器
         <font-awesome-icon id="instrument" v-b-tooltip.hover icon="question-circle" />
         <b-tooltip target="instrument" triggers="hover" custom-class="yrl-playing-log-form-lg-tooltip">
           選択肢の中から楽器を選んでください<br />
@@ -257,6 +257,7 @@ export default class PlayingLogForm extends Vue {
   // TuneSelector で選択された tune を playingLog にセットする
   selectTune(tune: Tune) {
     this.$set(this.playingLog, 'tune', tune);
+    this.playingLog.playstyle = tune.playstyle;
   }
   @Emit('on-submit')
   submitHandler() {}

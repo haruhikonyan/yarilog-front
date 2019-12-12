@@ -1,5 +1,6 @@
 <template>
   <nuxt-link :to="`/playing-logs/${playingLog.id}`">
+    <div class="text-center">{{ playingLog.playstyle.name }}{{ playingLog.arranger | displayArranger }}</div>
     <small>
       {{ playingLog.instrument.name }} {{ playingLog.position }} <b-badge>{{ playingLog.playerLevel }}</b-badge>
     </small>
