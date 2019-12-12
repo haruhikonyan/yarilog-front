@@ -1,4 +1,6 @@
 $enable-responsive-font-sizes: true;
+// TODO $gray-500 で指定したい
+$input-placeholder-color: #adb5bd;
 
 @import './custom-bootstrap-variables';
 @import 'bootstrap/scss/bootstrap.scss';
