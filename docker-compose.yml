@@ -19,10 +19,6 @@ services:
       # baseApiUrl: 'http://172.17.0.1:8080'
       baseBrouserApiUrl: 'http://localhost:8080'
       frontUrl: 'http://localhost:3000'
-      adsenseId: ca-pub-2000087028074553
-      topAdId: '7344773790'
-      middleAdId: '3464350488'
-      bottomAdId: '4055415419'
     working_dir: /yarilog-front
 # volumes:
   # node-modules-data:
