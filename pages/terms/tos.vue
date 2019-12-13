@@ -4,7 +4,7 @@
       <h1>
         利用規約
       </h1>
-      <pre>
+      <pre class="yrl-pre-wrap">
         {{ tos }}
       </pre>
     </div>

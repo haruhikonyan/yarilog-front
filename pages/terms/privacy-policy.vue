@@ -4,7 +4,7 @@
       <h1>
         プライバシーポリシー
       </h1>
-      <pre>
+      <pre class="yrl-pre-wrap">
         {{ privacyPolicy }}
       </pre>
     </div>

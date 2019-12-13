@@ -16,17 +16,22 @@
         </b-tooltip>
       </span>
       <span v-if="requireTuneError && !playingLog.tune" class="text-danger">{{ requireTuneError }}</span>
-      <p v-if="playingLog.tune">
-        {{ playingLog.tune.composer.displayName }}作曲 {{ playingLog.tune.title }}({{ playingLog.tune.playstyle.name }})
-      </p>
+      <p v-if="playingLog.tune">{{ playingLog.tune.composer.displayName }}作曲 {{ playingLog.tune.title }}</p>
       <b-button variant="primary" block @click="$bvModal.show('modal-tune-selector')">演奏曲を選択する</b-button>
-      <TuneSelector :playstyles="playstyles" @select-tune="selectTune($event)" />
+      <TuneSelector @select-tune="selectTune($event)" />
       <div class="d-flex small">
         <nuxt-link to="/tunes/new">曲作成</nuxt-link>
-        <nuxt-link class=" ml-auto align-self-end" :to="inquiryMistakeLocation">
+        <nuxt-link class="ml-auto align-self-end" :to="inquiryMistakeLocation">
           曲・作曲家情報が間違っている
         </nuxt-link>
       </div>
+    </b-form-group>
+    <b-form-group label="編成">
+      <b-form-select v-model="playingLog.playstyle">
+        <option v-for="playstyle in playstyles" :key="playstyle.id" :value="playstyle">
+          {{ playstyle.name }}
+        </option>
+      </b-form-select>
     </b-form-group>
 
     <b-form-group>
@@ -39,7 +44,7 @@
 
     <b-form-group>
       <span slot="label">
-        担当パート
+        担当楽器
         <font-awesome-icon id="instrument" v-b-tooltip.hover icon="question-circle" />
         <b-tooltip target="instrument" triggers="hover" custom-class="yrl-playing-log-form-lg-tooltip">
           選択肢の中から楽器を選んでください。<br />
@@ -219,7 +224,7 @@ import TuneSelector from './TuneSelector.vue';
   }
 })
 export default class PlayingLogForm extends Vue {
-  // 曲を検索するための演奏形態一覧を受け取る
+  // 演奏記録に選択するための編成
   @Prop({ type: Array as PropType<PlayStyle[]>, required: true })
   playstyles!: PlayStyle[];
   @Prop({ type: Array as PropType<Instrument[]>, required: true })
@@ -247,6 +252,7 @@ export default class PlayingLogForm extends Vue {
   // TuneSelector で選択された tune を playingLog にセットする
   selectTune(tune: Tune) {
     this.$set(this.playingLog, 'tune', tune);
+    this.playingLog.playstyle = tune.playstyle;
   }
   @Emit('on-submit')
   submitHandler() {}

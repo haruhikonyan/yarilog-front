@@ -4,7 +4,6 @@
       <nuxt-link slot="header" class="d-flex justify-content-between" :to="`/tunes/${tune.id}`">
         <div>
           <h6 class="text-muted mb-0">
-            {{ tune.playstyle.name }}
             <GenreBadge v-for="genre in tune.genres" :key="genre.id" :genre="genre" class="mr-1" />
           </h6>
           <h4>{{ tune.title }}</h4>

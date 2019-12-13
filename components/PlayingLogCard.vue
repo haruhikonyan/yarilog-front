@@ -11,7 +11,7 @@
         />
         <div v-if="playingLog.isDraft" class="text-center">下書き</div>
         <div class="text-muted small text-center mb-0">
-          {{ playingLog.tune.playstyle.name }}
+          {{ playingLog.playstyle.name }}
         </div>
         <GenreBadge v-for="genre in playingLog.tune.genres" :key="genre.id" :genre="genre" class="mr-1" />
         <h6>{{ playingLog.tune.title }}</h6>

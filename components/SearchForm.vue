@@ -3,7 +3,7 @@
     <div class="d-flex">
       <b-input v-model="searchWord" :placeholder="placeholder"></b-input>
       <b-form-select v-model="selectedPlaystyleId" class="w-auto">
-        <option value="">演奏形態</option>
+        <option value="">編成</option>
         <option v-for="playstyle in playstyles" :key="playstyle.id" :value="playstyle.id.toString()">
           {{ playstyle.name }}
         </option>
