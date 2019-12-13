@@ -13,12 +13,22 @@
       </div>
       <div v-if="selectMode === SELECT_MODE.COMPOSER">
         <ComposerSelector placeholder="作曲家検索" display-attribute="fullName" @on-select="onSelectComposer($event)" />
+        <div class="mt-2">
+          作曲家が見つからない場合は
+        </div>
+        <nuxt-link :to="getInquiryLocation(3)">こちらからリクエスト</nuxt-link>するか、<br />
+        <nuxt-link to="/composers/new">作曲家の新規作成</nuxt-link>をお願いします。
       </div>
-      <b-list-group v-if="selectMode === SELECT_MODE.TUNE">
-        <b-list-group-item v-for="tune in selectingTunes" :key="tune.id" @click="selectTune(tune)">
-          <span>{{ tune.title }}</span>
-        </b-list-group-item>
-      </b-list-group>
+      <div v-if="selectMode === SELECT_MODE.TUNE">
+        <b-list-group>
+          <b-list-group-item v-for="tune in selectingTunes" :key="tune.id" @click="selectTune(tune)">
+            <span>{{ tune.title }}</span>
+          </b-list-group-item>
+        </b-list-group>
+        <div class="mt-2">{{ displayCreateTuneReccomendString }}</div>
+        <nuxt-link :to="getInquiryLocation(3)">こちらから曲をリクエスト</nuxt-link>するか、<br />
+        <nuxt-link to="/tunes/new">曲の新規作成</nuxt-link>をお願いします。
+      </div>
       <div slot="modal-footer" class="w-100">
         <b-button v-if="selectMode === SELECT_MODE.TUNE" class="float-left" @click="cancelSelectTune">
           作曲家検索へ戻る
@@ -98,6 +108,15 @@ export default class TuneSelector extends Vue {
 
   get displaySelectedComposerName() {
     return this.selectedComposer ? ` / ${this.selectedComposer.displayName}` : '';
+  }
+
+  get displayCreateTuneReccomendString() {
+    return this.selectingTunes.length === 0 ? 'まだ曲が登録されていません。' : '曲が見つからない場合は、';
+  }
+
+  // TODO 共通化 utilプラグインとか？
+  getInquiryLocation(inquiryTypeId: number) {
+    return { path: '/inquiry', query: { inquiryTypeId: inquiryTypeId.toString() } };
   }
 
   sortTunes(tunes: Tune[]): Tune[] {
