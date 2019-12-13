@@ -30,6 +30,7 @@ import PlayingLogForm from '~/components/PlayingLogForm.vue';
     const tuneId = query.tuneId;
     if (tuneId) {
       playingLog.tune = await app.$api.getTune(tuneId);
+      playingLog.playstyle = playingLog.tune.playstyle;
     }
     return { playingLog };
   }

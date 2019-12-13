@@ -26,7 +26,14 @@
         </nuxt-link>
       </div>
     </b-form-group>
-    <b-form-group label="編成">
+    <b-form-group>
+      <span slot="label">
+        編成
+        <font-awesome-icon id="playstyle" v-b-tooltip.hover icon="question-circle" />
+        <b-tooltip target="playstyle" triggers="hover" custom-class="yrl-playing-log-form-lg-tooltip">
+          演奏した編成を選択してください。
+        </b-tooltip>
+      </span>
       <b-form-select v-model="playingLog.playstyle">
         <option v-for="playstyle in playstyles" :key="playstyle.id" :value="playstyle">
           {{ playstyle.name }}
@@ -38,6 +45,10 @@
       <span slot="label">
         編曲者
         <b-badge variant="info">任意</b-badge>
+        <font-awesome-icon id="arranger" v-b-tooltip.hover icon="question-circle" />
+        <b-tooltip target="arranger" triggers="hover" custom-class="yrl-playing-log-form-lg-tooltip">
+          オリジナルの楽譜とは違う編曲版の場合は編曲者の名前を入れてください。
+        </b-tooltip>
       </span>
       <b-form-input v-model="playingLog.arranger" placeholder="ラヴェル"></b-form-input>
     </b-form-group>
@@ -122,7 +133,7 @@
       </span>
       <b-form-textarea
         v-model="playingLog.impressionOfInteresting"
-        placeholder="4楽章が吹きごたえあって面白かった。"
+        :placeholder="'2楽章中間部の掛け合いがたまらなく楽しい。\n4楽章が吹きごたえあって面白かった。'"
         rows="3"
         max-rows="6"
       ></b-form-textarea>
@@ -135,7 +146,7 @@
       </span>
       <b-form-textarea
         v-model="playingLog.impressionOfDifficulty"
-        placeholder="3楽章のメロディー合わせるのに苦労した。"
+        :placeholder="'冒頭のリズムは各パターンを覚えてないと厳しい。\n3楽章のメロディーの音程合わせるのに苦労した。'"
         rows="3"
         max-rows="6"
       ></b-form-textarea>
