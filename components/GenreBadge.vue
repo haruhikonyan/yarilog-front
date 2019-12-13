@@ -1,8 +1,8 @@
 <template>
-  <b-badge v-if="isLinkable" class="yrl-genre-badge" :to="`/genres/${genre.id}`">
+  <b-badge v-if="isLinkable" :to="`/genres/${genre.id}`">
     <span>{{ genre.name }}</span>
   </b-badge>
-  <b-badge v-else class="yrl-genre-badge">
+  <b-badge v-else>
     <span>{{ genre.name }}</span>
   </b-badge>
 </template>
@@ -20,9 +20,3 @@ export default class GenreBadge extends Vue {
   isLinkable!: Boolean;
 }
 </script>
-
-<style lang="scss" scoped>
-.yrl-genre-badge {
-  background-color: rgb(246, 206, 173);
-}
-</style>

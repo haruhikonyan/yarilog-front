@@ -39,10 +39,8 @@
           </div>
         </div>
       </div>
-      <b-badge style="background-color: rgb(246, 206, 173);">{{ playingLog.playerLevel }}</b-badge>
-      <b-badge style="background-color: rgb(246, 206, 173);"
-        >{{ playingLog.instrument.shortName }} {{ playingLog.position }}</b-badge
-      >
+      <b-badge>{{ playingLog.playerLevel }}</b-badge>
+      <b-badge>{{ playingLog.instrument.shortName }} {{ playingLog.position }}</b-badge>
     </b-card>
   </nuxt-link>
 </template>
