@@ -143,12 +143,14 @@
 
     <b-form-group>
       <span slot="label">
-        次回への反省やアドバイス
+        次回への反省やアドバイス、譜面情報
         <b-badge variant="info">任意</b-badge>
       </span>
       <b-form-textarea
         v-model="playingLog.reflectionForNext"
-        placeholder="1楽章 B のところからのリズムもっと練習する。"
+        :placeholder="
+          '1楽章 B のところからのリズムもっと練習する。\n最高音：B、最低音；LowCis\n4楽章ミュート使用箇所あり。'
+        "
         rows="3"
         max-rows="6"
       ></b-form-textarea>
@@ -198,7 +200,7 @@
       </span>
       <b-form-textarea
         v-model="playingLog.secretMemo"
-        placeholder="風邪で本調子ではなかった。憧れの先輩の隣で演奏できた。指揮者がかっこよかった。"
+        :placeholder="'風邪で本調子ではなかった。\n憧れの先輩の隣で演奏できた。\n指揮者がかっこよかった。'"
         rows="3"
         max-rows="6"
       ></b-form-textarea>
