@@ -5,7 +5,7 @@
     </h1>
     <div class="row no-gutters">
       <div class="col-6">
-        <b-button squared block size="lg" class="border" @click="authTwitter">
+        <b-button squared block size="lg" class="border" variant="white" @click="authTwitter">
           <font-awesome-layers>
             <font-awesome-icon :icon="['fab', 'twitter']" style="color: #55acee" />
           </font-awesome-layers>
@@ -13,7 +13,7 @@
         </b-button>
       </div>
       <div class="col-6">
-        <b-button squared block size="lg" class="border" @click="authFacebook">
+        <b-button squared block size="lg" class="border" variant="white" @click="authFacebook">
           <font-awesome-layers>
             <font-awesome-icon :icon="['fab', 'facebook']" style="color: #3b5998" />
           </font-awesome-layers>
@@ -21,7 +21,7 @@
         </b-button>
       </div>
       <div class="col-6">
-        <b-button squared block size="lg" class="border" @click="authGoogle">
+        <b-button squared block size="lg" class="border" variant="white" @click="authGoogle">
           <font-awesome-layers>
             <font-awesome-icon :icon="['fab', 'google']" />
           </font-awesome-layers>
@@ -41,7 +41,7 @@
         </svg>
       </div>
       <div class="col-6">
-        <b-button squared block size="lg" class="border" @click="authLine">
+        <b-button squared block size="lg" class="border" variant="white" @click="authLine">
           <font-awesome-layers>
             <font-awesome-icon :icon="['fab', 'line']" style="color: #00B900" />
           </font-awesome-layers>

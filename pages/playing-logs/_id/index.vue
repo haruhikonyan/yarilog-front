@@ -29,7 +29,7 @@
     </h5>
     <div class="text-muted text-center mb-3">
       {{ playingLog.instrument.name }} {{ playingLog.position }}
-      <b-badge style="background-color: rgb(246, 206, 173);">{{ playingLog.playerLevel }}</b-badge>
+      <b-badge>{{ playingLog.playerLevel }}</b-badge>
     </div>
     <b-card v-if="playingLog.impressionOfInteresting" class="mb-2" title="面白かったところ">
       <b-card-text>

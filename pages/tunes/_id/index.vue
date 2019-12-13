@@ -5,12 +5,7 @@
     <div>
       <small class="text-muted mb-0">
         <GenreBadge v-for="genre in tune.genres" :key="genre.id" :genre="genre" :is-linkable="true" class="mr-1" />
-        <b-badge
-          v-if="$store.state.auth && !isEditingGenre"
-          style="background-color: rgb(246, 206, 173);"
-          variant="primary"
-          @click="addGenreHandler"
-        >
+        <b-badge v-if="$store.state.auth && !isEditingGenre" @click="addGenreHandler">
           ジャンル追加
         </b-badge>
       </small>
