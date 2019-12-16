@@ -70,12 +70,15 @@ export default class Breadcrumb extends Vue {
       }
     ];
   }
-  // 演奏形態->作曲家->曲->楽器->演奏記録
+  // 作曲家->曲->編成->楽器->演奏記録
   private generatePlaingLogItems(playingLog: PlayingLog): Object[] {
     const tune = playingLog.tune;
+    const playstyle = playingLog.playstyle;
     const instrument = playingLog.instrument;
+    // TODO リンクはその曲のものにする
     return [
       this.generateTuneItems(tune),
+      this.generatePlaystyleItems(playstyle),
       this.generateInstrumentItems(instrument),
       {
         text: `${playingLog.user.nickname}さん演奏`,
@@ -84,12 +87,11 @@ export default class Breadcrumb extends Vue {
     ].flat();
   }
 
-  // 演奏形態->作曲家->曲
+  // TODO 編成と楽器を受け取って、その曲の編成と楽器のリンクを生成する
+  // private generateTuneItems(tune: Tune, playstyle: PlayStyle, instrument: Instrument): Object[] {
   private generateTuneItems(tune: Tune): Object[] {
     const composer = tune.composer;
-    const playstyle = tune.playstyle;
     return [
-      this.generatePlaystyleItems(playstyle),
       this.generateComposerItems(composer),
       {
         text: tune.title,
