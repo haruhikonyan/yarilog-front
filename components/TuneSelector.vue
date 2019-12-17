@@ -174,8 +174,6 @@ export default class TuneSelector extends Vue {
   selectTune(tune: Tune) {
     // モーダルを閉じる
     this.$bvModal.hide('modal-tune-selector');
-    // 作曲家を未選択状態にする
-    this.selectedComposer = null;
     this.filterStrings = '';
     return tune;
   }
