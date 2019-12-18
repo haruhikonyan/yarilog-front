@@ -28,6 +28,11 @@ export default class Index extends Vue {
     Cookie.set('token', this.$store.state.auth.token);
   }
   beforeMount() {
+    // 新規登録であればアナリティクスへイベントを送る
+    const newUserProvider = this.$route.query.newUserProvider;
+    if (newUserProvider) {
+      this.$ga.event('登録', '新規ユーザ作成', newUserProvider, 1);
+    }
     // beforeMount でやるのがよいかわからない(sessionStorageが使えるのがこのタイミング)
     // callbackPath があればそっちへリダイレクトする
     const callbackPath = sessionStorage.getItem('callbackPath');
