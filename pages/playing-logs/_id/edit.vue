@@ -38,6 +38,14 @@ export default class Index extends Vue {
       this.playingLog.playDate = null;
     }
     const savedPlayingLog = await this.$api.updatePlayingLog(this.playingLog);
+    // 非公開から公開へ変更
+    if (this.playingLog.isDraft && !savedPlayingLog.isDraft) {
+      this.$ga.event('登録', '新規演奏記録更新', '公開', 1);
+    }
+    // 公開から非公開へ変更
+    if (!this.playingLog.isDraft && savedPlayingLog.isDraft) {
+      this.$ga.event('登録', '新規演奏記録更新', '非公開', 1);
+    }
     this.$router.push(`/playing-logs/${savedPlayingLog.id!}`);
   }
 }
