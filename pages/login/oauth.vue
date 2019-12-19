@@ -31,7 +31,7 @@ export default class Index extends Vue {
     // 新規登録であればアナリティクスへイベントを送る
     const newUserProvider = this.$route.query.newUserProvider;
     if (newUserProvider) {
-      this.$ga.event('登録', '新規ユーザ作成', newUserProvider, 1);
+      this.$ga.event('新規ユーザ登録', 'create', newUserProvider, 1);
     }
     // beforeMount でやるのがよいかわからない(sessionStorageが使えるのがこのタイミング)
     // callbackPath があればそっちへリダイレクトする

@@ -51,8 +51,8 @@ export default class Index extends Vue {
     }
     const savedPlayingLog = await this.$api.createPlayingLog(this.playingLog);
     savedPlayingLog.isDraft
-      ? this.$ga.event('登録', '新規演奏記録作成', '非公開', 1)
-      : this.$ga.event('登録', '新規演奏記録作成', '公開', 1);
+      ? this.$ga.event('新規演奏記録作成', 'create', '非公開', 1)
+      : this.$ga.event('新規演奏記録作成', 'create', '公開', 1);
     this.$router.push(savedPlayingLog.id!);
   }
 }

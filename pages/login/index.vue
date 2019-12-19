@@ -108,7 +108,6 @@ export default class Index extends Vue {
       Cookie.set('token', loginReultObject.token); // saving token in cookie for server rendering
       this.$axios.setToken(loginReultObject.token, 'Bearer');
       this.$router.push(this.callbackPath || '/mypage');
-      this.$ga.event('登録', '新規ユーザ作成', 'owned', 1);
     } catch (e) {
       if (e.response.status === 401) {
         this.loginErrorMessage = 'ユーザ名/メールアドレス もしくは パスワードが間違っています';
