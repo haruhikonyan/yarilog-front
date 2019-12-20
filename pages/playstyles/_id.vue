@@ -6,6 +6,7 @@
       :total-count="totalCount"
       :offset="offset"
       :per-page="perPage"
+      :description="defaultPlaystyle.description"
       @on-search="search($event)"
       @on-pagenation-input="pagenationInputHandler($event)"
     />
@@ -42,7 +43,7 @@ import { TuneSearchObject, Tune, PlayStyle } from '../../models/Tune';
   head(this: Index) {
     // TODO ジャンルページ用にする
     const title = `${this.defaultPlaystyle.name} 曲検索結果 - みゅーぐ`;
-    const description = `${this.defaultPlaystyle.name} 曲検索結果`;
+    const description = `${this.defaultPlaystyle.description} 曲検索結果`;
 
     return {
       title,

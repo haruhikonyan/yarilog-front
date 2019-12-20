@@ -6,7 +6,7 @@
       :total-count="totalCount"
       :offset="offset"
       :per-page="perPage"
-      :default-instrument-id="defaultInstrument.id"
+      :description="defaultInstrument.description"
       @on-search="search($event)"
       @on-pagenation-input="pagenationInputHandler($event)"
     />
@@ -42,7 +42,7 @@ import { Instrument } from '../../models/Instrument';
   },
   head(this: Index) {
     const title = `${this.defaultInstrument.name} 曲検索結果 - みゅーぐ`;
-    const description = `${this.defaultInstrument.name} 曲検索結果`;
+    const description = `${this.defaultInstrument.description} 曲検索結果`;
 
     return {
       title,

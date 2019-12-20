@@ -27,12 +27,14 @@ export class Tune {
 export interface PlayStyle {
   id: number;
   name: string;
+  description: string;
 }
 
 // ジャンル(タグ)
 export interface Genre {
   id: number;
   name: string;
+  description: string;
 }
 
 export interface TuneSearchObject {

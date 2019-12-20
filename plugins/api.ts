@@ -251,7 +251,11 @@ export class Api {
     return this.context.$axios.$get(url);
   }
 
-  searchGenres(searchWord): Promise<Genre[]> {
+  getGenre(id: number): Promise<Genre[]> {
+    const url = urljoin(this.API_GENRE_URL, id);
+    return this.context.$axios.$get(url);
+  }
+  searchGenres(searchWord: string): Promise<Genre[]> {
     const url = urljoin(this.API_GENRE_URL, 'search');
     return this.context.$axios.$get(url, {
       params: {

@@ -6,7 +6,6 @@
       :total-count="totalCount"
       :offset="offset"
       :per-page="perPage"
-      :default-composer="defaultComposer"
       :description="defaultComposer.description"
       @on-search="search($event)"
       @on-pagenation-input="pagenationInputHandler($event)"
