@@ -16,6 +16,9 @@ export class PlayingLog {
   // 編曲者
   arranger: string | null = null;
 
+  // 版や稿など
+  edition: string | null = null;
+
   // 演奏シーン(定期演奏会中プロ、コンクール自由曲とか)
   scene: string | null = null;
 

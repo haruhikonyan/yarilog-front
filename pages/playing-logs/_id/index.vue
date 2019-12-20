@@ -21,7 +21,8 @@
       <nuxt-link :to="`/tunes/${playingLog.tune.id}`">{{ playingLog.tune.title }}</nuxt-link>
     </h4>
     <small class="text-muted mb-1">
-      {{ playingLog.tune.composer.displayName }}作曲{{ playingLog.arranger | displayArranger }}
+      {{ playingLog.tune.composer.displayName }}作曲{{ playingLog.arranger | displayArranger
+      }}{{ playingLog.edition | displayEdition }}
     </small>
     <h5 class="text-center mb-0">
       面白さ: {{ playingLog.interesting || '-' }} 体力: {{ playingLog.physicality || '-' }} 難易度:

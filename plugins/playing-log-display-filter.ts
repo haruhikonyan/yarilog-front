@@ -23,3 +23,7 @@ Vue.filter('displayPlayInfo', (playingLog: PlayingLog) => {
 Vue.filter('displayArranger', (arranger: string) => {
   return arranger ? `(${arranger}編)` : '';
 });
+
+Vue.filter('displayEdition', (edition: string) => {
+  return edition ? `(${edition})` : '';
+});

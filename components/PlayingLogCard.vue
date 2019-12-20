@@ -16,7 +16,8 @@
         <GenreBadge v-for="genre in playingLog.tune.genres" :key="genre.id" :genre="genre" class="mr-1" />
         <h6>{{ playingLog.tune.title }}</h6>
         <h6 class="text-muted mb-0">
-          {{ playingLog.tune.composer.displayName }}作曲{{ playingLog.arranger | displayArranger }}
+          {{ playingLog.tune.composer.displayName }}作曲{{ playingLog.arranger | displayArranger
+          }}{{ playingLog.edition | displayEdition }}
         </h6>
       </div>
       <b-card-text class="mb-1" style="font-size: 12px;"

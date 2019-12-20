@@ -55,6 +55,18 @@
 
     <b-form-group>
       <span slot="label">
+        版や改定稿など
+        <b-badge variant="info">任意</b-badge>
+        <font-awesome-icon id="edition" v-b-tooltip.hover icon="question-circle" />
+        <b-tooltip target="edition" triggers="hover" custom-class="yrl-playing-log-form-lg-tooltip">
+          演奏した譜面の版や改定稿などの情報があれば入力してください。
+        </b-tooltip>
+      </span>
+      <b-form-input v-model="playingLog.edition" placeholder="ハース版第2稿"></b-form-input>
+    </b-form-group>
+
+    <b-form-group>
+      <span slot="label">
         担当楽器
         <font-awesome-icon id="instrument" v-b-tooltip.hover icon="question-circle" />
         <b-tooltip target="instrument" triggers="hover" custom-class="yrl-playing-log-form-lg-tooltip">
