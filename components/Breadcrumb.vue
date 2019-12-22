@@ -29,7 +29,7 @@ export default class Breadcrumb extends Vue {
       return this.generatePlaingLogItems(this.playingLog);
     }
     if (this.tune) {
-      return this.generateTuneItems(this.tune);
+      return this.generateTuneItems(this.tune, this.playstyle, this.instrument);
     }
     // 曲と演奏記録詳細以外は検索結果画面で検索内容によって動的に出し分ける
     const items: Object[] = [];
@@ -54,19 +54,25 @@ export default class Breadcrumb extends Vue {
       }
     ];
   }
-  private generatePlaystyleItems(playstyle: PlayStyle) {
+  private generatePlaystyleItems(playstyle: PlayStyle, tune?: Tune) {
+    const to = tune
+      ? { path: `/tunes/${tune.id}`, query: { selectedPlaystyleId: playstyle.id } }
+      : `/playstyles/${playstyle.id}`;
     return [
       {
         text: playstyle.name,
-        to: `/playstyles/${playstyle.id}`
+        to
       }
     ];
   }
-  private generateInstrumentItems(instrument: Instrument) {
+  private generateInstrumentItems(instrument: Instrument, tune?: Tune) {
+    const to = tune
+      ? { path: `/tunes/${tune.id}`, query: { selectedInstrumentId: instrument.id } }
+      : `/instruments/${instrument.id}`;
     return [
       {
         text: instrument.shortName,
-        to: `/instruments/${instrument.id}`
+        to
       }
     ];
   }
@@ -78,8 +84,8 @@ export default class Breadcrumb extends Vue {
     // TODO リンクはその曲のものにする
     return [
       this.generateTuneItems(tune),
-      this.generatePlaystyleItems(playstyle),
-      this.generateInstrumentItems(instrument),
+      this.generatePlaystyleItems(playstyle, tune),
+      this.generateInstrumentItems(instrument, tune),
       {
         text: `${playingLog.user.nickname}さん演奏`,
         active: true
@@ -87,17 +93,29 @@ export default class Breadcrumb extends Vue {
     ].flat();
   }
 
-  // TODO 編成と楽器を受け取って、その曲の編成と楽器のリンクを生成する
-  // private generateTuneItems(tune: Tune, playstyle: PlayStyle, instrument: Instrument): Object[] {
-  private generateTuneItems(tune: Tune): Object[] {
+  // 作曲家 => 曲 => 編成 => 楽器
+  private generateTuneItems(
+    tune: Tune,
+    playstyle: PlayStyle | null = null,
+    instrument: Instrument | null = null
+  ): Object[] {
+    const items: Object[] = [];
     const composer = tune.composer;
-    return [
-      this.generateComposerItems(composer),
-      {
-        text: tune.title,
-        to: `/tunes/${tune.id}`
-      }
-    ].flat();
+    items.push(this.generateComposerItems(composer));
+    items.push({
+      text: tune.title,
+      to: `/tunes/${tune.id}`
+    });
+    if (playstyle) {
+      items.push(this.generatePlaystyleItems(playstyle, tune));
+    }
+    if (instrument) {
+      items.push(this.generateInstrumentItems(instrument, tune));
+    }
+    items.push({
+      text: '演奏記録一覧'
+    });
+    return items.flat();
   }
 
   private generateSearchResultItems(): Object[] {

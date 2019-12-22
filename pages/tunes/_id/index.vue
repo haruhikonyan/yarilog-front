@@ -1,6 +1,6 @@
 <template>
   <section class="container">
-    <Breadcrumb :tune="tune" />
+    <Breadcrumb :tune="tune" :playstyle="selectedPlaystyle" :instrument="selectedInstrument" />
     <adsbygoogle :ad-slot="topAdId" ad-format="horizontal" />
     <div>
       <small class="text-muted mb-0">
@@ -34,30 +34,28 @@
       <div>難易度<StarRating :rate="(tune.averageDifficulty / 5) * 100" />{{ tune.averageDifficulty || '-' }}</div>
       <div class="d-flex mt-2">
         <b-form-select
-          v-model="selectedInstrumentId"
+          v-model="selectedInstrument"
           size="sm"
           class="w-auto mr-2"
           @change="selectedSortChangeHandler($event)"
         >
-          <option value="">全楽器</option>
-          <option v-for="instrument in $store.state.instruments" :key="instrument.id" :value="instrument.id">
+          <option :value="undefined">全楽器</option>
+          <option v-for="instrument in $store.state.instruments" :key="instrument.id" :value="instrument">
             {{ instrument.shortName }}
           </option>
         </b-form-select>
-        <b-form-select
-          v-model="selectedPlaystyleId"
-          size="sm"
-          class="w-auto"
-          @change="selectedSortChangeHandler($event)"
-        >
-          <option value="">全編成</option>
-          <option v-for="playstyle in $store.state.playstyles" :key="playstyle.id" :value="playstyle.id">
+        <b-form-select v-model="selectedPlaystyle" size="sm" class="w-auto" @change="selectedSortChangeHandler($event)">
+          <option :value="undefined">全編成</option>
+          <option v-for="playstyle in $store.state.playstyles" :key="playstyle.id" :value="playstyle">
             {{ playstyle.name }}
           </option>
         </b-form-select>
         <nuxt-link class="small ml-auto align-self-end" :to="createPlayingLogLocation">
           この曲の演奏記録を書く
         </nuxt-link>
+      </div>
+      <div v-if="playingLogs.length === 0" class="pt-4">
+        演奏記録が見つかりませんでした。
       </div>
       <div v-for="playingLog in playingLogs" :key="playingLog.id">
         <hr />
@@ -79,12 +77,13 @@
 import { Component, Vue } from 'vue-property-decorator';
 import VueSimpleSuggest from 'vue-simple-suggest';
 import 'vue-simple-suggest/dist/styles.css'; // Optional CSS
-import { Tune, Genre } from '../../../models/Tune';
+import { Tune, Genre, PlayStyle } from '../../../models/Tune';
 import PlayingLogSummary from '~/components/PlayingLogSummary.vue';
 import StarRating from '~/components/StarRating.vue';
 import Breadcrumb from '~/components/Breadcrumb.vue';
 import GenreBadge from '~/components/GenreBadge.vue';
 import { PlayingLogsWithCount, PlayingLog } from '../../../models/PlayingLog';
+import { Instrument } from '../../../models/Instrument';
 
 @Component({
   components: {
@@ -94,7 +93,7 @@ import { PlayingLogsWithCount, PlayingLog } from '../../../models/PlayingLog';
     VueSimpleSuggest,
     GenreBadge
   },
-  async asyncData({ app, params, query, env }) {
+  async asyncData({ app, params, query, env, store }) {
     const tune = await app.$api.getTune(params.id);
     const selectedInstrumentId = query.selectedInstrumentId || '';
     const selectedPlaystyleId = query.selectedPlaystyleId || '';
@@ -105,13 +104,14 @@ import { PlayingLogsWithCount, PlayingLog } from '../../../models/PlayingLog';
       selectedPlaystyleId,
       params.id,
       0,
-      10
+      0
     );
     return {
       tune,
       playingLogs: playingLogsWithCount.playingLogs,
-      selectedInstrumentId,
-      selectedPlaystyleId,
+      // 導線によってなぜかまちまちなので toString() して比較する
+      selectedInstrument: store.state.instruments.find(i => i.id.toString() === selectedInstrumentId.toString()),
+      selectedPlaystyle: store.state.playstyles.find(p => p.id.toString() === selectedPlaystyleId.toString()),
       topAdId: env.topAdId
     };
   },
@@ -140,8 +140,8 @@ export default class Index extends Vue {
   tune!: Tune;
   isEditingGenre: boolean = false;
   addGenreName: string | null = null;
-  selectedInstrumentId!: string;
-  selectedPlaystyleId!: string;
+  selectedInstrument!: Instrument | null;
+  selectedPlaystyle!: PlayStyle | null;
   playingLogs!: PlayingLog[];
 
   get createPlayingLogLocation() {
@@ -189,18 +189,20 @@ export default class Index extends Vue {
     this.isEditingGenre = false;
   }
   async selectedSortChangeHandler() {
+    const selectedInstrumentId = this.selectedInstrument && this.selectedInstrument.id.toString();
+    const selectedPlaystyleId = this.selectedPlaystyle && this.selectedPlaystyle.id.toString();
     const playingLogsWithCount: PlayingLogsWithCount = await this.$api.searchPlayingLogs(
       null,
-      this.selectedInstrumentId,
-      this.selectedPlaystyleId,
+      selectedInstrumentId,
+      selectedPlaystyleId,
       this.tune.id!.toString(),
       0,
-      5
+      0
     );
     this.$router.push({
       query: {
-        selectedInstrumentId: this.selectedInstrumentId,
-        selectedPlaystyleId: this.selectedPlaystyleId
+        selectedInstrumentId,
+        selectedPlaystyleId
       }
     });
     this.playingLogs = playingLogsWithCount.playingLogs;
