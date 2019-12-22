@@ -21,6 +21,7 @@ import { LoginResultObject } from '../../models/LoginResultObject';
     };
     store.commit('setAuth', auth);
     app.$axios.setToken(query.token, 'Bearer');
+    app.$api.updateLatestLoginAt();
   }
 })
 export default class Index extends Vue {

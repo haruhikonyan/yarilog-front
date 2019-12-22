@@ -68,7 +68,11 @@ export class Api {
     const url: string = urljoin(this.API_USER_URL, 'consent-terms');
     return this.context.$axios.$post(url, { concentTermsId });
   }
-
+  updateLatestLoginAt() {
+    const url: string = urljoin(this.API_USER_URL, 'latest-login-at');
+    return this.context.$axios.$put(url);
+  }
+  
   getComposers(): Promise<Composer[]> {
     const url = this.API_COMPOSER_URL;
     return this.context.$axios.$get(url);

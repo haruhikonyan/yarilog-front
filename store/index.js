@@ -26,6 +26,7 @@ export const actions = {
         $axios.setToken(parsed.token, 'Bearer');
         const auth = await app.$api.getAuthObject();
         commit('setAuth', auth);
+        app.$api.updateLatestLoginAt();
       }
     }
     // 楽器マスタを持っておく

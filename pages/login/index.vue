@@ -107,6 +107,7 @@ export default class Index extends Vue {
       this.$store.commit('setAuth', loginReultObject); // mutating to store for client rendering
       Cookie.set('token', loginReultObject.token); // saving token in cookie for server rendering
       this.$axios.setToken(loginReultObject.token, 'Bearer');
+      this.$api.updateLatestLoginAt();
       this.$router.push(this.callbackPath || '/mypage');
     } catch (e) {
       if (e.response.status === 401) {
