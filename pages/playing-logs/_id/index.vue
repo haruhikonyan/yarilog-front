@@ -43,7 +43,10 @@
         <pre class="yrl-pre-wrap mb-0">{{ playingLog.impressionOfDifficulty }}</pre>
       </b-card-text>
     </b-card>
-    <b-card v-if="playingLog.reflectionForNext" class="mb-2" title="次回への反省やアドバイス">
+    <b-card v-if="playingLog.reflectionForNext" class="mb-2">
+      <b-card-title>
+        次回への反省やアドバイス<span class="d-none d-sm-inline">、</span><br class="d-sm-none" />譜面情報
+      </b-card-title>
       <b-card-text>
         <pre class="yrl-pre-wrap mb-0">{{ playingLog.reflectionForNext }}</pre>
       </b-card-text>
@@ -89,8 +92,12 @@ import GenreBadge from '~/components/GenreBadge.vue';
   },
   head(this: Index) {
     const position = this.playingLog.position || '';
+    const displayArranger = this.$options.filters!.displayArranger(this.playingLog.arranger);
+    const displayEdition = this.$options.filters!.displayEdition(this.playingLog.edition);
     // なければ空文字列を入れて title に出てくるのを防ぐ
-    const title = `${this.playingLog.tune.title} ${this.playingLog.instrument.name}${position} ${
+    const title = `${this.playingLog.tune.composer.displayName}作曲 ${
+      this.playingLog.tune.title
+    }${displayArranger}${displayEdition} ${this.playingLog.instrument.name}${position} ${
       this.playingLog.user.nickname
     }さん演奏 - みゅーぐ`;
     // TODO ブラッシュアップ
