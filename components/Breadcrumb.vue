@@ -29,7 +29,7 @@ export default class Breadcrumb extends Vue {
       return this.generatePlaingLogItems(this.playingLog);
     }
     if (this.tune) {
-      return this.generateTuneItems(this.tune, this.playstyle, this.instrument);
+      return this.generateTuneItems(this.tune, this.playstyle, this.instrument, true);
     }
     // 曲と演奏記録詳細以外は検索結果画面で検索内容によって動的に出し分ける
     const items: Object[] = [];
@@ -97,7 +97,8 @@ export default class Breadcrumb extends Vue {
   private generateTuneItems(
     tune: Tune,
     playstyle: PlayStyle | null = null,
-    instrument: Instrument | null = null
+    instrument: Instrument | null = null,
+    isTunePage: boolean = false
   ): Object[] {
     const items: Object[] = [];
     const composer = tune.composer;
@@ -112,9 +113,11 @@ export default class Breadcrumb extends Vue {
     if (instrument) {
       items.push(this.generateInstrumentItems(instrument, tune));
     }
-    items.push({
-      text: '演奏記録一覧'
-    });
+    if (isTunePage) {
+      items.push({
+        text: '演奏記録一覧'
+      });
+    }
     return items.flat();
   }
 
