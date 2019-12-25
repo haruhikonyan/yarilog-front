@@ -8,7 +8,7 @@
       {{ playingLog.instrument.name }} {{ playingLog.position }} <b-badge>{{ playingLog.playerLevel }}</b-badge>
     </small>
     <b-card-text class="mb-0">{{ playingLog.user.nickname }}さんの{{ playingLog.playDate }}演奏</b-card-text>
-    <pre class="text-muted mb-0 yrl-pre-wrap yrl-truncate-one-line">{{ playingLog.impressionOfInteresting }}</pre>
+    <pre class="text-muted mb-0 yrl-pre-wrap yrl-truncate-one-line">{{ summaryText }}</pre>
     <div slot="footer">
       面白さ: {{ playingLog.interesting || '-' }} 体力: {{ playingLog.physicality || '-' }} 難易度:
       {{ playingLog.difficulty || '-' }}
@@ -29,6 +29,15 @@ import { PlayingLog } from '../models/PlayingLog';
 export default class PlayingLogSummary extends Vue {
   @Prop({ type: Object as PropType<PlayingLog>, required: true })
   playingLog!: PlayingLog;
+
+  get summaryText() {
+    return (
+      this.playingLog.impressionOfInteresting ||
+      this.playingLog.reflectionForNext ||
+      this.playingLog.otherPartInpression ||
+      this.playingLog.impressionOfDifficulty
+    );
+  }
 }
 </script>
 <style lang="scss" scoped>

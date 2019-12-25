@@ -23,7 +23,7 @@
       <b-card-text class="mb-1" style="font-size: 12px;"
         >{{ playingLog.user.nickname }}さんの{{ playingLog.playDate }}演奏</b-card-text
       >
-      <pre class="text-muted mb-0 yrl-pre-wrap yrl-truncate-three-line">{{ playingLog.impressionOfInteresting }}</pre>
+      <pre class="text-muted mb-0 yrl-pre-wrap yrl-truncate-three-line">{{ summaryText }}</pre>
       <div slot="footer">
         <div class="row no-gutters text-center">
           <div class="col-4">
@@ -67,6 +67,15 @@ export default class PlayingLogCard extends Vue {
   }
   editClickHandler() {
     this.$router.push(`/playing-logs/${this.playingLog.id}/edit`);
+  }
+
+  get summaryText() {
+    return (
+      this.playingLog.impressionOfInteresting ||
+      this.playingLog.reflectionForNext ||
+      this.playingLog.otherPartInpression ||
+      this.playingLog.impressionOfDifficulty
+    );
   }
 }
 </script>
