@@ -10,7 +10,7 @@
       </b-form-select>
     </div>
     <div class="d-flex">
-      <b-form-select v-model="selectedInstrumentId" class="w-auto">
+      <b-form-select v-model="selectedInstrumentId" class="w-auto yrl-playstyle-selector">
         <option value="">全楽器</option>
         <option v-for="instrument in instruments" :key="instrument.id" :value="instrument.id.toString()">
           {{ instrument.shortName }}
@@ -99,3 +99,8 @@ export default class SearchForm extends Vue {
   }
 }
 </script>
+<style lang="scss" scoped>
+.yrl-playstyle-selector {
+  max-width: 120px;
+}
+</style>
