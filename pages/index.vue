@@ -16,7 +16,7 @@
           :playstyles="$store.state.playstyles"
           @on-search="search($event)"
         />
-        <b-card class="mb-2" title="演奏楽器から探す" body-class="px-2">
+        <b-card class="mb-2" title="演奏楽器から探す" body-class="px-2 px-sm-3">
           <!-- TODO 楽器種別分け -->
           <div class="d-flex flex-wrap text-left">
             <nuxt-link
