@@ -40,8 +40,8 @@ import { TuneSearchObject, Tune, Genre } from '../../models/Tune';
     return { tunes, totalCount, tuneSearchObject, offset, perPage, defaultGenre };
   },
   head(this: Index) {
-    const title = `${this.defaultGenre.name} 曲検索結果 - みゅーぐ`;
-    const description = `${this.defaultGenre.description} 曲検索結果`;
+    const title = `${this.defaultGenre.name} 演奏記録検索結果 - みゅーぐ`;
+    const description = this.defaultGenre.description || title;
 
     return {
       title,

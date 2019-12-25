@@ -43,7 +43,7 @@ import { TuneSearchObject, Tune, PlayStyle } from '../../models/Tune';
   head(this: Index) {
     // TODO ジャンルページ用にする
     const title = `${this.defaultPlaystyle.name} 演奏記録検索結果 - みゅーぐ`;
-    const description = `${this.defaultPlaystyle.description} 演奏記録検索結果`;
+    const description = this.defaultPlaystyle.description || title;
 
     return {
       title,

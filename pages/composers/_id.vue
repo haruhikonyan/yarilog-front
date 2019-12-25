@@ -47,7 +47,7 @@ import { Composer } from '../../models/Composer';
   },
   head(this: Index) {
     const title = `${this.defaultComposer!.displayName} 演奏記録検索結果 - みゅーぐ`;
-    const description = `${this.defaultComposer!.fullName} 演奏記録検索結果 ${this.defaultComposer!.description}`;
+    const description = this.defaultComposer!.description || title;
     return {
       title,
       meta: [

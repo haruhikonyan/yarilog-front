@@ -42,7 +42,7 @@ import { Instrument } from '../../models/Instrument';
   },
   head(this: Index) {
     const title = `${this.defaultInstrument.name} 演奏記録検索結果 - みゅーぐ`;
-    const description = `${this.defaultInstrument.description} 演奏記録検索結果`;
+    const description = this.defaultInstrument.description || title;
 
     return {
       title,
