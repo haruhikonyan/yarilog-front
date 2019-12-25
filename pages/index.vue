@@ -11,7 +11,7 @@
       <div class="text-center">
         <SearchForm
           class="my-3"
-          placeholder="曲を探す(フリーワード)"
+          placeholder="演奏記録を探す(フリーワード)"
           :instruments="$store.state.instruments"
           :playstyles="$store.state.playstyles"
           @on-search="search($event)"

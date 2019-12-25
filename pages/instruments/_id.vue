@@ -41,8 +41,8 @@ import { Instrument } from '../../models/Instrument';
     return { tunes, totalCount, tuneSearchObject, offset, perPage, defaultInstrument };
   },
   head(this: Index) {
-    const title = `${this.defaultInstrument.name} 曲検索結果 - みゅーぐ`;
-    const description = `${this.defaultInstrument.description} 曲検索結果`;
+    const title = `${this.defaultInstrument.name} 演奏記録検索結果 - みゅーぐ`;
+    const description = `${this.defaultInstrument.description} 演奏記録検索結果`;
 
     return {
       title,

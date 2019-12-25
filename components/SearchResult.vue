@@ -8,7 +8,7 @@
       :default-playstyle-id="tuneSearchObject.playstyleId"
       :default-instrument-id="tuneSearchObject.instrumentId"
       :default-composer="defaultComposer"
-      placeholder="曲を探す(フリーワード)"
+      placeholder="演奏記録を探す(フリーワード)"
       :instruments="$store.state.instruments"
       :playstyles="$store.state.playstyles"
       class="my-3"

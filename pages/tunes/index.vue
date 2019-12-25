@@ -52,8 +52,8 @@ import { Composer } from '../../models/Composer';
   head(this: Index) {
     const metaInfo: MetaInfo = {};
     const searchWord = this.tuneSearchObject.searchWord || '';
-    const title = `${searchWord} 曲検索結果 - みゅーぐ`;
-    const description = `${searchWord} 曲検索結果`;
+    const title = `${searchWord} 演奏記録検索結果 - みゅーぐ`;
+    const description = `${searchWord} 演奏記録検索結果`;
     metaInfo.title = title;
     metaInfo.meta = [
       {
