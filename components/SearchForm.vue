@@ -2,7 +2,7 @@
   <b-form @submit.prevent="searchButtonHandler">
     <div class="d-flex">
       <b-input v-model="searchWord" :placeholder="placeholder"></b-input>
-      <b-form-select v-model="selectedPlaystyleId" class="w-auto">
+      <b-form-select v-model="selectedPlaystyleId" class="w-auto yrl-playstyle-selector">
         <option value="">編成</option>
         <option v-for="playstyle in playstyles" :key="playstyle.id" :value="playstyle.id.toString()">
           {{ playstyle.name }}
@@ -10,7 +10,7 @@
       </b-form-select>
     </div>
     <div class="d-flex">
-      <b-form-select v-model="selectedInstrumentId" class="w-auto yrl-playstyle-selector">
+      <b-form-select v-model="selectedInstrumentId" class="w-auto">
         <option value="">全楽器</option>
         <option v-for="instrument in instruments" :key="instrument.id" :value="instrument.id.toString()">
           {{ instrument.shortName }}

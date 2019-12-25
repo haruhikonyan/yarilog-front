@@ -44,7 +44,12 @@
             {{ instrument.shortName }}
           </option>
         </b-form-select>
-        <b-form-select v-model="selectedPlaystyle" size="sm" class="w-auto" @change="selectedSortChangeHandler($event)">
+        <b-form-select
+          v-model="selectedPlaystyle"
+          size="sm"
+          class="w-auto yrl-playstyle-selector"
+          @change="selectedSortChangeHandler($event)"
+        >
           <option :value="undefined">全編成</option>
           <option v-for="playstyle in $store.state.playstyles" :key="playstyle.id" :value="playstyle">
             {{ playstyle.name }}
@@ -213,5 +218,8 @@ export default class Index extends Vue {
 // TODO むりやりグローバルで固定してるのどうにかしたい
 .yrl-add-genre-form-height {
   height: 30px;
+}
+.yrl-playstyle-selector {
+  max-width: 120px;
 }
 </style>
