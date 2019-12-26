@@ -14,6 +14,7 @@
     type="search"
     :nullable-select="true"
     @input="inputHandler"
+    @blur="blurHandler"
   >
     <div slot="suggestion-item" slot-scope="{ suggestion }">
       <span>{{ suggestion[displayAttribute] }}</span>
@@ -32,6 +33,7 @@
     type="search"
     :nullable-select="true"
     @input="inputHandler"
+    @blur="blurHandler"
   >
     <div slot="suggestion-item" slot-scope="{ suggestion }">
       <span>{{ suggestion[displayAttribute] }}</span>
@@ -104,23 +106,21 @@ export default class ComposerSelector extends Vue {
     }
   }
   // input からフォーカスが外れた際に実行される
-  // なぜか v-model や @select を利用すると :value を指定してるにも関わらず null で一旦初期化される
-  // select 等利用せず、すべてはここで決めるようにする(フォーカスが外れた瞬間にselect判断を行っている)
-  // 旧実装 @blur につけるといい感じになる
-  // blurHandler() {
-  //   // 作曲家が選択されてないかつ、入力された文字がある時
-  //   if (!this.selectedComposer && this.suggestComponent.text) {
-  //     // 入力された文字列に一致する作曲家が存在すればそれを選択する
-  //     const someInputComposer = (this.suggestComponent.suggestions as Composer[]).find(
-  //       c => c[this.displayAttribute] === this.suggestComponent.text
-  //     );
-  //     if (someInputComposer) {
-  //       this.selectedComposer = someInputComposer;
-  //     } else {
-  //       // 存在しなければ input を初期化する
-  //       this.suggestComponent.setText('');
-  //     }
-  //   }
-  // }
+  // サジェストされたものと全く同じのを入力し、選択してなかった場合その選択肢を反映させる
+  blurHandler() {
+    // 作曲家が選択されてないかつ、入力された文字がある時
+    if (!this.selectedComposer && this.suggestComponent.text) {
+      // 入力された文字列に一致する作曲家が存在すればそれを選択する
+      const someInputComposer = (this.suggestComponent.suggestions as Composer[]).find(
+        c => c[this.displayAttribute] === this.suggestComponent.text
+      );
+      if (someInputComposer) {
+        this.selectedComposer = someInputComposer;
+      } else {
+        // 存在しなければ input を初期化する
+        this.suggestComponent.setText('');
+      }
+    }
+  }
 }
 </script>

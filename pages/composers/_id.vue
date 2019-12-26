@@ -7,6 +7,7 @@
       :offset="offset"
       :per-page="perPage"
       :description="defaultComposer.description"
+      :default-composer="defaultComposer"
       :is-all-tunes-mode="isAllTunesMode"
       @on-search="search($event)"
       @on-pagenation-input="pagenationInputHandler($event)"
