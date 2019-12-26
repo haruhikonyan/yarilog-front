@@ -14,8 +14,8 @@
       class="my-3"
       @on-search="onSearch($event)"
     />
-    <b-alert v-if="tunes.length == 0" show variant="danger" class="yrl-pre-wrap">{{
-      noHitSearchResultMessage
+    <b-alert v-if="searchResultAlartMessage != null" show variant="danger" class="yrl-pre-wrap">{{
+      searchResultAlartMessage
     }}</b-alert>
     <TuneCard v-for="tune in tunes" :key="tune.id" :tune="tune" />
     <!-- TODO 無限スクロールの方が今風かもしれない -->
@@ -60,11 +60,10 @@ export default class SearchResult extends Vue {
   perPage!: number;
   @Prop({ type: String, default: null })
   description!: string;
+  @Prop({ type: Boolean, default: false })
+  isAllTunesMode!: boolean;
 
   currentPage: number = this.offset === 0 ? 1 : Math.floor(this.offset / this.perPage) + 1;
-  // Prop にする？
-  noHitSearchResultMessage =
-    '検索した曲はありませんでした。\n作曲家の名前などの表記揺れにご注意ください。\n例）ベートーベン => ベートーヴェン';
 
   @Prop({ type: Object as PropType<Composer>, default: null })
   defaultComposer!: Composer | null;
@@ -90,12 +89,21 @@ export default class SearchResult extends Vue {
       this.offset + this.perPage < this.totalCount ? this.offset + this.perPage : this.totalCount;
 
     if (this.totalCount === 0) {
-      return '検索した曲はありませんでした。';
+      return '検索した演奏記録はありませんでした。';
     } else if (this.totalCount === 1) {
       return '1曲目表示 / 全1曲';
     } else {
       return `${Number(this.offset) + 1}~${lastCount}曲目表示 / 全${this.totalCount}曲`;
     }
+  }
+
+  get searchResultAlartMessage() {
+    if (this.totalCount === 0) {
+      return '検索した演奏記録はありませんでした。\n曲名などの表記揺れにご注意ください。\n例）タイタン => 巨人';
+    } else if (this.isAllTunesMode) {
+      return '演奏記録が見つからなかったので条件にマッチする曲のみを表示しています。';
+    }
+    return null;
   }
   get topAdId(): string {
     return process.env.topAdId!;

@@ -102,7 +102,7 @@ import { Instrument } from '../../../models/Instrument';
     const tune = await app.$api.getTune(params.id);
     const selectedInstrumentId = query.selectedInstrumentId || '';
     const selectedPlaystyleId = query.selectedPlaystyleId || '';
-    // 最新10件表示
+    // 全件取得
     const playingLogsWithCount: PlayingLogsWithCount = await app.$api.searchPlayingLogs(
       null,
       selectedInstrumentId,

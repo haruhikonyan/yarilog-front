@@ -7,6 +7,7 @@
       :offset="offset"
       :per-page="perPage"
       :description="defaultGenre.description"
+      :is-all-tunes-mode="isAllTunesMode"
       @on-search="search($event)"
       @on-pagenation-input="pagenationInputHandler($event)"
     />
@@ -35,9 +36,23 @@ import { TuneSearchObject, Tune, Genre } from '../../models/Tune';
     // offset が未設定 NaN になるのでその時は 0 をセット
     const offset = isNaN(Number(offsetString)) ? 0 : Number(offsetString);
     // tune に紐づく PlayingLog は最大5件にしておく
-    const { tunes, totalCount } = await app.$api.searchTunes(tuneSearchObject, offset, perPage, 5);
+    let searchResultObject = await app.$api.searchTunes(tuneSearchObject, offset, perPage, 5);
+    let isAllTunesMode = false;
+    // 1件も見つからなかったら曲のみの検索に切り替える
+    if (searchResultObject.totalCount === 0) {
+      searchResultObject = await app.$api.searchAllTunes(tuneSearchObject, offset, perPage);
+      isAllTunesMode = true;
+    }
     const defaultGenre = await app.$api.getGenre(params.id);
-    return { tunes, totalCount, tuneSearchObject, offset, perPage, defaultGenre };
+    return {
+      tunes: searchResultObject.tunes,
+      totalCount: searchResultObject.totalCount,
+      tuneSearchObject,
+      offset,
+      perPage,
+      defaultGenre,
+      isAllTunesMode
+    };
   },
   head(this: Index) {
     const title = `${this.defaultGenre.name} 演奏記録検索結果 - みゅーぐ`;
@@ -70,11 +85,19 @@ export default class Index extends Vue {
   perPage!: number;
   defaultGenre!: Genre;
 
+  isAllTunesMode!: boolean;
+
   async search(tuneSearchObject: TuneSearchObject) {
     this.tuneSearchObject = tuneSearchObject;
     // offset は 0 で初期化
     this.offset = 0;
-    const tunesWithCount = await this.$api.searchTunes(tuneSearchObject, this.offset, this.perPage, 5);
+    this.isAllTunesMode = false;
+    let tunesWithCount = await this.$api.searchTunes(tuneSearchObject, this.offset, this.perPage, 5);
+    // 1件も見つからなかったら曲のみの検索に切り替える
+    if (tunesWithCount.totalCount === 0) {
+      tunesWithCount = await this.$api.searchAllTunes(tuneSearchObject, this.offset, this.perPage);
+      this.isAllTunesMode = true;
+    }
     this.tunes = tunesWithCount.tunes;
     this.totalCount = tunesWithCount.totalCount;
     this.$router.push({

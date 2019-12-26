@@ -7,6 +7,7 @@
       :offset="offset"
       :per-page="perPage"
       :default-composer="defaultComposer"
+      :is-all-tunes-mode="isAllTunesMode"
       @on-search="search($event)"
       @on-pagenation-input="pagenationInputHandler($event)"
     />
@@ -43,11 +44,25 @@ import { Composer } from '../../models/Composer';
     // offset が未設定 NaN になるのでその時は 0 をセット
     const offset = isNaN(Number(offsetString)) ? 0 : Number(offsetString);
     // tune に紐づく PlayingLog は最大5件にしておく
-    const { tunes, totalCount } = await app.$api.searchTunes(tuneSearchObject, offset, perPage, 5);
-
+    // tune に紐づく PlayingLog は最大5件にしておく
+    let searchResultObject = await app.$api.searchTunes(tuneSearchObject, offset, perPage, 5);
+    let isAllTunesMode = false;
+    // 1件も見つからなかったら曲のみの検索に切り替える
+    if (searchResultObject.totalCount === 0) {
+      searchResultObject = await app.$api.searchAllTunes(tuneSearchObject, offset, perPage);
+      isAllTunesMode = true;
+    }
     // 作曲家が検索条件にあれば、パンくずや検索フォームで使う作曲家データを取得しておく
     const defaultComposer = composerId ? await app.$api.getComposer(composerId) : null;
-    return { tunes, totalCount, tuneSearchObject, offset, perPage, defaultComposer };
+    return {
+      tunes: searchResultObject.tunes,
+      totalCount: searchResultObject.totalCount,
+      tuneSearchObject,
+      offset,
+      perPage,
+      defaultComposer,
+      isAllTunesMode
+    };
   },
   head(this: Index) {
     const metaInfo: MetaInfo = {};
@@ -104,11 +119,19 @@ export default class Index extends Vue {
 
   defaultComposer!: Composer | null;
 
+  isAllTunesMode!: boolean;
+
   async search(tuneSearchObject: TuneSearchObject) {
     this.tuneSearchObject = tuneSearchObject;
     // offset は 0 で初期化
     this.offset = 0;
-    const tunesWithCount = await this.$api.searchTunes(tuneSearchObject, this.offset, this.perPage, 5);
+    this.isAllTunesMode = false;
+    let tunesWithCount = await this.$api.searchTunes(tuneSearchObject, this.offset, this.perPage, 5);
+    // 1件も見つからなかったら曲のみの検索に切り替える
+    if (tunesWithCount.totalCount === 0) {
+      tunesWithCount = await this.$api.searchAllTunes(tuneSearchObject, this.offset, this.perPage);
+      this.isAllTunesMode = true;
+    }
     this.tunes = tunesWithCount.tunes;
     this.totalCount = tunesWithCount.totalCount;
     // 作曲家が検索条件にあれば、パンくずや検索フォームで使う作曲家データを再取得する

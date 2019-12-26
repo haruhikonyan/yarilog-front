@@ -72,7 +72,7 @@ export class Api {
     const url: string = urljoin(this.API_USER_URL, 'latest-login-at');
     return this.context.$axios.$put(url);
   }
-  
+
   getComposers(): Promise<Composer[]> {
     const url = this.API_COMPOSER_URL;
     return this.context.$axios.$get(url);
@@ -142,6 +142,20 @@ export class Api {
         limit,
         playingLogLimit,
         instrumentId: tuneSearchObject.instrumentId,
+        composerId: tuneSearchObject.composerId,
+        playstyleId: tuneSearchObject.playstyleId,
+        genreId: tuneSearchObject.genreId
+      }
+    });
+  }
+
+  searchAllTunes(tuneSearchObject: TuneSearchObject, offset?: number, limit?: number): Promise<TunesWithCount> {
+    const url = urljoin(this.API_TUNE_URL, 'search-all-tunes');
+    return this.context.$axios.$get(url, {
+      params: {
+        searchWord: tuneSearchObject.searchWord,
+        offset,
+        limit,
         composerId: tuneSearchObject.composerId,
         playstyleId: tuneSearchObject.playstyleId,
         genreId: tuneSearchObject.genreId
