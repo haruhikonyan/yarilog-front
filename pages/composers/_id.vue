@@ -129,9 +129,14 @@ export default class Index extends Vue {
   async pagenationInputHandler(currentPage) {
     // 現在のページ数から offset を計算
     this.offset = this.perPage * (currentPage - 1);
-    const playingLogsWithCount = await this.$api.searchTunes(this.tuneSearchObject, this.offset, this.perPage, 5);
-    this.tunes = playingLogsWithCount.tunes;
-    this.totalCount = playingLogsWithCount.totalCount;
+    let tunesWithCount = await this.$api.searchTunes(this.tuneSearchObject, this.offset, this.perPage, 5);
+    // 1件も見つからなかったら曲のみの検索に切り替える
+    if (tunesWithCount.totalCount === 0) {
+      tunesWithCount = await this.$api.searchAllTunes(this.tuneSearchObject, this.offset, this.perPage);
+      this.isAllTunesMode = true;
+    }
+    this.tunes = tunesWithCount.tunes;
+    this.totalCount = tunesWithCount.totalCount;
     this.$router.push({
       query: {
         offset: this.offset.toString()
