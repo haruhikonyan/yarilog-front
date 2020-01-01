@@ -18,6 +18,9 @@
       searchResultAlartMessage
     }}</b-alert>
     <TuneCard v-for="tune in tunes" :key="tune.id" :tune="tune" />
+    <p v-if="isShowChangeAllTunesModeLink" class="text-center text-primary" @click="onChangeAllTunesMode()">
+      演奏記録の無い曲も表示する
+    </p>
     <!-- TODO 無限スクロールの方が今風かもしれない -->
     <b-pagination
       v-model="currentPage"
@@ -80,6 +83,17 @@ export default class SearchResult extends Vue {
     return currentPage;
   }
 
+  @Emit('on-change-all-tunes-mode')
+  onChangeAllTunesMode(): void {}
+
+  /**
+   * すべての曲を表示するモードへの切り替え表示
+   */
+  get isShowChangeAllTunesModeLink(): boolean {
+    // すべての曲表示モードでないかつ、ページネーションが最後のページであれば
+    return !this.isAllTunesMode && this.totalCount === this.lastCount;
+  }
+
   get defaultPlaystyle(): PlayStyle | null {
     return this.$store.state.playstyles.find(p => p.id.toString() === this.tuneSearchObject.playstyleId);
   }
@@ -87,16 +101,16 @@ export default class SearchResult extends Vue {
     return this.$store.state.instruments.find(i => i.id.toString() === this.tuneSearchObject.instrumentId);
   }
   get searchResultMessage(): string {
-    const lastCount: number =
-      this.offset + this.perPage < this.totalCount ? this.offset + this.perPage : this.totalCount;
-
     if (this.totalCount === 0) {
       return '検索した演奏記録はありませんでした。';
     } else if (this.totalCount === 1) {
       return '1曲目表示 / 全1曲';
     } else {
-      return `${Number(this.offset) + 1}~${lastCount}曲目表示 / 全${this.totalCount}曲`;
+      return `${Number(this.offset) + 1}~${this.lastCount}曲目表示 / 全${this.totalCount}曲`;
     }
+  }
+  get lastCount(): number {
+    return this.offset + this.perPage < this.totalCount ? this.offset + this.perPage : this.totalCount;
   }
 
   get searchResultAlartMessage() {

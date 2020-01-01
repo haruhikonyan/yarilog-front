@@ -11,6 +11,7 @@
       :is-no-hit-playing-logs="isNoHitPlayingLogs"
       @on-search="search($event)"
       @on-pagenation-input="pagenationInputHandler($event)"
+      @on-change-all-tunes-mode="changeAllTunesModeHandler()"
     />
   </section>
 </template>
@@ -195,6 +196,24 @@ export default class Index extends Vue {
     });
     // ページャークリック後最上部までスクロールを戻す
     window.scrollTo(0, 0);
+  }
+  async changeAllTunesModeHandler() {
+    this.isAllTunesMode = true;
+    const tunesWithCount = await this.$api.searchAllTunes(this.tuneSearchObject, this.offset, this.perPage, 5);
+
+    this.tunes = tunesWithCount.tunes;
+    this.totalCount = tunesWithCount.totalCount;
+    this.$router.push({
+      path: 'tunes',
+      query: {
+        searchWord: this.tuneSearchObject.searchWord,
+        instrumentId: this.tuneSearchObject.instrumentId,
+        composerId: this.tuneSearchObject.composerId,
+        playstyleId: this.tuneSearchObject.playstyleId,
+        genreId: this.tuneSearchObject.genreId,
+        isAllTunesMode: this.isAllTunesMode.toString()
+      }
+    });
   }
 }
 </script>
