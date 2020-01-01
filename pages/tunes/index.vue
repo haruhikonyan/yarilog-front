@@ -164,7 +164,7 @@ export default class Index extends Vue {
     // 現在のページ数から offset を計算
     this.offset = this.perPage * (currentPage - 1);
     // isAllTunesMode が true という文字列かどうかで判断
-    const isAllTunesMode = this.$route.query.isAllTunesMode.toString() === 'true';
+    const isAllTunesMode = this.$route.query.isAllTunesMode === 'true';
 
     // isAllTunesMode が指定されていたら全ての曲を出す
     let tunesWithCount = isAllTunesMode
