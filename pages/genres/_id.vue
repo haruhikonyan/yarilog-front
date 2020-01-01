@@ -8,8 +8,10 @@
       :per-page="perPage"
       :description="defaultGenre.description"
       :is-all-tunes-mode="isAllTunesMode"
+      :is-no-hit-playing-logs="isNoHitPlayingLogs"
       @on-search="search($event)"
       @on-pagenation-input="pagenationInputHandler($event)"
+      @on-change-all-tunes-mode="changeAllTunesModeHandler()"
     />
   </section>
 </template>
@@ -35,13 +37,21 @@ import { TuneSearchObject, Tune, Genre } from '../../models/Tune';
     const offsetString = query.offset as string;
     // offset が未設定 NaN になるのでその時は 0 をセット
     const offset = isNaN(Number(offsetString)) ? 0 : Number(offsetString);
-    // tune に紐づく PlayingLog は最大5件にしておく
-    let searchResultObject = await app.$api.searchTunes(tuneSearchObject, offset, perPage, 5);
-    let isAllTunesMode = false;
+
+    // isAllTunesMode が true という文字列かどうかで判断
+    let isAllTunesMode = query.isAllTunesMode === 'true';
+
+    // isAllTunesMode が指定されていたら全ての曲を出す
+    let searchResultObject = isAllTunesMode
+      ? await app.$api.searchAllTunes(tuneSearchObject, offset, perPage, 5)
+      : await app.$api.searchTunes(tuneSearchObject, offset, perPage, 5);
+    // 演奏記録が見つからなかったフラグを初期化
+    let isNoHitPlayingLogs = false;
     // 1件も見つからなかったら曲のみの検索に切り替える
     if (searchResultObject.totalCount === 0) {
       searchResultObject = await app.$api.searchAllTunes(tuneSearchObject, offset, perPage);
       isAllTunesMode = true;
+      isNoHitPlayingLogs = true;
     }
     const defaultGenre = await app.$api.getGenre(params.id);
     return {
@@ -51,7 +61,8 @@ import { TuneSearchObject, Tune, Genre } from '../../models/Tune';
       offset,
       perPage,
       defaultGenre,
-      isAllTunesMode
+      isAllTunesMode,
+      isNoHitPlayingLogs
     };
   },
   head(this: Index) {
@@ -86,6 +97,7 @@ export default class Index extends Vue {
   defaultGenre!: Genre;
 
   isAllTunesMode!: boolean;
+  isNoHitPlayingLogs!: boolean;
 
   async search(tuneSearchObject: TuneSearchObject) {
     this.tuneSearchObject = tuneSearchObject;
@@ -120,16 +132,31 @@ export default class Index extends Vue {
     if (tunesWithCount.totalCount === 0) {
       tunesWithCount = await this.$api.searchAllTunes(this.tuneSearchObject, this.offset, this.perPage);
       this.isAllTunesMode = true;
+      this.isNoHitPlayingLogs = true;
     }
     this.tunes = tunesWithCount.tunes;
     this.totalCount = tunesWithCount.totalCount;
     this.$router.push({
       query: {
-        offset: this.offset.toString()
+        offset: this.offset.toString(),
+        isAllTunesMode: this.isAllTunesMode.toString()
       }
     });
     // ページャークリック後最上部までスクロールを戻す
     window.scrollTo(0, 0);
+  }
+  async changeAllTunesModeHandler() {
+    this.isAllTunesMode = true;
+    const tunesWithCount = await this.$api.searchAllTunes(this.tuneSearchObject, this.offset, this.perPage, 5);
+
+    this.tunes = tunesWithCount.tunes;
+    this.totalCount = tunesWithCount.totalCount;
+    this.$router.push({
+      query: {
+        offset: this.offset.toString(),
+        isAllTunesMode: this.isAllTunesMode.toString()
+      }
+    });
   }
 }
 </script>

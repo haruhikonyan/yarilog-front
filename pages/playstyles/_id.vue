@@ -7,6 +7,7 @@
       :offset="offset"
       :per-page="perPage"
       :description="defaultPlaystyle.description"
+      :is-all-tunes-mode="true"
       @on-search="search($event)"
       @on-pagenation-input="pagenationInputHandler($event)"
     />
