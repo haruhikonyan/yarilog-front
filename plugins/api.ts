@@ -149,13 +149,19 @@ export class Api {
     });
   }
 
-  searchAllTunes(tuneSearchObject: TuneSearchObject, offset?: number, limit?: number): Promise<TunesWithCount> {
+  searchAllTunes(
+    tuneSearchObject: TuneSearchObject,
+    offset?: number,
+    limit?: number,
+    playingLogLimit?: number
+  ): Promise<TunesWithCount> {
     const url = urljoin(this.API_TUNE_URL, 'search-all-tunes');
     return this.context.$axios.$get(url, {
       params: {
         searchWord: tuneSearchObject.searchWord,
         offset,
         limit,
+        playingLogLimit,
         composerId: tuneSearchObject.composerId,
         playstyleId: tuneSearchObject.playstyleId,
         genreId: tuneSearchObject.genreId

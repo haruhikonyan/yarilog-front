@@ -62,6 +62,8 @@ export default class SearchResult extends Vue {
   description!: string;
   @Prop({ type: Boolean, default: false })
   isAllTunesMode!: boolean;
+  @Prop({ type: Boolean, default: false })
+  isNoHitPlayingLogs!: boolean;
 
   currentPage: number = this.offset === 0 ? 1 : Math.floor(this.offset / this.perPage) + 1;
 
@@ -100,7 +102,7 @@ export default class SearchResult extends Vue {
   get searchResultAlartMessage() {
     if (this.totalCount === 0) {
       return '検索した演奏記録はありませんでした。\n曲名などの表記揺れにご注意ください。\n例）タイタン => 巨人';
-    } else if (this.isAllTunesMode) {
+    } else if (this.isAllTunesMode && this.isNoHitPlayingLogs) {
       return '演奏記録が見つからなかったので条件にマッチする曲のみを表示しています。';
     }
     return null;
