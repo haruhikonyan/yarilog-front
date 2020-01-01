@@ -44,7 +44,7 @@ import { Composer } from '../../models/Composer';
     const offset = isNaN(Number(offsetString)) ? 0 : Number(offsetString);
 
     // isAllTunesMode が true という文字列かどうかで判断
-    let isAllTunesMode = query.isAllTunesMode.toString() === 'true';
+    let isAllTunesMode = query.isAllTunesMode === 'true';
 
     // isAllTunesMode が指定されていたら全ての曲を出す
     let searchResultObject = isAllTunesMode
