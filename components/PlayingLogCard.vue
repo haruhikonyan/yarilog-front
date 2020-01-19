@@ -91,10 +91,8 @@ export default class PlayingLogCard extends Vue {
   -webkit-line-clamp: 3;
   overflow: hidden;
   font-size: 10px;
-  @include media-breakpoint-up(md) {
-    // md 以上は3行分確保する(15px * 3)
-    height: 45px;
-  }
+  // 3行分確保する(15px * 3)
+  height: 45px;
 }
 .yrl-edit-btn-absolute {
   position: absolute;

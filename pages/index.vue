@@ -30,6 +30,8 @@
           </div>
         </b-card>
         <adsbygoogle :ad-slot="topAdId" ad-format="horizontal" />
+        <p class="mt-3 mb-0">最新の演奏記録</p>
+        <PlayingLogCarousel :playing-logs="playingLogs" />
         <b-card class="mb-2" title="作曲家から探す">
           <div class="row text-left">
             <nuxt-link
@@ -43,12 +45,6 @@
             </nuxt-link>
           </div>
         </b-card>
-        <p class="mt-3">最新の演奏記録</p>
-      </div>
-      <div class="row">
-        <div v-for="playingLog in playingLogs" :key="playingLog.id" class="mb-2 col-md-6">
-          <PlayingLogCard :playing-log="playingLog" />
-        </div>
       </div>
       <adsbygoogle :ad-slot="middleAdId" ad-format="horizontal" />
       <b-card class="mb-2 text-center" title="みゅーぐ開発において">
@@ -82,12 +78,14 @@
 import { Component, Vue } from 'vue-property-decorator';
 import PlayingLogCard from '../components/PlayingLogCard.vue';
 import SearchForm from '../components/SearchForm.vue';
+import PlayingLogCarousel from '../components/top/PlayingLogCarousel.vue';
 import { TuneSearchObject } from '../models/Tune';
 
 @Component({
   components: {
     PlayingLogCard,
-    SearchForm
+    SearchForm,
+    PlayingLogCarousel
   },
   async asyncData({ app, env }) {
     const playingLogs = await app.$api.getPlayingLogs(6);
@@ -108,7 +106,7 @@ export default class Index extends Vue {
   }
 }
 </script>
-<style lang="scss" scoped>
+<style scoped lang="scss">
 @import 'bootstrap/scss/_functions.scss';
 @import 'bootstrap/scss/_variables.scss';
 @import 'bootstrap/scss/mixins/_breakpoints.scss';
