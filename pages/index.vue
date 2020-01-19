@@ -1,11 +1,15 @@
 <template>
   <section>
-    <b-jumbotron fluid class="yrl-top-title text-sm-center p-4 mt-n3 mb-3">
-      <h2>音楽を奏でるすべての人へ</h2>
+    <b-jumbotron fluid class="yrl-top-title text-center p-4 mt-n3 mb-3">
+      <h2>音楽を愛する<br />すべてのひとへ</h2>
       <h2>演奏記録の共有サイト</h2>
-      <h2>みゅーぐ</h2>
-      <p class="my-3">{{ leadSentence }}</p>
-      <b-button variant="primary" block class="mt-3" to="/playing-logs/new">演奏記録を書く</b-button>
+      <!-- みゅーぐがぞう -->
+      <img />
+      <!-- TODO とってくる -->
+      <div class="yrl-top-btnarea">
+        <p>登録曲数<span>114</span>件/演奏記録数<span>514</span>件</p>
+        <b-button variant="primary" block class="mt-3" to="/playing-logs/new">演奏記録を書く▶︎</b-button>
+      </div>
     </b-jumbotron>
     <div class="container">
       <div class="text-center">
@@ -119,12 +123,20 @@ export default class Index extends Vue {
 }
 .yrl-top-title {
   background-image: url('~assets/bg_top_title.jpg');
-  background-size: cover;
+  background-size: auto;
   color: white;
   text-shadow: 1px 1px 0 black;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  background: contain;
 }
 .yrl-instrument-link {
   width: 104px;
   font-size: 13px;
+}
+.yrl-top-btnarea {
+  background-color: rgba(255, 255, 255, 0.3);
+  border-radius: 20px;
+  padding: 10px;
 }
 </style>
