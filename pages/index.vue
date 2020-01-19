@@ -31,12 +31,13 @@
         </b-card>
         <adsbygoogle :ad-slot="topAdId" ad-format="horizontal" />
         <b-card class="mb-2" title="作曲家から探す">
-          <div class="d-flex flex-wrap text-left">
+          <div class="row text-left">
             <nuxt-link
               v-for="composer in composers"
               :key="composer.id"
               :to="`/composers/${composer.id}`"
-              style="min-width: 96px; font-size: 13px; flex: auto"
+              style="font-size: 13px;"
+              class="col-6 col-sm-4 col-md-3 col-lg-2"
             >
               >{{ composer.displayName }}
             </nuxt-link>
