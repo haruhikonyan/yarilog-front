@@ -2,7 +2,12 @@
   <section>
     <Breadcrumb :composer="defaultComposer" :playstyle="defaultPlaystyle" :instrument="defaultInstrument" />
     <h2 class="text-center">{{ searchResultMessage }}</h2>
-    <adsbygoogle :ad-slot="topAdId" ad-format="horizontal" />
+    <div v-if="tuneSearchObject.searchWord">【キーワード】{{ tuneSearchObject.searchWord }}</div>
+    <div>【楽器】{{ defaultInstrument ? defaultInstrument.name : '全楽器' }}</div>
+    <div>【編成】{{ defaultPlaystyle ? defaultPlaystyle.name : '全編成' }}</div>
+    <div>【作曲家】{{ defaultComposer ? defaultComposer.fullName : '全作曲家' }}</div>
+    <!-- TODO ジャンル、国に対応する -->
+    <adsbygoogle class="mt-2" :ad-slot="topAdId" ad-format="horizontal" />
     <SearchForm
       :default-search-word="tuneSearchObject.searchWord"
       :default-playstyle-id="tuneSearchObject.playstyleId"

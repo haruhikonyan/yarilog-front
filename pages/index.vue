@@ -10,7 +10,7 @@
     <div class="container">
       <div class="text-center">
         <SearchForm
-          class="my-3"
+          class="mt-3 mb-2"
           placeholder="演奏記録を探す(フリーワード)"
           :instruments="$store.state.instruments"
           :playstyles="$store.state.playstyles"
