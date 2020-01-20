@@ -3,11 +3,10 @@
     <b-jumbotron fluid class="yrl-top-title text-center p-4 mt-n3 mb-3">
       <h2>音楽を愛する<br />すべてのひとへ</h2>
       <h2>演奏記録の共有サイト</h2>
-      <!-- みゅーぐがぞう -->
-      <img />
+      <img src="_nuxt/assets/logo.png" alt="みゅーぐ" />
       <!-- TODO とってくる -->
       <div class="yrl-top-btnarea">
-        <p>登録曲数<span>114</span>件/演奏記録数<span>514</span>件</p>
+        <p>登録曲数<span>114</span>件 / <br class="d-sm-none" />演奏記録数<span>514</span>件</p>
         <b-button variant="primary" block class="mt-3" to="/playing-logs/new">演奏記録を書く▶︎</b-button>
       </div>
     </b-jumbotron>
@@ -123,12 +122,26 @@ export default class Index extends Vue {
 }
 .yrl-top-title {
   background-image: url('~assets/bg_top_title.jpg');
-  background-size: auto;
+  background-size: cover;
   color: white;
   text-shadow: 1px 1px 0 black;
-  padding-top: 0px;
-  padding-bottom: 0px;
-  background: contain;
+  border: solid 7px #555;
+  border-top: none;
+}
+.yrl-top-title::before {
+  background-color: rgba(0, 0, 0, 0.4);
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  content: ' ';
+}
+.yrl-top-title > div > h2 {
+  margin: 1em auto;
+}
+.yrl-top-title > div > img {
+  margin: 0 auto 2em auto;
 }
 .yrl-instrument-link {
   width: 104px;
@@ -138,5 +151,15 @@ export default class Index extends Vue {
   background-color: rgba(255, 255, 255, 0.3);
   border-radius: 20px;
   padding: 10px;
+  font-size: 20px;
+}
+.yrl-top-btnarea > p {
+}
+.yrl-top-btnarea > p > span {
+  color: #33ffff;
+  margin: 0 3px;
+}
+.yrl-top-btnarea > a {
+  font-size: 24px;
 }
 </style>
