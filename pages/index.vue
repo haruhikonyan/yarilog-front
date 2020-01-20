@@ -30,7 +30,7 @@
           </div>
         </b-card>
         <adsbygoogle :ad-slot="topAdId" ad-format="horizontal" />
-        <p class="mt-3 mb-0">最新の演奏記録</p>
+        <p class="mt-3 mb-2">最新の演奏記録</p>
         <PlayingLogCarousel :playing-logs="playingLogs" />
         <b-card class="mb-2" title="作曲家から探す">
           <div class="row text-left">

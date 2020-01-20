@@ -1,5 +1,5 @@
 <template>
-  <b-carousel :interval="5000" indicators>
+  <b-carousel :interval="4000" indicators>
     <b-carousel-slide v-for="playingLog in playingLogs" :key="playingLog.id" class="yrl-playing-log-carousel-item">
       <PlayingLogCard class="text-left" :playing-log="playingLog" />
     </b-carousel-slide>
@@ -27,7 +27,6 @@ export default class PlayingLogCarousel extends Vue {
 .yrl-playing-log-carousel-item {
   .carousel-caption {
     position: relative;
-    top: 0;
     right: 0;
     left: 0;
   }
