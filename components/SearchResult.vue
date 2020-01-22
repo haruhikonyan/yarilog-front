@@ -6,8 +6,6 @@
     <div>【楽器】{{ defaultInstrument ? defaultInstrument.name : '全楽器' }}</div>
     <div>【編成】{{ defaultPlaystyle ? defaultPlaystyle.name : '全編成' }}</div>
     <div>【作曲家】{{ defaultComposer ? defaultComposer.fullName : '全作曲家' }}</div>
-    <!-- TODO ジャンル、国に対応する -->
-    <adsbygoogle class="mt-2" :ad-slot="topAdId" ad-format="horizontal" />
     <SearchForm
       :default-search-word="tuneSearchObject.searchWord"
       :default-playstyle-id="tuneSearchObject.playstyleId"
@@ -19,6 +17,8 @@
       class="my-3"
       @on-search="onSearch($event)"
     />
+    <!-- TODO ジャンル、国に対応する -->
+    <adsbygoogle class="mt-2" :ad-slot="topAdId" ad-format="horizontal" />
     <b-alert v-if="searchResultAlartMessage != null" show variant="danger" class="yrl-pre-wrap">{{
       searchResultAlartMessage
     }}</b-alert>
