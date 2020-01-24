@@ -121,21 +121,12 @@ export default class Index extends Vue {
   }
 }
 .yrl-top-title {
-  background-image: url('~assets/bg_top_title.jpg');
+  background-image: url('~assets/bg_top_title.png');
   background-size: cover;
   color: white;
-  text-shadow: 1px 1px 0 black;
+  text-shadow: 2px 2px 0 black;
   border: solid 7px #555;
   border-top: none;
-}
-.yrl-top-title::before {
-  background-color: rgba(0, 0, 0, 0.4);
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  content: ' ';
 }
 .yrl-top-title > div > h2 {
   margin: 1em auto;
@@ -148,7 +139,7 @@ export default class Index extends Vue {
   font-size: 13px;
 }
 .yrl-top-btnarea {
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 0.4);
   border-radius: 20px;
   padding: 10px;
   font-size: 20px;
