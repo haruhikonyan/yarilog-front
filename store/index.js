@@ -4,7 +4,9 @@ export const state = () => {
   return {
     auth: null,
     instruments: [],
-    playstyles: []
+    playstyles: [],
+    playingLogsCount: 0,
+    allHasPlayingLogTunesCount: 0
   };
 };
 export const mutations = {
@@ -16,6 +18,12 @@ export const mutations = {
   },
   setPlaystyles(state, playstyles) {
     state.playstyles = playstyles;
+  },
+  setPlayingsLogCount(state, playingLogsCount) {
+    state.playingLogsCount = playingLogsCount;
+  },
+  setAllHasPlayingLogTunesCount(state, allHasPlayingLogTunesCount) {
+    state.allHasPlayingLogTunesCount = allHasPlayingLogTunesCount;
   }
 };
 export const actions = {
@@ -32,8 +40,12 @@ export const actions = {
     // 楽器マスタを持っておく
     const instruments = await app.$api.getInstruments();
     const playstyles = await app.$api.getPlaystyles();
+    const playingsLogCount = await app.$api.getPlayingsLogCount();
+    const allHasPlayingLogTunesCount = await app.$api.getAllHasPlayingLogTunesCount();
 
     commit('setInstruments', instruments);
     commit('setPlaystyles', playstyles);
+    commit('setPlayingsLogCount', playingsLogCount);
+    commit('setAllHasPlayingLogTunesCount', allHasPlayingLogTunesCount);
   }
 };

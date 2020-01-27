@@ -127,6 +127,10 @@ export class Api {
   createTune(tune: Tune): Promise<Tune> {
     return this.context.$axios.$post(this.API_TUNE_URL, tune);
   }
+  getAllHasPlayingLogTunesCount(): Promise<number> {
+    const url: string = urljoin(this.API_TUNE_URL, 'all-has-playing-log-tunes-count');
+    return this.context.$axios.$get(url);
+  }
 
   searchTunes(
     tuneSearchObject: TuneSearchObject,
@@ -206,6 +210,10 @@ export class Api {
   }
   getPlayingLog(id: string): Promise<PlayingLog> {
     const url: string = urljoin(this.API_PLAYING_LOG_URL, id);
+    return this.context.$axios.$get(url);
+  }
+  getPlayingsLogCount(): Promise<number> {
+    const url: string = urljoin(this.API_PLAYING_LOG_URL, 'count-all');
     return this.context.$axios.$get(url);
   }
   getPlayingLogsByTune(tuneId: string, offset?: number, limit?: number): Promise<PlayingLog[]> {

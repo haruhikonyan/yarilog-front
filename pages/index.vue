@@ -4,17 +4,23 @@
       <h2 class="mt-5 p-3">音楽を愛する<br />すべてのひとへ</h2>
       <h2 class="p-3">演奏記録の共有サイト</h2>
       <img src="_nuxt/assets/logo.png" alt="みゅーぐ" class="mt-0 mx-auto mb-4" />
-      <!-- TODO とってくる -->
       <div class="yrl-top-btnarea p-3">
         <p>
-          登録曲数<span class="yrl-top-number mx-2">114</span>件 / <br class="d-sm-none" />演奏記録数<span
-            class="yrl-top-number mx-2"
-            >514</span
-          >件
+          登録曲数
+          <span class="yrl-top-number mx-2">
+            {{ $store.state.allHasPlayingLogTunesCount }}
+          </span>
+          件 /
+          <br class="d-sm-none" />
+          演奏記録数
+          <span class="yrl-top-number mx-2">
+            {{ $store.state.playingLogsCount }}
+          </span>
+          件
         </p>
-        <b-button variant="primary" block class="yrl-top-btntext mt-3" to="/playing-logs/new"
-          >演奏記録を書く▶︎</b-button
-        >
+        <b-button variant="primary" block class="yrl-top-btntext mt-3" to="/playing-logs/new">
+          演奏記録を書く▶︎
+        </b-button>
       </div>
     </b-jumbotron>
     <div class="container">
