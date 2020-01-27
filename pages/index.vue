@@ -1,13 +1,20 @@
 <template>
   <section>
-    <b-jumbotron fluid class="yrl-top-title text-center p-4 mt-n3 mb-3">
-      <h2>音楽を愛する<br />すべてのひとへ</h2>
-      <h2>演奏記録の共有サイト</h2>
-      <img src="_nuxt/assets/logo.png" alt="みゅーぐ" />
+    <b-jumbotron fluid class="yrl-top-title text-center border-top-0 p-4 mt-n3 mb-3">
+      <h2 class="mt-5 p-3">音楽を愛する<br />すべてのひとへ</h2>
+      <h2 class="p-3">演奏記録の共有サイト</h2>
+      <img src="_nuxt/assets/logo.png" alt="みゅーぐ" class="mt-0 ml-auto mb-4 mr-auto" />
       <!-- TODO とってくる -->
-      <div class="yrl-top-btnarea">
-        <p>登録曲数<span>114</span>件 / <br class="d-sm-none" />演奏記録数<span>514</span>件</p>
-        <b-button variant="primary" block class="mt-3" to="/playing-logs/new">演奏記録を書く▶︎</b-button>
+      <div class="yrl-top-btnarea p-3">
+        <p>
+          登録曲数<span class="yrl-top-number ml-2 mr-2">114</span>件 / <br class="d-sm-none" />演奏記録数<span
+            class="yrl-top-number ml-2 mr-2"
+            >514</span
+          >件
+        </p>
+        <b-button variant="primary" block class="yrl-top-btntext mt-3" to="/playing-logs/new"
+          >演奏記録を書く▶︎</b-button
+        >
       </div>
     </b-jumbotron>
     <div class="container">
@@ -115,6 +122,7 @@ export default class Index extends Vue {
 @import 'bootstrap/scss/_functions.scss';
 @import 'bootstrap/scss/_variables.scss';
 @import 'bootstrap/scss/mixins/_breakpoints.scss';
+$number-color: #33ffff;
 .yrl-info {
   @include media-breakpoint-down(xs) {
     font-size: 80%;
@@ -126,13 +134,6 @@ export default class Index extends Vue {
   color: white;
   text-shadow: 2px 2px 0 black;
   border: solid 7px #555;
-  border-top: none;
-}
-.yrl-top-title > div > h2 {
-  margin: 1em auto;
-}
-.yrl-top-title > div > img {
-  margin: 0 auto 2em auto;
 }
 .yrl-instrument-link {
   width: 104px;
@@ -141,16 +142,12 @@ export default class Index extends Vue {
 .yrl-top-btnarea {
   background-color: rgba(255, 255, 255, 0.4);
   border-radius: 20px;
-  padding: 10px;
   font-size: 20px;
 }
-.yrl-top-btnarea > p {
+.yrl-top-number {
+  color: $number-color;
 }
-.yrl-top-btnarea > p > span {
-  color: #33ffff;
-  margin: 0 3px;
-}
-.yrl-top-btnarea > a {
+.yrl-top-btntext {
   font-size: 24px;
 }
 </style>
