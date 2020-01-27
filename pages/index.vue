@@ -1,11 +1,27 @@
 <template>
   <section>
-    <b-jumbotron fluid class="yrl-top-title text-sm-center p-4 mt-n3 mb-3">
-      <h2>音楽を奏でるすべての人へ</h2>
-      <h2>演奏記録の共有サイト</h2>
-      <h2>みゅーぐ</h2>
-      <p class="my-3">{{ leadSentence }}</p>
-      <b-button variant="primary" block class="mt-3" to="/playing-logs/new">演奏記録を書く</b-button>
+    <b-jumbotron fluid class="yrl-top-title text-center border-top-0 p-4 mt-n3 mb-3">
+      <h2 class="mt-5 p-3">音楽を愛する<br />すべてのひとへ</h2>
+      <h2 class="p-3">演奏記録の共有サイト</h2>
+      <img src="_nuxt/assets/logo.png" alt="みゅーぐ" class="mt-0 mx-auto mb-4" />
+      <div class="yrl-top-btnarea p-3">
+        <p>
+          登録曲数
+          <span class="yrl-top-number mx-2">
+            {{ $store.state.allHasPlayingLogTunesCount }}
+          </span>
+          件 /
+          <br class="d-sm-none" />
+          演奏記録数
+          <span class="yrl-top-number mx-2">
+            {{ $store.state.playingLogsCount }}
+          </span>
+          件
+        </p>
+        <b-button variant="primary" block class="yrl-top-btntext mt-3" to="/playing-logs/new">
+          演奏記録を書く▶︎
+        </b-button>
+      </div>
     </b-jumbotron>
     <div class="container">
       <div class="text-center">
@@ -110,19 +126,32 @@ export default class Index extends Vue {
 @import 'bootstrap/scss/_functions.scss';
 @import 'bootstrap/scss/_variables.scss';
 @import 'bootstrap/scss/mixins/_breakpoints.scss';
+$number-color: #33ffff;
 .yrl-info {
   @include media-breakpoint-down(xs) {
     font-size: 80%;
   }
 }
 .yrl-top-title {
-  background-image: url('~assets/bg_top_title.jpg');
+  background-image: url('~assets/bg_top_title.png');
   background-size: cover;
   color: white;
-  text-shadow: 1px 1px 0 black;
+  text-shadow: 2px 2px 0 black;
+  border: solid 7px #555;
 }
 .yrl-instrument-link {
   width: 104px;
   font-size: 13px;
+}
+.yrl-top-btnarea {
+  background-color: rgba(255, 255, 255, 0.4);
+  border-radius: 20px;
+  font-size: 20px;
+}
+.yrl-top-number {
+  color: $number-color;
+}
+.yrl-top-btntext {
+  font-size: 24px;
 }
 </style>
