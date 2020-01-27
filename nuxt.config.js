@@ -36,7 +36,7 @@ export default {
         hid: 'og:description',
         property: 'og:description',
         content:
-          '『みゅーぐ』は楽器、そして演奏を愛する人々が演奏した記録・思い出を曲のレビュー(演奏記録)という形で残していけるWebサービスです。'
+          '『みゅーぐ』は楽器、そして演奏を愛する人々が演奏した記録・思い出を、演奏記録という形で残すことのできるWebサービスです。'
       },
       { hid: 'og:image', property: 'og:image', content: `${process.env.frontUrl}/ogp.png` }
     ],

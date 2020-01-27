@@ -1,7 +1,7 @@
 <template>
   <section>
-    <b-jumbotron fluid class="yrl-top-title text-center border-top-0 p-4 mt-n3 mb-3">
-      <h2 class="mt-5 p-3">音楽を愛する<br />すべてのひとへ</h2>
+    <b-jumbotron fluid class="yrl-top-title text-center border-0 px-2 py-3 mt-n3 mb-3">
+      <h2 class="mt-0 p-3">音楽を奏でる<br class="d-sm-none" />すべてのひとへ</h2>
       <h2 class="p-3">演奏記録の共有サイト</h2>
       <img src="_nuxt/assets/logo.png" alt="みゅーぐ" class="mt-0 mx-auto mb-4" />
       <div class="yrl-top-btnarea p-3">
@@ -22,6 +22,7 @@
           演奏記録を書く▶︎
         </b-button>
       </div>
+      <p class="my-3">{{ leadSentence }}</p>
     </b-jumbotron>
     <div class="container">
       <div class="text-center">
@@ -112,7 +113,7 @@ import { TuneSearchObject } from '../models/Tune';
 })
 export default class Index extends Vue {
   leadSentence =
-    '『みゅーぐ』は楽器、そして演奏を愛する人々が演奏した記録・思い出を、演奏記録という形で残していけるWebサービスです。';
+    '『みゅーぐ』は楽器、そして演奏を愛する人々が演奏した記録・思い出を、演奏記録という形で残すことのできるWebサービスです。';
   get inquiryDevLocation() {
     return { path: '/inquiry', query: { inquiryTypeId: '7' } };
   }
