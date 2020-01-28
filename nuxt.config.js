@@ -56,7 +56,12 @@ export default {
   /*
    ** Plugins to load before mounting the App
    */
-  plugins: ['~/plugins/api', '~/plugins/axios', '~/plugins/playing-log-display-filter.ts'],
+  plugins: [
+    '~/plugins/api',
+    '~/plugins/axios',
+    '~/plugins/playing-log-display-filter.ts',
+    { src: '~plugins/burger-menu', ssr: false }
+  ],
 
   /*
    ** Nuxt.js modules
