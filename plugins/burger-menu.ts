@@ -1,5 +1,4 @@
 import Vue from 'vue';
-import { Slide, Menu } from 'vue-burger-menu';
+import { Slide } from 'vue-burger-menu';
 
-Vue.component('slide', Slide);
-Vue.component('burger-menu', Menu);
+Vue.component('Slide', Slide);

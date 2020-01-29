@@ -1,13 +1,22 @@
 <template>
   <div class="yrl-navbar-padding">
     <div class="mb-3">
-      <b-navbar toggleable="lg" type="dark" variant="primary" fixed="top" class="py-0">
-        <b-navbar-brand to="/" class="py-1">
+      <b-navbar toggleable="xl" type="dark" variant="primary" fixed="top" class="py-0">
+        <b-navbar-brand to="/" class="py-1 mr-auto">
           <img src="~/assets/logo.png" class="yrl-logo" alt="みゅーぐ" />
         </b-navbar-brand>
+        <nuxt-link to="/tunes" class="text-white d-flex align-items-center mr-4">
+          <font-awesome-icon icon="search" size="2x" />
+        </nuxt-link>
+        <nuxt-link v-if="$store.state.auth" to="/maypage" class="text-white d-flex align-items-center mr-3">
+          <font-awesome-icon icon="user" size="2x" />
+        </nuxt-link>
+        <nuxt-link v-else to="/login" class="text-white d-flex align-items-center mr-3">
+          <font-awesome-icon icon="lock" size="2x" />
+        </nuxt-link>
         <no-ssr>
           <!-- see: https://github.com/mbj36/vue-burger-menu/issues/67 -->
-          <slide
+          <Slide
             right
             width="300"
             :burger-icon="false"
@@ -70,7 +79,7 @@
                 ログアウト
               </b-button>
             </div>
-          </slide>
+          </Slide>
           <!-- 自前で影をつける 
           https://github.com/mbj36/vue-burger-menu/pull/83 マージまち-->
           <div v-if="slideIsOpen" class="yrl-bm-overlay" />
