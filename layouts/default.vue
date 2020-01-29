@@ -1,14 +1,14 @@
 <template>
   <div class="yrl-navbar-padding">
     <div class="mb-3">
-      <b-navbar toggleable="xl" type="dark" variant="primary" fixed="top" class="py-0">
+      <b-navbar toggleable type="dark" variant="primary" fixed="top" class="py-0">
         <b-navbar-brand to="/" class="py-1 mr-auto">
           <img src="~/assets/logo.png" class="yrl-logo" alt="みゅーぐ" />
         </b-navbar-brand>
         <nuxt-link to="/tunes" class="text-white d-flex align-items-center mr-4">
           <font-awesome-icon icon="search" size="2x" />
         </nuxt-link>
-        <nuxt-link v-if="$store.state.auth" to="/maypage" class="text-white d-flex align-items-center mr-3">
+        <nuxt-link v-if="$store.state.auth" to="/mypage" class="text-white d-flex align-items-center mr-3">
           <font-awesome-icon icon="user" size="2x" />
         </nuxt-link>
         <nuxt-link v-else to="/login" class="text-white d-flex align-items-center mr-3">
@@ -26,37 +26,43 @@
             @openMenu="openSlide"
             @closeMenu="closeSlide"
           >
-            <div class="yrl-slide-close-btn bg-primary align-items-center">
+            <div class="yrl-slide-close-btn bg-primary d-flex align-items-center">
               <div class="ml-auto mr-2">
-                <font-awesome-icon icon="times" size="2x" @click="toggleSlide" />
+                <font-awesome-icon icon="times" size="2x" class="text-white" @click="toggleSlide" />
               </div>
             </div>
-            <div class="border-bottom px-5">
+            <div class="border-bottom px-4">
               <b-button v-if="$store.state.auth" variant="info" block class="yrl-nav-btn-text" to="/playing-logs/new">
                 演奏記録を書く
               </b-button>
-              <b-button v-else variant="outline-primary" block class="yrl-nav-btn-text" to="/login">
-                ログイン
-              </b-button>
+              <div v-else>
+                <p class="my-2 yrl-login-info">演奏記録の作成を行うにはユーザ登録および、ログインが必要です。</p>
+                <b-button variant="outline-primary" block class="yrl-nav-btn-text mb-3" to="/login">
+                  ログイン
+                </b-button>
+                <b-button variant="info" block class="yrl-nav-btn-text" to="/users/new">
+                  無料ユーザ登録
+                </b-button>
+              </div>
             </div>
-            <div class="d-block text-primary yrl-slide-menu-content p-0">
+            <div class="text-primary yrl-slide-menu-content p-0">
               <nuxt-link
                 v-if="$store.state.auth"
                 to="/mypage"
                 class="border-bottom d-flex align-items-center px-4 py-1"
               >
                 <font-awesome-icon icon="user" size="lg" />
-                <span class="ml-2 text-dark">マイページ</span>
+                <span class="ml-2">マイページ</span>
                 <font-awesome-icon icon="angle-right" size="lg" class="ml-auto" />
               </nuxt-link>
               <nuxt-link to="/tunes" class="border-bottom d-flex align-items-center px-4 py-1">
                 <font-awesome-icon icon="search" size="lg" />
-                <span class="ml-2 text-dark">演奏記録を探す</span>
+                <span class="ml-2">演奏記録を探す</span>
                 <font-awesome-icon icon="angle-right" size="lg" class="ml-auto" />
               </nuxt-link>
               <nuxt-link to="/about" class="border-bottom d-flex align-items-center px-4 py-1">
                 <font-awesome-icon icon="question-circle" size="lg" />
-                <span class="ml-2 text-dark">みゅーぐについて</span>
+                <span class="ml-2">みゅーぐについて</span>
                 <font-awesome-icon icon="angle-right" size="lg" class="ml-auto" />
               </nuxt-link>
               <nuxt-link
@@ -65,12 +71,12 @@
                 class="border-bottom d-flex align-items-center px-4 py-1"
               >
                 <font-awesome-icon icon="cog" size="lg" />
-                <span class="ml-2 text-dark">基本情報設定</span>
+                <span class="ml-2">基本情報設定</span>
                 <font-awesome-icon icon="angle-right" size="lg" class="ml-auto" />
               </nuxt-link>
               <nuxt-link to="/inquiry" class="border-bottom d-flex align-items-center px-4 py-1">
                 <font-awesome-icon icon="envelope" size="lg" />
-                <span class="ml-2 text-dark">お問い合わせ</span>
+                <span class="ml-2">お問い合わせ</span>
                 <font-awesome-icon icon="angle-right" size="lg" class="ml-auto" />
               </nuxt-link>
             </div>
@@ -172,9 +178,16 @@ export default class Index extends Vue {
   padding-top: 0 !important;
   .bm-item-list {
     margin-left: 0;
+    color: black;
+  }
+  .bm-item-list > * {
+    display: inherit;
   }
 }
 .yrl-nav-btn-text {
   font-size: 24px;
+}
+.yrl-login-info {
+  font-size: 12px;
 }
 </style>
