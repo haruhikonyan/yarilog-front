@@ -3,7 +3,7 @@
     <b-jumbotron fluid class="yrl-top-title text-center border-0 px-2 py-3 mt-n3 mb-3">
       <h2 class="mt-0 p-3">音楽を奏でる<br class="d-sm-none" />すべてのひとへ</h2>
       <h2 class="p-3">演奏記録の共有サイト</h2>
-      <img src="_nuxt/assets/logo.png" alt="みゅーぐ" class="mt-0 mx-auto mb-4" />
+      <img src="~/assets/logo.png" alt="みゅーぐ" class="mt-0 mx-auto mb-4" />
       <div class="yrl-top-btnarea p-3">
         <p>
           登録曲数
