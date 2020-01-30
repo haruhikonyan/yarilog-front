@@ -7,12 +7,15 @@
         </b-navbar-brand>
         <nuxt-link to="/tunes" class="text-white d-flex align-items-center mr-4">
           <font-awesome-icon icon="search" size="2x" />
+          <span class="ml-2 d-none d-sm-inline">演奏記録を探す</span>
         </nuxt-link>
         <nuxt-link v-if="$store.state.auth" to="/mypage" class="text-white d-flex align-items-center mr-3">
           <font-awesome-icon icon="user" size="2x" />
+          <span class="ml-2 d-none d-sm-inline">マイページ</span>
         </nuxt-link>
         <nuxt-link v-else to="/login" class="text-white d-flex align-items-center mr-3">
           <font-awesome-icon icon="lock" size="2x" />
+          <span class="ml-2 d-none d-sm-inline">ログイン</span>
         </nuxt-link>
         <no-ssr>
           <!-- see: https://github.com/mbj36/vue-burger-menu/issues/67 -->
@@ -60,12 +63,12 @@
                 <span class="ml-2">演奏記録を探す</span>
                 <font-awesome-icon icon="angle-right" size="lg" class="ml-auto" />
               </nuxt-link>
-              <nuxt-link to="/about" class="border-bottom d-flex align-items-center px-4 py-1">
+              <!-- <nuxt-link to="/about" class="border-bottom d-flex align-items-center px-4 py-1">
                 <font-awesome-icon icon="question-circle" size="lg" />
                 <span class="ml-2">みゅーぐについて</span>
                 <font-awesome-icon icon="angle-right" size="lg" class="ml-auto" />
-              </nuxt-link>
-              <nuxt-link
+              </nuxt-link> -->
+              <!-- <nuxt-link
                 v-if="$store.state.auth"
                 to="/settings"
                 class="border-bottom d-flex align-items-center px-4 py-1"
@@ -73,7 +76,7 @@
                 <font-awesome-icon icon="cog" size="lg" />
                 <span class="ml-2">基本情報設定</span>
                 <font-awesome-icon icon="angle-right" size="lg" class="ml-auto" />
-              </nuxt-link>
+              </nuxt-link> -->
               <nuxt-link to="/inquiry" class="border-bottom d-flex align-items-center px-4 py-1">
                 <font-awesome-icon icon="envelope" size="lg" />
                 <span class="ml-2">お問い合わせ</span>
