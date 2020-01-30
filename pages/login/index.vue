@@ -6,11 +6,11 @@
     <OauthLoginLink :is-register="false" :callback-path="callbackPath" />
     <h5 class="yrl-between-string-separator my-4 text-primary font-weight-bold">OR</h5>
     <b-form @submit.prevent="postLogin">
-      <b-form-group label-size="sm" label="ユーザ名/メールアドレス">
-        <b-form-input v-model="loginObject.loginId" size="sm" required></b-form-input>
+      <b-form-group label="ユーザ名/メールアドレス">
+        <b-form-input v-model="loginObject.loginId" required></b-form-input>
       </b-form-group>
-      <b-form-group label-size="sm" label="パスワード">
-        <b-form-input v-model="loginObject.password" size="sm" type="password" required></b-form-input>
+      <b-form-group label="パスワード">
+        <b-form-input v-model="loginObject.password" type="password" required></b-form-input>
       </b-form-group>
 
       <b-button block type="submit" variant="primary">ログイン</b-button>

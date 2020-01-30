@@ -1,7 +1,7 @@
 <template>
   <section class="container">
     <div>
-      <h1 class="text-center">
+      <h1 class="text-center mb-4">
         無料ユーザ登録
       </h1>
       <OauthLoginLink is-register :callback-path="callbackPath" />
@@ -30,7 +30,12 @@
           <b-form-input v-model="newUser.nickname" required placeholder="みゅーぐまん"></b-form-input>
         </b-form-group>
 
-        <b-button type="submit" variant="primary">ユーザ登録</b-button>
+        <b-button block type="submit" variant="primary">ユーザ登録</b-button>
+        <h4 class="text-center mt-4">
+          <nuxt-link :to="createUserLocation">
+            すでに登録済みの方はこちら<font-awesome-icon icon="angle-right" size="lg" class="ml-auto"
+          /></nuxt-link>
+        </h4>
       </b-form>
     </div>
   </section>
@@ -59,6 +64,14 @@ export default class Index extends Vue {
     this.$ga.event('新規ユーザ登録', 'create', 'owned', 1);
     // TODO 自動的にログインしてマイページに飛ばしたい
     this.$router.push({ path: '/login', query: { callbackPath: this.$route.query.callbackPath } });
+  }
+
+  /**
+   * ユーザ新規作成(own)の Location を生成する
+   */
+  get createUserLocation() {
+    // collbackPath があればつける
+    return { path: '/login', query: { callbackPath: this.callbackPath } };
   }
 }
 </script>
