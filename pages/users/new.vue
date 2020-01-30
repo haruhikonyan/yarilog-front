@@ -1,9 +1,8 @@
 <template>
   <section class="container">
     <div>
-      <logo />
-      <h1 class="title">
-        ユーザ新規登録
+      <h1 class="text-center">
+        無料ユーザ登録
       </h1>
       <b-form @submit.prevent="createUser">
         <b-form-group label="ユーザ名" description="ログインに利用します(半角英数のみ)">
