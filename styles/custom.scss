@@ -13,6 +13,23 @@ $input-placeholder-color: #adb5bd;
   font-size: 70%;
 }
 
+.yrl-between-string-separator {
+	display: flex;
+	align-items: center;
+}
+.yrl-between-string-separator:before, .yrl-between-string-separator:after {
+	content: "";
+	flex-grow: 1;
+	height: 1px;
+	background: black;
+	display: block;
+}
+.yrl-between-string-separator:before {
+	margin-right: .4em;
+}
+.yrl-between-string-separator:after {
+	margin-left: .4em;
+}
 // custom bootstrap breadcrumb
 .breadcrumb-item {
   + .breadcrumb-item {
