@@ -4,6 +4,8 @@
       <h1 class="text-center">
         無料ユーザ登録
       </h1>
+      <OauthLoginLink is-register :callback-path="callbackPath" />
+      <h5 class="yrl-between-string-separator my-4 text-primary font-weight-bold">OR</h5>
       <b-form @submit.prevent="createUser">
         <b-form-group label="ユーザ名" description="ログインに利用します(半角英数のみ)">
           <b-form-input
@@ -37,10 +39,18 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-property-decorator';
 import { User } from '~/models/User';
+import OauthLoginLink from '~/components/OauthLoginLink.vue';
 
 @Component({
-  components: {},
-  middleware: 'notAuthenticated'
+  components: {
+    OauthLoginLink
+  },
+  middleware: 'notAuthenticated',
+  asyncData({ query }) {
+    return {
+      callbackPath: query.callbackPath
+    };
+  }
 })
 export default class Index extends Vue {
   newUser: User = new User();

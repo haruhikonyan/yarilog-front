@@ -1,10 +1,11 @@
 <template>
   <section class="container">
     <h1 class="text-center mb-4">
-      無料会員登録/ログイン
+      ユーザーログイン
     </h1>
     <OauthLoginLink :is-register="false" :callback-path="callbackPath" />
-    <b-form class="mt-5" @submit.prevent="postLogin">
+    <h5 class="yrl-between-string-separator my-4 text-primary font-weight-bold">OR</h5>
+    <b-form @submit.prevent="postLogin">
       <b-form-group label-size="sm" label="ユーザ名/メールアドレス">
         <b-form-input v-model="loginObject.loginId" size="sm" required></b-form-input>
       </b-form-group>
@@ -15,7 +16,11 @@
       <b-button block type="submit" variant="primary">ログイン</b-button>
     </b-form>
     <b-alert v-if="loginErrorMessage" show variant="danger">{{ loginErrorMessage }}</b-alert>
-    <small><nuxt-link :to="createUserLocation">ユーザ新規登録</nuxt-link></small>
+    <h4 class="text-center mt-4">
+      <nuxt-link :to="createUserLocation">
+        初めての方はこちら<font-awesome-icon icon="angle-right" size="lg" class="ml-auto"
+      /></nuxt-link>
+    </h4>
   </section>
 </template>
 
