@@ -1,48 +1,48 @@
 <template>
   <section>
-    <div class="row no-gutters">
-      <div class="col-6">
-        <b-button squared block size="lg" class="border" variant="white" @click="authTwitter">
-          <font-awesome-layers>
-            <font-awesome-icon :icon="['fab', 'twitter']" style="color: #55acee" />
-          </font-awesome-layers>
-          Twitter
+    <div class="row">
+      <div class="col-12 col-md-6 mb-2">
+        <b-button block class="rounded text-white px-5" style="background-color: #3b5998" @click="authFacebook">
+          <div class="d-flex align-items-center">
+            <font-awesome-icon class="mr-3 ml-md-5" size="2x" :icon="['fab', 'facebook']" />
+            <h5 class="mb-0">{{ `Facebookで${isRegister ? '登録' : 'ログイン'}` }}</h5>
+          </div>
         </b-button>
       </div>
-      <div class="col-6">
-        <b-button squared block size="lg" class="border" variant="white" @click="authFacebook">
-          <font-awesome-layers>
-            <font-awesome-icon :icon="['fab', 'facebook']" style="color: #3b5998" />
-          </font-awesome-layers>
-          Facebook
+      <div class="col-12 col-md-6 mb-2">
+        <b-button block class="rounded bg-white px-5" @click="authGoogle">
+          <div class="d-flex align-items-center">
+            <font-awesome-icon class="mr-3 ml-md-5" size="2x" :icon="['fab', 'google']" />
+            <h5 class="mb-0">{{ `Googleで${isRegister ? '登録' : 'ログイン'}` }}</h5>
+            <svg style="width:0;height:0;">
+              <defs>
+                <linearGradient id="grad1" x1="0%" y1="30%" x2="50%" y2="0%">
+                  <stop offset="50%" stop-color="#34a853" />
+                  <stop offset="50%" stop-color="#4285f4" />
+                </linearGradient>
+                <linearGradient id="grad2" x1="0%" y1="30%" x2="50%" y2="0%">
+                  <stop offset="50%" stop-color="#fbbc05" />
+                  <stop offset="50%" stop-color="#ea4335" />
+                </linearGradient>
+              </defs>
+            </svg>
+          </div>
         </b-button>
       </div>
-      <div class="col-6">
-        <b-button squared block size="lg" class="border" variant="white" @click="authGoogle">
-          <font-awesome-layers>
-            <font-awesome-icon :icon="['fab', 'google']" />
-          </font-awesome-layers>
-          Google
+      <div class="col-12 col-md-6 mb-2">
+        <b-button block class="rounded text-white px-5" style="background-color: #55acee" @click="authTwitter">
+          <div class="d-flex align-items-center">
+            <font-awesome-icon class="mr-3 ml-md-5" size="2x" :icon="['fab', 'twitter']" />
+            <h5 class="mb-0">{{ `Twitterで${isRegister ? '登録' : 'ログイン'}` }}</h5>
+          </div>
         </b-button>
-        <svg style="width:0;height:0;">
-          <defs>
-            <linearGradient id="grad1" x1="0%" y1="30%" x2="50%" y2="0%">
-              <stop offset="50%" stop-color="#34a853" />
-              <stop offset="50%" stop-color="#4285f4" />
-            </linearGradient>
-            <linearGradient id="grad2" x1="0%" y1="30%" x2="50%" y2="0%">
-              <stop offset="50%" stop-color="#fbbc05" />
-              <stop offset="50%" stop-color="#ea4335" />
-            </linearGradient>
-          </defs>
-        </svg>
       </div>
-      <div class="col-6">
-        <b-button squared block size="lg" class="border" variant="white" @click="authLine">
-          <font-awesome-layers>
-            <font-awesome-icon :icon="['fab', 'line']" style="color: #00B900" />
-          </font-awesome-layers>
-          LINE
+      <div class="col-12 col-md-6 mb-2">
+        <b-button block class="rounded text-white px-5" style="background-color: #00B900" @click="authLine">
+          <div class="d-flex align-items-center">
+            <font-awesome-icon class="mr-3 ml-md-5" size="2x" :icon="['fab', 'line']" />
+            <h5 class="mb-0">{{ `LINEで${isRegister ? '登録' : 'ログイン'}` }}</h5>
+          </div>
         </b-button>
       </div>
     </div>
