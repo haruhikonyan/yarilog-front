@@ -59,11 +59,12 @@ import OauthLoginLink from '~/components/OauthLoginLink.vue';
 })
 export default class Index extends Vue {
   newUser: User = new User();
+  callbackPath: string | undefined;
   async createUser() {
     await this.$api.createUser(this.newUser);
     this.$ga.event('新規ユーザ登録', 'create', 'owned', 1);
     // TODO 自動的にログインしてマイページに飛ばしたい
-    this.$router.push({ path: '/login', query: { callbackPath: this.$route.query.callbackPath } });
+    this.$router.push({ path: '/login', query: { callbackPath: this.callbackPath } });
   }
 
   /**
